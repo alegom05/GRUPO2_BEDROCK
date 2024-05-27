@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Stay organized with our user-friendly Calendar featuring events, reminders, and a customizable interface. Built with HTML, CSS, and JavaScript. Start scheduling today!"
+    />
+    <meta
+      name="keywords"
+      content="calendar, events, reminders, javascript, html, css, open source coding"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+      integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="CalendarioEventos.css" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Calendar with Events</title>
+  </head>
+  <body style="height: 100vh; margin: 0;">
+    <div class="ParteSuperior">
+      <div class="row">
+          <div class="col-md-3 d-flex justify-content-start align-items-center">
+              <img src="./logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+              <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+          </div>
+          <div class="col-md-9 d-flex align-items-center justify-content-end">
+              <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Nombre Completo<br>Rol: XXXXX</h2>
+              <a href="login.html">
+                  <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+              </a>
+          </div>
+      </div>
+      <nav class="letra_botones_encabezado">
+          <ul class="nav">
+              <li class="nav-item">
+                  <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
+              </li>
+              <li class="nav-item">
+                  <a href="PaginaEventos.html" class="nav-link">Eventos</a>
+              </li>
+              <li class="nav-item">
+                  <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
+              </li>
+              <li class="nav-item">
+                  <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+              </li>
+              <li class="nav-item">
+                  <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
+              </li>
+              <li class="nav-item">
+                  <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+              </li>
+          </ul>
+      </nav>             
+  </div>
+    
+    <div class="container">
+      <div class="left">
+        <div class="calendar">
+          <div class="month">
+            <i class="fas fa-angle-left prev"></i>
+            <div class="date">diciembre 2015</div>
+            <i class="fas fa-angle-right next"></i>
+          </div>
+          <div class="weekdays">
+            <div>D</div>
+            <div>S</div>
+            <div>M</div>
+            <div>M</div>
+            <div>J</div>
+            <div>V</div>
+            <div>S</div>
+          </div>
+          <div class="days"></div>
+          <div class="goto-today">
+            <div class="goto">
+              <input type="text" placeholder="mm/aaaa" class="date-input" />
+              <button class="goto-btn">Ir</button>
+            </div>
+            <button class="today-btn">Hoy</button>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="today-date">
+          <div class="event-day"></div>
+          <div class="event-date"></div>
+        </div>
+        <div class="events"></div>
+        <div class="add-event-wrapper">
+          <div class="add-event-header">
+            <div class="title">Añadir evento</div>
+            <i class="fas fa-times close"></i>
+          </div>
+          <div class="add-event-body">
+            <div class="add-event-input">
+              <input type="text" placeholder="Nombre de Evento" class="event-name" />
+            </div>
+            <div class="add-event-input">
+              <input
+                type="text"
+                placeholder="Hora de Evento"
+                class="event-time-from"
+              />
+            </div>
+            <div class="add-event-input">
+              <input
+                type="text"
+                placeholder="Hora en que finaliza"
+                class="event-time-to"
+                
+              />
+              <div class="add-event-footer">
+                <button class="add-event-btn">Añadir</button>
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+      <button class="add-event">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
+
+    <script src="CalendarioEventos.js"></script>
+  </body>
+</html>
