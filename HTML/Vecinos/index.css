@@ -1,3 +1,11 @@
+
+.contenedor-v2{
+    margin-left: 8%;
+    margin-right: 8%;
+    margin-top: 5%;
+}
+
+
 .custom-cartanz {
     background-color: #f5f3f3;
     border-left: 1px solid #D8DEE0;
@@ -188,6 +196,24 @@ body {
     margin-bottom: 20px;
 }
 
+#successMessage{
+    background-color: #40ffa0;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold; /* Hacer que el texto sea negrita */
+}
+
+.mensaje{
+    color: rgb(145, 14, 14);
+    background-color: #fa6675;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    display: none; /* Ocultar el mensaje inicialmente */
+    font-weight: bold; /* Hacer que el texto sea negrita */
+}
+
 #container-evento-det{
     background-color: #f5f3f3;
     border-left: 1px solid #D8DEE0;
@@ -246,10 +272,13 @@ body {
     margin-top: 5px;
     margin-bottom: 5px;
 }
+.dataTables_filter {
+    display: none;
+}
 .div-50{
     padding: 20px 15px;
     align-items: center;
-    justify-content: center;
+    padding-left: 200px;
 }
 .fondoparacuadro{
     background: linear-gradient(180deg, rgba(168, 199, 241, 0.645) 0%, rgba(196, 215, 252, 0.639) 50%, rgba(168, 199, 241, 0.645) 100%);
@@ -343,6 +372,9 @@ nav {
 }
 .imagen_cerrar {
     width: 60%; /* Cambia el valor según lo que necesites */
+}
+.imagen_cerrarsesion {
+    width: 80%; /* Cambia el valor según lo que necesites */
 }
 .btn-darte-cuenta{
     background-color: rgb(255, 98, 106);
