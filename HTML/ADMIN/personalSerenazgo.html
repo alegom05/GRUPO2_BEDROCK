@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <link href="./index.css" rel="stylesheet">
+        <title>Personal de serenazgo</title>
+    </head>
+    <body>
+
+    <div class="ParteSuperior">
+        <div class="row">
+            <div class="col-md-3 d-flex justify-content-start align-items-center">
+                <img src="./logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+                <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+            </div>
+            <div class="col-md-9 d-flex align-items-center justify-content-end">
+                <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"> Rol: Administrador</h2>
+                <a href="login.html">
+                    <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                </a>
+            </div>
+        </div>
+        <nav class="letra_botones_encabezado">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="mainAdministrador.html" class="nav-link">Página principal</a>
+                </li>
+                <li class="nav-item">
+                    <a href="solicitudes.html" class="nav-link">Administración de solicitudes</a>
+                </li>
+                <li class="nav-item">
+                    <a href="serenazgos.html" class="nav-link">Serenazgos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="profesores.html" class="nav-link">Lista de profesores</a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+
+            <h1 class="texto-principal">Serenazgos</h1>
+            <div class="desplegable">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownFiltro" data-bs-toggle="dropdown" aria-expanded="false">
+                    Filtrar por
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownFiltro">
+                    <li><a class="dropdown-item" href="#" id="filtro-Apie">A pie</a></li>
+                    <li><a class="dropdown-item" href="#" id="filtro-Bicicleta">Bicicleta</a></li>
+                    <li><a class="dropdown-item" href="#" id="filtro-Canino">Canino</a></li>
+                    <li><a class="dropdown-item" href="#" id="filtro-Vehiculo">Vehiculo</a></li>
+                </ul>
+            </div>
+        <!------A pie------>
+        <section class="page-section " id="personalApie">
+            <br><br>
+            <!--Serenazgos-->
+            <form method="POST" action="borrar">
+                <div>
+
+                    <!--Columna 1-->
+                    <div class="text-center">
+                        <div class="row justify-content-evenly">
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo1.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> RICARDO </h6>
+                                                <h6 class="card-title">ABAD ALMENDRAS </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo2.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> JUAN LUIS </h6>
+                                                <h6 class="card-title">ABRIGO VEGA </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo3.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> HAROLD EDWARD </h6>
+                                                <h6 class="card-title">ABURTO PEÑALOZA </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo4.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> MICHAEL FELIX </h6>
+                                                <h6 class="card-title">ACOSTA PEREZ </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo5.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">DAVID ENCARNACION </h6>
+                                                <h6 class="card-title">ACUÑA ALVAREZ </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo6.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> RAMON ALBERTO </h6>
+                                                <h6 class="card-title">ACUÑA ZUÑIGA </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+        </section>
+        <!---BICICLETA--->
+        <section class="page-section " id="personalConBicicleta">
+            <br><br>
+            <!--Serenazgos-->
+            <form method="POST" action="borrar">
+                <div>
+
+                    <!--Columna 1-->
+                    <div class="text-center">
+                        <div class="row justify-content-evenly">
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo7.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> EMILIO ROBERTO </h6>
+                                                <h6 class="card-title">AGREDA SIERRA </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo8.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">JUAN </h6>
+                                                <h6 class="card-title">AGÜERO SALAZAR </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo9.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> ALEJANDRO </h6>
+                                                <h6 class="card-title">ANGELES ALIAGA</h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo10.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">CHRISTOPHER LOU </h6>
+                                                <h6 class="card-title">BARRIGA TORRES </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo11.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">JOSE JERSY </h6>
+                                                <h6 class="card-title">ALEMAN INFANTE </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo12.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> JULIO CESAR </h6>
+                                                <h6 class="card-title">ALFARO GUERRERO </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="cantActores" value="" />
+
+                </div>
+            </form>
+
+        </section>
+        <!-----Canino----->
+        <section class="page-section " id="personalCanino">
+            <br><br>
+            <!--Serenazgos-->
+            <form method="POST" action="borrar">
+                <div>
+
+                    <!--Columna 1-->
+                    <div class="text-center">
+                        <div class="row justify-content-evenly">
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo13.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">EDUARDO JUVENAL</h6>
+                                                <h6 class="card-title">ALVA EGUSQUIZA </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo14.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> MANUEL ALONSO </h6>
+                                                <h6 class="card-title">ARENAS ENCISO </h6>
+                                                <p class="card-text">Turno: Noche</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo15.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">RAUL IVAN </h6>
+                                                <h6 class="card-title">ARIAS AVALOS </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo16.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">JOSE FRANCO </h6>
+                                                <h6 class="card-title">CARBAJAL MARTEL </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo17.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> RICHARD JOSEPH </h6>
+                                                <h6 class="card-title">CHAMORRO BUSTAMANTE </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo18.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> ROBERTO CARLOS </h6>
+                                                <h6 class="card-title">CHAVEZ OSORIO </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="cantActores" value="" />
+
+                </div>
+            </form>
+
+        </section>
+        <!-----Vehículo---->
+        <section class="page-section " id="personalConVehiculo">
+            <br><br>
+            <!--Serenazgos-->
+            <form method="POST" action="borrar">
+                <div>
+
+                    <!--Columna 1-->
+                    <div class="text-center">
+                        <div class="row justify-content-evenly">
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo19.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">JUAN CARLOS</h6>
+                                                <h6 class="card-title">DAVILA CANGALAYA </h6>
+                                                <p class="card-text">Turno: Tarde</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo20.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> DAVID MOISES </h6>
+                                                <h6 class="card-title">DEXTRE ZARZOSA </h6>
+                                                <p class="card-text">Turno: Noche</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo21.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">WILMAN </h6>
+                                                <h6 class="card-title">FERNANDEZ VELAYARSE </h6>
+                                                <p class="card-text">Turno: Noche</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo22.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title"> PAOLO ANDREW </h6>
+                                                <h6 class="card-title">GOMEZ HUAMAN </h6>
+                                                <p class="card-text">Turno: Mañana</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo23.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">JESUS IVAN </h6>
+                                                <h6 class="card-title">GRADOS CHANGANA </h6>
+                                                <p class="card-text">Turno: Noche</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="card mb-3" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                        <div class="col-md-4">
+                                            <img class="img-fluid1" src="./Fotos_Serenazgo/Serenazgo24.png" style="width:150px; height:180px" class="img-fluid rounded-start" alt="..." />
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="card-body">
+                                                <input class="form-check-input position-absolute end-0 top-0 border m-2"   type="checkbox" name="NOMBRE1" value="" aria-label="..." style="width:30px; height:30px ">
+                                                <h6 class="card-title">OMAR SMITH</h6>
+                                                <h6 class="card-title">GUTIERREZ BOBADILLA </h6>
+                                                <p class="card-text">Turno: Noche</p>
+                                                <a href="EditarSerenazgo.html"><button type="button" class="btn btn-success btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Editar</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="cantActores" value="" />
+
+                </div>
+            </form>
+
+        </section>
+
+        <!--Botones-->
+        <div class="text-center">
+            </br>
+            </br>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-eliminar-serenazgo btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Eliminar
+            </button>
+            <a href="NuevoSerenazgo.html"><button type="button" class="btn btn-agregar-Serenazgo btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar</button></a>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ¿Está seguro que desea eliminar a los serenazgos seleccionados?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Sí</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="mainAdministrador.html" class="btn-regresar">Regresar</a>
+
+        <script>
+            // Función para mostrar u ocultar la tabla de vecinos o coordinadoras según el filtro seleccionado
+            document.getElementById('filtro-Apie').addEventListener('click', function() {
+                document.getElementById('personalApie').style.display = 'block';
+                document.getElementById('personalConBicicleta').style.display = 'none';
+                document.getElementById('personalCanino').style.display = 'none';
+                document.getElementById('personalConVehiculo').style.display = 'none';
+            });
+
+            document.getElementById('filtro-Bicicleta').addEventListener('click', function() {
+                document.getElementById('personalApie').style.display = 'none';
+                document.getElementById('personalConBicicleta').style.display = 'block';
+                document.getElementById('personalCanino').style.display = 'none';
+                document.getElementById('personalConVehiculo').style.display = 'none';
+            });
+            document.getElementById('filtro-Canino').addEventListener('click', function() {
+                document.getElementById('personalApie').style.display = 'none';
+                document.getElementById('personalConBicicleta').style.display = 'none';
+                document.getElementById('personalCanino').style.display = 'block';
+                document.getElementById('personalConVehiculo').style.display = 'none';
+            });
+            document.getElementById('filtro-Vehiculo').addEventListener('click', function() {
+                document.getElementById('personalApie').style.display = 'none';
+                document.getElementById('personalConBicicleta').style.display = 'none';
+                document.getElementById('personalCanino').style.display = 'none';
+                document.getElementById('personalConVehiculo').style.display = 'block';
+            });
+            document.getElementById('personalApie').style.display = 'block';
+            document.getElementById('personalConBicicleta').style.display = 'none';
+            document.getElementById('personalCanino').style.display = 'none';
+            document.getElementById('personalConVehiculo').style.display = 'none';
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <!-- Incluir los archivos JavaScript de Bootstrap -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    </body>
+</html>
