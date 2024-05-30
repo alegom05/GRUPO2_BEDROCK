@@ -1,0 +1,388 @@
+h1, h2 {
+    font-family: 'Roboto Slab', serif;
+}
+.btn {
+    font-family: 'Roboto Slab', serif;
+}
+.img-thumbnail{
+    max-width: 80px;
+    border: none;
+    background: none;
+}
+.cerrar-sesion-img {
+    width: 60%;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+.imagen-container img {
+    width: 100%;
+    height: 350px; /* Establece una altura fija para todas las imágenes */
+    object-fit: cover; /* Recorta las imágenes para que mantengan la proporción */
+}
+.custom-h3 {
+    font-size: 1.3rem; /* Tamaño de la fuente */
+    text-align: left; /* Alineación del texto al centro */
+    font-weight: normal;
+    line-height: 1.8;
+}
+.img-muni{
+    max-width: 600px;
+}
+
+h6 {
+    line-height: 1.5;
+}
+a {
+    text-decoration: none;
+}
+body { /* Cambia este valor por el azul que desees */
+    margin: 0; /* Asegura que no haya margen alrededor del cuerpo */
+    padding: 0; /* Asegura que no haya relleno alrededor del cuerpo */
+}
+
+.evento {
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 100, 0.7);
+    color: white;
+    padding: 5px;
+}
+.card-title {
+    color: black;
+}
+.card-text {
+    color: black;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#imagen_evento {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 300px;
+    object-fit: cover;
+}
+
+#boton-ult{
+    margin-bottom: 20px;
+}
+
+#container-evento-det{
+    background-color: #dbecfc;
+}
+
+#no-lateral-margin{
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.contenedor{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.carousel-control-prev, .carousel-control-next {
+    background-color: rgba(255, 230, 0, 0.459); /* Amarillo */
+    width: 100px; /* Ancho del botón */
+    height: 350px; /* Altura del botón */
+    border-radius: 0; /* Elimina el borde redondeado */
+}
+
+.texto-con-imagen {
+    text-align: center;
+    line-height: 130%;
+    font-weight: 700;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.div-50 {
+    padding: 20px 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+#carouselExample {
+    background: rgb(255, 250, 200); /* Amarillo similar a lemonchiffon */
+    background: linear-gradient(0deg, rgba(255, 230, 0, 0.1) 0%, rgba(255, 230, 0, 0.5) 100%);
+}
+
+
+.logout-link {
+    color: black;
+    text-decoration: underline;
+
+}
+.btn-cancelar {
+    position: absolute;
+    bottom: 20px;
+    right: 20px; /* Alineación a la derecha */
+    background-color: #bd2626;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: x-large;
+}
+.btn-cancelar:hover {
+    background-color: #bd2626;
+    color: white;
+}
+.obligatory-fields {
+    font-size: 14px; /* Cambia el tamaño del texto */
+}
+.btn-container{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    flex-direction: column;
+}
+.ParteSuperior {
+    background: #000000; /* Negro */
+    /* Gradiente lineal de negro a tonos de negro */
+    background: linear-gradient(to right, #111111, #100f0f, #222222);
+    color: #f2f4f5; /* Letra en un tono de gris oscuro */
+}
+.letra_botones_encabezado{
+    font-size: 1.15rem;
+    font-weight: 550;
+}
+nav {
+    background: #000000; /* Negro */
+    /* Gradiente lineal de negro a tonos de negro */
+    background: linear-gradient(to right, #111111, #100f0f, #222222);
+    text-align: center; /* Centra el contenido */
+}
+
+
+
+.nav {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Utiliza flexbox */
+    justify-content: center; /* Centra los elementos horizontalmente */
+}
+
+.nav-item {
+    margin: 0 10px; /* Espacio entre elementos */
+}
+
+.nav-link {
+    display: inline-block; /* Permite aplicar estilos a los enlaces */
+    padding: 10px 15px;
+    color: #fff; /* Color del texto */
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+}
+
+.nav-link:hover {
+    background-color: #484848; /* Cambia el color de fondo al pasar el ratón */
+    color: lightyellow;
+}
+
+
+
+
+/*Administración de solicitudes*/
+
+.texto-principal {
+    font-size: xxx-large;
+    margin-left: 10px;
+}
+.texto-principal2 {
+    font-size: xxx-large;
+}
+.dropdown{
+    margin-left: 180px;
+
+}
+.tabla-container {
+    margin-top: 20px;
+    display: inline-block;
+}
+.tabla-container table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+.tabla-container th, .tabla-container td {
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+}
+.btn-aprobar, .btn-rechazar, .btn-banear {
+    padding: 8px 16px;
+    font-size: larger;
+    margin: 5px;
+}
+.btn-aprobar{
+    background: #247e4b;
+    color: white;
+}
+.btn-aprobar:hover{
+    color: white;
+}
+.btn-rechazar{
+    background: #b62a30;
+    color: white;
+}
+.btn-rechazar:hover{
+    color: white;
+}
+.btn-banear{
+    background: #d7c254;
+    color: white;
+}
+.btn-banear:hover{
+    color: white;
+}
+.btn-regresar {
+    position: absolute;
+    bottom: 20px;
+    right: 20px; /* Alineación a la derecha */
+    background-color: #FFBE3C;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: x-large;
+}
+.btn-regresar:hover {
+    color: black;
+    background-color: #FFBE3C;
+}
+.btn-eliminar-miembro{
+    background-color: #c9372f;
+}
+
+
+
+/*Personal de serenazgo*/
+
+
+
+
+.desplegable{
+    margin-left: 100px;
+}
+.container{
+    padding: 0px;
+}
+.btn-agregar-Serenazgo{
+    background-color: #1882f3;
+}
+.btn-eliminar-serenazgo{
+    background-color: #b62a30;
+}
+/*Lista de miembos */
+
+.contenedor3{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 250px;
+    margin-left: 250px;
+}
+.cabecera-tabla{
+    background: #000000; /* Negro */
+    /* Gradiente lineal de negro a tonos de negro */
+    background: linear-gradient(to right, #111111, #100f0f, #222222);
+    color: #484848; /* Letra en un tono de gris oscuro */
+}
+div.dataTables_wrapper div.dataTables_filter {
+    margin-bottom: 18px; /* Ajusta la separación vertical */
+}
+
+#miTabla2 tbody tr:first-child td:first-child {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.custom-btn:hover {
+    background-color: #57d5e8; /* Cambia este color al que desees */
+    color: white;
+}
+.header {
+    background: none;
+    background-image: url(./Administrador/assets/fotos_pag_princ/personalMunicipalidad.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+}
+#searchAll2 {
+    margin-top: 25rem;
+    padding: 0 1rem 0 2rem;
+    color: #FFFFFF !important;
+    background-color: rgba(31, 32, 37, .85);
+    -webkit-box-shadow: 0 0 0 rgba(31, 32, 37, .65), 0 0 0 rgba(31, 32, 37, .65);
+    box-shadow: 0 0 0 rgba(31, 32, 37, .65), 0 0 0 rgba(31, 32, 37, .65);
+    -webkit-box-decoration-break: clone;
+    -o-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+.heading-4 {
+    color: #fff;
+    text-shadow: 0 3px 8px rgba(0, 0, 0, .8);
+    margin-bottom: 40px;
+    text-align: center;
+    background-color: rgba(31, 32, 37, .85);
+    -webkit-box-shadow: 0 0 0 rgba(31, 32, 37, .65), 0 0 0 rgba(31, 32, 37, .65);
+    box-shadow: 0 0 0 rgba(31, 32, 37, .65), 0 0 0 rgba(31, 32, 37, .65);
+    -webkit-box-decoration-break: clone;
+    -o-box-decoration-break: clone;
+    box-decoration-break: clone;
+}
+.sr-only {
+    left: -10000px !important;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+.custom-icon {
+    width: 20px;
+    height: auto;
+}
+.pie_de_pagina {
+    background: #000000; /* Negro */
+    /* Gradiente lineal de negro a tonos de negro */
+    background: linear-gradient(to right, #111111, #100f0f, #222222);
+    margin: -10px;
+}
+.footer-section {
+    padding: 20px;
+    margin-top: 20px;
+    color: white;
+}
