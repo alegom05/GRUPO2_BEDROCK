@@ -100,9 +100,9 @@
 
     <div class="botonesGroup">
 
-        <a href="ServletTablaIncidencias" type="button" class="btn gradient-custom-3" id="btnRedireccional">Guardar</a>
+        <a href="IncidenciaServlet" type="button" class="btn gradient-custom-3" id="btnRedireccional">Guardar</a>
 
-        <a href="ServletTablaIncidencias" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
+        <a href="IncidenciaServlet" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
 
 
     </div>

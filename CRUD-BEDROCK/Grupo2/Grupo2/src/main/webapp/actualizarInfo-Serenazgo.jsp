@@ -40,7 +40,7 @@
                 <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="ServletTablaIncidencias" class="nav-link">Incidencias</a>
+                <a href="IncidenciaServlet" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
@@ -108,7 +108,7 @@
             <div class="mb-3" >
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="*************" aria-describedby="button-addon2"  disabled>
-                    <a href="cambiarContra-Serenazgo.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="../assets/icons/pencil.svg"></a>
+                    <a href="cambiarContra-Serenazgo.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="./assets/icons/pencil.svg"></a>
                 </div>
 
             </div>

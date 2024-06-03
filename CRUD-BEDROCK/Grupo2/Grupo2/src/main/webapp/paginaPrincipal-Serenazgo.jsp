@@ -39,7 +39,7 @@
                 <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="ServletTablaIncidencias" class="nav-link">Incidencias</a>
+                <a href="IncidenciaServlet" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>

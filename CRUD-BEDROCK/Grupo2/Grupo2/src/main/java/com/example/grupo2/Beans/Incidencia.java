@@ -2,7 +2,7 @@ package com.example.grupo2.Beans;
 
 public class Incidencia {
 
-    private  int idIncidencia;
+    private int idIncidencia;
     private String nombreIncidencia;
     private String descripcion;
     private String lugar;
@@ -13,6 +13,7 @@ public class Incidencia {
     private String estadoIncidencia;
     private String nombreUsuario;
     private String correoUsuario;
+    private String usuario;
     private byte[] fotoIncidencia;
 
     public int getIdIncidencia() {
@@ -101,6 +102,14 @@ public class Incidencia {
 
     public void setCorreoUsuario(String correoUsuario) {
         this.correoUsuario = correoUsuario;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public byte[] getFotoIncidencia() {

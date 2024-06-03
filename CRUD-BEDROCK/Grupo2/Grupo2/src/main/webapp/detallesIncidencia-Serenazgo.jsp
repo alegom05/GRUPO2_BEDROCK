@@ -1,11 +1,10 @@
 <%@ page import="java.util.ArrayList" %>
 
-<%@ page import="com.example.grupo2.Beans.DetallesIncidencia" %>
-<%@ page import="com.example.grupo2.Beans.DetallesIncidencia" %>
+<%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    DetallesIncidencia detallesIncidencia = (DetallesIncidencia) request.getAttribute("incidencia");
+    Incidencia incidencia = (Incidencia) request.getAttribute("incidencia");
 %>
 
 
@@ -42,7 +41,7 @@
                 <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="ServletTablaIncidencias" class="nav-link">Incidencias</a>
+                <a href="IncidenciaServlet" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
@@ -57,19 +56,19 @@
                 <div class="mb-3">
 
                     <label for="disabledTextInput" class="form-label">Incidencia</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= detallesIncidencia.getNombreIncidencia() %>">
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getNombreIncidencia() %>">
 
                     <label for="disabledTextInput" class="form-label">Descripción</label>
-                    <textarea class="form-control" placeholder="<%= detallesIncidencia.getDescripcion() %>" id="floatingTextarea2" style="height: 125px" disabled></textarea>
+                    <textarea class="form-control" placeholder="<%= incidencia.getDescripcion() %>" id="floatingTextarea2" style="height: 125px" disabled></textarea>
 
                     <label for="disabledTextInput" class="form-label">Lugar</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= detallesIncidencia.getLugar()%>">
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getLugar()%>">
 
                     <label for="disabledTextInput" class="form-label">Referencia</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= detallesIncidencia.getReferencia()%>">
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getReferencia()%>">
 
                     <label for="disabledTextInput" class="form-label">Tipo de incidencia</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= detallesIncidencia.getTipoIncidencia()%>">
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getTipoIncidencia()%>">
 
 
 
@@ -86,7 +85,7 @@
             <fieldset disabled>
 
                 <label for="disabledTextInput" class="form-label">Contacto</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= detallesIncidencia.getContacto()%>">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getContacto()%>">
 
                 <label for="disabledTextInput" class="form-label">Requiere Ambulancia</label>
 
@@ -101,11 +100,11 @@
                 </div>
 
                 <label for="disabledTextInput" class="form-label">Usuario que reportó</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= detallesIncidencia.getUsuario()%>">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getUsuario()%>">
             </fieldset>
             <br>
             <figure class="figure">
-                <img src="<%= detallesIncidencia.getFoto() %>" class="figure-img img-fluid rounded" alt="..." style="height: 250px">
+                <img src="<%= incidencia.getFotoIncidencia() %>" class="figure-img img-fluid rounded" alt="..." style="height: 250px">
                 <figcaption class="figure-caption">Foto tomada por usuario.</figcaption>
             </figure>
 
@@ -122,9 +121,9 @@
 
     <a href="evaluarIncidencias-Serenazgo.jsp" type="button" class="btn gradient-custom-3" id="btnRedireccional">Evaluar incidencia</a>
 
-    <a href="ServletTablaIncidencias" type="button" class="btn gradient-custom-3" id="btnRedireccional">Falsa Alarma</a>
+    <a href="IncidenciaServlet" type="button" class="btn gradient-custom-3" id="btnRedireccional">Falsa Alarma</a>
 
-    <a href="ServletTablaIncidencias" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
+    <a href="IncidenciaServlet" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
 
 </div>
 

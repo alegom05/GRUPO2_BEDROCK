@@ -1,11 +1,10 @@
 <%@ page import="java.util.ArrayList" %>
 
-<%@ page import="com.example.grupo2.Beans.TablaIncidencias" %>
-<%@ page import="com.example.grupo2.Beans.TablaIncidencias" %>
+<%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    ArrayList<TablaIncidencias> listaIncidencias = (ArrayList<TablaIncidencias>) request.getAttribute("lista");
+    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("lista");
 
 %>
 
@@ -43,7 +42,7 @@
                 <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="ServletTablaIncidencias" class="nav-link">Incidencias</a>
+                <a href="IncidenciaServlet" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
@@ -83,14 +82,14 @@
         </thead>
 
         <tbody>
-        <% for (TablaIncidencias tablaIncidencias : listaIncidencias) {%>
+        <% for (Incidencia incidencia : listaIncidencias) {%>
         <tr>
-            <td><%=tablaIncidencias.getNombreIncidencia()%></td>
-            <td><%=tablaIncidencias.getTipoIncidencia()%> </td>
-            <td><%=tablaIncidencias.getEstadoIncidencia()%></td>
-            <td><%=tablaIncidencias.getNombreUsuario()%></td>
-            <td><%=tablaIncidencias.getCorreoUsuario()%></td>
-            <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= tablaIncidencias.getIdIncidencia() %>)">
+            <td><%=incidencia.getNombreIncidencia()%></td>
+            <td><%=incidencia.getTipoIncidencia()%> </td>
+            <td><%=incidencia.getEstadoIncidencia()%></td>
+            <td><%=incidencia.getNombreUsuario()%></td>
+            <td><%=incidencia.getCorreoUsuario()%></td>
+            <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
                 <img src="assets/icons/lupa.svg" alt="Evaluar">
             </button> </td>
             <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia()"><img src="assets/icons/trash.svg" alt="Eliminar"></button></td>
@@ -143,7 +142,7 @@
 <script>
     function detallesIncidencia(id) {
         // Redireccionar a otra página HTML
-        window.location.href = 'ServletDetallesIncidencia?id=' + id;
+        window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=detallar&id=' + id;
     }
 
     function detallesIncidencia1() {
