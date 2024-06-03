@@ -63,40 +63,41 @@
         <button id="limpiarFiltros" class="btn gradient-custom-3">Limpiar Filtros</button>
     </div>
     <br>
+    <div class="table-responsive">
+        <table id="miTabla" class="display table-responsive">
 
-    <table id="miTabla" class="display">
+            <thead>
+            <tr>
+            <tr>
+                <th>Incidencia</th>
+                <th>Tipo de Incidencia</th>
+                <th>Estado</th>
+                <th>Usuario</th>
+                <th>Correo de Usuario</th>
+                <th>Ver</th>
+                <th>Eliminar</th>
+            </tr>
 
-        <thead>
-        <tr>
-        <tr>
-            <th>Incidencia</th>
-            <th>Tipo de Incidencia</th>
-            <th>Estado</th>
-            <th>Usuario</th>
-            <th>Correo de Usuario</th>
-            <th>Ver</th>
-            <th>Eliminar</th>
-        </tr>
+            </tr>
+            </thead>
 
-        </tr>
-        </thead>
-
-        <tbody>
-        <% for (Incidencia incidencia : listaIncidencias) {%>
-        <tr>
-            <td><%=incidencia.getNombreIncidencia()%></td>
-            <td><%=incidencia.getTipoIncidencia()%> </td>
-            <td><%=incidencia.getEstadoIncidencia()%></td>
-            <td><%=incidencia.getNombreUsuario()%></td>
-            <td><%=incidencia.getCorreoUsuario()%></td>
-            <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
-                <img src="assets/icons/lupa.svg" alt="Evaluar">
-            </button> </td>
-            <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia()"><img src="assets/icons/trash.svg" alt="Eliminar"></button></td>
-        </tr>
-        <% } %>
-        </tbody>
-    </table>
+            <tbody>
+            <% for (Incidencia incidencia : listaIncidencias) {%>
+            <tr>
+                <td><%=incidencia.getNombreIncidencia()%></td>
+                <td><%=incidencia.getTipoIncidencia()%> </td>
+                <td><%=incidencia.getEstadoIncidencia()%></td>
+                <td><%=incidencia.getNombreUsuario()%></td>
+                <td><%=incidencia.getCorreoUsuario()%></td>
+                <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
+                    <img src="assets/icons/lupa.svg" alt="Evaluar">
+                </button> </td>
+                <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="assets/icons/trash.svg" alt="Eliminar"></button></td>
+            </tr>
+            <% } %>
+            </tbody>
+        </table>
+    </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -150,9 +151,10 @@
         window.location.href = 'detallesIncidenciasProcesadas.html';
     }
 
-    function eliminarIncidencia() {
+    function eliminarIncidencia(id) {
         // Mostrar el modal de eliminación de incidencia
         $('#eliminarIncidenciaModal').modal('show');
+        window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=borrar&id=' + id;
     }
 </script>
 </body>
