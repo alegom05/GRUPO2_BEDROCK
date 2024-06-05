@@ -45,6 +45,7 @@ body {
     background-color: #ffffff; /* Cambia este valor por el azul que desees */
     margin: 0; /* Asegura que no haya margen alrededor del cuerpo */
     padding: 0; /* Asegura que no haya relleno alrededor del cuerpo */
+    overflow-x: hidden;
 }
 
 .evento {
@@ -240,6 +241,7 @@ body {
     background: linear-gradient(to right, #0f0f3d, #191970);/*Azul media noche 2*/
     
     color: #f2f4f5; /* Letra en blanco */
+    width: 100%;
 }    
 
 .img-thumbnail{

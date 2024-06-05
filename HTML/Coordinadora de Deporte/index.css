@@ -75,6 +75,7 @@ body {
     margin: 0; /* Asegura que no haya margen alrededor del cuerpo */
     padding: 0; /* Asegura que no haya relleno alrededor del cuerpo */
     margin: 0;
+    
 }
 
 .evento {
@@ -256,6 +257,7 @@ body {
     background: rgba(111, 110, 173, 0.884);
     background: linear-gradient(0deg, rgba(57, 17, 121, 0.753) 10%, rgba(97, 12, 146, 0.918) 100%);
     color: #f2f4f5; /* Letra en blanco  135, 51, 190, 0.527 */
+    width: 100%;
 }   
 
 
