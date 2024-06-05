@@ -23,23 +23,23 @@
 <div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
+            <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
             <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <h4 style="margin-top: 10px; margin-right: 40px; text-align: right; ">Diego Rodriguez<br>Rol: Serenazgo</h4>
             <a href="logIN-Serenazgo.jsp">
-                <img src="assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
+                <img src="${pageContext.request.contextPath}/assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>
         </div>
     </div>
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
                 <a href="IncidenciaServlet" class="nav-link">Incidencias</a>
@@ -90,9 +90,9 @@
                 <td><%=incidencia.getNombreUsuario()%></td>
                 <td><%=incidencia.getCorreoUsuario()%></td>
                 <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
-                    <img src="assets/icons/lupa.svg" alt="Evaluar">
+                    <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                 </button> </td>
-                <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="assets/icons/trash.svg" alt="Eliminar"></button></td>
+                <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
             </tr>
             <% } %>
             </tbody>

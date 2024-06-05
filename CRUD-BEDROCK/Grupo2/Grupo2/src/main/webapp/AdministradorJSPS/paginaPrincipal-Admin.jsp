@@ -13,19 +13,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JuntosPorSanMiguel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./style-Admin.css" rel="stylesheet">
+    <link href="style-Admin.css" rel="stylesheet">
 </head>
 <body>
 <div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="./Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
+            <img src="${pageContext.request.contextPath}/Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
             <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Administrador</h2>
             <a href="login.html">
-                <img src="Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
+                <img src="${pageContext.request.contextPath}/Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
             </a>
         </div>
     </div>
@@ -83,7 +83,7 @@
             <div class="row m-0 p-0">
 
                 <div class="col-12 col-xl-7 my-1">
-                    <img src="./Administrador/assets/fotos_pag_princ/fotomunicipalidad.jpg" class="img-fluid p-2" alt="Imagen de serenazgos con su vehículo">
+                    <img src="${pageContext.request.contextPath}/Administrador/assets/fotos_pag_princ/fotomunicipalidad.jpg" class="img-fluid p-2" alt="Imagen de serenazgos con su vehículo">
                 </div>
                 <div class="col-12 col-xl-5 my-4">
                     <p class="parrafoMision">Como administrador de la página de San Miguel, su deber es garantizar un entorno seguro y organizado para la comunidad.
@@ -117,13 +117,13 @@
             <div class="footer-section">
                 <h4>Siguenos en nuestras redes: </h4>
                 <a href="https://es-la.facebook.com/" target="_blank">
-                    <img src="./Administrador/assets/logos/facebook.png" alt="Imagen 1" class="img-thumbnail">
+                    <img src="${pageContext.request.contextPath}/Administrador/assets/logos/facebook.png" alt="Imagen 1" class="img-thumbnail">
                 </a>
                 <a href="https://www.instagram.com/" target="_blank">
-                    <img src="./Administrador/assets/logos/instagram.png" alt="Imagen 2" class="img-thumbnail">
+                    <img src="${pageContext.request.contextPath}/Administrador/assets/logos/instagram.png" alt="Imagen 2" class="img-thumbnail">
                 </a>
                 <a href="https://www.tiktok.com/es/" target="_blank">
-                    <img src="./Administrador/assets/logos/tiktok.png" alt="Imagen 3" class="img-thumbnail">
+                    <img src="${pageContext.request.contextPath}/Administrador/assets/logos/tiktok.png" alt="Imagen 3" class="img-thumbnail">
                 </a>
             </div>
         </div>

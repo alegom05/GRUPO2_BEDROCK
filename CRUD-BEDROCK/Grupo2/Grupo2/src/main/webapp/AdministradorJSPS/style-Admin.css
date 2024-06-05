@@ -337,7 +337,7 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 .header {
     background: none;
-    background-image: url(./Administrador/assets/fotos_pag_princ/personalMunicipalidad.png);
+    background-image: url(../Administrador/assets/fotos_pag_princ/personalMunicipalidad.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: center;

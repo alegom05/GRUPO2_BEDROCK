@@ -21,16 +21,16 @@
 <div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+            <img src="../logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <a href="DetallesUsuario.html">
-                <img src="./logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+                <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
             <a href="logIN.html">
-                <img src="./logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                <img src="../logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
     </div>
@@ -77,7 +77,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 d-flex">
-                            <img src="./imagenes_eventos-Vecino/sexto_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
+                            <img src="../imagenes_eventos-Vecino/sexto_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
                         </div>
                     </div>
                 </div>
@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 d-flex">
-                            <img src="./imagenes_eventos-Vecino/sexto_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
+                            <img src="../imagenes_eventos-Vecino/sexto_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
                         </div>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 d-flex">
-                            <img src="./imagenes_eventos-Vecino/noveno_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
+                            <img src="../imagenes_eventos-Vecino/noveno_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
                         </div>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
         </div>
         <div class="contenedor mt-2 row align-items-center custom-cartanz">
             <div class="col-md-5 d-flex justify-content-center">
-                <img src="./fotos_pag_princ-Vecino/fotomunicipalidad.jpg" alt="Imagen" class="img-muni">
+                <img src="../fotos_pag_princ-Vecino/fotomunicipalidad.jpg" alt="Imagen" class="img-muni">
             </div>
             <div class="col-md-7">
                 <h3 class="custom-h3">¡Bienvenidos a la página oficial de la Municipalidad de San Miguel! Somos el equipo encargado de brindarte seguridad y bienestar en tu comunidad. Nuestro compromiso es velar por tu tranquilidad y la de tu familia, gestionando servicios y programas que mejoren la calidad de vida en nuestro distrito. ¡Contáctanos para conocer más sobre cómo trabajamos juntos por un San Miguel seguro y próspero para todos!</h3>
@@ -169,13 +169,13 @@
             <div class="footer-section">
                 <h4>Siguenos en nuestras redes: </h4>
                 <a href="https://www.facebook.com/municipalidadsanmiguel/?locale=es_LA" target="_blank">
-                    <img  src="./logos-Vecino/facebook.png" alt="Imagen 1" class="img-thumbnail">
+                    <img src="../logos-Vecino/facebook.png" alt="Imagen 1" class="img-thumbnail">
                 </a>
                 <a href="https://www.instagram.com/municipalidadsanmiguel/" target="_blank">
-                    <img  src="./logos-Vecino/instagram.png" alt="Imagen 2" class="img-thumbnail">
+                    <img src="../logos-Vecino/instagram.png" alt="Imagen 2" class="img-thumbnail">
                 </a>
                 <a href="https://www.tiktok.com/@munisanmiguel" target="_blank">
-                    <img src="./logos-Vecino/tiktok.png" alt="Imagen 3" class="img-thumbnail">
+                    <img src="../logos-Vecino/tiktok.png" alt="Imagen 3" class="img-thumbnail">
                 </a>
             </div>
         </div>

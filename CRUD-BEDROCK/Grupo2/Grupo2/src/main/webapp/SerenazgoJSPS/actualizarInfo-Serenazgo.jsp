@@ -15,32 +15,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Actualizar información</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./css.css" rel="stylesheet">
+    <link href="style-Serenazgo.css" rel="stylesheet">
 </head>
 <body>
 <div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="./assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
+            <img src="../assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
             <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <h4 style="margin-top: 10px; margin-right: 40px; text-align: right; ">Diego Rodriguez<br>Rol: Serenazgo</h4>
-            <a href="logIN.jsp">
-                <img src="./assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
+            <a href="logIN-Serenazgo.jsp">
+                <img src="../assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>
         </div>
     </div>
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="paginaPrincipal.jsp" class="nav-link">Página principal</a>
+                <a href="paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="actualizarInfo.jsp" class="nav-link">Actualizar información</a>
+                <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="ServletTablaIncidencias" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
@@ -108,7 +108,7 @@
             <div class="mb-3" >
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="*************" aria-describedby="button-addon2"  disabled>
-                    <a href="cambiarContra.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="./assets/icons/pencil.svg"></a>
+                    <a href="cambiarContra-Serenazgo.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="../assets/icons/pencil.svg"></a>
                 </div>
 
             </div>

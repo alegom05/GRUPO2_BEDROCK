@@ -18,30 +18,30 @@
     <title>Serenazgos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-    <link href="./style-Admin.css" rel="stylesheet">
+    <link href="style-Admin.css" rel="stylesheet">
 
 </head>
 <body>
 <div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="./Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
+            <img src="${pageContext.request.contextPath}/Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
             <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Administrador</h2>
             <a href="login.html">
-                <img src="Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
+                <img src="${pageContext.request.contextPath}/Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
             </a>
         </div>
     </div>
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="paginaPrincipal-Admin.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/AdministradorJSPS/paginaPrincipal-Admin.jsp" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
+                <a href="${pageContext.request.contextPath}/AdministradorJSPS/solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Serenazgos" class="nav-link">Serenazgos</a>
@@ -54,7 +54,7 @@
     </nav>
 </div>
 
-<div class="container mt-4">
+<div class="container mt-4 table-responsive">
     <table id="miTabla2" class="table table-borderless">
         <thead>
         <tr>
@@ -112,8 +112,8 @@
             <td><%=serenazgo1.getDni()%></td>
             <td><%=serenazgo1.getTurnoSerenazgo()%></td>
             <td><%=serenazgo1.getTipo()%></td>
-            <td><a href="<%=request.getContextPath()%>/Serenazgos?a=editar&id=<%=serenazgo1.getId() %>" class="btn btn-outline-secondary"><img src="./Administrador/assets/icons/pencil.svg" alt="Editar"></a></td>
-            <td><button onclick="setSerenazgoId('<%= serenazgo1.getId() %>')" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="./Administrador/assets/icons/trash.svg" alt="Eliminar"></button></td>
+            <td><a href="<%=request.getContextPath()%>/Serenazgos?a=editar&id=<%=serenazgo1.getId() %>" class="btn btn-outline-secondary"><img src="${pageContext.request.contextPath}/Administrador/assets/icons/pencil.svg" alt="Editar"></a></td>
+            <td><button onclick="setSerenazgoId('<%= serenazgo1.getId() %>')" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="${pageContext.request.contextPath}/Administrador/assets/icons/trash.svg" alt="Eliminar"></button></td>
         </tr>
         <%  }  %>
         </tbody>
@@ -138,6 +138,7 @@
             </div>
         </div>
     </div>
+</div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

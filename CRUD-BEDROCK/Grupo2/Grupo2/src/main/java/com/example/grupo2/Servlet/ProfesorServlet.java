@@ -25,11 +25,11 @@ public class ProfesorServlet extends HttpServlet {
             case "listar" -> {
                 ArrayList<Profesores> listaProfesores = profesoresDao.obtenerProfesores();
                 request.setAttribute("profesores",listaProfesores);
-                RequestDispatcher view =request.getRequestDispatcher("profesores-Admin.jsp");
+                RequestDispatcher view =request.getRequestDispatcher("/AdministradorJSPS/profesores-Admin.jsp");
                 view.forward(request,response);
             }
             case "formCrear" -> {
-                RequestDispatcher view = request.getRequestDispatcher("nuevoProfesor-Admin.jsp");
+                RequestDispatcher view = request.getRequestDispatcher("/AdministradorJSPS/nuevoProfesor-Admin.jsp");
                 view.forward(request, response);
             }
         }

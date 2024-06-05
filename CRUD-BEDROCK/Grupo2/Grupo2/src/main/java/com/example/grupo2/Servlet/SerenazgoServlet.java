@@ -26,11 +26,11 @@ public class SerenazgoServlet extends HttpServlet {
             case "listar" -> {
                 ArrayList<Usuario> listaSerenazgos = serenazgosDao.obtenerSerenazgos();
                 request.setAttribute("serenazgos",listaSerenazgos);
-                RequestDispatcher view =request.getRequestDispatcher("serenazgos-Admin.jsp");
+                RequestDispatcher view =request.getRequestDispatcher("/AdministradorJSPS/serenazgos-Admin.jsp");
                 view.forward(request,response);
             }
             case "formCrear" -> {
-                RequestDispatcher view = request.getRequestDispatcher("nuevoSerenazgo-Admin.jsp");
+                RequestDispatcher view = request.getRequestDispatcher("/AdministradorJSPS/nuevoSerenazgo-Admin.jsp");
                 view.forward(request, response);
             }
             case "editar" -> {
@@ -38,7 +38,7 @@ public class SerenazgoServlet extends HttpServlet {
                 Usuario serenazgo = serenazgosDao.buscarPorId(id);
                 if (serenazgo != null) {
                     request.setAttribute("serenazgo", serenazgo);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("editarSerenazgo-Admin.jsp");
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/AdministradorJSPS/editarSerenazgo-Admin.jsp");
                     requestDispatcher.forward(request, response);
                 } else {
                     response.sendRedirect(request.getContextPath() + "/Serenazgos");

@@ -14,22 +14,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JuntosPorSanMiguel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./style-Vecino.css" rel="stylesheet">
+    <link href="style-Vecino.css" rel="stylesheet">
 </head>
 <body>
 <div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="./logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+            <img src="../logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <a href="DetallesUsuario.html">
-                <img src="./logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+                <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
             <a href="logIN.html">
-                <img src="./logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                <img src="../logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
     </div>
@@ -97,7 +97,7 @@
         <div class="col-md-4 custom-cartanz-2">
             <a href="./EventosDetallado1.html" class="card-link">
                 <div class="card shadow">
-                    <img src="./imagenes_eventos-Vecino/primer_evento.jpg" alt="Evento 1" class="card-img-top w-100">
+                    <img src="../imagenes_eventos-Vecino/primer_evento.jpg" alt="Evento 1" class="card-img-top w-100">
                     <div class="card-body">
                         <h5 class="card-title">Día de Santa Rosa de Lima</h5>
                         <p class="card-text">30/08/2024</p>
@@ -109,7 +109,7 @@
         <div class="col-md-4 custom-cartanz-2">
             <a href="./EventosDetallado2.html" class="card-link">
                 <div class="card shadow">
-                    <img src="./imagenes_eventos-Vecino/segundo_evento.avif" alt="Evento 2" class="card-img-top w-100">
+                    <img src="../imagenes_eventos-Vecino/segundo_evento.avif" alt="Evento 2" class="card-img-top w-100">
                     <div class="card-body">
                         <h5 class="card-title">Aniversario Plaza San Miguel</h5>
                         <p class="card-text">25/08/2024</p>
@@ -120,7 +120,7 @@
         <div class="col-md-4 custom-cartanz-2">
             <a href="./EventosDetallado3.html" class="card-link">
                 <div class="card shadow">
-                    <img src="./imagenes_eventos-Vecino/tercer_evento.jpg" alt="Evento 3" class="card-img-top w-100">
+                    <img src="../imagenes_eventos-Vecino/tercer_evento.jpg" alt="Evento 3" class="card-img-top w-100">
                     <div class="card-body">
                         <h5 class="card-title">Big Drummers</h5>
                         <p class="card-text">15/08/2024</p>
@@ -131,7 +131,7 @@
         <div class="col-md-4 mt-4 custom-cartanz-2">
             <a href="./EventosDetallado4.html" class="card-link">
                 <div class="card shadow">
-                    <img src="./imagenes_eventos-Vecino/cuarto_evento.jpg" alt="Evento 4" class="card-img-top w-100">
+                    <img src="../imagenes_eventos-Vecino/cuarto_evento.jpg" alt="Evento 4" class="card-img-top w-100">
                     <div class="card-body">
                         <h5 class="card-title">Torneo Raqueta Dorada</h5>
                         <p class="card-text">03/08/2024</p>
@@ -142,7 +142,7 @@
         <div class="col-md-4 mt-4 custom-cartanz-2">
             <a href="./EventosDetallado5.html" class="card-link">
                 <div class="card shadow">
-                    <img src="./imagenes_eventos-Vecino/quinto_evento.jpg" alt="Evento 5" class="card-img-top w-100">
+                    <img src="../imagenes_eventos-Vecino/quinto_evento.jpg" alt="Evento 5" class="card-img-top w-100">
                     <div class="card-body">
                         <h5 class="card-title">Copa San Miguel</h5>
                         <p class="card-text">24/07/2024</p>
@@ -153,7 +153,7 @@
         <div class="col-md-4 mt-4 custom-cartanz-2">
             <a href="./EventosDetallado6.html" class="card-link">
                 <div class="card shadow">
-                    <img src="./imagenes_eventos-Vecino/sexto_evento.jpg" alt="Evento 6" class="card-img-top w-100">
+                    <img src="../imagenes_eventos-Vecino/sexto_evento.jpg" alt="Evento 6" class="card-img-top w-100">
                     <div class="card-body">
                         <h5 class="card-title">Rawayana en Lima</h5>
                         <p class="card-text">18/07/2024</p>

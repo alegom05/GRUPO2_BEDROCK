@@ -27,7 +27,7 @@ public class IncidenciaServlet extends HttpServlet {
                 ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidencias();
                 request.setAttribute("lista", listaIncidencias);
 
-                view = request.getRequestDispatcher("tablaIncidencias-Serenazgo.jsp");
+                view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
                 view.forward(request, response);
                 break;
             case "detallar":
@@ -36,7 +36,7 @@ public class IncidenciaServlet extends HttpServlet {
                     Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id));
                     if (incidencia != null) {
                         request.setAttribute("incidencia", incidencia);
-                        view = request.getRequestDispatcher("detallesIncidencia-Serenazgo.jsp");
+                        view = request.getRequestDispatcher("/SerenazgoJSPS/detallesIncidencia-Serenazgo.jsp");
                         view.forward(request, response);
                     } else {
                         response.sendRedirect("error.jsp"); // Página de error en caso de que no se encuentre la incidencia
