@@ -104,9 +104,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `basededatos3`.`evento_has_usuario` (
   `idEvento` INT NOT NULL,
   `idUsuario` INT NOT NULL,
-  `esCoordinadorDeporte` TINYINT NULL DEFAULT NULL,
-  `esCoordinadorCultura` TINYINT NULL DEFAULT NULL,
-  `esVecino` TINYINT NULL DEFAULT NULL,
+
   `asistio` TINYINT NULL DEFAULT NULL,
   `cometioFalta` TINYINT NULL DEFAULT NULL,
   `descripcion` TEXT NULL DEFAULT NULL,
@@ -324,18 +322,18 @@ INSERT INTO evento (nombre, fechaInicial, fechaFinal, foto, materiales, lugar, h
 ('Familiar', '2024-06-20', '2024-06-20', X'', 'Juegos de mesa, pelotas', 'Municipalidad de San Miguel, Lima', '10:30:00', '5', '12', 'Festival de juegos familiares', 'Cultural', '10', 'Pronto');
 
 -- evento_has_usuario
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2001', '1', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2002', '5', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2002', '7', '0', '0', '0', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2003', '8', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2002', '10', '0', '0', '1', '0', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2002', '15', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2003', '2', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2003', '1', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2004', '2', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2004', '15', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2004', '17', '0', '0', '1', '0', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2004', '3', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`, `descripcion`) VALUES ('2004', '5', '0', '0', '1', '1', '1', 'Falta deportiva contra un compañero');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2001', '1', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2002', '5', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2002', '7', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2003', '8', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2002', '10', '0', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2002', '15', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2003', '2', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2003', '1', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2004', '2', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2004', '15', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2004', '17', '0', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2004', '3', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`, `descripcion`) VALUES ('2004', '5', '1', '1', 'Falta deportiva contra un compañero');
 
 
