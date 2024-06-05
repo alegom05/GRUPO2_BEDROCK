@@ -45,7 +45,9 @@ body {
     background-color: #ffffff; /* Cambia este valor por el azul que desees */
     margin: 0; /* Asegura que no haya margen alrededor del cuerpo */
     padding: 0; /* Asegura que no haya relleno alrededor del cuerpo */
+    overflow-x: hidden;
 }
+
 
 .evento {
     position: relative;
