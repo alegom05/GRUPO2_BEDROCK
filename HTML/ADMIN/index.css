@@ -34,9 +34,11 @@ h6 {
 a {
     text-decoration: none;
 }
-body { /* Cambia este valor por el azul que desees */
+body {
     margin: 0; /* Asegura que no haya margen alrededor del cuerpo */
     padding: 0; /* Asegura que no haya relleno alrededor del cuerpo */
+    margin: 0;
+    overflow-x: hidden;
 }
 
 .evento {
