@@ -22,20 +22,20 @@
 
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
-        <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="./Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
-            <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
+        <div class="col-6 col-md-3 d-flex justify-content-start align-items-center">
+            <img src="./Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail img-fluid">
+            <h4 class="ms-2" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Administrador</h2>
+            <h2 class="me-3" style="margin-top: 10px; margin-right: 40px; text-align: right;">Administrador</h2>
             <a href="login.html">
                 <img src="Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
             </a>
         </div>
     </div>
-    <nav class="letra_botones_encabezado">
+    <nav class="letra_botones_encabezado mt-3">
         <ul class="nav">
             <li class="nav-item">
                 <a href="paginaPrincipal-Admin.jsp" class="nav-link">Página principal</a>
@@ -54,7 +54,7 @@
     </nav>
 </div>
 
-<div class="container mt-4">
+<div class="container my-4">
     <table id="miTabla2" class="table table-borderless">
         <thead>
         <tr>

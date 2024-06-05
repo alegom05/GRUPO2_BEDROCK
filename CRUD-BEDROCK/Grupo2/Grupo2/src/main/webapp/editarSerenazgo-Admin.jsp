@@ -21,10 +21,10 @@
     </style>
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="./Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
+            <img src="./Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail img-fluid">
             <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
@@ -37,10 +37,10 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="mainAdministrador.jsp" class="nav-link">Página principal</a>
+                <a href="paginaPrincipal-Admin.jsp" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="solicitudes.jsp" class="nav-link">Administración de solicitudes</a>
+                <a href="solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Serenazgos" class="nav-link">Serenazgos</a>

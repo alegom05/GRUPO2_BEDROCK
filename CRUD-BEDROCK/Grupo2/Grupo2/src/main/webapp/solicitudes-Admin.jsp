@@ -13,11 +13,12 @@
     <title>Solicitudes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="./style-Admin.css" rel="stylesheet">
 
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="./Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
@@ -83,98 +84,229 @@
         <thead class="cabecera-tabla">
         <tr>
             <th>Nombre</th>
+            <th>DNI</th>
+            <th>Correo</th>
             <th>Rol solicitado</th>
             <th >Acción a realizar</th>
-            <th >Acción a realizar</th>
-            <th >Acción a realizar</th>
-
         </tr>
         </thead>
 
         <tbody>
         <tr>
             <td>ENRIQUE SIGIFREDO CENTENO MENDOZA</td>
+            <td>12345678</td>
+            <td>ecenteno@gmail.com</td>
             <td>Vecino</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>JAIME DANIEL SANTOS BALON</td>
+            <td>23456789</td>
+            <td>asantos@gmail.com</td>
             <td>Vecino</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>MARIA JOSE FRIERE ALMEIDA</td>
+            <td>92345678</td>
+            <td>mfriere@gmail.com</td>
             <td>Vecino</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>MONICA CRISTINA GUAMAN GUAMAN</td>
+            <td>73345678</td>
+            <td>mguaman@gmail.com</td>
             <td>Vecino</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>MARIO FRANCISCO JATIVA REYES</td>
+            <td>68545678</td>
+            <td>mjativa@gmail.com</td>
             <td>Vecino</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>FIDEL ANTONIO VISCAINO BURGOS </td>
+            <td>73192458</td>
+            <td>fviscaino@gmail.com</td>
             <td>Vecino</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>HECTOR PATRICIO TAPIA RAMIREZ</td>
+            <td>78962589</td>
+            <td>htapia@gmail.com</td>
             <td>Vecino</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>XIMENA ELIZABETH CAYAMBE BADILLO</td>
+            <td>15697538</td>
+            <td>xcayambe@gmail.com</td>
             <td>Coordinadora</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>SONIA LILIAN BERMEO AYNAGUANO</td>
+            <td>75925658</td>
+            <td>sbermeo@gmail.com</td>
             <td>Coordinadora</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>KAREN VIVIANA LUZARDO ALARCON</td>
+            <td>16839756</td>
+            <td>kluzardo@gmail.com</td>
             <td>Coordinadora</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>STEPHANIE JUDITH BADILLO HERRERA</td>
+            <td>48632698</td>
+            <td>sbadillo@gmail.com</td>
             <td>Coordinadora</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <tr>
             <td>ANA MILENA ARBELÁEZ HURTADO</td>
+            <td>79863589</td>
+            <td>aarbelaez@gmail.com</td>
             <td>Coordinadora</td>
-            <td><button type="button" class="btn btn-outline-success">Aprobar</button></td>
-            <td><button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</button></td>
-            <td><button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Banear</button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -229,7 +361,7 @@
 
             $('#filtroMiembro').on('change', function() {
                 var miembro = $(this).val();
-                table.column(1).search(miembro).draw();
+                table.column(3).search(miembro).draw();
             });
 
             $('#limpiarFiltros').on('click', function() {
