@@ -112,8 +112,39 @@
                     </div>
                 </div>
             </form>
-            <button class="btn btn-primary mt-3" onclick="saveChanges()">Guardar Cambios</button>
+            <button class="btn btn-primary mt-3 guardarcambios" onclick="saveChanges()">Guardar Cambios</button>
             <div id="successMessage" class="text-success text-center mt-2" style="display: none; margin-right: 10px;"></div>
+        </div>
+    </div>
+
+   <!-- <hr class="divider">
+   --> 
+
+    <div class="contenedor-v2 ">
+        <div class="separacionInfoPost">
+            <h3 class="contenedor mt-3">Deseas postularte como Coordinadora?</h2>
+            <div class="row">
+                <div class ="col-9 ">
+                    <p class="contenedor mt-3">Si deseas ocupar un puesto importante como el de coordinadora y ayudar a la comunidad Sanmiguelina esta 
+                        es tu oportunidad. Están las opciones de Coordinadora de deporte y Coordinadora de cultura, en caso te interese ocupar
+                        este puesto da click en "Postula Aqui"
+                    </p>
+                </div>
+                <div class ="col-auto">
+                    <button id="postulaButton" class="btnpostular btn-primary">Postula Aquí</button>
+                </div>
+            </div>    
+            
+            
+
+            <!-- Modal -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <p>Tu postulación se realizó con éxito</p>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -148,6 +179,31 @@
                 successMessage.style.display = 'none';
             }, 3000);
         }
+    </script>
+    <script>
+                // Obtener elementos
+        var modal = document.getElementById("modal");
+        var btn = document.getElementById("postulaButton");
+        var span = document.getElementsByClassName("close")[0];
+
+        // Mostrar el modal al hacer clic en el botón
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // Cerrar el modal al hacer clic en la 'x'
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // Cerrar el modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+
     </script>
 </body>
 </html>
