@@ -104,9 +104,6 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `basededatos3`.`evento_has_usuario` (
   `idEvento` INT NOT NULL,
   `idUsuario` INT NOT NULL,
-  `esCoordinadorDeporte` TINYINT NULL DEFAULT NULL,
-  `esCoordinadorCultura` TINYINT NULL DEFAULT NULL,
-  `esVecino` TINYINT NULL DEFAULT NULL,
   `asistio` TINYINT NULL DEFAULT NULL,
   `cometioFalta` TINYINT NULL DEFAULT NULL,
   `descripcion` TEXT NULL DEFAULT NULL,
@@ -159,6 +156,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`incidencia` (
   `descripcion` VARCHAR(500) NOT NULL,
   `lugar` VARCHAR(200) NOT NULL,
   `referencia` VARCHAR(45) NOT NULL,
+  `fecha` VARCHAR(45) NOT NULL,	
   `contacto` VARCHAR(45) NULL DEFAULT NULL,
   `requiereAmbulancia` TINYINT NOT NULL,
   `foto` BLOB NULL DEFAULT NULL,
@@ -249,55 +247,55 @@ INSERT INTO `basededatos3`.`tipo` (`idtipo`, `nombre`) VALUES ('OT', 'Otro');
 -- Incidencias
 ALTER TABLE incidencia AUTO_INCREMENT = 1001;
 INSERT INTO `basededatos3`.`incidencia` 
-(`nombre`, `descripcion`, `lugar`, `referencia`, `contacto`, `requiereAmbulancia`, `idUsuario`, `esFalso`, `criticidad`, `tipoPersonal`, `personalRefuerzo`, `descripcionSolucion`, `estadoPersonal`, `estadoIncidencia`, `idtipo`, `foto`)
+(`nombre`, `descripcion`, `lugar`, `referencia`, `fecha`, `contacto`, `requiereAmbulancia`, `idUsuario`, `esFalso`, `criticidad`, `tipoPersonal`, `personalRefuerzo`, `descripcionSolucion`, `estadoPersonal`, `estadoIncidencia`, `idtipo`, `foto`)
 VALUES
-('Ascensor', 'Persona atrapada en un ascensor en la Calle 12', 'Calle 12, San Miguel-Lima', 'Referencia 12, San Miguel-Lima', '923456789', 0, 12, 1, 'Alto', 'Ambulancia', 'Vehiculo', 'Se está enviando un equipo de rescate para liberar a la persona', 'Policía en camino', 'En proceso', 'OT', NULL),
-('Ruido', 'Denuncia de ruido excesivo en una fiesta en la Calle 13', 'Calle 13, San Miguel-Lima', 'Referencia 13, San Miguel-Lima', '934523890', 1, 13, 1, 'Bajo', 'Bomberos', 'A pie', 'Se llegó a un acuerdo con los organizadores y se disolvió la fiesta', 'Bomberos en camino', 'En proceso', 'AL', NULL),
-('Robo', 'Reporte de robo en la esquina de Calle 1 y Avenida Principal', 'Calle 1, San Miguel-Lima', 'Referencia 1, San Miguel-Lima', '912115678', 1, 1, 0, 'Bajo', 'Bomberos', 'A pie', 'Se envió una patrulla al lugar', 'Bomberos en camino', 'En proceso', 'RO', NULL),
-('Choque', 'Choque de vehículos en la intersección de Calle 2 y Avenida Secundaria', 'Calle 2, San Miguel-Lima', 'Referencia 2, San Miguel-Lima', '923456789', 1, 2, 0, 'Medio', 'Comisaría', 'bicicleta', 'Se envió una ambulancia y se está desviando el tráfico', 'Ambulancia en camino', 'En proceso', 'AC', NULL),
-('Incendio', 'Incendio en un edificio de departamentos en la Calle 3', 'Calle 3, San Miguel-Lima', 'Referencia 3, San Miguel-Lima', '934567890', 1, 3, 0, 'Alto', 'Ambulancia', 'canino', 'Se evacuaron los residentes y se está controlando el fuego', 'Policía en camino', 'En proceso', 'OT', NULL),
-('Robo', 'Robo a mano armada en un supermercado en la Avenida Principal', 'Calle 4, San Miguel-Lima', 'Referencia 4, San Miguel-Lima', '945678901', 0, 4, 1, 'Bajo', 'Bomberos', 'Vehiculo', 'Se arrestaron a los sospechosos y se recuperó la mercancía', 'Bomberos en camino', 'En proceso', 'RO', NULL),
-('Ruido', 'Altercado entre vecinos por ruido excesivo en la Calle 5', 'Calle 5, San Miguel-Lima', 'Referencia 5, San Miguel-Lima', '956789012', 0, 5, 1, 'Medio', 'Comisaría', 'A pie', 'Se llegó a un acuerdo entre las partes involucradas', 'Ambulancia en camino', 'En proceso', 'AL', NULL),
-('Drogas', 'Sospecha de sustancias ilegales en una fiesta clandestina en Calle 6', 'Calle 6, San Miguel-Lima', 'Referencia 6, San Miguel-Lima', '967890123', 1, 6, 0, 'Alto', 'Ambulancia', 'bicicleta', 'Se está realizando una redada policial', 'Policía en camino', 'En proceso', 'OT', NULL),
-('Intrusión', 'Intrusión en una propiedad privada en la Calle 7', 'Calle 7, San Miguel-Lima', 'Referencia 7, San Miguel-Lima', '978901234', 1, 7, 0, 'Bajo', 'Bomberos', 'canino', 'Se detuvo al intruso y se aseguró la zona', 'Bomberos en camino', 'En proceso', 'OT', NULL),
-('Accidente de tránsito', 'Persona herida en un accidente de tránsito en la Calle 8', 'Calle 8, San Miguel-Lima', 'Referencia 8, San Miguel-Lima', '989012345', 1, 8, 0, 'Medio', 'Comisaría', 'Vehiculo', 'Se llamó a una ambulancia y se está controlando el tráfico', 'Ambulancia en camino', 'En proceso', 'AC', NULL),
-('Robo', 'Robo de vehículo estacionado en la Calle 9', 'Calle 9, San Miguel-Lima', 'Referencia 9, San Miguel-Lima', '990123456', 1, 9, 0, 'Alto', 'Ambulancia', 'A pie', 'Se están rastreando las cámaras de seguridad en la zona', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Mascotas', 'Incidente con mascotas agresivas en la Calle 10', 'Calle 10, San Miguel-Lima', 'Referencia 10, San Miguel-Lima', '901234567', 0, 10, 1, 'Bajo', 'Bomberos', 'bicicleta', 'Se capturaron a los animales y se notificó a los propietarios', 'Bomberos en camino', 'En proceso', 'OT', NULL),
-('Riña callejera', 'Riña callejera en la intersección de Calle 11 y Avenida Principal', 'Calle 11, San Miguel-Lima', 'Referencia 11, San Miguel-Lima', '912345678', 1, 11, 0, 'Medio', 'Comisaría', 'canino', 'Se detuvieron a los involucrados y se está mediando el conflicto', 'Ambulancia en camino', 'En proceso', 'AL', NULL),
-('Robo', 'Robo reportado cerca del parque', 'Av. La Marina 123, San Miguel, Lima', 'Cerca del supermercado grande', '987654321', 0, 1, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Sospechoso detenido', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Ruido', 'Queja por ruido de los vecinos', 'Calle Las Flores 456, San Miguel, Lima', 'Detrás de la gasolinera', '912345678', 0, 5, 1, 'Bajo', 'Comisaría', 'A pie', 'Advertencia emitida', 'Policía en camino', 'En proceso', 'AL', NULL),
-('Incendio', 'Incendio en área residencial', 'Jr. San Martin 789, San Miguel, Lima', 'Frente a la escuela', '923456789', 1, 10, 0, 'Alto', 'Bomberos', 'Vehiculo', 'Incendio extinguido', 'Bomberos en camino', 'En proceso', 'EM', NULL),
-('Emergencia Médica', 'Emergencia médica', 'Av. Universitaria 321, San Miguel, Lima', 'Junto al banco', '934567890', 1, 15, 0, 'Medio', 'Ambulancia', 'Vehiculo', 'Paciente estabilizado', 'Ambulancia en camino', 'En proceso', 'EM', NULL),
-('Actividad sospechosa', 'Actividad sospechosa', 'Jr. Amazonas 654, San Miguel, Lima', 'Cerca del área de juegos', '945678901', 0, 16, 1, 'Medio', 'Comisaría', 'A pie', 'Área asegurada', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Problema doméstico', 'Disturbio doméstico', 'Av. Faucett 987, San Miguel, Lima', 'Cerca de la iglesia', '956789012', 0, 17, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Conflicto resuelto', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Accidente', 'Accidente de tráfico', 'Calle Pizarro 159, San Miguel, Lima', 'En la rotonda', '967890123', 1, 15, 0, 'Medio', 'Ambulancia', 'Vehiculo', 'Herido transportado', 'Ambulancia en camino', 'En proceso', 'EM', NULL),
-('Embriaguez', 'Embriaguez en público', 'Av. Libertad 753, San Miguel, Lima', 'Cerca del cine', '978901234', 0, 2, 1, 'Bajo', 'Comisaría', 'A pie', 'Individuo detenido', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Robo', 'Robo en progreso', 'Jr. Belgrano 852, San Miguel, Lima', 'Frente al centro comercial', '989012345', 0, 4, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Sospechoso arrestado', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Vandalismo', 'Vandalismo', 'Av. Argentina 951, San Miguel, Lima', 'Junto al parque', '990123456', 0, 6, 1, 'Medio', 'Comisaría', 'Bicicleta', 'Reporte presentado', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Niño perdido', 'Niño perdido', 'Calle Independencia 159, San Miguel, Lima', 'En la parada de autobús', '901234567', 0, 8, 0, 'Alto', 'Comisaría', 'Canino', 'Niño encontrado', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Ebriedad', 'Conductor ebrio', 'Av. La Marina 357, San Miguel, Lima', 'Cerca de la escuela', '912345678', 1, 12, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Conductor arrestado', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Pelea', 'Pelea reportada', 'Jr. Puno 456, San Miguel, Lima', 'Cerca del parque', '923456789', 0, 14, 1, 'Medio', 'Comisaría', 'A pie', 'Participantes separados', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Persona con arma', 'Persona con arma', 'Av. Brasil 789, San Miguel, Lima', 'Frente al mercado', '934567890', 0, 16, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Arma confiscada', 'Policía en camino', 'En proceso', 'RO', NULL),
-('Incendio', 'Incendio en edificio comercial', 'Calle Sucre 951, San Miguel, Lima', 'Cerca del banco', '945678901', 1, 15, 0, 'Alto', 'Bomberos', 'Vehiculo', 'Incendio bajo control', 'Bomberos en camino', 'En proceso', 'AC', NULL),
-('Emergencia médica', 'Emergencia médica en área pública', 'Jr. Tacna 123, San Miguel, Lima', 'Junto al hospital', NULL, 1, 14, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'EM', NULL),
-('Ruido', 'Queja por ruido', 'Av. Bolivar 357, San Miguel, Lima', 'Detrás de la tienda', NULL, 0, 14, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
-('Embriaguez', 'Embriaguez en público', 'Av. Libertad 753, San Miguel, Lima', 'Cerca del cine', NULL, 0, 2, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
-('Robo', 'Robo en progreso', 'Jr. Belgrano 852, San Miguel, Lima', 'Frente al centro comercial', NULL, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'RO', NULL),
-('Vandalismo', 'Vandalismo', 'Av. Argentina 951, San Miguel, Lima', 'Junto al parque', NULL, 0, 6, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'OT', NULL),
-('Pérdida', 'Niño perdido', 'Calle Independencia 159, San Miguel, Lima', 'En la parada de autobús', NULL, 0, 8, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'OT', NULL),
-('Ebriedad', 'Conductor ebrio', 'Av. La Marina 357, San Miguel, Lima', 'Cerca de la escuela', NULL, 1, 12, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
-('Pelea', 'Pelea reportada', 'Jr. Puno 456, San Miguel, Lima', 'Cerca del parque', NULL, 0, 14, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
-('Grafiti', 'Grafiti en una iglesia', 'Av. Brasil 789, San Miguel, Lima', 'Frente al mercado', NULL, 0, 16, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'OT', NULL),
-('Incendio', 'Incendio en edificio comercial', 'Calle Sucre 951, San Miguel, Lima', 'Cerca del banco', NULL, 1, 15, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AC', NULL),
-('Emergencia médica', 'Emergencia médica en área pública', 'Jr. Tacna 123, San Miguel, Lima', 'Junto al hospital', NULL, 1, 14, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'EM', NULL),
-('Ruido', 'Queja por ruido', 'Av. Bolivar 357, San Miguel, Lima', 'Detrás de la tienda', NULL, 0, 14, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
-('Persona sospechosa', 'Persona sospechosa merodeando', 'Av. San Martin 123, San Miguel, Lima', 'Frente a la tienda', NULL, 0, 3, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL),
-('Llamada', 'Llamada de emergencia falsa', 'Calle Libertad 456, San Miguel, Lima', 'Cerca del parque', NULL, 0, 5, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL),
-('Incendio', 'Incendio reportado, pero inexistente', 'Jr. Arequipa 789, San Miguel, Lima', 'Detrás del colegio', NULL, 1, 7, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'AC', NULL),
-('Accidente', 'Accidente de tráfico', 'Av. Grau 321, San Miguel, Lima', 'Frente al hospital', NULL, 1, 9, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'AC', NULL),
-('Disturbio', 'Disturbio en vecindario, falso reporte', 'Calle Pizarro 654, San Miguel, Lima', 'Cerca del mercado', NULL, 0, 11, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'AL', NULL),
-('Persona herida', 'Persona herida por caer de su segundo piso', 'Av. Los Incas 987, San Miguel, Lima', 'En la plaza central', NULL, 1, 13, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'EM', NULL),
-('Robo', 'Robo en progreso', 'Calle Bolognesi 159, San Miguel, Lima', 'Frente al banco', NULL, 0, 15, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'RO', NULL);
+('Ascensor', 'Persona atrapada en un ascensor en la Calle 12', 'Calle 12, San Miguel-Lima', 'Referencia 12, San Miguel-Lima', '2024-01-01', '923456789', 0, 12, 1, 'Alto', 'Ambulancia', 'Vehiculo', 'Se está enviando un equipo de rescate para liberar a la persona', 'Policía en camino', 'En proceso', 'OT', NULL),
+('Ruido', 'Denuncia de ruido excesivo en una fiesta en la Calle 13', 'Calle 13, San Miguel-Lima', 'Referencia 13, San Miguel-Lima', '2024-01-02', '934523890', 1, 13, 1, 'Bajo', 'Bomberos', 'A pie', 'Se llegó a un acuerdo con los organizadores y se disolvió la fiesta', 'Bomberos en camino', 'En proceso', 'AL', NULL),
+('Robo', 'Reporte de robo en la esquina de Calle 1 y Avenida Principal', 'Calle 1, San Miguel-Lima', 'Referencia 1, San Miguel-Lima', '2024-01-03', '912115678', 1, 1, 0, 'Bajo', 'Bomberos', 'A pie', 'Se envió una patrulla al lugar', 'Bomberos en camino', 'En proceso', 'RO', NULL),
+('Choque', 'Choque de vehículos en la intersección de Calle 2 y Avenida Secundaria', 'Calle 2, San Miguel-Lima', 'Referencia 2, San Miguel-Lima', '2024-01-04', '923456789', 1, 2, 0, 'Medio', 'Comisaría', 'bicicleta', 'Se envió una ambulancia y se está desviando el tráfico', 'Ambulancia en camino', 'En proceso', 'AC', NULL),
+('Incendio', 'Incendio en un edificio de departamentos en la Calle 3', 'Calle 3, San Miguel-Lima', 'Referencia 3, San Miguel-Lima', '2024-01-05', '934567890', 1, 3, 0, 'Alto', 'Ambulancia', 'canino', 'Se evacuaron los residentes y se está controlando el fuego', 'Policía en camino', 'En proceso', 'OT', NULL),
+('Robo', 'Robo a mano armada en un supermercado en la Avenida Principal', 'Calle 4, San Miguel-Lima', 'Referencia 4, San Miguel-Lima', '2024-03-15', '945678901', 0, 4, 1, 'Bajo', 'Bomberos', 'Vehiculo', 'Se arrestaron a los sospechosos y se recuperó la mercancía', 'Bomberos en camino', 'En proceso', 'RO', NULL),
+('Ruido', 'Altercado entre vecinos por ruido excesivo en la Calle 5', 'Calle 5, San Miguel-Lima', 'Referencia 5, San Miguel-Lima', '2024-04-01', '956789012', 0, 5, 1, 'Medio', 'Comisaría', 'A pie', 'Se llegó a un acuerdo entre las partes involucradas', 'Ambulancia en camino', 'En proceso', 'AL', NULL),
+('Drogas', 'Sospecha de sustancias ilegales en una fiesta clandestina en Calle 6', 'Calle 6, San Miguel-Lima', 'Referencia 6, San Miguel-Lima', '2024-04-15', '967890123', 1, 6, 0, 'Alto', 'Ambulancia', 'bicicleta', 'Se está realizando una redada policial', 'Policía en camino', 'En proceso', 'OT', NULL),
+('Intrusión', 'Intrusión en una propiedad privada en la Calle 7', 'Calle 7, San Miguel-Lima', 'Referencia 7, San Miguel-Lima', '2024-05-01', '978901234', 1, 7, 0, 'Bajo', 'Bomberos', 'canino', 'Se detuvo al intruso y se aseguró la zona', 'Bomberos en camino', 'En proceso', 'OT', NULL),
+('Accidente de tránsito', 'Persona herida en un accidente de tránsito en la Calle 8', 'Calle 8, San Miguel-Lima', 'Referencia 8, San Miguel-Lima', '2024-05-15', '989012345', 1, 8, 0, 'Medio', 'Comisaría', 'Vehiculo', 'Se llamó a una ambulancia y se está controlando el tráfico', 'Ambulancia en camino', 'En proceso', 'AC', NULL),
+('Robo', 'Robo de vehículo estacionado en la Calle 9', 'Calle 9, San Miguel-Lima', 'Referencia 9, San Miguel-Lima', '2024-06-01', '990123456', 1, 9, 0, 'Alto', 'Ambulancia', 'A pie', 'Se están rastreando las cámaras de seguridad en la zona', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Mascotas', 'Incidente con mascotas agresivas en la Calle 10', 'Calle 10, San Miguel-Lima', 'Referencia 10, San Miguel-Lima', '2024-06-15', '901234567', 0, 10, 1, 'Bajo', 'Bomberos', 'bicicleta', 'Se capturaron a los animales y se notificó a los propietarios', 'Bomberos en camino', 'En proceso', 'OT', NULL),
+('Riña callejera', 'Riña callejera en la intersección de Calle 11 y Avenida Principal', 'Calle 11, San Miguel-Lima', 'Referencia 11, San Miguel-Lima', '2024-03-01', '912345678', 1, 11, 0, 'Medio', 'Comisaría', 'canino', 'Se detuvieron a los involucrados y se está mediando el conflicto', 'Ambulancia en camino', 'En proceso', 'AL', NULL),
+('Robo', 'Robo reportado cerca del parque', 'Av. La Marina 123, San Miguel, Lima', 'Cerca del supermercado grande', '2024-04-10', '987654321', 0, 1, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Sospechoso detenido', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Ruido', 'Queja por ruido de los vecinos', 'Calle Las Flores 456, San Miguel, Lima', 'Detrás de la gasolinera', '2024-06-10', '912345678', 0, 5, 1, 'Bajo', 'Comisaría', 'A pie', 'Advertencia emitida', 'Policía en camino', 'En proceso', 'AL', NULL),
+('Incendio', 'Incendio en área residencial', 'Jr. San Martin 789, San Miguel, Lima', 'Frente a la escuela', '2024-03-05', '923456789', 1, 10, 0, 'Alto', 'Bomberos', 'Vehiculo', 'Incendio extinguido', 'Bomberos en camino', 'En proceso', 'EM', NULL),
+('Emergencia Médica', 'Emergencia médica', 'Av. Universitaria 321, San Miguel, Lima', 'Junto al banco', '2024-03-15', '934567890', 1, 15, 0, 'Medio', 'Ambulancia', 'Vehiculo', 'Paciente estabilizado', 'Ambulancia en camino', 'En proceso', 'EM', NULL),
+('Actividad sospechosa', 'Actividad sospechosa', 'Jr. Amazonas 654, San Miguel, Lima', 'Cerca del área de juegos', '2024-04-05', '945678901', 0, 16, 1, 'Medio', 'Comisaría', 'A pie', 'Área asegurada', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Problema doméstico', 'Disturbio doméstico', 'Av. Faucett 987, San Miguel, Lima', 'Cerca de la iglesia', '2024-04-15', '956789012', 0, 17, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Conflicto resuelto', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Accidente', 'Accidente de tráfico', 'Calle Pizarro 159, San Miguel, Lima', 'En la rotonda', '2024-05-05', '967890123', 1, 15, 0, 'Medio', 'Ambulancia', 'Vehiculo', 'Herido transportado', 'Ambulancia en camino', 'En proceso', 'EM', NULL),
+('Embriaguez', 'Embriaguez en público', 'Av. Libertad 753, San Miguel, Lima', 'Cerca del cine', '2024-05-15', '978901234', 0, 2, 1, 'Bajo', 'Comisaría', 'A pie', 'Individuo detenido', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Robo', 'Robo en progreso', 'Jr. Belgrano 852, San Miguel, Lima', 'Frente al centro comercial', '2024-06-05', '989012345', 0, 4, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Sospechoso arrestado', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Vandalismo', 'Vandalismo', 'Av. Argentina 951, San Miguel, Lima', 'Junto al parque', '2024-06-15', '990123456', 0, 6, 1, 'Medio', 'Comisaría', 'Bicicleta', 'Reporte presentado', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Niño perdido', 'Niño perdido', 'Calle Independencia 159, San Miguel, Lima', 'En la parada de autobús', '2024-03-10', '901234567', 0, 8, 0, 'Alto', 'Comisaría', 'Canino', 'Niño encontrado', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Ebriedad', 'Conductor ebrio', 'Av. La Marina 357, San Miguel, Lima', 'Cerca de la escuela', '2024-04-10', '912345678', 1, 12, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Conductor arrestado', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Pelea', 'Pelea reportada', 'Jr. Puno 456, San Miguel, Lima', 'Cerca del parque', '2024-05-10', '923456789', 0, 14, 1, 'Medio', 'Comisaría', 'A pie', 'Participantes separados', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Persona con arma', 'Persona con arma', 'Av. Brasil 789, San Miguel, Lima', 'Frente al mercado', '2024-06-01', '934567890', 0, 16, 0, 'Alto', 'Comisaría', 'Vehiculo', 'Arma confiscada', 'Policía en camino', 'En proceso', 'RO', NULL),
+('Incendio', 'Incendio en edificio comercial', 'Calle Sucre 951, San Miguel, Lima', 'Cerca del banco', '2024-06-10', '945678901', 1, 15, 0, 'Alto', 'Bomberos', 'Vehiculo', 'Incendio bajo control', 'Bomberos en camino', 'En proceso', 'AC', NULL),
+('Emergencia médica', 'Emergencia médica en área pública', 'Jr. Tacna 123, San Miguel, Lima', 'Junto al hospital', '2024-03-05', NULL, 1, 14, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'EM', NULL),
+('Ruido', 'Queja por ruido', 'Av. Bolivar 357, San Miguel, Lima', 'Detrás de la tienda', '2024-03-10', NULL, 0, 14, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
+('Embriaguez', 'Embriaguez en público', 'Av. Libertad 753, San Miguel, Lima', 'Cerca del cine', '2024-03-15', NULL, 0, 2, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
+('Robo', 'Robo en progreso', 'Jr. Belgrano 852, San Miguel, Lima', 'Frente al centro comercial', '2024-03-20', NULL, 0, 4, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'RO', NULL),
+('Vandalismo', 'Vandalismo', 'Av. Argentina 951, San Miguel, Lima', 'Junto al parque', '2024-03-25', NULL, 0, 6, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'OT', NULL),
+('Pérdida', 'Niño perdido', 'Calle Independencia 159, San Miguel, Lima', 'En la parada de autobús', '2024-04-01', NULL, 0, 8, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'OT', NULL),
+('Ebriedad', 'Conductor ebrio', 'Av. La Marina 357, San Miguel, Lima', 'Cerca de la escuela', '2024-04-05', NULL, 1, 12, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
+('Pelea', 'Pelea reportada', 'Jr. Puno 456, San Miguel, Lima', 'Cerca del parque', '2024-04-10', NULL, 0, 14, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
+('Grafiti', 'Grafiti en una iglesia', 'Av. Brasil 789, San Miguel, Lima', 'Frente al mercado', '2024-04-15', NULL, 0, 16, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'OT', NULL),
+('Incendio', 'Incendio en edificio comercial', 'Calle Sucre 951, San Miguel, Lima', 'Cerca del banco', '2024-04-20', NULL, 1, 15, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AC', NULL),
+('Emergencia médica', 'Emergencia médica en área pública', 'Jr. Tacna 123, San Miguel, Lima', 'Junto al hospital', '2024-05-01', NULL, 1, 14, 0, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'EM', NULL),
+('Ruido', 'Queja por ruido', 'Av. Bolivar 357, San Miguel, Lima', 'Detrás de la tienda', '2024-05-05', NULL, 0, 14, 1, NULL, NULL, NULL, NULL, NULL, 'Nueva', 'AL', NULL),
+('Persona sospechosa', 'Persona sospechosa merodeando', 'Av. San Martin 123, San Miguel, Lima', 'Frente a la tienda', '2024-05-10', NULL, 0, 3, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL),
+('Llamada', 'Llamada de emergencia falsa', 'Calle Libertad 456, San Miguel, Lima', 'Cerca del parque', '2024-05-15', NULL, 0, 5, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL),
+('Incendio', 'Incendio reportado, pero inexistente', 'Jr. Arequipa 789, San Miguel, Lima', 'Detrás del colegio', '2024-05-20', NULL, 1, 7, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'AC', NULL),
+('Accidente', 'Accidente de tráfico', 'Av. Grau 321, San Miguel, Lima', 'Frente al hospital', '2024-05-25', NULL, 1, 9, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'AC', NULL),
+('Disturbio', 'Disturbio en vecindario, falso reporte', 'Calle Pizarro 654, San Miguel, Lima', 'Cerca del mercado', '2024-06-01', NULL, 0, 11, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'AL', NULL),
+('Persona herida', 'Persona herida por caer de su segundo piso', 'Av. Los Incas 987, San Miguel, Lima', 'En la plaza central', '2024-06-05', NULL, 1, 13, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'EM', NULL),
+('Robo', 'Robo en progreso', 'Calle Bolognesi 159, San Miguel, Lima', 'Frente al banco', '2024-06-10', NULL, 0, 15, 1, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'RO', NULL);
 
 -- Eventos
 ALTER TABLE evento AUTO_INCREMENT = 2001;
@@ -324,18 +322,18 @@ INSERT INTO evento (nombre, fechaInicial, fechaFinal, foto, materiales, lugar, h
 ('Familiar', '2024-06-20', '2024-06-20', X'', 'Juegos de mesa, pelotas', 'Municipalidad de San Miguel, Lima', '10:30:00', '5', '12', 'Festival de juegos familiares', 'Cultural', '10', 'Pronto');
 
 -- evento_has_usuario
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2001', '1', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2002', '5', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2002', '7', '0', '0', '0', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2003', '8', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2002', '10', '0', '0', '1', '0', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2002', '15', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2003', '2', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2003', '1', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2004', '2', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2004', '15', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2004', '17', '0', '0', '1', '0', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`) VALUES ('2004', '3', '0', '0', '1', '1', '0');
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `esCoordinadorDeporte`, `esCoordinadorCultura`, `esVecino`, `asistio`, `cometioFalta`, `descripcion`) VALUES ('2004', '5', '0', '0', '1', '1', '1', 'Falta deportiva contra un compañero');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2001', '1', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2002', '5', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2002', '7', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2003', '8', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2002', '10', '0', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2002', '15', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2003', '2', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2003', '1', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2004', '2', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2004', '15', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2004', '17', '0', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`) VALUES ('2004', '3', '1', '0');
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`, `descripcion`) VALUES ('2004', '5', '1', '1', 'Falta deportiva contra un compañero');
 
 
