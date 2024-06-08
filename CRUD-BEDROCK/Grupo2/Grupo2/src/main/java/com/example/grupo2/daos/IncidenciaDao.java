@@ -21,7 +21,7 @@ public class IncidenciaDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select i.idIncidenciaReportada, i.nombre , t.nombre as tipoIncidencia, i.estadoIncidencia ,concat(u.nombre,' ',u.apellido) as vecino, u.correo\n" +
+        String sql = "select i.idIncidenciaReportada, i.nombre , t.nombre as tipoIncidencia, i.estadoIncidencia ,concat(u.nombre,' ',u.apellido) as vecino, u.correo, i.fecha\n" +
                 "from incidencia i\n" +
                 "join usuario u on u.idUsuario=i.idUsuario\n" +
                 "join tipo t on i.idtipo = t.idtipo;";
@@ -38,6 +38,7 @@ public class IncidenciaDao {
                 incidencia.setEstadoIncidencia(rs.getString(4));
                 incidencia.setNombreUsuario(rs.getString(5));
                 incidencia.setCorreoUsuario(rs.getString(6));
+                incidencia.setFecha(rs.getDate(7));
 
                 listaIncidencias.add(incidencia);
             }

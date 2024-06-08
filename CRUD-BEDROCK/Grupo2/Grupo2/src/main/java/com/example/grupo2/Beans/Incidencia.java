@@ -1,5 +1,7 @@
 package com.example.grupo2.Beans;
 
+import java.sql.Date;
+
 public class Incidencia {
 
     private int idIncidencia;
@@ -7,6 +9,7 @@ public class Incidencia {
     private String descripcion;
     private String lugar;
     private String referencia;
+    private Date fecha;
     private String tipoIncidencia;
     private String contacto;
     private boolean requiereAmbulancia;
@@ -54,6 +57,14 @@ public class Incidencia {
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
+    }
+
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
     }
 
     public String getTipoIncidencia() {
