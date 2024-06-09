@@ -93,7 +93,7 @@ public class SerenazgosDao {
                     serenazgo.setTipo(rs.getString(11));
                     serenazgo.setTurnoSerenazgo(rs.getString(10));
                     serenazgo.setCorreo(rs.getString(6));
-                    serenazgo.setContrasenia(rs.getString(7));
+                    serenazgo.setClave(rs.getString(7));
                 }
             }
         } catch (SQLException e) {
@@ -120,8 +120,8 @@ public class SerenazgosDao {
             pstmt.setString(3, serenazgo.getTipo());
             pstmt.setString(4, serenazgo.getTurnoSerenazgo());
             pstmt.setString(5, serenazgo.getCorreo());
-            pstmt.setString(6, serenazgo.getContrasenia());
-            pstmt.setString(7, serenazgo.getId());
+            pstmt.setString(6, serenazgo.getClave());
+            pstmt.setInt(7, serenazgo.getId());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

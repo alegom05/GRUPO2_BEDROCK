@@ -1,25 +1,30 @@
 package com.example.grupo2.Beans;
+import java.sql.Time;
 
 public class Usuario {
-    private String id;
+    private int id;
     private String nombre;
     private String apellido;
-    private int dni;
+    private String dni;
     private String correo;
     private String fecha_nacimiento;
-    private int numtelefono;
-    private String contrasenia;
+    private String numtelefono;
+    private String clave;
     private String direccion;
-    private String Urbanización;
+    private String Urbanizacion;
     private String TurnoSerenazgo;
     private String tipo;
     private String rol;
+    private Time horaInicio;
+    private Time horaFin;
+    private Time fechaNacimiento;
 
-    public String getId() {
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,12 +44,20 @@ public class Usuario {
         this.apellido = apellido;
     }
 
-    public int getDni() {
+    public String getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    public String getNumtelefono() {
+        return numtelefono;
+    }
+
+    public void setNumtelefono(String numtelefono) {
+        this.numtelefono = numtelefono;
     }
 
     public String getCorreo() {
@@ -55,12 +68,12 @@ public class Usuario {
         this.correo = correo;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getClave() {
+        return clave;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setClave(String clave) {
+        this.clave = clave;
     }
 
     public String getDireccion() {
@@ -71,12 +84,12 @@ public class Usuario {
         this.direccion = direccion;
     }
 
-    public String getUrbanización() {
-        return Urbanización;
+    public String getUrbanizacion() {
+        return Urbanizacion;
     }
 
-    public void setUrbanización(String urbanización) {
-        Urbanización = urbanización;
+    public void setUrbanizacion(String urbanizacion) {
+        Urbanizacion = urbanizacion;
     }
 
     public String getTurnoSerenazgo() {
@@ -111,11 +124,27 @@ public class Usuario {
         this.fecha_nacimiento = fecha_nacimiento;
     }
 
-    public int getNumtelefono() {
-        return numtelefono;
+    public Time getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setNumtelefono(int numtelefono) {
-        this.numtelefono = numtelefono;
+    public void setHoraInicio(Time horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public Time getHoraFin() {
+        return horaFin;
+    }
+
+    public void setHoraFin(Time horaFin) {
+        this.horaFin = horaFin;
+    }
+
+    public Time getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Time fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
     }
 }
