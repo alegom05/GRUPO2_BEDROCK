@@ -99,13 +99,13 @@ public class SerenazgoServlet extends HttpServlet {
         String contrasenia = request.getParameter("contrasenia");
 
         Usuario serenazgo = new Usuario();
-        serenazgo.setId(id);
-        serenazgo.setNumtelefono(Integer.parseInt(telefono));
+        serenazgo.setId(Integer.parseInt(id));
+        serenazgo.setNumtelefono(telefono);
         serenazgo.setDireccion(direccion);
         serenazgo.setTipo(tipo);
         serenazgo.setTurnoSerenazgo(turno);
         serenazgo.setCorreo(correo);
-        serenazgo.setContrasenia(contrasenia);
+        serenazgo.setClave(contrasenia);
 
         return serenazgo;
     }

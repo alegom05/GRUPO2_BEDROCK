@@ -24,10 +24,10 @@ public class SerenazgosDao {
                 Usuario serenazgo = new Usuario();
                 serenazgo.setNombre(rs.getString(1));
                 serenazgo.setApellido(rs.getString(2));
-                serenazgo.setDni(rs.getInt(3));
+                serenazgo.setDni(rs.getString(3));
                 serenazgo.setTurnoSerenazgo(rs.getString(4));
                 serenazgo.setTipo(rs.getString(5));
-                serenazgo.setId(rs.getString(6));
+                serenazgo.setId(rs.getInt(6));
                 listaSerenazgos.add(serenazgo);
                 System.out.println(serenazgo);
             }
@@ -83,12 +83,12 @@ public class SerenazgosDao {
 
                 if (rs.next()) {
                     serenazgo = new Usuario();
-                    serenazgo.setId(rs.getString(1));
+                    serenazgo.setId(rs.getInt(1));
                     serenazgo.setNombre(rs.getString(2));
                     serenazgo.setApellido(rs.getString(3));
-                    serenazgo.setDni(rs.getInt(4));
+                    serenazgo.setDni(rs.getString(4));
                     serenazgo.setFecha_nacimiento(rs.getString(15));
-                    serenazgo.setNumtelefono(rs.getInt(5));
+                    serenazgo.setNumtelefono(rs.getString(5));
                     serenazgo.setDireccion(rs.getString(8));
                     serenazgo.setTipo(rs.getString(11));
                     serenazgo.setTurnoSerenazgo(rs.getString(10));
@@ -115,7 +115,7 @@ public class SerenazgosDao {
         try (Connection connection = DriverManager.getConnection(url, user, pass);
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
-            pstmt.setInt(1, serenazgo.getNumtelefono());
+            pstmt.setString(1, serenazgo.getNumtelefono());
             pstmt.setString(2, serenazgo.getDireccion());
             pstmt.setString(3, serenazgo.getTipo());
             pstmt.setString(4, serenazgo.getTurnoSerenazgo());

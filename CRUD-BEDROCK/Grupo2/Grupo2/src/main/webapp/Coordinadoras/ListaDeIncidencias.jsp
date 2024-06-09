@@ -58,7 +58,7 @@
 
 	<div class="mt-4" style="height: 100vh; margin: 0;">
 		<!-- Contenido con imagen centrada -->
-        <h2 style="text-align: center;">Incidencias Registradas este mes</h2>
+        <h2 style="text-align: center;">Incidencias registradas este mes</h2>
             <div style="display: flex; justify-content: space-between;">
                 <select id="filtroIncidencia" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none; width: 130px; height: 50px;" >
                     <option value="" disabled selected>Filtrar Por</option>
