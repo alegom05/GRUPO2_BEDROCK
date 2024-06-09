@@ -1,7 +1,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <%
     ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("lista");
 %>
@@ -32,25 +31,25 @@
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
+                    <a href="PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
-                    <a href="PaginaEventos.html" class="nav-link">Eventos</a>
+                    <a href="PaginaEventos.jsp" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
+                    <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
                     <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                    <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="VecinoSanmi.html" class="nav-link">Lista de Vecinos</a>
+                    <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
                 </li>
             </ul>
         </nav>             
@@ -76,27 +75,25 @@
             <table id="miTabla" class="display">
                 <thead>
                 <tr>
-                    <th>Incidencia</th>
                     <th>Tipo de Incidencia</th>
-                    <th>Usuario</th>
-                    <th>Correo de Usuario</th>
-                    <th>Estado</th>
-                    <th>Ver</th>
-                    <th>Eliminar</th>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Lugar</th>
+                    <%--<th>Ver</th>
+                    <th>Eliminar</th>--%>
                 </tr>
                 </thead>
                 <tbody>
                 <% for (Incidencia incidencia : listaIncidencias) {%>
                 <tr>
-                    <td><%=incidencia.getNombreIncidencia()%></td>
                     <td><%=incidencia.getTipoIncidencia()%> </td>
-                    <td><%=incidencia.getUsuario()%></td>
-                    <td><%=incidencia.getCorreoUsuario()%></td>
-                    <td><%=incidencia.getEstadoIncidencia()%></td>
-                    <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
+                    <td><%=incidencia.getNombreIncidencia()%></td>
+                    <td><%=incidencia.getFecha()%></td>
+                    <td><%=incidencia.getLugar()%></td>
+                    <%--<td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
                         <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                     </button> </td>
-                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
+                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>--%>
                 </tr>
                 <% } %>
                 </tbody>

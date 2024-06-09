@@ -9,5 +9,6 @@
 </h1>
 <br/>
 <a href="hello-servlet">Hello Servlet</a>
+<p><a href=./Coordinadoras/PaginaPrincipal.jsp>Coordinadoras</a>
 </body>
 </html>
