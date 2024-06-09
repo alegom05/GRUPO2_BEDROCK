@@ -19,7 +19,6 @@ public class Usuario {
     private Time horaFin;
     private Time fechaNacimiento;
 
-
     public int getId() {
         return id;
     }
@@ -52,20 +51,28 @@ public class Usuario {
         this.dni = dni;
     }
 
-    public String getNumtelefono() {
-        return numtelefono;
-    }
-
-    public void setNumtelefono(String numtelefono) {
-        this.numtelefono = numtelefono;
-    }
-
     public String getCorreo() {
         return correo;
     }
 
     public void setCorreo(String correo) {
         this.correo = correo;
+    }
+
+    public String getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(String fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public String getNumtelefono() {
+        return numtelefono;
+    }
+
+    public void setNumtelefono(String numtelefono) {
+        this.numtelefono = numtelefono;
     }
 
     public String getClave() {
@@ -114,14 +121,6 @@ public class Usuario {
 
     public void setRol(String rol) {
         this.rol = rol;
-    }
-
-    public String getFecha_nacimiento() {
-        return fecha_nacimiento;
-    }
-
-    public void setFecha_nacimiento(String fecha_nacimiento) {
-        this.fecha_nacimiento = fecha_nacimiento;
     }
 
     public Time getHoraInicio() {
