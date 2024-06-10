@@ -386,3 +386,21 @@ div.dataTables_wrapper div.dataTables_filter {
     margin-top: 20px;
     color: white;
 }
+
+.filter-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.filter-container .filter-left {
+    flex: 1;
+}
+.filter-container .filter-center {
+    flex: 2;
+    text-align: center;
+}
+.filter-container .filter-right {
+    flex: 1;
+    text-align: right;
+}

@@ -36,7 +36,7 @@ public class SerenazgosDao {
         }
         return listaSerenazgos;
     }
-    public void crearSerenazgos(String nombre, String apellido, int dni, String fecha_nacimiento, int numtelefono, String direccion, String tipo, String TurnoSerenazgo, String correo, String contrasenia){
+    public void crearSerenazgos(String nombre, String apellido, String dni, String fecha_nacimiento, String numtelefono, String direccion, String tipo, String TurnoSerenazgo, String correo, String contrasenia){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -49,9 +49,9 @@ public class SerenazgosDao {
 
             pstmt.setString(1, nombre);
             pstmt.setString(2, apellido);
-            pstmt.setInt(3, dni);
+            pstmt.setString(3, dni);
             pstmt.setString(4, fecha_nacimiento);
-            pstmt.setInt(5, numtelefono);
+            pstmt.setString(5, numtelefono);
             pstmt.setString(6, direccion);
             pstmt.setString(7, tipo);
             pstmt.setString(8, TurnoSerenazgo);
@@ -64,7 +64,7 @@ public class SerenazgosDao {
             throw new RuntimeException(e);
         }
     }
-    public Usuario buscarPorId(String id) {
+    public Usuario buscarPorId(int id) {
         Usuario serenazgo = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -77,7 +77,7 @@ public class SerenazgosDao {
         try (Connection connection = DriverManager.getConnection(url, user, pass);
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
 
             try (ResultSet rs = pstmt.executeQuery();) {
 
@@ -129,7 +129,7 @@ public class SerenazgosDao {
         }
 
     }
-    public void eliminarSerenazgo(String id) {
+    public void eliminarSerenazgo(int id) {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -141,7 +141,7 @@ public class SerenazgosDao {
         try (Connection connection = DriverManager.getConnection(url, user, pass);
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
-            pstmt.setString(1, id);
+            pstmt.setInt(1, id);
             pstmt.executeUpdate();
 
         } catch (SQLException e) {

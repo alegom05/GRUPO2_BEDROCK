@@ -18,7 +18,7 @@
     <title>Serenazgos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-    <link href="style-Admin.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/AdministradorJSPS/style-Admin.css" rel="stylesheet">
 
 </head>
 <body>
@@ -54,42 +54,36 @@
     </nav>
 </div>
 
+
 <div class="container mt-4 table-responsive">
-    <table id="miTabla2" class="table table-borderless">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Tipo</th>
-            <th style="width: 550px;">Turno</th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Filtrar por:</td>
-            <td><select id="filtroTipo" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
+    <br>
+    <button onclick="nuevoSerenazgo()" type="button" class="btn btn-outline-info custom-btn">Agregar Serenazgo</button>
+    <div class="filter-container">
+        <div class="filter-left">
+            <br>
+        </div>
+        <div class="filter-center">
+            <label>Filtrar por:</label>
+            <select id="filtroTipo" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
                 <option value="">Mostrar Todos</option>
                 <option value="A pie">A pie</option>
                 <option value="Bicicleta">Bicicleta</option>
                 <option value="Canino">Canino</option>
                 <option value="Vehículo">Vehículo</option>
-            </select></td>
-            <td>
-                <select id="filtroTurno" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;">
-                    <option value="">Mostrar Todos</option>
-                    <option value="Mañana">Mañana</option>
-                    <option value="Tarde">Tarde</option>
-                    <option value="Noche">Noche</option>
-                </select>
-            </td>
-            <td>
-                <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-    <br>
-    <button onclick="nuevoSerenazgo()" type="button" class="btn btn-outline-info custom-btn">Agregar Serenazgo</button>
+            </select>
+
+            <select id="filtroTurno" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;">
+                <option value="">Mostrar Todos</option>
+                <option value="Mañana">Mañana</option>
+                <option value="Tarde">Tarde</option>
+                <option value="Noche">Noche</option>
+            </select>
+
+        </div>
+        <div class="filter-right">
+            <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
+        </div>
+    </div>
     <table id="miTabla" class="display">
         <thead class="cabecera-tabla">
         <tr>
@@ -162,6 +156,10 @@
                     },
                     "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas",
                     "infoFiltered": "(filtrado de _MAX_ entradas totales)"
+                },
+                "initComplete": function(settings, json) {
+                    // Move the search bar
+                    $('#miTabla_filter').appendTo('.filter-left');
                 }
 
             });

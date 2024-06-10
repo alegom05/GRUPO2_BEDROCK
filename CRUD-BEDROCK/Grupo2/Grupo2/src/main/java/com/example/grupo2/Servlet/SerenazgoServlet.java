@@ -34,7 +34,7 @@ public class SerenazgoServlet extends HttpServlet {
                 view.forward(request, response);
             }
             case "editar" -> {
-                String id = request.getParameter("id");
+                int id = Integer.parseInt(request.getParameter("id"));
                 Usuario serenazgo = serenazgosDao.buscarPorId(id);
                 if (serenazgo != null) {
                     request.setAttribute("serenazgo", serenazgo);
@@ -63,9 +63,9 @@ public class SerenazgoServlet extends HttpServlet {
             case "agregar" -> {
                 String nombre = request.getParameter("nombre");
                 String apellido = request.getParameter("apellido");
-                int dni = Integer.parseInt(request.getParameter("dni"));
+                String dni = request.getParameter("dni");
                 String nacimiento = request.getParameter("nacimiento");
-                int numtelefono = Integer.parseInt(request.getParameter("telefono"));
+                String numtelefono = request.getParameter("telefono");
                 String direccion = request.getParameter("direccion");
                 String tipo = request.getParameter("tipo");
                 String turnoSerenazgo = request.getParameter("turno");
@@ -81,7 +81,7 @@ public class SerenazgoServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/Serenazgos");
             }
             case "borrar" -> {
-                String id = request.getParameter("id");
+                int id = Integer.parseInt(request.getParameter("id"));
                 serenazgosDao.eliminarSerenazgo(id);
                 response.sendRedirect(request.getContextPath() + "/Serenazgos");
             }
@@ -90,7 +90,7 @@ public class SerenazgoServlet extends HttpServlet {
         }
     }
     public Usuario leerParametrosRequest(HttpServletRequest request) {
-        String id = request.getParameter("id");
+        int id = Integer.parseInt(request.getParameter("id"));
         String telefono = request.getParameter("telefono");
         String direccion = request.getParameter("direccion");
         String tipo = request.getParameter("tipo");
@@ -99,7 +99,7 @@ public class SerenazgoServlet extends HttpServlet {
         String contrasenia = request.getParameter("contrasenia");
 
         Usuario serenazgo = new Usuario();
-        serenazgo.setId(Integer.parseInt(id));
+        serenazgo.setId(id);
         serenazgo.setNumtelefono(telefono);
         serenazgo.setDireccion(direccion);
         serenazgo.setTipo(tipo);

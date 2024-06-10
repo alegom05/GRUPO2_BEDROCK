@@ -14,7 +14,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="style-Admin.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/AdministradorJSPS/style-Admin.css" rel="stylesheet">
 
 </head>
 <body>
@@ -52,33 +52,22 @@
 
 
 <div class="container mt-4 table-responsive">
-    <table id="miTabla2" class="table table-borderless">
-        <thead>
-        <tr>
-            <th></th>
-            <th>Miembros</th>
-            <th style="width: 550px;"></th>
-            <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Filtrar por:</td>
-            <td>
-                <select id="filtroMiembro" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
-                    <option value="">Mostrar Todos</option>
-                    <option value="Vecino">Vecino</option>
-                    <option value="Coordinadora">Coordinadora</option>
-                </select>
-            </td>
-            <td>
-            </td>
-            <td>
-                <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="filter-container">
+        <div class="filter-left">
+            <br>
+        </div>
+        <div class="filter-center">
+            <label for="filtroMiembro">Filtrar por:</label>
+            <select id="filtroMiembro" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;">
+                <option value="">Mostrar Todos</option>
+                <option value="Vecino">Vecino</option>
+                <option value="Coordinadora">Coordinadora</option>
+            </select>
+        </div>
+        <div class="filter-right">
+            <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
+        </div>
+    </div>
     <br>
     <table id="miTabla" class="display">
         <thead class="cabecera-tabla">
@@ -350,6 +339,10 @@
                     },
                     "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas",
                     "infoFiltered": "(filtrado de _MAX_ entradas totales)"
+                },
+                "initComplete": function(settings, json) {
+                    // Move the search bar
+                    $('#miTabla_filter').appendTo('.filter-left');
                 }
 
             });
