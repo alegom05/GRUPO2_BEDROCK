@@ -404,3 +404,6 @@ div.dataTables_wrapper div.dataTables_filter {
     flex: 1;
     text-align: right;
 }
+.dataTables_filter {
+    display: none;
+}

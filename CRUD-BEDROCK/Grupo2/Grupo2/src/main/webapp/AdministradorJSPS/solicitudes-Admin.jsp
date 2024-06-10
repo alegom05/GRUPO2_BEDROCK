@@ -54,7 +54,8 @@
 <div class="container mt-4 table-responsive">
     <div class="filter-container">
         <div class="filter-left">
-            <br>
+            <label>Buscar:</label>
+            <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;">
         </div>
         <div class="filter-center">
             <label for="filtroMiembro">Filtrar por:</label>
@@ -330,7 +331,6 @@
                     "emptyTable": "No hay registros disponibles",
                     "zeroRecords": "No se encontraron registros coincidentes",
                     "infoEmpty": "Mostrando 0 a 0 de 0 entradas",
-                    "search": "Buscar:",
                     "paginate": {
                         "first": "Primero",
                         "last": "Último",
@@ -340,10 +340,6 @@
                     "info": "Mostrando de _START_ a _END_ de _TOTAL_ entradas",
                     "infoFiltered": "(filtrado de _MAX_ entradas totales)"
                 },
-                "initComplete": function(settings, json) {
-                    // Move the search bar
-                    $('#miTabla_filter').appendTo('.filter-left');
-                }
 
             });
             $('.dataTables_filter input').css('margin-bottom', '20px');
@@ -360,6 +356,9 @@
             $('#limpiarFiltros').on('click', function() {
                 $('#filtroMiembro').val('');
                 table.search('').columns().search('').draw();
+            });
+            $('#customSearch').on('keyup', function() {
+                table.search(this.value).draw();
             });
         });
     </script>

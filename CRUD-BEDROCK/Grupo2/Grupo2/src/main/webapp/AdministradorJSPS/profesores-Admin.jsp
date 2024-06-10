@@ -56,41 +56,34 @@
 
 
     <div class="container mt-4 table-responsive">
-        <table id="miTabla2" class="table-responsive">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Curso</th>
-                <th style="width: 550px;"></th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>Filtrar por:</td>
-                <td>
-                    <select id="filtroCurso" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
-                        <option value="">Mostrar Todos</option>
-                        <option value="Yoga para adultos mayores, embarazadas y jóvenes">Yoga para adultos mayores, embarazadas y jóvenes</option>
-                        <option value="Competencia de fútbol">Competencia de fútbol</option>
-                        <option value="Competencia de vóley">Competencia de vóley</option>
-                        <option value="Competencia de Atletismo">Competencia de Atletismo</option>
-                        <option value="Carrera de tres pies">Carrera de tres pies</option>
-                        <option value="Festival de juegos familiares">Festival de juegos familiares</option>
-                        <option value="Juegos deportivos para los niños">Juegos deportivos para los niños</option>
-                    </select>
-                </td>
-                <td>
-                </td>
-                <td>
-                    <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
         <button onclick="nuevoProfesor()" type="button" class="btn btn-outline-info custom-btn">Agregar Profesor</button>
-    </div>
+        <br>
+        <br>
+        <div class="filter-container">
+            <div class="filter-left">
+                <label>Buscar:</label>
+                <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;">
+            </div>
+            <div class="filter-center">
+                <label>Filtrar por:</label>
+                <select id="filtroCurso" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
+                    <option value="">Mostrar Todos</option>
+                    <option value="Yoga para adultos mayores, embarazadas y jóvenes">Yoga para adultos mayores, embarazadas y jóvenes</option>
+                    <option value="Competencia de fútbol">Competencia de fútbol</option>
+                    <option value="Competencia de vóley">Competencia de vóley</option>
+                    <option value="Competencia de Atletismo">Competencia de Atletismo</option>
+                    <option value="Carrera de tres pies">Carrera de tres pies</option>
+                    <option value="Festival de juegos familiares">Festival de juegos familiares</option>
+                    <option value="Juegos deportivos para los niños">Juegos deportivos para los niños</option>
+                </select>
+
+            </div>
+            <div class="filter-right">
+                <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
+            </div>
+        </div>
+
+
 
     <div class="table-responsive">
         <table id="miTabla" class="display table-responsive">
@@ -178,6 +171,9 @@
             $('#limpiarFiltros').on('click', function() {
                 $('#filtroCurso').val('');
                 table.search('').columns().search('').draw();
+            });
+            $('#customSearch').on('keyup', function() {
+                table.search(this.value).draw();
             });
         });
     </script>

@@ -145,7 +145,7 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="contrasenia" class="form-label">Contraseña: (*)</label>
-                                <input type="password" class="form-control" id="contrasenia" value="<%=serenazgo.getContrasenia()%>" name="contrasenia" required>
+                                <input type="password" class="form-control" id="contrasenia" value="<%=serenazgo.getClave()%>" name="contrasenia" required>
                                 <div class="invalid-feedback">Por favor ingresar contraseña.</div>
                             </div>
                             <div class="mb-3">

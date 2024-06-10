@@ -56,11 +56,13 @@
 
 
 <div class="container mt-4 table-responsive">
-    <br>
     <button onclick="nuevoSerenazgo()" type="button" class="btn btn-outline-info custom-btn">Agregar Serenazgo</button>
+    <br>
+    <br>
     <div class="filter-container">
         <div class="filter-left">
-            <br>
+            <label>Buscar:</label>
+            <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;">
         </div>
         <div class="filter-center">
             <label>Filtrar por:</label>
@@ -179,6 +181,9 @@
             $('#limpiarFiltros').on('click', function() {
                 $('#filtroTipo, #filtroTurno').val('');
                 table.search('').columns().search('').draw();
+            });
+            $('#customSearch').on('keyup', function() {
+                table.search(this.value).draw();
             });
         });
     </script>
