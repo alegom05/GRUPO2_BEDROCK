@@ -57,7 +57,7 @@
         </nav>             
     </div>
 
-	<div class="mt-4" style="height: 100vh; margin: 0;">
+	<div class="mt-4" style="height: 100vh; margin: 0;"><%--Revisar--%>
 		<!-- Contenido con imagen centrada -->
         <h2 style="text-align: center;">Vecinos Sanmiguelinos</h2>
         <div class="container mt-4">
@@ -79,8 +79,6 @@
                         <th>DNI</th>
                         <th>Nombres y apellidos</th>
                         <th>Correo electronico</th>
-                        
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +94,6 @@
                     <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>--%>
                 </tr>
                 <% } %>
-                </tbody>
                 </tbody>
             </table>
 	    </div>
@@ -221,5 +218,6 @@
             }
         });
     </script>
+    </div>
 </body>
 </html>

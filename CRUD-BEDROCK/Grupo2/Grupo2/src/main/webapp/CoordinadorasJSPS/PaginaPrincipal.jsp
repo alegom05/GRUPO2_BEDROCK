@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
                 <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
-                <a href="./Coordinadoras/logIN.jsp">
+                <a href="./CoordinadorasJSPS/logIN.jsp">
                     <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>
@@ -210,5 +210,6 @@
             });
         });
     </script>
+    </div>
 </body>
 </html>

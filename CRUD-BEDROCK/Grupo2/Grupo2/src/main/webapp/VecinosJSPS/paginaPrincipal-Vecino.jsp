@@ -43,16 +43,16 @@
                 <a href="paginaEventos-Vecino.jsp" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
+                <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+                <a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
+                <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
             </li>
         </ul>
     </nav>

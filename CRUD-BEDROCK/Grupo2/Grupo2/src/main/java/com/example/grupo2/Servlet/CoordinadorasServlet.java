@@ -1,7 +1,9 @@
 package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.Incidencia;
+import com.example.grupo2.Beans.Usuario;
 import com.example.grupo2.daos.IncidenciaDao;
+import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,23 +14,22 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "IncidenciaServlet2",value = {"/IncidenciaServlet2","/Incidencias2"})
-public class IncidenciaServlet2 extends HttpServlet {
+@WebServlet(name = "CoordinadorasServlet",value = {"/CoordinadorasServlet","/Coordinadoras"})
+public class CoordinadorasServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
-        IncidenciaDao incidenciaDao = new IncidenciaDao();
+        UsuarioDao usuarioDao = new UsuarioDao();
         RequestDispatcher view;
 
         switch (action) {
             case "lista":
-                ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidencias();
+                ArrayList<Usuario> listaUsuarios = usuarioDao.listarUsuarios();
+                request.setAttribute("lista", listaUsuarios);
 
-                request.setAttribute("lista", listaIncidencias);
-
-                view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                view = request.getRequestDispatcher("./CoordinadorasJSPS/VecinoSanmi.jsp");
                 view.forward(request, response);
                 break;
             /*case "detallar":

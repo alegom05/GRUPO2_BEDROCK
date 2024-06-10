@@ -11,7 +11,8 @@
 <a href="hello-servlet">Hello Servlet</a>
 
 <p><a href=./AdministradorJSPS/paginaPrincipal-Admin.jsp>Administrador</a>
+<p><a href=./VecinosJSPS/paginaPrincipal-Vecino.jsp>Vecinos</a>
 <p><a href=./SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp>Serenazgo</a>
-<p><a href=./Coordinadoras/PaginaPrincipal.jsp>Coordinadoras</a>
+<p><a href=./CoordinadorasJSPS/PaginaPrincipal.jsp>Coordinadoras</a>
 </body>
 </html>
