@@ -63,7 +63,7 @@ public class IncidenciaDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto " +
+        String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto, i.fecha " +
                 "from incidencia i " +
                 "join usuario u on u.idUsuario = i.idUsuario " +
                 "join tipo t on i.idtipo = t.idtipo " +
@@ -86,6 +86,7 @@ public class IncidenciaDao {
                     incidencia.setRequiereAmbulancia(rs.getBoolean(8));
                     incidencia.setUsuario(rs.getString(9));
                     incidencia.setFotoIncidencia(rs.getBytes(10));
+                    incidencia.setFecha(rs.getDate(11));
                 }
             }
         } catch (SQLException e) {

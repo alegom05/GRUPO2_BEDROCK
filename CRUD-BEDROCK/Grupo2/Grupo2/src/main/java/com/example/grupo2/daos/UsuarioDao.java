@@ -22,9 +22,9 @@ public class UsuarioDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select u.idUsuario; concat(u.nombre, ' ', u.apellido) as NombreCompleto, u.dni , u.telefono, u.correo, u.clave, u.direccion, u.urbanizacion, u.turnoSerenazgo, u.tipo, u.idRoles, u.horaInicio, u.horaFin, u.fecha_nacimiento\n" +
+        String sql = "select u.idUsuario, concat(u.nombre, ' ', u.apellido) as NombreCompleto, u.dni , u.telefono, u.correo, u.clave, u.direccion, u.urbanizacion, u.turnoSerenazgo, u.tipo, u.idRoles, u.horaInicio, u.horaFin, u.fecha_nacimiento\n" +
                 "from usuario u\n" +
-                "join roles r on u.idRoles = i.idRoles\n" +
+                "join roles r on u.idRoles = r.idRoles\n" +
                 "join incidencia i on u.idUsuario = i.idUsuario;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);

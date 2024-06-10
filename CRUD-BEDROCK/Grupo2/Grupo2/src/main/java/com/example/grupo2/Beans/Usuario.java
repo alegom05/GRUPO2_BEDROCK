@@ -5,6 +5,7 @@ public class Usuario {
     private int id;
     private String nombre;
     private String apellido;
+    private String nombreCompleto;
     private String dni;
     private String correo;
     private String fecha_nacimiento;
@@ -41,6 +42,14 @@ public class Usuario {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
     public String getDni() {

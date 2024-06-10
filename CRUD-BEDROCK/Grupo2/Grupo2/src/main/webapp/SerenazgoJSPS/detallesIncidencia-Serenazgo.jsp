@@ -41,7 +41,7 @@
                 <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/IncidenciaServlet" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/IncidenciaServlet2" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
@@ -121,9 +121,9 @@
 
     <a href="evaluarIncidencias-Serenazgo.jsp" type="button" class="btn gradient-custom-3" id="btnRedireccional">Evaluar incidencia</a>
 
-    <a href="IncidenciaServlet" type="button" class="btn gradient-custom-3" id="btnRedireccional">Falsa Alarma</a>
+    <a href="IncidenciaServlet2" type="button" class="btn gradient-custom-3" id="btnRedireccional">Falsa Alarma</a>
 
-    <a href="IncidenciaServlet" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
+    <a href="IncidenciaServlet2" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
 
 </div>
 

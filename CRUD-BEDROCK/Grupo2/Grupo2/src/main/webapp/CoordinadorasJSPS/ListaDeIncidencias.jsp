@@ -84,16 +84,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <% for (Incidencia incidencia : listaIncidencias) {%>
+                <% if (listaIncidencias != null) { %>
+                    <% for (Incidencia incidencia : listaIncidencias) {%>
+                    <tr>
+                        <td><%=incidencia.getTipoIncidencia()%> </td>
+                        <td><%=incidencia.getNombreIncidencia()%></td>
+                        <td><%=incidencia.getFecha()%></td>
+                        <td><%=incidencia.getLugar()%></td>
+                        <%--<td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
+                            <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
+                        </button> </td>
+                        <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>--%>
+                    </tr>
+                    <% } %>
+                <% } else { %>
                 <tr>
-                    <td><%=incidencia.getTipoIncidencia()%> </td>
-                    <td><%=incidencia.getNombreIncidencia()%></td>
-                    <td><%=incidencia.getFecha()%></td>
-                    <td><%=incidencia.getLugar()%></td>
-                    <%--<td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
-                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
-                    </button> </td>
-                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>--%>
+                    <td colspan="2">No hay incidencias disponibles.</td>
                 </tr>
                 <% } %>
                 </tbody>
