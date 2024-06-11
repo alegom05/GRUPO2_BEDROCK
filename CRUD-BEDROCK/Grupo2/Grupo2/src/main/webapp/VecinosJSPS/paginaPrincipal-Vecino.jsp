@@ -1,11 +1,6 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: doria
-  Date: 29/05/2024
-  Time: 16:23
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +23,7 @@
             <a href="DetallesUsuario.html">
                 <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
+            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="../logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
@@ -46,7 +41,7 @@
                 <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet3" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
                 <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
