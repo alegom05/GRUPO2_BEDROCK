@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: doria
-  Date: 29/05/2024
-  Time: 17:26
-  To change this template use File | Settings | File Templates.
---%>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="en">
 <head>
@@ -24,7 +18,7 @@
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Administrador</h2>
-            <a href="login.html">
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
             </a>
         </div>
@@ -32,10 +26,10 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="paginaPrincipal-Admin.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/AdministradorJSPS/paginaPrincipal-Admin.jsp" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
+                <a href="${pageContext.request.contextPath}/AdministradorJSPS/solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Serenazgos" class="nav-link">Serenazgos</a>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juntos Por San Miguel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
 </head>
 <body>
     <div class="ParteSuperior">
@@ -18,7 +18,7 @@
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
                 <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
-                <a href="./CoordinadorasJSPS/logIN.jsp">
+                <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                     <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>

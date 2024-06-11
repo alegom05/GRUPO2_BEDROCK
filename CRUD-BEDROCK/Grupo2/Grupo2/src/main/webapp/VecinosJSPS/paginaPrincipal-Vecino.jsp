@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JuntosPorSanMiguel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style-Vecino.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/VecinosJSPS/style-Vecino.css" rel="stylesheet">
 </head>
 <body>
 <div class="ParteSuperior">
@@ -29,7 +29,7 @@
                 <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
-            <a href="logIN.html">
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="../logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
