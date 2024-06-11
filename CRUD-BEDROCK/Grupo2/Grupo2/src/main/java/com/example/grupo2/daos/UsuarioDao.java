@@ -22,10 +22,11 @@ public class UsuarioDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select u.idUsuario, concat(u.nombre, ' ', u.apellido) as NombreCompleto, u.dni , u.telefono, u.correo, u.clave, u.direccion, u.urbanizacion, u.turnoSerenazgo, u.tipo, u.idRoles, u.horaInicio, u.horaFin, u.fecha_nacimiento\n" +
+        String sql = "select u.idUsuario, concat(u.nombre, ' ', u.apellido) as NombreCompleto, u.dni , u.telefono, u.correo, u.clave, u.direccion, u.urbanizacion, u.turnoSerenazgo, u.tipo, r.nombre, u.horaInicio, u.horaFin, u.fecha_nacimiento\n" +
                 "from usuario u\n" +
                 "join roles r on u.idRoles = r.idRoles\n" +
-                "join incidencia i on u.idUsuario = i.idUsuario;";
+                "join incidencia i on u.idUsuario = i.idUsuario\n" +
+                "where u.idRoles='VE';";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -40,14 +41,13 @@ public class UsuarioDao {
                 usuario.setCorreo(rs.getString(5));
                 usuario.setClave(rs.getString(6));
                 usuario.setDireccion(rs.getString(7));
-                usuario.setTurnoSerenazgo(rs.getString(8));
-                usuario.setUrbanizacion(rs.getString(9));
-                usuario.setTurnoSerenazgo(rs.getString(10));
-                usuario.setTipo(rs.getString(11));
-                usuario.setRol(rs.getString(12));
-                usuario.setHoraInicio(rs.getTime(13));
+                usuario.setUrbanizacion(rs.getString(8));
+                usuario.setTurnoSerenazgo(rs.getString(9));
+                usuario.setTipo(rs.getString(10));
+                usuario.setRol(rs.getString(11));
+                usuario.setHoraInicio(rs.getTime(12));
                 usuario.setHoraFin(rs.getTime(13));
-                usuario.setFechaNacimiento(rs.getTime(13));
+                usuario.setFechaNacimiento(rs.getTime(14));
 
                 listaUsuarios.add(usuario);
             }

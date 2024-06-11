@@ -29,7 +29,7 @@ public class CoordinadorasServlet extends HttpServlet {
                 ArrayList<Usuario> listaUsuarios = usuarioDao.listarUsuarios();
                 request.setAttribute("lista", listaUsuarios);
 
-                view = request.getRequestDispatcher("./CoordinadorasJSPS/VecinoSanmi.jsp");
+                view = request.getRequestDispatcher("./CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request, response);
                 break;
             /*case "detallar":
