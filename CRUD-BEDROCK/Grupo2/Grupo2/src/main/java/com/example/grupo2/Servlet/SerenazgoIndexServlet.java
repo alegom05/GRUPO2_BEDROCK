@@ -15,7 +15,7 @@ public class SerenazgoIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher;
 
-        requestDispatcher = request.getRequestDispatcher("/SerenazgosJSPS/paginaPrincipal-Serenazgo.jsp");
+        requestDispatcher = request.getRequestDispatcher("/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp");
 
         requestDispatcher.forward(request,response);
     }
