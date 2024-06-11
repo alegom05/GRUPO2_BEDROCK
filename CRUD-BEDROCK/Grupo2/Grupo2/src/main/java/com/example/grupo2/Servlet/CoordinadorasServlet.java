@@ -21,15 +21,17 @@ public class CoordinadorasServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
-        UsuarioDao usuarioDao = new UsuarioDao();
+        IncidenciaDao incidenciaDao = new IncidenciaDao();
         RequestDispatcher view;
 
         switch (action) {
             case "lista":
-                ArrayList<Usuario> listaUsuarios = usuarioDao.listarUsuarios();
-                request.setAttribute("lista", listaUsuarios);
+                ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidencias();
+                request.setAttribute("lista", listaIncidencias);
 
-                view = request.getRequestDispatcher("./CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                System.out.println(listaIncidencias);
+
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request, response);
                 break;
             /*case "detallar":
