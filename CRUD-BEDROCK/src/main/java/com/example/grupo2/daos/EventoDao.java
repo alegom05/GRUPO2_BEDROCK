@@ -105,37 +105,35 @@ public class EventoDao {
         return evento;
     }
 
-    /*PENDIENTE
+
     public void crearEvento(String nombre, String descripcion, String lugar, String encargado, String vacantes, Date fechaInicio, Date fechaFin){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        String sql = "INSERT INTO `basededatos3`.`usuario` (`nombre`, `descripcion`, `lugar`, `encargado`, `telefono`, `direccion`, `tipo`, `turnoSerenazgo`, `correo`, `clave`, `idRoles`, `horaInicio`, `horaFin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'SE', '00:00:00', '00:00:01')";
+        String sql = "INSERT INTO `basededatos3`.`usuario` (`nombre`, `descripcion`, `lugar`, `encargado`, `vacantes`, `fechaInicio`, `fechaFin`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection = DriverManager.getConnection(url, user, pass);
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, nombre);
-            pstmt.setString(2, apellido);
-            pstmt.setString(3, dni);
-            pstmt.setString(4, fecha_nacimiento);
-            pstmt.setString(5, numtelefono);
-            pstmt.setString(6, direccion);
-            pstmt.setString(7, tipo);
-            pstmt.setString(8, TurnoSerenazgo);
-            pstmt.setString(9, correo);
-            pstmt.setString(10, contrasenia);
+            pstmt.setString(2, descripcion);
+            pstmt.setString(3, lugar);
+            pstmt.setString(4, encargado);
+            pstmt.setString(5, vacantes);
+            pstmt.setString(6, fechaInicio);
+            pstmt.setString(7, fechaFin);
             pstmt.executeUpdate();
             System.out.print("aqui estoy");
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }*/
+    }
 
-    /*public void borrarEvento(String id) {
+    /*PENDIENTE
+    public void borrarEvento(String id) {
         try {
             String user = "root";
             String pass = "root";
