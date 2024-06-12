@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex">
-                                <img src="./imagenes_eventos/deporte/evento1.jpg" alt="Imagen 2" class="img-fluid rounded">
+                                <img src="./CoordinadorasJSPS/imagenes_eventos/deporte/evento1.jpg" alt="Imagen 2" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>                    
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex">
-                                <img src="./imagenes_eventos/deporte/evento2.jpg" alt="Imagen 2" class="img-fluid rounded">
+                                <img src="./CoordinadorasJSPS/imagenes_eventos/deporte/evento2.jpg" alt="Imagen 2" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex">
-                                <img src="./imagenes_eventos/deporte/evento3.jpg" alt="Imagen 2" class="img-fluid rounded">
+                                <img src="./CoordinadorasJSPS/imagenes_eventos/deporte/evento3.jpg" alt="Imagen 2" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
             </div>
             <div class="contenedor mt-2 row align-items-center fondo_recuadros">
                 <div class="col-md-5 d-flex justify-content-center">
-                    <img src="./fotos_pag_princ/fotomunicipalidad.jpg" alt="Imagen" class="img-muni">
+                    <img src="./CoordinadorasJSPS/fotos_pag_princ/fotomunicipalidad.jpg" alt="Imagen" class="img-muni">
                 </div>
                 <div class="col-md-7">
                     <h3 class="custom-h3">¡Bienvenidos a la página oficial de la Municipalidad de San Miguel! Somos el equipo encargado de brindarte seguridad y bienestar en tu comunidad. Nuestro compromiso es velar por tu tranquilidad y la de tu familia, gestionando servicios y programas que mejoren la calidad de vida en nuestro distrito. ¡Contáctanos para conocer más sobre cómo trabajamos juntos por un San Miguel seguro y próspero para todos!</h3>
@@ -161,13 +161,13 @@
                 <div class="footer-section">
                     <h4>Siguenos en nuestras redes: </h4>
                     <a href="https://www.facebook.com/municipalidadsanmiguel/?locale=es_LA" target="_blank">
-                        <img  src="./logos/facebook.png" alt="Imagen 1" class="img-thumbnail">
+                        <img  src="./CoordinadorasJSPS/logos/facebook.png" alt="Imagen 1" class="img-thumbnail">
                     </a>
                     <a href="https://www.instagram.com/municipalidadsanmiguel/" target="_blank">
-                        <img  src="./logos/instagram.png" alt="Imagen 2" class="img-thumbnail">
+                        <img  src="./CoordinadorasJSPS/logos/instagram.png" alt="Imagen 2" class="img-thumbnail">
                     </a>
                     <a href="https://www.tiktok.com/@munisanmiguel" target="_blank">
-                        <img src="./logos/tiktok.png" alt="Imagen 3" class="img-thumbnail">
+                        <img src="./CoordinadorasJSPS/logos/tiktok.png" alt="Imagen 3" class="img-thumbnail">
                     </a>
                 </div>
             </div>

@@ -34,6 +34,7 @@ public class CoordinadorasServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request, response);
                 break;
+            
             /*case "detallar":
                 String id = request.getParameter("id");
                 if(incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id)) != null){
