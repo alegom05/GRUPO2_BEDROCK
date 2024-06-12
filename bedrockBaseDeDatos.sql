@@ -197,18 +197,18 @@ INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('VE', 'Vecino')
 
 -- Datos de usuario
 INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
-('Ana', 'Pérez Fernández', '12345678', '912345678', 'aperez@gmail.com', '123456', 'Calle 123', 'Urbanización ABC', NULL, NULL, 'AD', '08:00:00', '16:00:00', '1987-11-15'),
-('Beto', 'García Fernández', '23456789', '923456789', 'bgarcia@gmail.com', '123456', 'Av. Principal', 'Urbanización XYZ', NULL, 'Cultura', 'CO', '20:00:00', '04:00:00', '1990-02-22'),
+('Christopher', 'Terrones Peña', '12345678', '912345678', 'cterrones@gmail.com', '123456', 'Calle 123', 'Urbanización ABC', NULL, NULL, 'AD', '08:00:00', '16:00:00', '1987-11-15'),
+('Nikol', 'Montes Esteban', '23456789', '923456789', 'nmontes@gmail.com', '123456', 'Av. Principal', 'Urbanización XYZ', NULL, 'Cultura', 'CO', '20:00:00', '04:00:00', '1990-02-22'),
 ('Carlos', 'Rodríguez Martínez', '34567890', '934567890', 'crodriguez@gmail.com', '123456', 'Calle 456', 'Urbanización DEF', NULL, 'Deporte', 'CO', '08:00:00', '16:00:00', '1993-03-18'),
 ('Diana', 'Martínez López', '45678901', '945678901', 'dmartinez@gmail.com', '123456', 'Av. Secundaria', 'Urbanización GHI', NULL, 'Deporte', 'CO', '20:00:00', '04:00:00', '1991-05-09'),
 ('Elena', 'Hernández Gómez', '56789012', '956789012', 'ehernandez@gmail.com', '123456', 'Calle 789', 'Urbanización JKL', NULL, 'Cultura', 'CO', '08:00:00', '16:00:00', '1992-07-22'),
-('Fernando', 'López Fernández', '67890123', '967890123', 'flopez@gmail.com', '123456', 'Av. Alternativa', NULL, 'Noche', 'A pie', 'SE', '20:00:00', '04:00:00', '1988-10-30'),
+('Dorian', 'Felix Naula', '67890123', '967890123', 'dfelix@gmail.com', '123456', 'Av. Alternativa', NULL, 'Noche', 'A pie', 'SE', '20:00:00', '04:00:00', '1988-10-30'),
 ('Gabriela', 'Gómez Díaz', '78901234', '978901234', 'ggomez@gmail.com', '123456', 'Calle 111', NULL, 'Mañana', 'A pie', 'SE', '08:00:00', '16:00:00', '1989-12-14'),
 ('Hugo', 'Díaz Fernández', '89012345', '989012345', 'hdiaz@gmail.com', '123456', 'Av. Principal', NULL, 'Noche', 'En bicicleta', 'SE', '20:00:00', '04:00:00', '1995-06-19'),
 ('Isabel', 'Fernández Martínez', '90123456', '990123456', 'ifernandez@gmail.com', '123456', 'Calle 222', NULL, 'Mañana', 'Con canino', 'SE', '08:00:00', '16:00:00', '1994-08-24'),
 ('Javier', 'Mendoza García', '01234567', '901234567', 'jmendoza@gmail.com', '123456', 'Av. Secundaria', NULL, 'Noche', 'En bicicleta', 'SE', '20:00:00', '04:00:00', '1993-01-17'),
 ('Karina', 'Pérez Díaz', '23487405', '923487405', 'kperez@gmail.com', '123456', 'Calle 333', 'Urbanización BCD', NULL, NULL, 'VE', '08:00:00', '16:00:00', '1987-11-11'),
-('Luis', 'García Fernández', '45786934', '945786934', 'lgarcia@gmail.com', '123456', 'Av. Alternativa', 'Urbanización EFG', NULL, NULL, 'VE', '20:00:00', '04:00:00', '1990-03-29'),
+('Fabricio', 'Estrada Castillo', '45786934', '945786934', 'festrada@gmail.com', '123456', 'Av. Alternativa', 'Urbanización EFG', NULL, NULL, 'VE', '20:00:00', '04:00:00', '1990-03-29'),
 ('María', 'Cruz Martínez', '27845674', '927845674', 'mcruz@gmail.com', '123456', 'Calle 444', 'Urbanización HIJ', NULL, NULL, 'VE', '08:00:00', '16:00:00', '1988-05-06'),
 ('Natalia', 'Martínez López', '36458976', '936458976', 'nmartinez@gmail.com', '123456', 'Av. Principal', 'Urbanización KLM', NULL, NULL, 'VE', '20:00:00', '04:00:00', '1991-04-25'),
 ('Oscar', 'Hernández Gómez', '39084657', '939084657', 'ohernandez@gmail.com', '123456', 'Calle 555', 'Urbanización NOP', NULL, NULL, 'VE', '08:00:00', '16:00:00', '1992-08-14'),
@@ -280,8 +280,15 @@ VALUES
 ('Ebriedad', 'Conductor ebrio', 'Av. La Marina 357, San Miguel, Lima', 'Cerca de la escuela', '2024-04-02', '912345678', 1, 12, 'Alto', 'Comisaría', 'Vehiculo', 'Conductor arrestado', NULL, 'Policía en camino', 'En proceso', 'RO', NULL, 0),
 ('Pelea', 'Pelea reportada', 'Jr. Puno 456, San Miguel, Lima', 'Cerca del parque', '2024-04-04', '923456789', 0, 14, 'Medio', 'Comisaría', 'A pie', 'Participantes separados', NULL, 'Policía en camino', 'En proceso', 'RO', NULL, 0),
 ('Persona con arma', 'Persona con arma', 'Av. Brasil 789, San Miguel, Lima', 'Frente al mercado', '2024-04-06', '934567890', 0, 16, 'Alto', 'Comisaría', 'Vehiculo', 'Arma confiscada', NULL, 'Policía en camino', 'En proceso', 'RO', NULL, 0),
-('Incendio', 'Incendio en edificio comercial', 'Calle Sucre 951, San Miguel, Lima', 'Cerca del banco', '2024-04-08', '945678901', 1, 15, 'Alto', 'Bomberos', 'Vehiculo', 'Incendio bajo control', NULL, 'Bomberos en camino', 'En proceso', 'AC', NULL, 0);
-
+('Incendio', 'Incendio en edificio comercial', 'Calle Sucre 951, San Miguel, Lima', 'Cerca del banco', '2024-04-08', '945678901', 1, 15, 'Alto', 'Bomberos', 'Vehiculo', 'Incendio bajo control', NULL, 'Bomberos en camino', 'En proceso', 'AC', NULL, 0),
+('Ascensor', 'Persona atrapada en un ascensor en la Calle 12', 'Calle 12, San Miguel-Lima', 'Referencia 12, San Miguel-Lima', '2024-05-01', '923456789', 0, 12, 'Alto', 'Ambulancia', 'Vehiculo', 'Se está enviando un equipo de rescate para liberar a la persona', NULL, 'Policía en camino', 'Nueva', 'OT', NULL, 0),
+('Ruido', 'Denuncia de ruido excesivo en una fiesta en la Calle 13', 'Calle 13, San Miguel-Lima', 'Referencia 13, San Miguel-Lima', '934523890', '2024-05-02', 1, 13, 'Bajo', 'Bomberos', 'A pie', 'Se llegó a un acuerdo con los organizadores y se disolvió la fiesta', NULL, 'Bomberos en camino', 'Nueva', 'AL', NULL, 0),
+('Robo', 'Reporte de robo en la esquina de Calle 1 y Avenida Principal', 'Calle 1, San Miguel-Lima', 'Referencia 1, San Miguel-Lima', '912115678', '2024-05-03', 1, 1, 'Bajo', 'Bomberos', 'A pie', 'Se envió una patrulla al lugar', NULL, 'Bomberos en camino', 'Nueva', 'RO', NULL, 0),
+('Choque', 'Choque de vehículos en la intersección de Calle 2 y Avenida Secundaria', 'Calle 2, San Miguel-Lima', 'Referencia 2, San Miguel-Lima', '923456789', '2024-05-04', 1, 2, 'Medio', 'Comisaría', 'bicicleta', 'Se envió una ambulancia y se está desviando el tráfico', NULL, 'Ambulancia en camino', 'Nueva', 'AC', NULL, 0),
+('Incendio', 'Incendio en un edificio de departamentos en la Calle 3', 'Calle 3, San Miguel-Lima', 'Referencia 3, San Miguel-Lima', '934567890', '2024-05-05', 1, 3, 'Alto', 'Ambulancia', 'canino', 'Se evacuaron los residentes y se está controlando el fuego', NULL, 'Policía en camino', 'Nueva', 'OT', NULL, 0),
+('Inundación', 'Inundación en la Calle 4 debido a lluvias intensas', 'Calle 4, San Miguel-Lima', 'Referencia 4, San Miguel-Lima', '911234567', '2024-05-06', 1, 4, 'Medio', 'Bomberos', 'Vehiculo', 'Se está evacuando a las personas afectadas y controlando el agua', NULL, 'Bomberos en camino', 'Nueva', 'AC', NULL, 0),
+('Accidente de Tráfico', 'Accidente de tráfico en la Calle 5 con Avenida Central', 'Calle 5, San Miguel-Lima', 'Referencia 5, San Miguel-Lima', '922345678', '2024-05-07', 0, 5, 'Alto', 'Policía', 'A pie', 'Se está desviando el tráfico y atendiendo a los heridos', NULL, 'Policía en camino', 'Falsa alarma', 'AC', NULL, 0),
+('Desalojo', 'Desalojo de un edificio en la Calle 6 por riesgo estructural', 'Calle 6, San Miguel-Lima', 'Referencia 6, San Miguel-Lima', '933456789', '2024-05-08', 1, 6, 'Bajo', 'Comisaría', 'A pie', 'Se está evacuando el edificio y asegurando la zona', NULL, 'Comisaría en camino', 'Falsa alarma', 'OT', NULL, 0);
 
 -- Eventos
 ALTER TABLE evento AUTO_INCREMENT = 2001;
