@@ -5,6 +5,10 @@
 
 <%
     Incidencia incidencia = (Incidencia) request.getAttribute("incidencia");
+    boolean mostrarEvaluar = (Boolean) request.getAttribute("mostrarEvaluar");
+    boolean mostrarVerEvaluacion = (Boolean) request.getAttribute("mostrarVerEvaluacion");
+    boolean mostrarFalsaAlarma = (Boolean) request.getAttribute("mostrarFalsaAlarma");
+    boolean mostrarCerrar = (Boolean) request.getAttribute("mostrarCerrar");
 %>
 
 
@@ -16,7 +20,7 @@
     <title>Detalles incidencia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-    <link href="style-Serenazgo.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/SerenazgoJSPS/style-Serenazgo.css" rel="stylesheet">
 </head>
 <body>
 <div class="ParteSuperior">
@@ -35,20 +39,23 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/IncidenciaServlet2" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
 </div>
 
 <div class="container">
-    <h4 class="labelFormulario">Detalles de nueva incidencia</h4>
+    <h4 class="labelFormulario">Detalles de incidencia (Estado: <%=incidencia.getEstadoIncidencia()%>) (Fecha de reporte: <%=incidencia.getFechaIncidencia()%>)</h4>
     <form class="row align-items-start">
         <div class="col">
             <fieldset disabled>
@@ -72,10 +79,6 @@
 
 
 
-
-
-
-
                 </div>
             </fieldset>
 
@@ -89,13 +92,13 @@
 
                 <label for="disabledTextInput" class="form-label">Requiere Ambulancia</label>
 
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="inlineRadio1" value="option1" disabled checked>
-                    <label class="form-check-label" for="inlineRadio1">Si</label>
-                </div>
 
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" id="inlineRadio2" value="option2" disabled>
+                    <input class="form-check-input" type="radio" id="inlineRadio1" value="option1" <%= incidencia.isRequiereAmbulancia() ? "checked" : "" %> disabled>
+                    <label class="form-check-label" for="inlineRadio1">Si</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" id="inlineRadio2" value="option2" <%= incidencia.isRequiereAmbulancia() ? "" : "checked" %> disabled>
                     <label class="form-check-label" for="inlineRadio2">No</label>
                 </div>
 
@@ -119,16 +122,162 @@
 
     <button type="button" class="btn gradient-custom-3" id="btnRedireccional">Exportar</button>
 
-    <a href="evaluarIncidencias-Serenazgo.jsp" type="button" class="btn gradient-custom-3" id="btnRedireccional">Evaluar incidencia</a>
+    <% if (mostrarEvaluar) { %>
+    <!--<a href="${pageContext.request.contextPath}/SerenazgoJSPS/evaluarIncidencias-Serenazgo.jsp" type="button" class="btn gradient-custom-3" id="btnRedireccional">Evaluar incidencia</a>-->
+    <buttom type="button" class="btn gradient-custom-3" data-bs-toggle="modal" data-bs-target="#evaluacionIncidencia" id="btnRedireccional">Evaluar incidencia</buttom>
+    <% } %>
 
-    <a href="IncidenciaServlet2" type="button" class="btn gradient-custom-3" id="btnRedireccional">Falsa Alarma</a>
+    <% if (mostrarVerEvaluacion) { %>
+    <a href="${pageContext.request.contextPath}/SerenazgoJSPS/evaluarIncidencias-Serenazgo.jsp  " type="button" class="btn gradient-custom-3" id="btnRedireccional">Ver evaluación</a>
+    <% } %>
 
-    <a href="IncidenciaServlet2" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
+    <!--Modal para evaluar incidencia o ver la evaluación-->
+    <div class="modal fade modal-dialog modal-lg" id="evaluacionIncidencia" tabindex="-1" aria-labelledby="evaluacionIncidencia" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="evaluacionIncidencia">Evaluación de incidencia</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row align-items-start mb-3" style="text-align: left">
+
+                        <div class="mb-3">
+
+                            <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label" >Criticidad:</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option selected>Seleccione la criticidad</option>
+                                <option value="1">Bajo</option>
+                                <option value="2">Medio</option>
+                                <option value="3">Alto</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="enabledTextInput" class="form-label" >Se necesita:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1">Bomberos</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                <label class="form-check-label" for="inlineCheckbox2">Comisaría</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                                <label class="form-check-label" for="inlineCheckbox3">Ambulancia</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="enabledTextInput" class="form-label" >Personal de serenazgo de refuerzo:</label>
+                            <select  class="form-select" aria-label="Default select example">
+                                <option selected>Seleccione el personal de refuerzo</option>
+                                <option value="1">A pie</option>
+                                <option value="2">Bicicleta</option>
+                                <option value="3">Canino</option>
+                                <option value="3">Vehículo</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="enabledTextInput" class="form-label" >Descripción de solución:</label>
+                            <textarea class="form-control" placeholder="Máximo 130 caracteres" id="floatingTextarea2" style="height: 100px"></textarea>
+                        </div>
+
+                        <!--
+                        <div class="mb-3">
+                            <label for="enabledTextInput" class="form-label" >Estado de personal::</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                <label class="form-check-label" for="inlineCheckbox1">Bomberos en camino</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                <label class="form-check-label" for="inlineCheckbox2">Ambulancia en camino </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                                <label class="form-check-label" for="inlineCheckbox3">Policía en camino</label>
+                            </div>
+                        </div> -->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn gradient-custom-3">Guardar</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <%-- Botón "Cerrar incidencia" --%>
+    <% if (mostrarCerrar) {%>
+    <button type="button" class="btn gradient-custom-3" data-bs-toggle="modal" data-bs-target="#cerrarIncidencia" id="btnRedireccional"> Cerrar incidencia </button>
+    <% } %>
+
+    <!-- Modal para cerrar incidencia -->
+    <div class="modal fade" id="cerrarIncidencia" tabindex="-1" aria-labelledby="cerrarIncidencia" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="cerrarIncidencia">Cerrar incidencia</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de cerrar esta incidencia?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form method="POST" action="<%= request.getContextPath() %>/IncidenciaServlet?action=incidenciaCerrada">
+                        <div>
+                            <input type="hidden" name="idIncidencia" value="<%=incidencia.getIdIncidencia()%>">
+                        </div>
+                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%-- Botón "Falsa alarma" --%>
+    <% if (mostrarFalsaAlarma) { %>
+    <button type="button" class="btn gradient-custom-3" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnRedireccional"> Falsa alarma </button>
+    <% } %>
+
+    <!-- Modal para convertir a Falasa alarma -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Falsa alarma</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro de convertir esta incidencia a falsa alarma?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form method="POST" action="<%= request.getContextPath() %>/IncidenciaServlet?action=falsaAlarma">
+                        <div>
+                            <input type="hidden" name="idIncidencia" value="<%=incidencia.getIdIncidencia()%>">
+                        </div>
+                        <button type="submit" class="btn btn-danger">Confirmar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a href="IncidenciaServlet" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
 
 </div>
 
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 </html>

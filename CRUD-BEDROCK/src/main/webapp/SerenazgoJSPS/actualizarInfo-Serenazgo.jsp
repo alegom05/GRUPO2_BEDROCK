@@ -37,6 +37,9 @@
                 <a href="paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
+            </li>
+            <li class="nav-item">
                 <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">

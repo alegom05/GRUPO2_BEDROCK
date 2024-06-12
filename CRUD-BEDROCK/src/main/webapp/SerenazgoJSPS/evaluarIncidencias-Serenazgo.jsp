@@ -21,19 +21,14 @@
     <form class="row align-items-start mb-3">
 
         <div class="mb-3">
+
             <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label">Criticidad:</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio1" value="option1">
-                <label class="form-check-label" for="inlineRadio1">Bajo</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">Medio</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions1" id="inlineRadio3" value="option3">
-                <label class="form-check-label" for="inlineRadio3">Alto</label>
-            </div>
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Seleccione la criticidad</option>
+                <option value="1">Bajo</option>
+                <option value="2">Medio</option>
+                <option value="3">Alto</option>
+            </select>
         </div>
 
         <div class="mb-3">
@@ -54,22 +49,13 @@
 
         <div class="mb-3">
             <label for="enabledTextInput" class="form-label">Personal de serenazgo de refuerzo:</label>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="option1">
-                <label class="form-check-label" for="inlineRadio1">A pie</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="option2">
-                <label class="form-check-label" for="inlineRadio2">Bicicleta</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio3" value="option3">
-                <label class="form-check-label" for="inlineRadio3">Canino</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio4" value="option4">
-                <label class="form-check-label" for="inlineRadio3">Vehículo</label>
-            </div>
+            <select  class="form-select" aria-label="Default select example">
+                <option selected>Seleccione el personal de refuerzo</option>
+                <option value="1">A pie</option>
+                <option value="2">Bicicleta</option>
+                <option value="3">Canino</option>
+                <option value="3">Vehículo</option>
+            </select>
         </div>
 
         <div class="mb-3">
@@ -100,9 +86,9 @@
 
     <div class="botonesGroup">
 
-        <a href="IncidenciaServlet" type="button" class="btn gradient-custom-3" id="btnRedireccional">Guardar</a>
+        <a href="${pageContext.request.contextPath}/IncidenciaServlet" type="button" class="btn gradient-custom-3" id="btnRedireccional">Guardar</a>
 
-        <a href="IncidenciaServlet" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
+        <a href="${pageContext.request.contextPath}/IncidenciaServlet" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
 
 
     </div>

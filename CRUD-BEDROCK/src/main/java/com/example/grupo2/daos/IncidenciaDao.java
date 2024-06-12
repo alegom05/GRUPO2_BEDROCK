@@ -22,10 +22,11 @@ public class IncidenciaDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select i.idIncidenciaReportada, i.nombre , t.nombre as tipoIncidencia, i.estadoIncidencia ,concat(u.nombre,' ',u.apellido) , u.correo, i.fecha, i.lugar\n" +
-                "from incidencia i\n" +
-                "join usuario u on u.idUsuario=i.idUsuario\n" +
-                "join tipo t on i.idtipo = t.idtipo;";
+        String sql = "select i.idIncidenciaReportada, i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%Y-%m-%d %H:%i') AS fecha_formateada, i.estadoIncidencia ,concat(u.nombre,' ',u.apellido) as vecino, u.correo\n" +
+                "                from incidencia i\n" +
+                "                join usuario u on u.idUsuario=i.idUsuario\n" +
+                "                join tipo t on i.idtipo = t.idtipo\n" +
+                "                where i.isDeleted = 0;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -36,12 +37,10 @@ public class IncidenciaDao {
                 incidencia.setIdIncidencia(rs.getInt(1));
                 incidencia.setNombreIncidencia(rs.getString(2));
                 incidencia.setTipoIncidencia(rs.getString(3));
-                incidencia.setEstadoIncidencia(rs.getString(4));
-                incidencia.setNombreUsuario(rs.getString(5));
-                incidencia.setCorreoUsuario(rs.getString(6));
-                incidencia.setFecha(rs.getDate(7));
-                incidencia.setLugar(rs.getString(8));
-
+                incidencia.setFechaIncidencia(rs.getString(4));
+                incidencia.setEstadoIncidencia(rs.getString(5));
+                incidencia.setNombreUsuario(rs.getString(6));
+                incidencia.setCorreoUsuario(rs.getString(7));
 
                 listaIncidencias.add(incidencia);
             }
@@ -64,11 +63,11 @@ public class IncidenciaDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto, i.fecha " +
-                "from incidencia i " +
-                "join usuario u on u.idUsuario = i.idUsuario " +
-                "join tipo t on i.idtipo = t.idtipo " +
-                "where i.idIncidenciaReportada = ?";
+        String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto, i.estadoIncidencia,DATE_FORMAT(i.fecha, '%Y-%m-%d %H:%i') AS fecha_formateada \n" +
+                "                from incidencia i \n" +
+                "                join usuario u on u.idUsuario = i.idUsuario \n" +
+                "                join tipo t on i.idtipo = t.idtipo \n" +
+                "                where i.idIncidenciaReportada = ?;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -87,7 +86,8 @@ public class IncidenciaDao {
                     incidencia.setRequiereAmbulancia(rs.getBoolean(8));
                     incidencia.setUsuario(rs.getString(9));
                     incidencia.setFotoIncidencia(rs.getBytes(10));
-                    incidencia.setFecha(rs.getDate(11));
+                    incidencia.setEstadoIncidencia(rs.getString(11));
+                    incidencia.setFechaIncidencia(rs.getString(12));
                 }
             }
         } catch (SQLException e) {
@@ -117,6 +117,45 @@ public class IncidenciaDao {
             e.printStackTrace();
         }
     }
+
+    public void editarEstadoFalsaAlarma(String id) {
+        try {
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://127.0.0.1:3306/basedeDatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+                String sql = "UPDATE incidencia SET estadoIncidencia = 'Falsa alarma' WHERE idIncidenciaReportada = ?;";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setInt(1, Integer.parseInt(id));
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void editarEstadoCerrado(String id) {
+        try {
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://127.0.0.1:3306/basedeDatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+                String sql = "UPDATE incidencia SET estadoIncidencia = 'Cerrado' WHERE idIncidenciaReportada = ?;";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setInt(1, Integer.parseInt(id));
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public CantidadIncidencias hallarCantidadIncidencias (){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -154,4 +193,9 @@ public class IncidenciaDao {
         return cantidadIncidencias;
 
     }
+
+
+
+
+
 }

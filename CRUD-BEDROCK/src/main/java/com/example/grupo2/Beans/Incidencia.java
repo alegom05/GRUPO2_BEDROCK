@@ -1,6 +1,7 @@
 package com.example.grupo2.Beans;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Incidencia {
 
@@ -9,7 +10,6 @@ public class Incidencia {
     private String descripcion;
     private String lugar;
     private String referencia;
-    private Date fecha;
     private String tipoIncidencia;
     private String contacto;
     private boolean requiereAmbulancia;
@@ -18,6 +18,10 @@ public class Incidencia {
     private String correoUsuario;
     private String usuario;
     private byte[] fotoIncidencia;
+    private String descripcionSolucion;
+    private String descripcionEliminacion;
+    private String fechaIncidencia;
+
 
     public int getIdIncidencia() {
         return idIncidencia;
@@ -57,14 +61,6 @@ public class Incidencia {
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
-    }
-
-    public Date getFecha() {
-        return fecha;
-    }
-
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
     }
 
     public String getTipoIncidencia() {
@@ -129,5 +125,29 @@ public class Incidencia {
 
     public void setFotoIncidencia(byte[] fotoIncidencia) {
         this.fotoIncidencia = fotoIncidencia;
+    }
+
+    public String getDescripcionSolucion() {
+        return descripcionSolucion;
+    }
+
+    public void setDescripcionSolucion(String descripcionSolucion) {
+        this.descripcionSolucion = descripcionSolucion;
+    }
+
+    public String getDescripcionEliminacion() {
+        return descripcionEliminacion;
+    }
+
+    public void setDescripcionEliminacion(String descripcionEliminacion) {
+        this.descripcionEliminacion = descripcionEliminacion;
+    }
+
+    public String getFechaIncidencia() {
+        return fechaIncidencia;
+    }
+
+    public void setFechaIncidencia(String fechaIncidencia) {
+        this.fechaIncidencia = fechaIncidencia;
     }
 }

@@ -37,6 +37,14 @@ public class IncidenciaServlet extends HttpServlet {
                     Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id));
                     if (incidencia != null) {
                         request.setAttribute("incidencia", incidencia);
+
+                        String estado = incidencia.getEstadoIncidencia();
+                        request.setAttribute("mostrarEvaluar", "Nueva".equals(estado));
+                        request.setAttribute("mostrarVerEvaluacion", "En proceso".equals(estado));
+                        request.setAttribute("mostrarFalsaAlarma", "Nueva".equals(estado) || "En proceso".equals(estado));
+                        request.setAttribute("mostrarCerrar","En proceso".equals(estado));
+
+
                         view = request.getRequestDispatcher("/SerenazgoJSPS/detallesIncidencia-Serenazgo.jsp");
                         view.forward(request, response);
                     } else {
@@ -89,6 +97,25 @@ public class IncidenciaServlet extends HttpServlet {
 
                 break;
 
+            case "falsaAlarma":
+                String idIncidencia = request.getParameter("idIncidencia");
+                if (idIncidencia != null) {
+                    incidenciaDao.editarEstadoFalsaAlarma(idIncidencia);
+                    response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista");
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+                break;
+
+            case "incidenciaCerrada":
+                String idIncidencia2 = request.getParameter("idIncidencia");
+                if (idIncidencia2 != null) {
+                    incidenciaDao.editarEstadoCerrado(idIncidencia2);
+                    response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista");
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+                break;
         }
     }
 }
