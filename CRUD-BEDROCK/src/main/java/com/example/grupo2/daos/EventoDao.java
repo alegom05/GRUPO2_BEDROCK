@@ -9,6 +9,10 @@ import java.util.ArrayList;
 
 public class EventoDao {
 
+    private static String username = "root";
+    private static String password = "root";
+    private static String url = "jdbc:mysql://localhost:3306/basededatos3";
+
     public static ArrayList<Evento> listarEventos() {
 
         try {
@@ -18,10 +22,6 @@ public class EventoDao {
         }
 
         ArrayList<Evento> listaEventos = new ArrayList<>();
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "select e.idEvento, e.nombre , e.fechaInicial, e.fechaFinal, e.foto, e.materiales, e.lugar, e.hora, e.frecuencia, e.vacantes, e.descripcion, e.tipo, e.idProfesor, e.estadoEvento \n" +
                 "from evento e\n" +
@@ -114,7 +114,7 @@ public class EventoDao {
         }
         String sql = "INSERT INTO `basededatos3`.`usuario` (`nombre`, `descripcion`, `lugar`, `encargado`, `vacantes`, `fechaInicio`, `fechaFin`) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, nombre);
@@ -122,8 +122,8 @@ public class EventoDao {
             pstmt.setString(3, lugar);
             pstmt.setString(4, encargado);
             pstmt.setString(5, vacantes);
-            pstmt.setString(6, fechaInicio);
-            pstmt.setString(7, fechaFin);
+            pstmt.setDate(6, fechaInicio);
+            pstmt.setDate(7, fechaFin);
             pstmt.executeUpdate();
             System.out.print("aqui estoy");
 
@@ -132,7 +132,6 @@ public class EventoDao {
         }
     }
 
-    /*PENDIENTE
     public void borrarEvento(String id) {
         try {
             String user = "root";
@@ -141,7 +140,7 @@ public class EventoDao {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection conn = DriverManager.getConnection(url, user, pass);) {
-                String sql = "DELETE FROM incidencia WHERE idIncidenciaReportada = ?";
+                String sql = "DELETE FROM evento WHERE idEvento = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, Integer.parseInt(id));
                     pstmt.executeUpdate();
@@ -150,5 +149,5 @@ public class EventoDao {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 }

@@ -42,7 +42,7 @@
                     <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+                    <a href="${pageContext.request.contextPath}/IncidenciaServlet2" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
                     <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
