@@ -381,3 +381,40 @@ custom-cartanz-2 {
 
 }
 
+.dropdown-toggle {
+    background-color: transparent;
+    border: none;
+    color: #000;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.dropdown-toggle:hover, .dropdown-toggle:focus {
+    color: #000;
+    background-color: transparent;
+}
+
+.dropdown-menu {
+    background-color: #522170;
+    border: 1px solid hsl(220, 69%, 45%);
+    border-radius: 0.25rem;
+}
+
+.dropdown-item {
+    color: #49390b7f;
+    padding: 10px 20px;
+}
+
+.dropdown-item:hover, .dropdown-item:focus {
+    color: #fff;
+    background-color: rgb(91, 211, 12);
+}
+
+.btn-dots::before {
+    content: "\2807"; /* Unicode for three vertical dots */
+    font-size: 24px;
+    color: #000;
+}
+
