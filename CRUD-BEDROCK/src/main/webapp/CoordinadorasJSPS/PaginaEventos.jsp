@@ -1,10 +1,10 @@
 <%@ page import="java.util.ArrayList" %>
 
-<%@ page import="com.example.grupo2.Beans.Incidencia" %>
+<%@ page import="com.example.grupo2.Beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    Incidencia incidencia = (Incidencia) request.getAttribute("incidencia");
+    Evento evento = (Evento) request.getAttribute("evento");
 %>
 <!DOCTYPE html>
 <html lang="en">
