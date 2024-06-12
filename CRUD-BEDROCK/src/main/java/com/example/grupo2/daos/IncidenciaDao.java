@@ -1,6 +1,7 @@
 package com.example.grupo2.daos;
 
 
+import com.example.grupo2.Beans.CantidadIncidencias;
 import com.example.grupo2.Beans.Incidencia;
 
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class IncidenciaDao {
         return incidencia;
     }
 
-    public void borrarIncidencia(String id) {
+    public void borrarIncidencia(String id, String descripcionEliminacion) {
         try {
             String user = "root";
             String pass = "root";
@@ -103,14 +104,54 @@ public class IncidenciaDao {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection conn = DriverManager.getConnection(url, user, pass);) {
-                String sql = "DELETE FROM incidencia WHERE idIncidenciaReportada = ?";
+                String sql = "UPDATE incidencia \n" +
+                        "SET isDeleted = 1, descripcionEliminacion = ?\n" +
+                        "WHERE idIncidenciaReportada = ?;";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setInt(1, Integer.parseInt(id));
+                    pstmt.setString(1,descripcionEliminacion);
+                    pstmt.setInt(2, Integer.parseInt(id));
                     pstmt.executeUpdate();
                 }
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+    public CantidadIncidencias hallarCantidadIncidencias (){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+        CantidadIncidencias cantidadIncidencias = null;
+        String url = "jdbc:mysql://localhost:3306/basededatos3";
+        String username = "root";
+        String password = "root";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement("SELECT\n" +
+                     "    SUM(CASE WHEN estadoIncidencia = 'nueva' THEN 1 ELSE 0 END) AS nuevas,\n" +
+                     "    SUM(CASE WHEN estadoIncidencia = 'en proceso' THEN 1 ELSE 0 END) AS en_proceso,\n" +
+                     "    SUM(CASE WHEN estadoIncidencia = 'falsa alarma' THEN 1 ELSE 0 END) AS falsa_alarma,\n" +
+                     "    SUM(CASE WHEN estadoIncidencia = 'cerrado' THEN 1 ELSE 0 END) AS cerrado,\n" +
+                     "    COUNT(*) AS total\n" +
+                     "FROM incidencia;")) {
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    cantidadIncidencias = new CantidadIncidencias();
+                    cantidadIncidencias.setCantidadNuevas(rs.getInt(1));
+                    cantidadIncidencias.setCantidadEnProceso(rs.getInt(2));
+                    cantidadIncidencias.setCatidadFalsasAlarmas(rs.getInt(3));
+                    cantidadIncidencias.setCantidadCerradas(rs.getInt(4));
+                    cantidadIncidencias.setCantidadTotal(rs.getInt(5));
+
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return cantidadIncidencias;
+
     }
 }

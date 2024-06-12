@@ -48,13 +48,7 @@ public class IncidenciaServlet3 extends HttpServlet {
                 view.forward(request, response);
                 break;
 
-            case "borrar":
-                String idd = request.getParameter("id");
-                if(incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(idd)) != null){
-                    incidenciaDao.borrarIncidencia(idd); //Agregar método a Daos
-                }
-                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet");
-                break;
+
         }
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -1,5 +1,6 @@
 package com.example.grupo2.Servlet;
 
+import com.example.grupo2.Beans.CantidadIncidencias;
 import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.daos.IncidenciaDao;
 import jakarta.servlet.annotation.WebServlet;
@@ -49,16 +50,45 @@ public class IncidenciaServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
 
-            case "borrar":
+            //Borrado físico ahora se usa un borrado lógico
+            /*case "borrar":
                 String idd = request.getParameter("id");
                 if(incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(idd)) != null){
                     incidenciaDao.borrarIncidencia(idd); //Agregar método a Daos
                 }
                 response.sendRedirect(request.getContextPath() + "/IncidenciaServlet");
+                break;*/
+
+            case "estadisticalizar":
+                CantidadIncidencias cantidadIncidencias = incidenciaDao.hallarCantidadIncidencias();
+                request.setAttribute("cantidad", cantidadIncidencias);
+
+                view = request.getRequestDispatcher("/SerenazgoJSPS/dashboard-Serenazgo.jsp");
+                view.forward(request, response);
                 break;
+
+            case "evaluar":
         }
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
 
+        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
+        IncidenciaDao incidenciaDao = new IncidenciaDao();
+        RequestDispatcher view;
+
+        switch(action) {
+            case "borrar":
+                String id = request.getParameter("id");
+                String descripcion = request.getParameter("descripcion");
+
+                if (id != null && descripcion != null) {
+                    incidenciaDao.borrarIncidencia(id, descripcion);
+                }
+                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista");
+
+                break;
+
+        }
     }
 }
