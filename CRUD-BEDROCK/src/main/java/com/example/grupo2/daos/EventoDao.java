@@ -49,13 +49,13 @@ public class EventoDao {
                 evento.setIdProfesor(rs.getInt(12));
                 evento.setEstadoEvento(rs.getString(13));
 
-                listaEventos.add(evento);
+                listarEventos.add(evento);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(listaEventos);
-        return listaEventos;
+        System.out.println(listarEventos);
+        return listarEventos;
     }
 
     public Evento obtenerEventoPorId(int id) {
