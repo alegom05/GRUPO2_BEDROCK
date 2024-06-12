@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `dni` VARCHAR(8) NULL DEFAULT NULL,
   `telefono` char(9) DEFAULT NULL,
   `correo` VARCHAR(45) NOT NULL,
-  `contraseña` VARCHAR(45) NOT NULL,
+  `clave` VARCHAR(45) NOT NULL,
   `direccion` VARCHAR(45) NULL DEFAULT NULL,
   `urbanizacion` VARCHAR(45) NULL DEFAULT NULL,
   `turnoSerenazgo` VARCHAR(45) NULL DEFAULT NULL,
@@ -196,7 +196,7 @@ INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('SE', 'Serenazg
 INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('VE', 'Vecino');
 
 -- Datos de usuario
-INSERT INTO usuario (nombre, apellido, dni, telefono, correo, contraseña, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
+INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
 ('Ana', 'Pérez Fernández', '12345678', '912345678', 'aperez@gmail.com', '123456', 'Calle 123', 'Urbanización ABC', NULL, NULL, 'AD', '08:00:00', '16:00:00', '1987-11-15'),
 ('Beto', 'García Fernández', '23456789', '923456789', 'bgarcia@gmail.com', '123456', 'Av. Principal', 'Urbanización XYZ', NULL, 'Cultura', 'CO', '20:00:00', '04:00:00', '1990-02-22'),
 ('Carlos', 'Rodríguez Martínez', '34567890', '934567890', 'crodriguez@gmail.com', '123456', 'Calle 456', 'Urbanización DEF', NULL, 'Deporte', 'CO', '08:00:00', '16:00:00', '1993-03-18'),
