@@ -17,7 +17,7 @@
     <link href="${pageContext.request.contextPath}/SerenazgoJSPS/style-Serenazgo.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
@@ -39,7 +39,7 @@
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard </a>
             </li>
             <li class="nav-item">
-                <a href="actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
@@ -110,7 +110,7 @@
 </div>
 
 
-<div class="pie_de_pagina">
+<div class="pie_de_pagina container-fluid">
     <div class="row">
         <div class="col-md-4 d-flex">
             <div class="footer-section">

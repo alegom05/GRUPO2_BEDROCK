@@ -23,7 +23,7 @@
     <link href="${pageContext.request.contextPath}/SerenazgoJSPS/style-Serenazgo.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
@@ -127,11 +127,7 @@
     <buttom type="button" class="btn gradient-custom-3" data-bs-toggle="modal" data-bs-target="#evaluacionIncidencia" id="btnRedireccional">Evaluar incidencia</buttom>
     <% } %>
 
-    <% if (mostrarVerEvaluacion) { %>
-    <a href="${pageContext.request.contextPath}/SerenazgoJSPS/evaluarIncidencias-Serenazgo.jsp  " type="button" class="btn gradient-custom-3" id="btnRedireccional">Ver evaluación</a>
-    <% } %>
-
-    <!--Modal para evaluar incidencia o ver la evaluación-->
+    <!--Modal para evaluar incidencia-->
     <div class="modal fade modal-dialog modal-lg" id="evaluacionIncidencia" tabindex="-1" aria-labelledby="evaluacionIncidencia" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -139,79 +135,141 @@
                     <h1 class="modal-title fs-5" id="evaluacionIncidencia">Evaluación de incidencia</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <form class="row align-items-start mb-3" style="text-align: left">
 
+                <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=evaluar" class="row align-items-start mb-3" style="text-align: left; margin-left: 10px">
+                    <div class="modal-body">
                         <div class="mb-3">
 
                             <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label" >Criticidad:</label>
-                            <select class="form-select" aria-label="Default select example">
+                            <select class="form-select" id="criticidad" name="criticidad" aria-label="Default select example">
                                 <option selected>Seleccione la criticidad</option>
-                                <option value="1">Bajo</option>
-                                <option value="2">Medio</option>
-                                <option value="3">Alto</option>
+                                <option value="Bajo">Bajo</option>
+                                <option value="Medio">Medio</option>
+                                <option value="Alto">Alto</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label for="enabledTextInput" class="form-label" >Se necesita:</label>
+                            <%--@declare id="requiere"--%><label for="requiere" class="form-label">Se necesita:</label>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Bomberos</label>
+                                <input class="form-check-input" type="checkbox" id="requiereBomberos" name="requiereBomberos" value="true">
+                                <label class="form-check-label" for="requiereBomberos">Bomberos</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">Comisaría</label>
+                                <input class="form-check-input" type="checkbox" id="requierePolicia" name="requierePolicia" value="true">
+                                <label class="form-check-label" for="requierePolicia">Comisaría</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                                <label class="form-check-label" for="inlineCheckbox3">Ambulancia</label>
+                                <input class="form-check-input" type="checkbox" id="requiereAmbulancia" name="requiereAmbulancia" value="true">
+                                <label class="form-check-label" for="requiereAmbulancia">Ambulancia</label>
                             </div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="enabledTextInput" class="form-label" >Personal de serenazgo de refuerzo:</label>
-                            <select  class="form-select" aria-label="Default select example">
-                                <option selected>Seleccione el personal de refuerzo</option>
-                                <option value="1">A pie</option>
-                                <option value="2">Bicicleta</option>
-                                <option value="3">Canino</option>
-                                <option value="3">Vehículo</option>
+                            <label for="personalRefuerzo" class="form-label">Personal de serenazgo de refuerzo:</label>
+                            <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" aria-label="Default select example">
+                                <option value="" selected>Seleccione el personal de refuerzo</option>
+                                <option value="A pie">A pie</option>
+                                <option value="Bicicleta">Bicicleta</option>
+                                <option value="Canino">Canino</option>
+                                <option value="Vehículo">Vehículo</option>
                             </select>
                         </div>
 
                         <div class="mb-3">
-                            <label for="enabledTextInput" class="form-label" >Descripción de solución:</label>
-                            <textarea class="form-control" placeholder="Máximo 130 caracteres" id="floatingTextarea2" style="height: 100px"></textarea>
+                            <label for="descripcionSolucion" class="form-label">Descripción de solución:</label>
+                            <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" placeholder="Máximo 130 caracteres" style="height: 100px"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <input type="hidden" name="id" value="<%=incidencia.getIdIncidencia()%>">
                         </div>
 
-                        <!--
-                        <div class="mb-3">
-                            <label for="enabledTextInput" class="form-label" >Estado de personal::</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                                <label class="form-check-label" for="inlineCheckbox1">Bomberos en camino</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-                                <label class="form-check-label" for="inlineCheckbox2">Ambulancia en camino </label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-                                <label class="form-check-label" for="inlineCheckbox3">Policía en camino</label>
-                            </div>
-                        </div> -->
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn gradient-custom-3">Guardar</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn gradient-custom-3">Guardar</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+
+
             </div>
 
         </div>
 
     </div>
+
+    <% if (mostrarVerEvaluacion) { %>
+    <button type="button" class="btn gradient-custom-3" data-bs-toggle="modal" data-bs-target="#verEvaluacionIncidencia" id="btnRedireccional">Ver evaluación</button>
+    <% } %>
+
+    <!--Modal para ver la evaluación de la incidencia-->
+    <div class="modal fade modal-dialog modal-lg" id="verEvaluacionIncidencia" tabindex="-1" aria-labelledby="verEvaluacionIncidencia" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="evaluacionIncidencia">Evaluación de incidencia</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form class="row align-items-start mb-3" style="text-align: left;">
+
+                        <div class="mb-3">
+
+                            <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label" >Criticidad:</label>
+                            <select class="form-select" id="criticidad" name="criticidad" aria-label="Default select example">
+                                <option selected>Seleccione la criticidad</option>
+                                <option value="Bajo">Bajo</option>
+                                <option value="Medio">Medio</option>
+                                <option value="Alto">Alto</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <%--@declare id="requiere"--%><label for="requiere" class="form-label">Se necesita:</label>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="requiereBomberos" name="requiereBomberos" value="true">
+                                <label class="form-check-label" for="requiereBomberos">Bomberos</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="requierePolicia" name="requierePolicia" value="true">
+                                <label class="form-check-label" for="requierePolicia">Comisaría</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="requiereAmbulancia" name="requiereAmbulancia" value="true">
+                                <label class="form-check-label" for="requiereAmbulancia">Ambulancia</label>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="personalRefuerzo" class="form-label">Personal de serenazgo de refuerzo:</label>
+                            <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" aria-label="Default select example">
+                                <option value="" selected>Seleccione el personal de refuerzo</option>
+                                <option value="A pie">A pie</option>
+                                <option value="Bicicleta">Bicicleta</option>
+                                <option value="Canino">Canino</option>
+                                <option value="Vehículo">Vehículo</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <fieldset disabled>
+                                <label for="descripcionSolucion" class="form-label">Descripción de solución:</label>
+                                <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" placeholder="<%=incidencia.getDescripcionSolucion()%>" style="height: 100px"></textarea>
+                            </fieldset>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
 
     <%-- Botón "Cerrar incidencia" --%>
     <% if (mostrarCerrar) {%>

@@ -63,11 +63,11 @@ public class IncidenciaDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto, i.estadoIncidencia,DATE_FORMAT(i.fecha, '%Y-%m-%d %H:%i') AS fecha_formateada \n" +
-                "                from incidencia i \n" +
-                "                join usuario u on u.idUsuario = i.idUsuario \n" +
-                "                join tipo t on i.idtipo = t.idtipo \n" +
-                "                where i.idIncidenciaReportada = ?;";
+        String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia,i.requiereBomberos,i.requierePolicia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto, i.estadoIncidencia,DATE_FORMAT(i.fecha, '%Y-%m-%d %H:%i') AS fecha_formateada, i.criticidad, i.personalRefuerzo,i.descripcionSolucion\n" +
+                "                           from incidencia i \n" +
+                "                         join usuario u on u.idUsuario = i.idUsuario \n" +
+                "                             join tipo t on i.idtipo = t.idtipo \n" +
+                "                             where i.idIncidenciaReportada = ?;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -84,10 +84,15 @@ public class IncidenciaDao {
                     incidencia.setTipoIncidencia(rs.getString(6));
                     incidencia.setContacto(rs.getString(7));
                     incidencia.setRequiereAmbulancia(rs.getBoolean(8));
-                    incidencia.setUsuario(rs.getString(9));
-                    incidencia.setFotoIncidencia(rs.getBytes(10));
-                    incidencia.setEstadoIncidencia(rs.getString(11));
-                    incidencia.setFechaIncidencia(rs.getString(12));
+                    incidencia.setRequiereBomberos(rs.getBoolean(9));
+                    incidencia.setRequierePolicia(rs.getBoolean(10));
+                    incidencia.setUsuario(rs.getString(11));
+                    incidencia.setFotoIncidencia(rs.getBytes(12));
+                    incidencia.setEstadoIncidencia(rs.getString(13));
+                    incidencia.setFechaIncidencia(rs.getString(14));
+                    incidencia.setCriticidad(rs.getString(15));
+                    incidencia.setPersonalRefuerzo(rs.getString(16));
+                    incidencia.setDescripcionSolucion(rs.getString(17));
                 }
             }
         } catch (SQLException e) {
@@ -193,6 +198,79 @@ public class IncidenciaDao {
         return cantidadIncidencias;
 
     }
+
+    public void evaluarIncidencias(Incidencia incidencia){
+        try {
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+                String sql = "UPDATE incidencia\n" +
+                        "SET\n" +
+                        "criticidad = ?,\n" +
+                        "requiereBomberos = ?,\n" +
+                        "requierePolicia = ?,\n" +
+                        "requiereAmbulancia = ?,\n" +
+                        "personalRefuerzo = ?,\n" +
+                        "descripcionSolucion = ?,\n" +
+                        "estadoIncidencia = 'En proceso'\n" +
+                        "WHERE idIncidenciaReportada = ?;";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1,incidencia.getCriticidad());
+                    pstmt.setBoolean(2,incidencia.isRequiereBomberos());
+                    pstmt.setBoolean(3,incidencia.isRequierePolicia());
+                    pstmt.setBoolean(4,incidencia.isRequiereAmbulancia());
+                    pstmt.setString(5,incidencia.getPersonalRefuerzo());
+                    pstmt.setString(6,incidencia.getDescripcionSolucion());
+                    pstmt.setInt(7,incidencia.getIdIncidencia());
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Incidencia verEvaluacion(int id) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+        Incidencia incidencia = null;
+        String url = "jdbc:mysql://localhost:3306/basededatos3";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT  criticidad, requiereBomberos, requierePolicia, requiereAmbulancia, personalRefuerzo, descripcionSolucion, estadoIncidencia\n" +
+                "FROM incidencia\n" +
+                "WHERE idIncidenciaReportada = ?;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    incidencia = new Incidencia();
+                    incidencia.setCriticidad(rs.getString(1));
+                    incidencia.setRequiereBomberos(rs.getBoolean(2));
+                    incidencia.setRequierePolicia(rs.getBoolean(3));
+                    incidencia.setRequiereAmbulancia(rs.getBoolean(4));
+                    incidencia.setPersonalRefuerzo(rs.getString(5));
+                    incidencia.setDescripcionSolucion(rs.getString(6));
+                    incidencia.setEstadoIncidencia(rs.getString(7));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return incidencia;
+    }
+
 
 
 

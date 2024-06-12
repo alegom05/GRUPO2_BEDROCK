@@ -13,6 +13,8 @@ public class Incidencia {
     private String tipoIncidencia;
     private String contacto;
     private boolean requiereAmbulancia;
+    private boolean requierePolicia;
+    private boolean requiereBomberos;
     private String estadoIncidencia;
     private String nombreUsuario;
     private String correoUsuario;
@@ -21,6 +23,8 @@ public class Incidencia {
     private String descripcionSolucion;
     private String descripcionEliminacion;
     private String fechaIncidencia;
+    private String criticidad;
+    private String personalRefuerzo;
 
 
     public int getIdIncidencia() {
@@ -149,5 +153,37 @@ public class Incidencia {
 
     public void setFechaIncidencia(String fechaIncidencia) {
         this.fechaIncidencia = fechaIncidencia;
+    }
+
+    public boolean isRequierePolicia() {
+        return requierePolicia;
+    }
+
+    public void setRequierePolicia(boolean requierePolicia) {
+        this.requierePolicia = requierePolicia;
+    }
+
+    public boolean isRequiereBomberos() {
+        return requiereBomberos;
+    }
+
+    public void setRequiereBomberos(boolean requiereBomberos) {
+        this.requiereBomberos = requiereBomberos;
+    }
+
+    public String getCriticidad() {
+        return criticidad;
+    }
+
+    public void setCriticidad(String criticidad) {
+        this.criticidad = criticidad;
+    }
+
+    public String getPersonalRefuerzo() {
+        return personalRefuerzo;
+    }
+
+    public void setPersonalRefuerzo(String personalRefuerzo) {
+        this.personalRefuerzo = personalRefuerzo;
     }
 }

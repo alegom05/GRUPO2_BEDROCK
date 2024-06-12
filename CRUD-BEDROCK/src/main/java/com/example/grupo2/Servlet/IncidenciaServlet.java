@@ -11,6 +11,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 @WebServlet(name = "IncidenciaServlet",value = {"/IncidenciaServlet","/Incidencias"})
@@ -54,7 +55,7 @@ public class IncidenciaServlet extends HttpServlet {
                     response.sendRedirect("error.jsp");
                 }
 
-                view = request.getRequestDispatcher("nuevoTrabajo.jsp");
+                view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
                 view.forward(request, response);
                 break;
 
@@ -75,7 +76,7 @@ public class IncidenciaServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
 
-            case "evaluar":
+
         }
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -115,6 +116,31 @@ public class IncidenciaServlet extends HttpServlet {
                 }else{
                     response.sendRedirect("error.jsp");
                 }
+                break;
+
+            case "evaluar":
+                String criticidad = request.getParameter("criticidad");
+                boolean requiereBomberos = Boolean.parseBoolean(request.getParameter("requiereBomberos"));
+                boolean requierePolicia = Boolean.parseBoolean(request.getParameter("requierePolicia"));
+                boolean requiereAmbulancia = Boolean.parseBoolean(request.getParameter("requiereAmbulancia"));
+                String personalRefuerzo = request.getParameter("personalRefuerzo");
+                String descripcionSolucion = request.getParameter("descripcionSolucion");
+                String idIncidenciaEvaluacion = request.getParameter("id");
+
+                Incidencia incidencia = new Incidencia();
+
+                incidencia.setCriticidad(criticidad);
+                incidencia.setRequiereBomberos(requiereBomberos);
+                incidencia.setRequierePolicia(requierePolicia);
+                incidencia.setRequiereAmbulancia(requiereAmbulancia);
+                incidencia.setPersonalRefuerzo(personalRefuerzo);
+                incidencia.setDescripcionSolucion(descripcionSolucion);
+                incidencia.setIdIncidencia(Integer.parseInt(idIncidenciaEvaluacion));
+
+
+                incidenciaDao.evaluarIncidencias(incidencia);
+                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet");
+
                 break;
         }
     }

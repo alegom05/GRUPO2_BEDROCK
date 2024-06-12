@@ -18,7 +18,7 @@
     <link href="style-Serenazgo.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="../assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
