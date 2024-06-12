@@ -12,7 +12,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-    <link href="./index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
     <title>Historial de Eventos</title>
 
 </head>
@@ -79,8 +79,9 @@
                     <th>Opciones</th>
                 </tr>
                 </thead>
-                <% for (Evento evento: lista){%>
+
                 <tbody>
+                <% for (Evento evento: lista){%>
                 <tr>
                     <td><%=evento.getNombre()%></td>
                     <td><%=evento.getIdProfesor()%></td>
@@ -100,8 +101,9 @@
                         </div>
                     </td>
                 </tr>
-                </tbody>
                 <% } %>
+                </tbody>
+
 
             </table>
         </div>

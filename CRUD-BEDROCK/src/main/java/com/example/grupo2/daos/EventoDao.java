@@ -44,10 +44,11 @@ public class EventoDao {
                 evento.setLugar(rs.getString(7));
                 evento.setHora(rs.getTime(8));
                 evento.setFrecuencia(rs.getInt(9));
-                evento.setDescripcion(rs.getString(10));
-                evento.setTipo(rs.getString(11));
-                evento.setIdProfesor(rs.getInt(12));
-                evento.setEstadoEvento(rs.getString(13));
+                evento.setVacantes(rs.getInt(10));
+                evento.setDescripcion(rs.getString(11));
+                evento.setTipo(rs.getString(12));
+                evento.setIdProfesor(rs.getInt(13));
+                evento.setEstadoEvento(rs.getString(14));
 
                 lista.add(evento);
             }
