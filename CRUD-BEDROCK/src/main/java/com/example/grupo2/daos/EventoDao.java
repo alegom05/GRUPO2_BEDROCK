@@ -59,14 +59,15 @@ public class EventoDao {
         return lista;
     }
 
-    public Evento obtenerEventoPorId(int id) {
+    public Evento obtenerEventoPorId(String id) {
+        Evento evento = null;
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e){
             throw new RuntimeException(e);
         }
-        Evento evento = null;
+
         String url = "jdbc:mysql://localhost:3306/basededatos3";
         String username = "root";
         String password = "root";
@@ -81,10 +82,11 @@ public class EventoDao {
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, id);
+            pstmt.setString(1, id);
             try (ResultSet rs = pstmt.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     evento = new Evento();
+
                     evento.setIdEvento(rs.getInt(1));
                     evento.setNombre(rs.getString(2));
                     evento.setFechaInicial(rs.getDate(3));
@@ -106,8 +108,39 @@ public class EventoDao {
         return evento;
     }
 
+    public void modificarEvento(Evento evento){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
-    public void crearEvento(String nombre, String descripcion, String lugar, String encargado, String vacantes, Date fechaInicio, Date fechaFin){
+        String url = "jdbc:mysql://localhost:3306/basededatos3";
+        String username = "root";
+        String password = "root";
+
+        String sql= "update evento";
+
+        try(Connection connection = DriverManager.getConnection(url,username,password);
+            PreparedStatement pstmt = connection.prepareStatement(sql)){
+
+            pstmt.setString(1,evento.getNombre());
+            pstmt.setString(2,evento.getDescripcion());
+            pstmt.setString(3,evento.getLugar());
+            pstmt.setInt(4,evento.getIdProfesor());
+            pstmt.setInt(5,evento.getVacantes());
+            pstmt.setDate(6,evento.getFechaInicial());
+            pstmt.setDate(7,evento.getFechaFinal());
+            pstmt.setTime(8,evento.getHora());
+            pstmt.executeUpdate();
+
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    public void crearEvento(Evento evento){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -118,37 +151,41 @@ public class EventoDao {
         try (Connection connection = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
-            pstmt.setString(1, nombre);
-            pstmt.setString(2, descripcion);
-            pstmt.setString(3, lugar);
-            pstmt.setString(4, encargado);
-            pstmt.setString(5, vacantes);
-            pstmt.setDate(6, fechaInicio);
-            pstmt.setDate(7, fechaFin);
+            pstmt.setString(1, evento.getNombre());
+            pstmt.setString(2, evento.getDescripcion());
+            pstmt.setString(3, evento.getLugar());
+            pstmt.setInt(4, evento.getIdProfesor());
+            pstmt.setInt(5, evento.getVacantes());
+            pstmt.setDate(6, evento.getFechaInicial());
+            pstmt.setDate(7, evento.getFechaFinal());
+            pstmt.setTime(8,evento.getHora());
             pstmt.executeUpdate();
-            System.out.print("aqui estoy");
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void borrarEvento(String id) {
+    public void borrarEvento(String id) throws SQLException{
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
-
             Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
-                String sql = "DELETE FROM evento WHERE idEvento = ?";
-                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setInt(1, Integer.parseInt(id));
-                    pstmt.executeUpdate();
-                }
-            }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3";
+        String user = "root";
+        String pass = "root";
+
+        String sql = "DELETE FROM evento WHERE idEvento = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, id);
+                pstmt.executeUpdate();
+            }
+        }
+
     }
 }

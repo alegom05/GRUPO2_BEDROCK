@@ -1,3 +1,5 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
 </head>
 <body>
     <div class="ParteSuperior">
@@ -25,7 +27,7 @@
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
+                    <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
                     <a href="PaginaEventos.html" class="nav-link">Eventos</a>
@@ -40,7 +42,7 @@
                     <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="VecinoSanmi.html" class="nav-link">Lista de Vecinos</a>
@@ -53,7 +55,7 @@
             <div class="contenedor mt-4 text-center">
                 <h1>Crear Evento</h1>
             </div>
-            <form class="row align-items-start needs-validation" novalidate>
+            <form class="row align-items-start needs-validation" action="<%=request.getContextPath()%>" novalidate>
                 <div class="col-md-6 mb-3">
                     <div class="contenedor mt-4 text-center">
                         <img src="./imagenes_eventos/deporte/evento1.jpg" alt="Evento" id="imagen_detallada" class="img-fluid mx-auto">
@@ -70,55 +72,55 @@
                     <div>
                         <div class="mt-2">
                             <div class="mb-2">
-                                <label for="nombre">Nombre del Evento</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre"  required>
+                                <label>Nombre del Evento</label>
+                                <input type="text" class="form-control" name="nombre"  required>
                                 <div class="invalid-feedback">Es necesario poner el nombre del evento.</div>
                             </div>
                             <div class="mb-2">
-                                <label for="detalles">Detalles</label>
-                                <textarea class="form-control" id="detalles" name="detalles" rows="3" required></textarea>
+                                <label>Detalles</label>
+                                <textarea class="form-control" name="descripcion" rows="3" required></textarea>
                                 <div class="invalid-feedback">Es necesario poner los detalles del evento.</div>
                             </div>
                             <div class="mb-2">
-                                <label for="lugar">Lugar</label>
-                                <input type="text" class="form-control" id="lugar" name="lugar"  required>
+                                <label>Lugar</label>
+                                <input type="text" class="form-control" name="lugar" required>
                                 <div class="invalid-feedback">Es necesario poner el lugar del evento.</div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label for="profesor">Encargado</label>
-                                    <input type="text" class="form-control" id="profesor" name="profesor"  required>
+                                    <label>Encargado</label>
+                                    <input type="text" class="form-control" name="idProfesor"  required>
                                     <div class="invalid-feedback">Es necesario poner el encargado del evento.</div>
                                 </div>
                                 <div class="col-md-auto">
                                     <div class="mb-2">
-                                        <label for="vacantes">Número de Vacantes</label>
-                                        <input type="number" class="form-control" id="vacantes" name="vacantes" min="1"  required>
+                                        <label>Número de Vacantes</label>
+                                        <input type="number" class="form-control" name="vacantes" min="1"  required>
                                         <div class="invalid-feedback">Es necesario poner el número de vacantes.</div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label for="fechaInicio">Fecha Inicio</label>
-                                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"  required>
+                                    <label>Fecha Inicio</label>
+                                    <input type="date" class="form-control" name="fechaInicial"  required>
                                     <div class="invalid-feedback">Es necesario poner la fecha de inicio.</div>
                                 </div>
                                 <div class="col">
-                                    <label for="fechaFin">Fecha Fin</label>
-                                    <input type="date" class="form-control" id="fechaFin" name="fechaFin"  required>
+                                    <label>Fecha Fin</label>
+                                    <input type="date" class="form-control" name="fechaFinal"  required>
                                     <div class="invalid-feedback">Es necesario poner la fecha de fin.</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
-                                    <label for="hora">Hora</label>
-                                    <input type="time" class="form-control" id="hora" name="hora"  required>
+                                    <label>Hora</label>
+                                    <input type="time" class="form-control" name="hora"  required>
                                     <div class="invalid-feedback">Es necesario poner la hora del evento.</div>
                                 </div>
                                 <div class="col">
-                                    <label for="frecuencia">Frecuencia</label>
-                                    <select class="form-control" id="frecuenciaEvento" required>
+                                    <label >Frecuencia</label>
+                                    <select class="form-control" name="frecuencia" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -129,7 +131,7 @@
                                 </div>
                             </div>
                             <div class="row-md-auto mt-3">
-                                <label for="diasSemana">Días de la semana</label>
+                                <label>Días de la semana</label>
                                 <div class="row">
                                     <div class="form-check col">
                                         <input class="form-check-input" type="checkbox" id="lunes" >
@@ -165,7 +167,7 @@
                                 <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
                                     Guardar
                                 </button>
-                                <a href="PaginaEventos.html" class="btn btn-secondary">Volver</a>
+                                <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="btn btn-secondary">Volver</a>
                             </div>
                             <div class="row">
                                 <div class="col">

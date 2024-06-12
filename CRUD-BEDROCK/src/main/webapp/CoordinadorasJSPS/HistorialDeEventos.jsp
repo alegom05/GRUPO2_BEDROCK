@@ -2,7 +2,13 @@
 
 <%@ page import="com.example.grupo2.Beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="lista" scope="request" type="ArrayList<Evento>"/>
+
+
+<%
+    ArrayList<Evento> evento = (ArrayList<Evento>) request.getAttribute("lista");
+
+%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -33,7 +39,7 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
+                <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
                 <a href="PaginaEventos.html" class="nav-link">Eventos</a>
@@ -48,7 +54,7 @@
                 <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="VecinoSanmi.html" class="nav-link">Lista de Vecinos</a>
@@ -65,6 +71,9 @@
         <div style="display: flex; justify-content: space-between;">
 
             <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;" placeholder="Buscar...">
+            <div class="col d-flex justify-content-end">
+                <a href="<%=request.getContextPath()%>/EventoServlet?action=new" class="btn btn-primary"><h7>Crear evento</h7></a>
+            </div>
         </div>
         <br>
         <div class="tabla-container">
@@ -81,13 +90,13 @@
                 </thead>
 
                 <tbody>
-                <% for (Evento evento: lista){%>
+                <% for (Evento eventos: evento){%>
                 <tr>
-                    <td><%=evento.getNombre()%></td>
-                    <td><%=evento.getIdProfesor()%></td>
-                    <td><%=evento.getLugar()%></td>
-                    <td><%=evento.getFechaInicial()%></td>
-                    <td><%=evento.getEstadoEvento()%></td>
+                    <td><%=eventos.getNombre()%></td>
+                    <td><%=eventos.getIdProfesor()%></td>
+                    <td><%=eventos.getLugar()%></td>
+                    <td><%=eventos.getFechaInicial()%></td>
+                    <td><%=eventos.getEstadoEvento()%></td>
                     <td>
                         <div class="dropdown">
                             <button class="btn btn-dots dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
