@@ -31,7 +31,7 @@
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
+                    <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
                     <a href="PaginaEventos.jsp" class="nav-link">Eventos</a>
@@ -40,10 +40,10 @@
                     <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
+                    <a href="${pageContext.request.contextPath}/IncidenciaServlet2" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="${pageContext.request.contextPath}/CoordisCalendarioServlet" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
                     <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>

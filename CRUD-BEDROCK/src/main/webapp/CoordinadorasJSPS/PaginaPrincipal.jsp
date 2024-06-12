@@ -13,23 +13,23 @@
     <div class="ParteSuperior">
         <div class="row">
             <div class="col-md-3 d-flex justify-content-start align-items-center">
-                <img src="./logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
+                <img src="./CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
                 <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
                 <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
-                    <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                    <img src="./CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>
         </div>
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
+                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/CoordisIndexServlet" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/PaginaEventos.jsp" class="nav-link">Eventos</a>
+                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/EventoServlet" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/ReportarIncidencia2.jsp" class="nav-link">Reportar Incidencia</a>
