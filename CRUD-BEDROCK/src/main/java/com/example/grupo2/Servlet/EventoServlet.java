@@ -25,12 +25,12 @@ public class EventoServlet extends HttpServlet {
         EventoDao eventoDao = new EventoDao();
 
         switch (action) {
-            /*case "listar" -> {
+            case "listar" -> {
                 ArrayList<Evento> listaEventos = eventoDao.listarEventos();
                 request.setAttribute("eventos",listaEventos);
                 RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
                 view.forward(request,response);
-            }*/
+            }
             case "formCrear" -> {
                 RequestDispatcher view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
                 view.forward(request, response);

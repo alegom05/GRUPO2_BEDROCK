@@ -21,7 +21,7 @@ public class EventoDao {
             throw new RuntimeException(e);
         }
 
-        ArrayList<Evento> listaEventos = new ArrayList<>();
+        ArrayList<Evento> listarEventos = new ArrayList<>();
 
         String sql = "select e.idEvento, e.nombre , e.fechaInicial, e.fechaFinal, e.foto, e.materiales, e.lugar, e.hora, e.frecuencia, e.vacantes, e.descripcion, e.tipo, e.idProfesor, e.estadoEvento \n" +
                 "from evento e\n" +
