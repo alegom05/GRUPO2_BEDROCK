@@ -27,7 +27,7 @@
                     <a href="DetallesUsuario.html">
                         <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                     </a>
-                    <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
+                    <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"></h2>
                     <a href="<%=request.getContextPath()%>/LoginServlet" style="color: white;">
                         Iniciar sesion
                     </a>
