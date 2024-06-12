@@ -20,20 +20,23 @@ public class EventoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
-        String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
+        response.setContentType("text/html");
+        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         EventoDao eventoDao = new EventoDao();
 
         switch (action) {
-            case "listar" -> {
-                ArrayList<Evento> listaEventos = eventoDao.listarEventos();
-                request.setAttribute("eventos",listaEventos);
-                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
+            case "lista" -> {
+                ArrayList<Evento> lista = eventoDao.listarEventos();
+                request.setAttribute("lista",lista);
+                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
                 view.forward(request,response);
+
+                break;
             }
             case "formCrear" -> {
                 RequestDispatcher view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
                 view.forward(request, response);
+                break;
             }
             case "editar" -> {
                 int id = Integer.parseInt(request.getParameter("id"));

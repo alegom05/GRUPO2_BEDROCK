@@ -21,7 +21,7 @@ public class EventoDao {
             throw new RuntimeException(e);
         }
 
-        ArrayList<Evento> listarEventos = new ArrayList<>();
+        ArrayList<Evento> lista = new ArrayList<>();
 
         String sql = "select e.idEvento, e.nombre , e.fechaInicial, e.fechaFinal, e.foto, e.materiales, e.lugar, e.hora, e.frecuencia, e.vacantes, e.descripcion, e.tipo, e.idProfesor, e.estadoEvento \n" +
                 "from evento e\n" +
@@ -44,18 +44,19 @@ public class EventoDao {
                 evento.setLugar(rs.getString(7));
                 evento.setHora(rs.getTime(8));
                 evento.setFrecuencia(rs.getInt(9));
-                evento.setDescripcion(rs.getString(10));
-                evento.setTipo(rs.getString(11));
-                evento.setIdProfesor(rs.getInt(12));
-                evento.setEstadoEvento(rs.getString(13));
+                evento.setVacantes(rs.getInt(10));
+                evento.setDescripcion(rs.getString(11));
+                evento.setTipo(rs.getString(12));
+                evento.setIdProfesor(rs.getInt(13));
+                evento.setEstadoEvento(rs.getString(14));
 
-                listarEventos.add(evento);
+                lista.add(evento);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(listarEventos);
-        return listarEventos;
+        System.out.println(lista);
+        return lista;
     }
 
     public Evento obtenerEventoPorId(int id) {

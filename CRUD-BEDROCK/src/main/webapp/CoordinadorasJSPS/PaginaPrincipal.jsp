@@ -26,7 +26,7 @@
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/CoordisIndexServlet" class="nav-link">Municipalidad</a>
+                    <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/EventoServlet" class="nav-link">Eventos</a>
@@ -41,7 +41,7 @@
                     <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
