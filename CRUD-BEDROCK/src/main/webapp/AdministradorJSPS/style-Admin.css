@@ -175,6 +175,8 @@ body { /* Cambia este valor por el azul que desees */
     /* Gradiente lineal de negro a tonos de negro */
     background: linear-gradient(to right, #111111, #100f0f, #222222);
     color: #f2f4f5; /* Letra en un tono de gris oscuro */
+    box-sizing: border-box;
+    overflow-x: hidden;
 }
 .letra_botones_encabezado{
     font-size: 1.15rem;
@@ -380,6 +382,7 @@ div.dataTables_wrapper div.dataTables_filter {
     /* Gradiente lineal de negro a tonos de negro */
     background: linear-gradient(to right, #111111, #100f0f, #222222);
     margin: -10px;
+    overflow-x: hidden;
 }
 .footer-section {
     padding: 20px;

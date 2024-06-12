@@ -26,7 +26,7 @@
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Administrador</h2>
-            <a href="login.html">
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
             </a>
         </div>

@@ -10,7 +10,7 @@
     <link href="${pageContext.request.contextPath}/AdministradorJSPS/style-Admin.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="${pageContext.request.contextPath}/Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
@@ -96,7 +96,7 @@
 </div>
 
 
-<div class="pie_de_pagina">
+<div class="pie_de_pagina container-fluid">
     <div class="row">
         <div class="col-md-4 d-flex">
             <div class="footer-section">

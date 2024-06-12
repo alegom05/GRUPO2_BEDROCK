@@ -22,7 +22,7 @@
 
 </head>
 <body>
-    <div class="ParteSuperior">
+    <div class="ParteSuperior container-fluid">
         <div class="row">
             <div class="col-md-3 d-flex justify-content-start align-items-center">
                 <img src="${pageContext.request.contextPath}/Administrador/assets/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
@@ -30,7 +30,7 @@
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
                 <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Administrador</h2>
-                <a href="login.html">
+                <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                     <img src="${pageContext.request.contextPath}/Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
                 </a>
             </div>

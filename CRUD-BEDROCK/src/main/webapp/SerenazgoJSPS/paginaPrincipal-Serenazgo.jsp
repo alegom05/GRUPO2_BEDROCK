@@ -25,7 +25,7 @@
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <h4 style="margin-top: 10px; margin-right: 40px; text-align: right; ">Diego Rodriguez<br>Rol: Serenazgo</h4>
-            <a href="logIN-Serenazgo.jsp">
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>
         </div>
@@ -33,7 +33,7 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard </a>
@@ -83,7 +83,7 @@
         <div class="col-12 col-xl-10">
             <div class="row m-0 p-0">
                 <div class="col-12 col-xl-7 my-1">
-                    <img src="../assets/images/serenazgoMision.jpg" class="img-fluid p-2" alt="Imagen de serenazgos con su vehículo">
+                    <img src="${pageContext.request.contextPath}/assets/images/serenazgoMision.jpg" class="img-fluid p-2" alt="Imagen de serenazgos con su vehículo">
                 </div>
                 <div class="col-12 col-xl-5 my-4">
                     <p class="parrafoMision">En el corazón de San Miguel, nuestro compromiso es con la seguridad y la tranquilidad de cada uno de nuestros vecinos.
@@ -125,13 +125,13 @@
             <div class="footer-section">
                 <h4>Siguenos en nuestras redes: </h4>
                 <a href="https://es-la.facebook.com/" target="_blank">
-                    <img src="../assets/logos/facebook.png" alt="Imagen 1" class="img-thumbnail">
+                    <img src="${pageContext.request.contextPath}/assets/logos/facebook.png" alt="Imagen 1" class="img-thumbnail">
                 </a>
                 <a href="https://www.instagram.com/" target="_blank">
-                    <img src="../assets/logos/instagram.png" alt="Imagen 2" class="img-thumbnail">
+                    <img src="${pageContext.request.contextPath}/assets/logos/instagram.png" alt="Imagen 2" class="img-thumbnail">
                 </a>
                 <a href="https://www.tiktok.com/es/" target="_blank">
-                    <img src="../assets/logos/tiktok.png" alt="Imagen 3" class="img-thumbnail">
+                    <img src="${pageContext.request.contextPath}/assets/logos/tiktok.png" alt="Imagen 3" class="img-thumbnail">
                 </a>
             </div>
         </div>
