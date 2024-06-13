@@ -2,7 +2,7 @@
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("lista");
+    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("lista2");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -89,7 +89,7 @@
                     <tr>
                         <td><%=incidencia.getTipoIncidencia()%> </td>
                         <td><%=incidencia.getNombreIncidencia()%></td>
-                        <td><%=incidencia.getFecha()%></td>
+                        <td><%=incidencia.getFechaIncidencia()%></td>
                         <td><%=incidencia.getLugar()%></td>
                         <%--<td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
                             <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">

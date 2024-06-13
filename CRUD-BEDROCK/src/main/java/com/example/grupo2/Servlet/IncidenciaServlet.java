@@ -59,6 +59,41 @@ public class IncidenciaServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
 
+            case "lista2":
+
+                ArrayList<Incidencia> listaIncidencias2 = IncidenciaDao.listarIncidencias();
+                request.setAttribute("lista", listaIncidencias2);
+
+                RequestDispatcher view2 = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                view2.forward(request, response);
+                break;
+            case "detallar2":
+                String id2 = request.getParameter("id");
+                if(incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id2)) != null){
+                    Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id2));
+                    if (incidencia != null) {
+                        request.setAttribute("incidencia", incidencia);
+
+                        String estado = incidencia.getEstadoIncidencia();
+                        request.setAttribute("mostrarEvaluar", "Nueva".equals(estado));
+                        request.setAttribute("mostrarVerEvaluacion", "En proceso".equals(estado));
+                        request.setAttribute("mostrarFalsaAlarma", "Nueva".equals(estado) || "En proceso".equals(estado));
+                        request.setAttribute("mostrarCerrar","En proceso".equals(estado));
+
+
+                        view = request.getRequestDispatcher("/SerenazgoJSPS/detallesIncidencia-Serenazgo.jsp");
+                        view.forward(request, response);
+                    } else {
+                        response.sendRedirect("error.jsp"); // Página de error en caso de que no se encuentre la incidencia
+                    }
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+
+                view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
+                view.forward(request, response);
+                break;
+
             //Borrado físico ahora se usa un borrado lógico
             /*case "borrar":
                 String idd = request.getParameter("id");
