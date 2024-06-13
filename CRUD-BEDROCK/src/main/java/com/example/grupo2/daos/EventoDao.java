@@ -27,7 +27,8 @@ public class EventoDao {
                 "from evento e\n" +
                 "left join profesor p on e.idProfesor=p.idProfesor\n" +
                 "left join evento_has_usuario h on e.idEvento=h.idEvento\n" +
-                "left join fotosdeeventos f on e.idEvento = f.idEvento;";
+                "left join fotosdeeventos f on e.idEvento = f.idEvento\n" +
+                "order by e.fechaInicial desc;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql);
