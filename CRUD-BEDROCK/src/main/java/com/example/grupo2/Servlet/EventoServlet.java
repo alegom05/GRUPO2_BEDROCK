@@ -79,6 +79,7 @@ public class EventoServlet extends HttpServlet {
 
         switch (action) {
             case "crear":
+                /*
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 String lugar = request.getParameter("lugar");
@@ -112,10 +113,11 @@ public class EventoServlet extends HttpServlet {
                     }
                 }else{
                     request.getRequestDispatcher("CoordinadorasJSPS/CrearEvento.jsp").forward(request,response);
-                }
+                }*/
                 break;
 
             case "modificar":
+                /*
                 String nombre2 = request.getParameter("nombre");
                 String descripcion2 = request.getParameter("descripcion");
                 String lugar2 = request.getParameter("lugar");
@@ -145,6 +147,8 @@ public class EventoServlet extends HttpServlet {
                     request.setAttribute("evento",eventoDao.obtenerEventoPorId());
                     request.getRequestDispatcher("CoordinadorasJSPS/ModificarEvento.jsp");
                 }
+
+                 */
                 break;
 
         }
