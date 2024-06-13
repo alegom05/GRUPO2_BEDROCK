@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `dni` VARCHAR(8) NULL DEFAULT NULL,
   `telefono` char(9) DEFAULT NULL,
   `correo` VARCHAR(45) NOT NULL,
-  `contraseña` VARCHAR(45) NOT NULL,
+  `clave` VARCHAR(45) NOT NULL,
   `direccion` VARCHAR(45) NULL DEFAULT NULL,
   `urbanizacion` VARCHAR(45) NULL DEFAULT NULL,
   `turnoSerenazgo` VARCHAR(45) NULL DEFAULT NULL,
@@ -196,19 +196,19 @@ INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('SE', 'Serenazg
 INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('VE', 'Vecino');
 
 -- Datos de usuario
-INSERT INTO usuario (nombre, apellido, dni, telefono, correo, contraseña, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
-('Ana', 'Pérez Fernández', '12345678', '912345678', 'aperez@gmail.com', '123456', 'Calle 123', 'Urbanización ABC', NULL, NULL, 'AD', '08:00:00', '16:00:00', '1987-11-15'),
+INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
+('Christopher', 'Terrones Peña', '12345678', '912345678', 'cterrones@gmail.com', '123456', 'Calle 123', 'Urbanización ABC', NULL, NULL, 'AD', '08:00:00', '16:00:00', '1987-11-15'),
 ('Beto', 'García Fernández', '23456789', '923456789', 'bgarcia@gmail.com', '123456', 'Av. Principal', 'Urbanización XYZ', NULL, 'Cultura', 'CO', '20:00:00', '04:00:00', '1990-02-22'),
-('Carlos', 'Rodríguez Martínez', '34567890', '934567890', 'crodriguez@gmail.com', '123456', 'Calle 456', 'Urbanización DEF', NULL, 'Deporte', 'CO', '08:00:00', '16:00:00', '1993-03-18'),
-('Diana', 'Martínez López', '45678901', '945678901', 'dmartinez@gmail.com', '123456', 'Av. Secundaria', 'Urbanización GHI', NULL, 'Deporte', 'CO', '20:00:00', '04:00:00', '1991-05-09'),
+('Nikol', 'Montes Esteban', '34567890', '934567890', 'nmontes@gmail.com', '123456', 'Calle 456', 'Urbanización DEF', NULL, 'Deporte', 'CO', '08:00:00', '16:00:00', '1993-03-18'),
+('Isaac', 'Huamaní Sulca', '45678901', '945678901', 'ihuamani@gmail.com', '123456', 'Av. Secundaria', 'Urbanización GHI', NULL, 'Deporte', 'CO', '20:00:00', '04:00:00', '1991-05-09'),
 ('Elena', 'Hernández Gómez', '56789012', '956789012', 'ehernandez@gmail.com', '123456', 'Calle 789', 'Urbanización JKL', NULL, 'Cultura', 'CO', '08:00:00', '16:00:00', '1992-07-22'),
-('Fernando', 'López Fernández', '67890123', '967890123', 'flopez@gmail.com', '123456', 'Av. Alternativa', NULL, 'Noche', 'A pie', 'SE', '20:00:00', '04:00:00', '1988-10-30'),
-('Gabriela', 'Gómez Díaz', '78901234', '978901234', 'ggomez@gmail.com', '123456', 'Calle 111', NULL, 'Mañana', 'A pie', 'SE', '08:00:00', '16:00:00', '1989-12-14'),
+('Dorian', 'Felix Naula', '67890123', '967890123', 'dfelix@gmail.com', '123456', 'Av. Alternativa', NULL, 'Noche', 'A pie', 'SE', '20:00:00', '04:00:00', '1988-10-30'),
+('Alejandro', 'Gómez Mostacero', '78901234', '978901234', 'agomez@gmail.com', '123456', 'Calle 111', NULL, 'Mañana', 'A pie', 'SE', '08:00:00', '16:00:00', '1989-12-14'),
 ('Hugo', 'Díaz Fernández', '89012345', '989012345', 'hdiaz@gmail.com', '123456', 'Av. Principal', NULL, 'Noche', 'En bicicleta', 'SE', '20:00:00', '04:00:00', '1995-06-19'),
 ('Isabel', 'Fernández Martínez', '90123456', '990123456', 'ifernandez@gmail.com', '123456', 'Calle 222', NULL, 'Mañana', 'Con canino', 'SE', '08:00:00', '16:00:00', '1994-08-24'),
 ('Javier', 'Mendoza García', '01234567', '901234567', 'jmendoza@gmail.com', '123456', 'Av. Secundaria', NULL, 'Noche', 'En bicicleta', 'SE', '20:00:00', '04:00:00', '1993-01-17'),
-('Karina', 'Pérez Díaz', '23487405', '923487405', 'kperez@gmail.com', '123456', 'Calle 333', 'Urbanización BCD', NULL, NULL, 'VE', '08:00:00', '16:00:00', '1987-11-11'),
-('Luis', 'García Fernández', '45786934', '945786934', 'lgarcia@gmail.com', '123456', 'Av. Alternativa', 'Urbanización EFG', NULL, NULL, 'VE', '20:00:00', '04:00:00', '1990-03-29'),
+('Fabricio', 'Estrada Castillo', '23487405', '923487405', 'festrada@gmail.com', '123456', 'Calle 333', 'Urbanización BCD', NULL, NULL, 'VE', '08:00:00', '16:00:00', '1987-11-11'),
+('Adrián', 'Tipo Leon', '45786934', '945786934', 'atipo@gmail.com', '123456', 'Av. Alternativa', 'Urbanización EFG', NULL, NULL, 'VE', '20:00:00', '04:00:00', '1990-03-29'),
 ('María', 'Cruz Martínez', '27845674', '927845674', 'mcruz@gmail.com', '123456', 'Calle 444', 'Urbanización HIJ', NULL, NULL, 'VE', '08:00:00', '16:00:00', '1988-05-06'),
 ('Natalia', 'Martínez López', '36458976', '936458976', 'nmartinez@gmail.com', '123456', 'Av. Principal', 'Urbanización KLM', NULL, NULL, 'VE', '20:00:00', '04:00:00', '1991-04-25'),
 ('Oscar', 'Hernández Gómez', '39084657', '939084657', 'ohernandez@gmail.com', '123456', 'Calle 555', 'Urbanización NOP', NULL, NULL, 'VE', '08:00:00', '16:00:00', '1992-08-14'),
@@ -285,8 +285,12 @@ VALUES
 ('Ruido', 'Denuncia de ruido excesivo en una fiesta en la Calle 13', 'Calle 13, San Miguel-Lima', 'Referencia 13, San Miguel-Lima', '934523890', 1, 13, 'Bajo', 'Bomberos', 'A pie', 'Se llegó a un acuerdo con los organizadores y se disolvió la fiesta', NULL, 'Bomberos en camino', 'Nueva', 'AL', NULL, 0),
 ('Robo', 'Reporte de robo en la esquina de Calle 1 y Avenida Principal', 'Calle 1, San Miguel-Lima', 'Referencia 1, San Miguel-Lima', '912115678', 1, 1, 'Bajo', 'Bomberos', 'A pie', 'Se envió una patrulla al lugar', NULL, 'Bomberos en camino', 'Nueva', 'RO', NULL, 0),
 ('Choque', 'Choque de vehículos en la intersección de Calle 2 y Avenida Secundaria', 'Calle 2, San Miguel-Lima', 'Referencia 2, San Miguel-Lima', '923456789', 1, 2, 'Medio', 'Comisaría', 'bicicleta', 'Se envió una ambulancia y se está desviando el tráfico', NULL, 'Ambulancia en camino', 'Nueva', 'AC', NULL, 0),
-('Incendio', 'Incendio en un edificio de departamentos en la Calle 3', 'Calle 3, San Miguel-Lima', 'Referencia 3, San Miguel-Lima', '934567890', 1, 3, 'Alto', 'Ambulancia', 'canino', 'Se evacuaron los residentes y se está controlando el fuego', NULL, 'Policía en camino', 'Nueva', 'OT', NULL, 0);
-
+('Incendio', 'Incendio en un edificio de departamentos en la Calle 3', 'Calle 3, San Miguel-Lima', 'Referencia 3, San Miguel-Lima', '934567890', 1, 3, 'Alto', 'Ambulancia', 'canino', 'Se evacuaron los residentes y se está controlando el fuego', NULL, 'Policía en camino', 'Nueva', 'OT', NULL, 0),
+('Incendio', 'Reporte de incendio en edificio', 'Av. La Marina 123, Lima', 'Referencia 34, San Miguel-Lima', '987654321', 0, 15, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0),
+('Fuga de gas', 'Supuesta fuga de gas en cocina', 'Calle Las Flores 56, Miraflores', 'Referencia 56, Miraflores', '912345678', 0, 16, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0),
+('Persona atrapada', 'Persona atrapada en un ascensor', 'Calle 10, Barranco', 'Referencia 78, Barranco', '923456789', 0, 17, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0),
+('Accidente de tráfico', 'Accidente de tráfico sin heridos', 'Av. Brasil 789, Jesús María', 'Referencia 90, Jesús María', '934567890', 0, 18, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0),
+('Alarma', 'Alarma de seguridad activada sin motivo', 'Jr. Puno 112, Cercado de Lima', 'Referencia 12, Cercado de Lima', '945678901', 0, 19, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0);
 
 
 -- Eventos
