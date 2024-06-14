@@ -40,7 +40,7 @@
                     <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/IncidenciaServlet2" class="nav-link">Lista de Incidencias</a>
+                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/CoordisCalendarioServlet" class="nav-link">Mira Tu Calendario!</a>
