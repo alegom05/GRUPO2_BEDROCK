@@ -28,7 +28,7 @@ public class IncidenciaServlet2 extends HttpServlet {
 
                 request.setAttribute("lista", listaIncidencias);
 
-                view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias2.jsp");
                 view.forward(request, response);
 
 
@@ -39,7 +39,7 @@ public class IncidenciaServlet2 extends HttpServlet {
                     Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id));
                     if (incidencia != null) {
                         request.setAttribute("incidencia", incidencia);
-                        view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                        view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias2.jsp");
                         view.forward(request, response);
                     } else {
                         response.sendRedirect("error.jsp"); // Página de error en caso de que no se encuentre la incidencia

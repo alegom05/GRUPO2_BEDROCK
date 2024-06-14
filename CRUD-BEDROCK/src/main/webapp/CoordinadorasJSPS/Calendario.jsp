@@ -31,7 +31,7 @@
           </div>
           <div class="col-md-9 d-flex align-items-center justify-content-end">
               <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
-              <a href="logIN.html">
+              <a href="login.jsp">
                   <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
               </a>
           </div>
@@ -39,25 +39,25 @@
       <nav class="letra_botones_encabezado">
           <ul class="nav">
               <li class="nav-item">
-                  <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
+                  <a href="PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
               </li>
               <li class="nav-item">
-                  <a href="PaginaEventos.html" class="nav-link">Eventos</a>
+                  <a href="PaginaEventos.jsp" class="nav-link">Eventos</a>
               </li>
               <li class="nav-item">
-                  <a href="ReportarIncidencia2.html" class="nav-link">Reportar Incidencia</a>
+                  <a href="ReportarIncidencia2.jsp" class="nav-link">Reportar Incidencia</a>
               </li>
               <li class="nav-item">
-                  <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+                  <a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
               </li>
               <li class="nav-item">
-                  <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
+                  <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
               </li>
               <li class="nav-item">
-                  <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                  <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
               </li>
               <li class="nav-item">
-                  <a href="VecinoSanmi.html" class="nav-link">Lista de Vecinos</a>
+                  <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
               </li>
           </ul>
       </nav>             

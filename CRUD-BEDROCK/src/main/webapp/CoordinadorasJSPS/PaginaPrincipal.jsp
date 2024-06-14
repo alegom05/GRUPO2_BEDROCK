@@ -38,10 +38,10 @@
                     <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="${pageContext.request.contextPath}/Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
