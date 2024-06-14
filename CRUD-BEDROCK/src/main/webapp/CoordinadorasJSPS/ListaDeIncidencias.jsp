@@ -1,6 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
+
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%
     ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("lista2");
 %>
@@ -11,45 +13,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
-	<link href="./CoordinadorasJSPS/index.css" rel="stylesheet">
+	<link href="./index.css" rel="stylesheet">
     <title>Lista de Incidencias</title>
 </head>
 <body>
     <div class="ParteSuperior">
         <div class="row">
             <div class="col-md-3 d-flex justify-content-start align-items-center">
-                <img src="./CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+                <img src="./logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
                 <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
                 <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
                 <a href="logIN.html">
-                    <img src="./CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                    <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>
         </div>
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
+                    <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
-                    <a href="PaginaEventos.jsp" class="nav-link">Eventos</a>
+                    <a href="PaginaEventos.html" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
+                    <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
+                    <a href="/CoordinadorasJSPS/ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordisCalendarioServlet" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+                    <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
+                    <a href="VecinoSanmi.html" class="nav-link">Lista de Vecinos</a>
                 </li>
             </ul>
         </nav>             
@@ -58,7 +60,9 @@
 
 	<div class="mt-4" style="height: 100vh; margin: 0;">
 		<!-- Contenido con imagen centrada -->
-        <h2 style="text-align: center;">Incidencias registradas este mes</h2>
+        <h2 style="text-align: center;">Incidencias Registradas este mes</h2>
+        <div class="container mt-4">
+
             <div style="display: flex; justify-content: space-between;">
                 <select id="filtroIncidencia" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none; width: 130px; height: 50px;" >
                     <option value="" disabled selected>Filtrar Por</option>
@@ -74,37 +78,30 @@
 		<div class="tabla-container">
             <table id="miTabla" class="display">
                 <thead>
-                <tr>
-                    <th>Tipo de Incidencia</th>
-                    <th>Nombre</th>
-                    <th>Fecha</th>
-                    <th>Lugar</th>
-                    <%--<th>Ver</th>
-                    <th>Eliminar</th>--%>
-                </tr>
+                    <tr>
+                        <th>Tipo De Incidencia</th>
+                        <th>Nombre</th>
+                        <th>Fecha</th>
+                        <th>Lugar</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <% if (listaIncidencias != null) { %>
                     <% for (Incidencia incidencia : listaIncidencias) {%>
-                    <tr>
-                        <td><%=incidencia.getTipoIncidencia()%> </td>
-                        <td><%=incidencia.getNombreIncidencia()%></td>
-                        <td><%=incidencia.getFechaIncidencia()%></td>
-                        <td><%=incidencia.getLugar()%></td>
-                        <%--<td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
-                            <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
-                        </button> </td>
-                        <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>--%>
-                    </tr>
-                    <% } %>
-                <% } else { %>
                 <tr>
-                    <td colspan="2">No hay incidencias disponibles.</td>
+                    <td><%=incidencia.getTipoIncidencia()%></td>
+                    <td><%=incidencia.getNombreIncidencia()%> </td>
+                    <td><%=incidencia.getFechaIncidencia()%></td>
+                    <td><%=incidencia.getLugar()%></td>
+                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="mostrarModalEliminar(<%= incidencia.getIdIncidencia()%>)">
+                    <img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
+                    </button> </td>
+                    <!--<td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>-->
+                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="mostrarModalEliminar(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
                 </tr>
-                <% } %>
-                </tbody>
+                    <% } %>
             </table>
 	    </div>
+
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
@@ -148,5 +145,46 @@
         });
     </script>
 
+    <script>
+        function detallesIncidencia(id) {
+            // Redireccionar a otra página HTML
+            window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=detallar&id=' + id;
+        }
+
+        function detallesIncidencia1() {
+            // Redireccionar a otra página HTML
+            window.location.href = 'detallesIncidenciasProcesadas.html';
+        }
+        function mostrarModalEliminar(id) {
+            incidenciaIdParaEliminar = id;
+            $('#eliminarIncidenciaModal').modal('show');
+        }
+
+        function confirmarEliminar() {
+            $('#eliminarIncidenciaModal').modal('hide');
+            $('#confirmarEliminar').modal('show');
+        }
+
+        function eliminarIncidenciaDefinitivamente() {
+            var descripcion = $('#descripcionEliminar').val();
+            if (incidenciaIdParaEliminar != null) {
+                // Realizar la solicitud de eliminación con la descripción
+                $.post('<%=request.getContextPath()%>/IncidenciaServlet', {
+                    action: 'borrar',
+                    id: incidenciaIdParaEliminar,
+                    descripcion: descripcion
+                }, function(response) {
+                    // Recargar la página para actualizar la tabla
+                    location.reload();
+                });
+            }
+        }
+
+        /*function eliminarIncidencia(id) {
+            // Mostrar el modal de eliminación de incidencia
+            $('#eliminarIncidenciaModal').modal('show');
+            window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=borrar&id=' + id;
+    }*/
+    </script>
 </body>
 </html>
