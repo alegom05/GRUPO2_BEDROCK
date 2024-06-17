@@ -48,13 +48,13 @@
                 <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
                 <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="VecinoSanmi.html" class="nav-link">Lista de Vecinos</a>

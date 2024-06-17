@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("lista");
+    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("listarin");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -41,7 +41,7 @@
                 <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="/CoordinadorasJSPS/ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
+                <a href="servlet?a=listar" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
                 <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>

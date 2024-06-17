@@ -29,19 +29,19 @@
                     <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/EventoServlet" class="nav-link">Eventos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/ReportarIncidencia2.jsp" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>

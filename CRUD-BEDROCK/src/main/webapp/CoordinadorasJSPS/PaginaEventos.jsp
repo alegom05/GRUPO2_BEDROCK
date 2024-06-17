@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    Evento evento = (Evento) request.getAttribute("evento");
+    Evento evento = (Evento) request.getAttribute("listarev");
 %>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,7 +1,9 @@
 package com.example.grupo2.Servlet;
 
+import com.example.grupo2.Beans.Evento;
 import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.Beans.Usuario;
+import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.IncidenciaDao;
 import com.example.grupo2.daos.SerenazgosDao;
 import jakarta.servlet.RequestDispatcher;
@@ -23,12 +25,20 @@ public class CoordisServlet extends HttpServlet {
 
         String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
         IncidenciaDao incidenciaDao = new IncidenciaDao();
+        EventoDao eventoDao = new EventoDao();
+
 
         switch (action) {
-            case "listar" -> {
+            case "listarin" -> {
                 ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidencias();
                 request.setAttribute("lista",listaIncidencias);
-                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                RequestDispatcher view =request.getRequestDispatcher("CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                view.forward(request,response);
+            }
+            case "listarev" -> {
+                ArrayList<Evento> listaEventos = eventoDao.listarEventos();
+                request.setAttribute("lista",listaEventos);
+                RequestDispatcher view =request.getRequestDispatcher("CoordinadorasJSPS/HistorialDeEventos.jsp");
                 view.forward(request,response);
             }
             case "formCrear" -> {
@@ -46,9 +56,13 @@ public class CoordisServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/Serenazgos");
                 }*/
             }
-
-
-
+            //JSPS
+            case "listarIncidencias" -> {
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+            }
+            case "listarEventos" -> {
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/HistorialDeEventos.jsp");
+            }
         }
 
 
