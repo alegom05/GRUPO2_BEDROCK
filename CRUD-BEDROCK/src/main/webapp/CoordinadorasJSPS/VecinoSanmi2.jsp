@@ -2,7 +2,7 @@
 <%@ page import="com.example.grupo2.Beans.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("lista");
+    ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("lista");
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,44 +20,44 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
     <div class="ParteSuperior">
         <div class="row">
             <div class="col-md-3 d-flex justify-content-start align-items-center">
-                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-                <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+                <img src="./logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+                <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
                 <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
                 <a href="logIN.html">
-                    <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                    <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>
         </div>
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
+                    <a href="PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
+                    <a href="PaginaEventos.jsp" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/ReportarIncidencia2.jsp" class="nav-link">Reportar Incidencia</a>
+                    <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Lista de Incidencias</a>
+                    <a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="Calendario.jsp" class="nav-link">¡Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
+                    <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
+                    <a href="VecinoSanmi2.jsp" class="nav-link">Lista de Vecinos</a>
                 </li>
             </ul>
         </nav>             
     </div>
 
-	<div class="mt-4" style="height: 100vh; margin: 0;">
+	<div class="mt-4" style="height: 100vh; margin: 0;"><%--Revisar--%>
 		<!-- Contenido con imagen centrada -->
         <h2 style="text-align: center;">Vecinos Sanmiguelinos</h2>
         <div class="container mt-4">
@@ -89,14 +89,11 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
                     <td><%=usuario.getNombre()%></td>
                     <td><%=usuario.getCorreo()%></td>
                     <%--<td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
-                    <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
-                </button> </td>
+                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
+                    </button> </td>
                     <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>--%>
                 </tr>
                 <% } %>
-                </tbody>
-    
-
                 </tbody>
             </table>
 	    </div>
@@ -221,5 +218,6 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
             }
         });
     </script>
+    </div>
 </body>
 </html>
