@@ -39,13 +39,13 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadorasJSPS/ReportarIncidencia2.jsp" class="nav-link">Reportar Incidencia</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=crearin" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
