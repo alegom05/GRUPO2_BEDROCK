@@ -24,8 +24,8 @@ public class UsuarioDao {
 
         String sql = "select u.idUsuario, concat(u.nombre, ' ', u.apellido) as NombreCompleto, u.dni , u.telefono, u.correo, u.clave, u.direccion, u.urbanizacion, u.turnoSerenazgo, u.tipo, r.nombre, u.horaInicio, u.horaFin, u.fecha_nacimiento\n" +
                 "from usuario u\n" +
-                "join roles r on u.idRoles = r.idRoles\n" +
-                "join incidencia i on u.idUsuario = i.idUsuario\n" +
+                "left join roles r on u.idRoles = r.idRoles\n" +
+                "left join incidencia i on u.idUsuario = i.idUsuario\n" +
                 "where u.idRoles='VE';";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
