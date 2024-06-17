@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 
 <% CantidadIncidencias cantidadIncidencias = (CantidadIncidencias) request.getAttribute("cantidad"); %>
 <!DOCTYPE html>
@@ -47,7 +48,7 @@
             <h4 class="parteSuperiorText">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h4 class="parteSuperiorText" style="margin-top: 10px; margin-right: 40px; text-align: right; ">Diego Rodriguez<br>Rol: Serenazgo</h4>
+            <h4 class="parteSuperiorText" style="margin-top: 10px; margin-right: 40px; text-align: right; "><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>

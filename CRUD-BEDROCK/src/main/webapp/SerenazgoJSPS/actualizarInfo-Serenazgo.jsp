@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +27,7 @@
             <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h4 style="margin-top: 10px; margin-right: 40px; text-align: right; ">Diego Rodriguez<br>Rol: Serenazgo</h4>
+            <h4 style="margin-top: 10px; margin-right: 40px; text-align: right; "><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="../assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>
@@ -58,13 +60,13 @@
                 <div class="mb-3">
 
                     <label for="disabledTextInput" class="form-label">Nombre</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Dorian Alexander">
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= usuarioSesion.getNombre()%>">
 
                     <label for="disabledTextInput" class="form-label">Fecha de nacimiento</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="24/07/03">
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getFechaNacimiento()%>">
 
                     <label for="disabledTextInput" class="form-label">Tipo</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="Sereno a pie">
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getTipo()%>">
 
                 </div>
             </fieldset>
@@ -80,17 +82,17 @@
         <div class="col">
             <fieldset disabled>
                 <label for="disabledTextInput" class="form-label">Apellido</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="Felix Naula">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getApellido()%>">
 
                 <label for="disabledTextInput" class="form-label">Dirección</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="Los portales 192">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getDireccion()%>">
 
 
             </fieldset>
 
             <div class="mb-3" style="margin-top: 10px;">
                 <label for="enabledTextInput" class="form-label">Teléfono</label>
-                <input type="text" id="enabledTextInput" class="form-control" value="990024063">
+                <input type="text" id="enabledTextInput" class="form-control" value="<%=usuarioSesion.getNumtelefono()%>">
 
 
             </div>
@@ -100,10 +102,10 @@
         <div class="col">
             <fieldset disabled>
                 <label for="disabledTextInput" class="form-label">DNI</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="73216821">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getDni()%>">
 
                 <label for="disabledTextInput" class="form-label">Turno</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="Mañana">
+                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getTurnoSerenazgo()%>">
 
                 <label for="disabledTextInput" class="form-label">Contraseña</label>
 
