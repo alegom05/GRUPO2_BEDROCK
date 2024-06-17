@@ -48,6 +48,10 @@ public class CoordisServlet extends HttpServlet {
                 RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinoSanmi.jsp");
                 view.forward(request,response);
             }
+            case "crearin" -> {
+                RequestDispatcher view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidencia.jsp");
+                view.forward(request, response);
+            }
             case "formCrear" -> {
                 RequestDispatcher view = request.getRequestDispatcher("/AdministradorJSPS/nuevoSerenazgo-Admin.jsp");
                 view.forward(request, response);
@@ -70,8 +74,14 @@ public class CoordisServlet extends HttpServlet {
             case "Eventos" -> {
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaEventos.jsp");
             }
+            case "reportarIncidencia" -> {
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/ReportarIncidencia.jsp");
+            }
             case "listarIncidencias" -> {
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+            }
+            case "calendario" -> {
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/Calendario.jsp");
             }
             case "listarEventos" -> {
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/HistorialDeEventos.jsp");
