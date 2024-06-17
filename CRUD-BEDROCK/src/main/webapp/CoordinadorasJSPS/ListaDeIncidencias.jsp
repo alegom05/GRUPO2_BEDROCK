@@ -3,7 +3,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
-    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("listarin");
+    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("lista");
 %>
 <!DOCTYPE html>
 <html lang="es">
