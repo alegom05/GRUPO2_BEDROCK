@@ -12,6 +12,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Part;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
@@ -155,6 +156,7 @@ public class IncidenciaServlet extends HttpServlet {
                     foto = fileContent.readAllBytes(); // Lee el contenido del archivo como un array de bytes
                 }
                 String tipoIncidencia = request.getParameter("tipo");
+                System.out.println(tipoIncidencia);
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
 
                 Incidencia nuevaIncidencia = new Incidencia();
@@ -165,28 +167,17 @@ public class IncidenciaServlet extends HttpServlet {
                 nuevaIncidencia.setContacto(phoneNumber);
                 nuevaIncidencia.setRequiereAmbulancia(ambulancia);
                 nuevaIncidencia.setFotoIncidencia(foto);
-                switch(tipoIncidencia.toLowerCase()) {
-                    case "accidente":
-                        tipoIncidencia = "AC";
-                        break;
-                    case "alteracion_del_orden":
-                        tipoIncidencia = "AL";
-                        break;
-                    case "emergencia_medica":
-                        tipoIncidencia = "EM";
-                        break;
-                    case "robo":
-                        tipoIncidencia = "RO";
-                        break;
-                    default:
-                        tipoIncidencia = "OT";
-                        break;
-                }
-                nuevaIncidencia.setTipoIncidencia(tipoIncidencia);
+                nuevaIncidencia.setIdTipoIncidencia(tipoIncidencia);
                 nuevaIncidencia.setIdUsuario(idUsuario);
 
                 incidenciaDao.crearIncidencia(nuevaIncidencia);
-
+                System.out.println(nuevaIncidencia.getNombreIncidencia());
+                System.out.println(nuevaIncidencia.getLugar());
+                System.out.println(nuevaIncidencia.getReferencia());
+                System.out.println(nuevaIncidencia.getDescripcion());
+                System.out.println(nuevaIncidencia.getContacto());
+                System.out.println(nuevaIncidencia.getIdTipoIncidencia());
+                System.out.println(nuevaIncidencia.getIdUsuario());
                 response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);
 
                 break;

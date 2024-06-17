@@ -104,10 +104,11 @@
                     <div class="mb-3">
                         <label for="tipo" class="form-label" style=" margin-right: 15px;">Tipo de Incidencia:</label>
                         <select id="tipo" name="tipo" required>
-                            <option value="accidente">Accidente</option>
-                            <option value="alteracion_del_orden">Alteracion del orden público</option>
-                            <option value="robo">Robo agravado</option>
-                            <option value="emergencia_medica">Emergencia Médica</option>
+                            <option value="AC">Accidente</option>
+                            <option value="AL">Alteracion del orden público</option>
+                            <option value="RO">Robo agravado</option>
+                            <option value="EM">Emergencia Médica</option>
+                            <option value="OT">Otro</option>
                             <!-- Agrega más opciones según necesites -->
                         </select>
                     </div>

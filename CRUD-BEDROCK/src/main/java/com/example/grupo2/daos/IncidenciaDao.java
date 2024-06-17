@@ -152,7 +152,6 @@ public class IncidenciaDao {
                     }
                     pstmt.setInt(8,incidencia.getIdUsuario());
                     pstmt.setString(9,incidencia.getIdTipoIncidencia());
-
                     pstmt.executeUpdate();
                 }
             }
