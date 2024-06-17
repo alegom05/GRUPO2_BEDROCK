@@ -3,17 +3,21 @@ package com.example.grupo2.Servlet;
 import com.example.grupo2.Beans.CantidadIncidencias;
 import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.daos.IncidenciaDao;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 
+@MultipartConfig
 @WebServlet(name = "IncidenciaServlet",value = {"/IncidenciaServlet","/Incidencias"})
 public class IncidenciaServlet extends HttpServlet {
 
@@ -144,7 +148,12 @@ public class IncidenciaServlet extends HttpServlet {
                 String phoneNumber = request.getParameter("contacto");
                 boolean ambulancia = Boolean.parseBoolean(request.getParameter("ambulancia"));
 
-                //byte [] foto = new byte[]{Byte.parseByte(request.getParameter("imagen"))};
+                Part filePart = request.getPart("imagen"); // Obtén la parte del archivo
+                byte[] foto = null;
+                if (filePart != null && filePart.getSize() > 0) {
+                    InputStream fileContent = filePart.getInputStream();
+                    foto = fileContent.readAllBytes(); // Lee el contenido del archivo como un array de bytes
+                }
                 String tipoIncidencia = request.getParameter("tipo");
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
 
@@ -155,24 +164,30 @@ public class IncidenciaServlet extends HttpServlet {
                 nuevaIncidencia.setDescripcion(descripcionIncidencia);
                 nuevaIncidencia.setContacto(phoneNumber);
                 nuevaIncidencia.setRequiereAmbulancia(ambulancia);
-                nuevaIncidencia.setFotoIncidencia(null);
-                if(tipoIncidencia.equalsIgnoreCase("Accidente")){
-                    tipoIncidencia = "AC";
-                } else if (tipoIncidencia.equalsIgnoreCase("Alteracion_del_orden")) {
-                    tipoIncidencia = "AL";
-                } else if (tipoIncidencia.equalsIgnoreCase("Emergencia_medica")) {
-                    tipoIncidencia = "EM";
-                } else if (tipoIncidencia.equalsIgnoreCase("Robo")) {
-                    tipoIncidencia = "RO";
-                } else {
-                    tipoIncidencia = "OT";
+                nuevaIncidencia.setFotoIncidencia(foto);
+                switch(tipoIncidencia.toLowerCase()) {
+                    case "accidente":
+                        tipoIncidencia = "AC";
+                        break;
+                    case "alteracion_del_orden":
+                        tipoIncidencia = "AL";
+                        break;
+                    case "emergencia_medica":
+                        tipoIncidencia = "EM";
+                        break;
+                    case "robo":
+                        tipoIncidencia = "RO";
+                        break;
+                    default:
+                        tipoIncidencia = "OT";
+                        break;
                 }
                 nuevaIncidencia.setTipoIncidencia(tipoIncidencia);
                 nuevaIncidencia.setIdUsuario(idUsuario);
 
                 incidenciaDao.crearIncidencia(nuevaIncidencia);
 
-                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3?idUsuario=" + idUsuario);
+                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);
 
                 break;
             case "borrar":

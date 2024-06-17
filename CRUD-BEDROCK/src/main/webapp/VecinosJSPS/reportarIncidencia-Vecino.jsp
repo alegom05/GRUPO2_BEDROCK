@@ -61,7 +61,7 @@
 <div class="contenedor-v2">
     <div class="contenedor"><h2 class="labelFormulario contenedor mt-3">Formulario de Incidencia</h2></div>
     <div class="contenedor mt-3 mb-1 ms-4">
-        <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=crear" class="row align-items-start needs-validation" novalidate>
+        <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=crear" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
             <div class="col">
                 <div class="row">
                     <div class="mb-3">
@@ -164,17 +164,18 @@
         // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', event => {
-                event.preventDefault(); // Evitar la recarga de la página
+
                 if (!form.checkValidity()) {
+                    event.preventDefault(); // Evitar la recarga de la página
                     event.stopPropagation()
-                } else {
+                }/* else {
                     const successMessage = document.getElementById('successMessage');
                     successMessage.textContent = 'El formulario se ha enviado correctamente.';
                     successMessage.style.display = 'block';
                     setTimeout(() => {
                         successMessage.style.display = 'none';
                     }, 3000); // El mensaje se ocultará después de 2 segundos (5000 milisegundos)
-                }
+                }*/
                 form.classList.add('was-validated');
             }, false)
         })
