@@ -10,6 +10,7 @@ public class Incidencia {
     private String descripcion;
     private String lugar;
     private String referencia;
+    private String idTipoIncidencia;
     private String tipoIncidencia;
     private String contacto;
     private boolean requiereAmbulancia;
@@ -25,6 +26,7 @@ public class Incidencia {
     private String fechaIncidencia;
     private String criticidad;
     private String personalRefuerzo;
+    private int idUsuario;
 
 
     public int getIdIncidencia() {
@@ -185,5 +187,21 @@ public class Incidencia {
 
     public void setPersonalRefuerzo(String personalRefuerzo) {
         this.personalRefuerzo = personalRefuerzo;
+    }
+
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getIdTipoIncidencia() {
+        return idTipoIncidencia;
+    }
+
+    public void setIdTipoIncidencia(String idTipoIncidencia) {
+        this.idTipoIncidencia = idTipoIncidencia;
     }
 }

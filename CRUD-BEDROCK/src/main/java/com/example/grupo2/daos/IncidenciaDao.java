@@ -132,9 +132,26 @@ public class IncidenciaDao {
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection conn = DriverManager.getConnection(url, user, pass);) {
-                String sql = "";
+                String sql = "INSERT INTO incidencia (nombre,descripcion,lugar,referencia,contacto,requiereAmbulancia,foto,idUsuario,estadoIncidencia,idtipo,isDeleted) \n" +
+                        "                        VALUES (?,?,?,?,?,?,?,?,\"Nueva\",?,0);";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setString(1,incidencia.getCriticidad());
+                    pstmt.setString(1,incidencia.getNombreIncidencia());
+                    pstmt.setString(2,incidencia.getDescripcion());
+                    pstmt.setString(3,incidencia.getLugar());
+                    pstmt.setString(4,incidencia.getReferencia());
+                    if (incidencia.getContacto() != null) {
+                        pstmt.setString(5, incidencia.getContacto());
+                    } else {
+                        pstmt.setNull(5, Types.VARCHAR); // Assuming contacto is a VARCHAR type
+                    }
+                    pstmt.setBoolean(6,incidencia.isRequiereAmbulancia());
+                    if (incidencia.getFotoIncidencia() != null) {
+                        pstmt.setBytes(7, incidencia.getFotoIncidencia());
+                    } else {
+                        pstmt.setNull(7, Types.BLOB); // Assuming foto is a BLOB type
+                    }
+                    pstmt.setInt(8,incidencia.getIdUsuario());
+                    pstmt.setString(9,incidencia.getIdTipoIncidencia());
 
                     pstmt.executeUpdate();
                 }
@@ -290,6 +307,45 @@ public class IncidenciaDao {
             throw new RuntimeException(e);
         }
         return incidencia;
+    }
+
+    public static ArrayList<Incidencia> listarIncidenciasDeUnUsuario(String id) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Incidencia> listaIncidenciasUnUsuario = new ArrayList<>();
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "select i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.lugar\n" +
+                "                                          from incidencia i\n" +
+                "                                          join tipo t on i.idtipo = t.idtipo\n" +
+                "                                         where i.isDeleted = 0 and idUsuario=?;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, Integer.parseInt(id));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Incidencia incidencia = new Incidencia();
+                incidencia.setNombreIncidencia(rs.getString(1));
+                incidencia.setTipoIncidencia(rs.getString(2));
+                incidencia.setFechaIncidencia(rs.getString(3));
+                incidencia.setLugar(rs.getString(4));
+
+                listaIncidenciasUnUsuario.add(incidencia);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(listaIncidenciasUnUsuario);
+        return listaIncidenciasUnUsuario;
     }
 
 

@@ -38,10 +38,10 @@
                         <a href="PaginaEventos.html" class="nav-link">Eventos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/VecinosJSPS/reportarIncidencia-Vecino.jsp" class="nav-link">Reportar Incidencia</a>
+                        <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear" class="nav-link">Reportar Incidencia</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3" class="nav-link">Lista de Incidencias</a>
+                        <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
                     </li>
                     <li class="nav-item">
                         <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>

@@ -94,8 +94,14 @@ public class IncidenciaServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
 
+            case "formCrear":
+                view = request.getRequestDispatcher("/VecinosJSPS/reportarIncidencia-Vecino.jsp");
+                view.forward(request, response);
+                break;
+
             case "lista3":
-                ArrayList<Incidencia> listaIncidencias3 = incidenciaDao.listarIncidencias();
+                String idUsuario = request.getParameter("idUsuario");
+                ArrayList<Incidencia> listaIncidencias3 = incidenciaDao.listarIncidenciasDeUnUsuario(idUsuario);
                 request.setAttribute("incidencia", listaIncidencias3);
 
                 view = request.getRequestDispatcher("/VecinosJSPS/listaIncidencias-Vecino.jsp");
@@ -130,6 +136,45 @@ public class IncidenciaServlet extends HttpServlet {
         RequestDispatcher view;
 
         switch(action) {
+            case "crear":
+                String nombreIncidencia = request.getParameter("nombreIncidencia");
+                String lugar = request.getParameter("lugarIncidencia");
+                String referencia = request.getParameter("referencia");
+                String descripcionIncidencia = request.getParameter("descripcion");
+                String phoneNumber = request.getParameter("contacto");
+                boolean ambulancia = Boolean.parseBoolean(request.getParameter("ambulancia"));
+
+                //byte [] foto = new byte[]{Byte.parseByte(request.getParameter("imagen"))};
+                String tipoIncidencia = request.getParameter("tipo");
+                int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+
+                Incidencia nuevaIncidencia = new Incidencia();
+                nuevaIncidencia.setNombreIncidencia(nombreIncidencia);
+                nuevaIncidencia.setLugar(lugar);
+                nuevaIncidencia.setReferencia(referencia);
+                nuevaIncidencia.setDescripcion(descripcionIncidencia);
+                nuevaIncidencia.setContacto(phoneNumber);
+                nuevaIncidencia.setRequiereAmbulancia(ambulancia);
+                nuevaIncidencia.setFotoIncidencia(null);
+                if(tipoIncidencia.equalsIgnoreCase("Accidente")){
+                    tipoIncidencia = "AC";
+                } else if (tipoIncidencia.equalsIgnoreCase("Alteracion_del_orden")) {
+                    tipoIncidencia = "AL";
+                } else if (tipoIncidencia.equalsIgnoreCase("Emergencia_medica")) {
+                    tipoIncidencia = "EM";
+                } else if (tipoIncidencia.equalsIgnoreCase("Robo")) {
+                    tipoIncidencia = "RO";
+                } else {
+                    tipoIncidencia = "OT";
+                }
+                nuevaIncidencia.setTipoIncidencia(tipoIncidencia);
+                nuevaIncidencia.setIdUsuario(idUsuario);
+
+                incidenciaDao.crearIncidencia(nuevaIncidencia);
+
+                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3?idUsuario=" + idUsuario);
+
+                break;
             case "borrar":
                 String id = request.getParameter("id");
                 String descripcion = request.getParameter("descripcion");

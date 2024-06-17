@@ -184,6 +184,7 @@
                             <input type="hidden" name="id" value="<%=incidencia.getIdIncidencia()%>">
                         </div>
 
+
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn gradient-custom-3">Guardar</button>
