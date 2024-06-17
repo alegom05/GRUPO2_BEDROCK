@@ -1,7 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-
+<jsp:useBean id="lista" scope="request"  class="com.example.grupo2.Beans.Incidencia"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JuntosPorSanMiguel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/VecinosJSPS/style-Vecino.css" rel="stylesheet">
+    <link href="./VecinosJSPS/style-Vecino.css" rel="stylesheet">
 </head>
 <body>
 <div class="ParteSuperior">
@@ -20,7 +20,7 @@
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <a href="DetallesUsuario.html">
+            <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=datosPersonales">
                 <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
@@ -32,22 +32,22 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="paginaPrincipal-Vecino.jsp" class="nav-link">Municipalidad</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=paginaPrincipal" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="paginaEventos-Vecino.jsp" class="nav-link">Eventos</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=verEventos" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=reportarIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet3" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=verCalendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=historialEventos"  class="nav-link">Historial De Eventos</a>
             </li>
         </ul>
     </nav>

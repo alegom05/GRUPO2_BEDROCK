@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>InfoUsuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./index.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/VecinosJSPS/style-Vecino.css" />
 </head>
 <body>
 <div class="ParteSuperior">
@@ -24,11 +25,11 @@
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <a href="DetallesUsuario.html">
+            <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=datosPersonales">
                 <img src="./logos/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
-            <a href="logIN.html">
+            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
@@ -36,22 +37,22 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=paginaPrincipal" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="PaginaEventos.html" class="nav-link">Eventos</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=verEventos" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=reportarIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet3" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=verCalendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=historialEventos"  class="nav-link">Historial De Eventos</a>
             </li>
         </ul>
     </nav>
@@ -73,7 +74,7 @@
                 <div>
                     <label for="urbanizacionInput" class="form-label" style="margin-top: 10px;">Urbanización</label>
                     <div class="input-group">
-                        <input type="text" id="urbanizacionInput" class="form-control" placeholder="Recidencial San Miguel" disabled>
+                        <input type="text" id="urbanizacionInput" class="form-control" placeholder="Residencial San Miguel" disabled>
                         <button class="btn btn-outline-secondary" type="button" onclick="enableField('urbanizacionInput')">
                             <img src="./logos/pencil.png" width="20" height="20">
                         </button>
