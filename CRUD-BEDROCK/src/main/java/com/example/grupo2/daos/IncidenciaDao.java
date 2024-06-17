@@ -88,7 +88,7 @@ public class IncidenciaDao {
                     incidencia.setRequiereBomberos(rs.getBoolean(9));
                     incidencia.setRequierePolicia(rs.getBoolean(10));
                     incidencia.setUsuario(rs.getString(11));
-                    incidencia.setFotoIncidencia(rs.getBytes(12));
+                    incidencia.setFotoIncidencia(rs.getBlob(12));
                     incidencia.setEstadoIncidencia(rs.getString(13));
                     incidencia.setFechaIncidencia(rs.getString(14));
                     incidencia.setCriticidad(rs.getString(15));
@@ -146,7 +146,7 @@ public class IncidenciaDao {
                     }
                     pstmt.setBoolean(6,incidencia.isRequiereAmbulancia());
                     if (incidencia.getFotoIncidencia() != null) {
-                        pstmt.setBytes(7, incidencia.getFotoIncidencia());
+                        pstmt.setBlob(7, incidencia.getFotoIncidencia());
                     } else {
                         pstmt.setNull(7, Types.BLOB); // Assuming foto is a BLOB type
                     }

@@ -1,5 +1,6 @@
 package com.example.grupo2.Beans;
 
+import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -20,7 +21,7 @@ public class Incidencia {
     private String nombreUsuario;
     private String correoUsuario;
     private String usuario;
-    private byte[] fotoIncidencia;
+    private Blob fotoIncidencia;
     private String descripcionSolucion;
     private String descripcionEliminacion;
     private String fechaIncidencia;
@@ -125,14 +126,6 @@ public class Incidencia {
         this.usuario = usuario;
     }
 
-    public byte[] getFotoIncidencia() {
-        return fotoIncidencia;
-    }
-
-    public void setFotoIncidencia(byte[] fotoIncidencia) {
-        this.fotoIncidencia = fotoIncidencia;
-    }
-
     public String getDescripcionSolucion() {
         return descripcionSolucion;
     }
@@ -203,5 +196,13 @@ public class Incidencia {
 
     public void setIdTipoIncidencia(String idTipoIncidencia) {
         this.idTipoIncidencia = idTipoIncidencia;
+    }
+
+    public Blob getFotoIncidencia() {
+        return fotoIncidencia;
+    }
+
+    public void setFotoIncidencia(Blob fotoIncidencia) {
+        this.fotoIncidencia = fotoIncidencia;
     }
 }
