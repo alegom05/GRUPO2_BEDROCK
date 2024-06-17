@@ -62,12 +62,12 @@ public class VecinosDao {
             throw new RuntimeException(e);
         }
 
-        String url = "jdbc:mysql://localhost:3306/hr";
+        String url = "jdbc:mysql://localhost:3306/basededatos3";
         String username = "root";
         String password = "root";
 
         String sql = "insert into incidencia (nombre," +
-                " descripcion,lugar,referencia,contacto,idtipo,requiereAmbulancia,foto) values (?,?,?,?)";
+                " descripcion,lugar,referencia,contacto,idtipo,requiereAmbulancia) values (?,?,?,?,?,?,?)";
 
         try(Connection connection = DriverManager.getConnection(url,username,password);
             PreparedStatement pstmt = connection.prepareStatement(sql)){
