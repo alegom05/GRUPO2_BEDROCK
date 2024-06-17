@@ -51,7 +51,7 @@
 
 <header id="top" role="banner" class="header">
     <div class="container-bootstrap">
-        <h2 class="heading-4">Bienvenido personal de Serenazgo</h2>
+        <h2 class="heading-4" style="font-family: Arial, sans-serif">Bienvenido personal de Serenazgo</h2>
     </div>
 
     <a id="searchAll2" href="tablaIncidencias-Serenazgo.jsp" class="btn">

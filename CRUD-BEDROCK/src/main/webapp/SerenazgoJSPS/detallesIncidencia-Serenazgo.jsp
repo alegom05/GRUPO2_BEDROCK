@@ -136,7 +136,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=evaluar" class="row align-items-start mb-3" style="text-align: left; margin-left: 10px">
+                <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=evaluar" class="row align-items-start mb-3" style="text-align: left; margin-left: 10px; margin-right: 10px">
                     <div class="modal-body">
                         <div class="mb-3">
 
@@ -214,47 +214,55 @@
                     <form class="row align-items-start mb-3" style="text-align: left;">
 
                         <div class="mb-3">
-
-                            <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label" >Criticidad:</label>
-                            <select class="form-select" id="criticidad" name="criticidad" aria-label="Default select example">
-                                <option selected>Seleccione la criticidad</option>
-                                <option value="Bajo">Bajo</option>
-                                <option value="Medio">Medio</option>
-                                <option value="Alto">Alto</option>
-                            </select>
+                            <fieldset disabled>
+                                <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label" >Criticidad:</label>
+                                <select class="form-select" id="criticidad" name="criticidad" aria-label="Default select example">
+                                    <option selected>Seleccione la criticidad</option>
+                                    <option value="Bajo"<%= "Bajo".equalsIgnoreCase(incidencia.getCriticidad()) ? "selected" : "" %>>Bajo</option>
+                                    <option value="Medio"<%= "Medio".equals(incidencia.getCriticidad()) ? "selected" : "" %>>Medio</option>
+                                    <option value="Alto"<%= "Alto".equals(incidencia.getCriticidad()) ? "selected" : "" %> >Alto</option>
+                                </select>
+                            </fieldset>
                         </div>
 
                         <div class="mb-3">
-                            <%--@declare id="requiere"--%><label for="requiere" class="form-label">Se necesita:</label>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="requiereBomberos" name="requiereBomberos" value="true">
-                                <label class="form-check-label" for="requiereBomberos">Bomberos</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="requierePolicia" name="requierePolicia" value="true">
-                                <label class="form-check-label" for="requierePolicia">Comisaría</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" id="requiereAmbulancia" name="requiereAmbulancia" value="true">
-                                <label class="form-check-label" for="requiereAmbulancia">Ambulancia</label>
-                            </div>
+                            <fieldset disabled>
+                                <%--@declare id="requiere"--%><label for="requiere" class="form-label">Se necesita:</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="requiereBomberos" name="requiereBomberos" value="true"
+                                    <%= incidencia.isRequiereBomberos() ? "checked" : ""%>>
+                                    <label class="form-check-label" for="requiereBomberos">Bomberos</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="requierePolicia" name="requierePolicia" value="true"
+                                    <%= incidencia.isRequierePolicia() ? "checked" : ""%>>
+                                    <label class="form-check-label" for="requierePolicia">Comisaría</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="requiereAmbulancia" name="requiereAmbulancia" value="true"
+                                    <%= incidencia.isRequiereAmbulancia() ? "checked" : ""%>>
+                                    <label class="form-check-label" for="requiereAmbulancia">Ambulancia</label>
+                                </div>
+                            </fieldset>
                         </div>
 
                         <div class="mb-3">
-                            <label for="personalRefuerzo" class="form-label">Personal de serenazgo de refuerzo:</label>
-                            <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" aria-label="Default select example">
-                                <option value="" selected>Seleccione el personal de refuerzo</option>
-                                <option value="A pie">A pie</option>
-                                <option value="Bicicleta">Bicicleta</option>
-                                <option value="Canino">Canino</option>
-                                <option value="Vehículo">Vehículo</option>
-                            </select>
+                            <fieldset disabled >
+                                <label for="personalRefuerzo" class="form-label">Personal de serenazgo de refuerzo:</label>
+                                <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" aria-label="Default select example">
+                                    <option value="" selected>Seleccione el personal de refuerzo</option>
+                                    <option value="A pie" <%= "A pie".equalsIgnoreCase(incidencia.getPersonalRefuerzo()) ? "selected" : ""%>>A pie</option>
+                                    <option value="Bicicleta" <%= "Bicicleta".equalsIgnoreCase(incidencia.getPersonalRefuerzo()) ? "selected" : ""%>>Bicicleta</option>
+                                    <option value="Canino" <%= "Canino".equalsIgnoreCase(incidencia.getPersonalRefuerzo()) ? "selected" : ""%>>Canino</option>
+                                    <option value="Vehículo" <%= "Vehiculo".equalsIgnoreCase(incidencia.getPersonalRefuerzo()) ? "selected" : ""%>>Vehículo</option>
+                                </select>
+                            </fieldset>
                         </div>
 
                         <div class="mb-3">
                             <fieldset disabled>
                                 <label for="descripcionSolucion" class="form-label">Descripción de solución:</label>
-                                <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" placeholder="<%=incidencia.getDescripcionSolucion()%>" style="height: 100px"></textarea>
+                                <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" style="height: 100px;"><%= incidencia.getDescripcionSolucion() %></textarea>
                             </fieldset>
                         </div>
 
@@ -263,11 +271,8 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Volver</button>
                 </div>
-
             </div>
-
         </div>
-
     </div>
 
 
@@ -302,7 +307,7 @@
 
     <%-- Botón "Falsa alarma" --%>
     <% if (mostrarFalsaAlarma) { %>
-    <button type="button" class="btn gradient-custom-3" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnRedireccional"> Falsa alarma </button>
+    <button type="button" class="btn gradient-custom-4" data-bs-toggle="modal" data-bs-target="#exampleModal" id="btnRedireccional"> Falsa alarma </button>
     <% } %>
 
     <!-- Modal para convertir a Falasa alarma -->
@@ -334,8 +339,18 @@
 </div>
 
 
-
+<script>
+    document.addEventListener('shown.bs.modal', function (event) {
+        var modal = event.target;
+        var textarea = modal.querySelector('#descripcionSolucion');
+        /*if (textarea) {
+            textarea.style.display = 'none';
+            textarea.offsetHeight; // Trigger a reflow
+            textarea.style.display = '';
+        }*/
+    });
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </body>
 </html>

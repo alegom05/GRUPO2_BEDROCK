@@ -201,6 +201,19 @@ body {
     color: white;
 }
 
+.gradient-custom-4{
+    /* fallback for old browsers */
+    background: #df6226;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+/* Cambio de color al pasar el cursor */
+.gradient-custom-4:hover {
+    /* Nuevo color de fondo al pasar el cursor */
+    background: #8f3819;
+    color: white;
+}
+
 /*PALABRA CLAVE CAMBIOPAPUS*/
 #botonesPrincipal{
     /*background: #1abc9c;*/
@@ -384,6 +397,8 @@ nav {
     background-repeat:no-repeat; /* Indicamos que no se repetira */
     background-size:cover; /* Encajamos la imagen al 100% del ancho */
     background-position-x: center;
+
+
 }
 
 #searchAll2{
