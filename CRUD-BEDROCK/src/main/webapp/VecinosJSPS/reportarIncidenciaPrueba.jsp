@@ -6,15 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="${pageContext.request.contextPath}/VecinosJSPS/style-Vecino.css" rel="stylesheet">
+        <link href="style-Vecino.css" rel="stylesheet">
         <title>Formulario de Incidencia</title>
     </head>
     <body >
@@ -25,11 +23,11 @@
                     <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
                 </div>
                 <div class="col-md-9 d-flex align-items-center justify-content-end">
-                    <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=datosPersonales">
+                    <a href="detallesUsuario-Vecino.jsp">
                         <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                     </a>
-                    <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
-                    <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
+                    <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
+                    <a href="logIN.html">
                         <img src="../logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                     </a>
                 </div>
@@ -37,22 +35,22 @@
             <nav class="letra_botones_encabezado">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=paginaPrincipal" class="nav-link">Municipalidad</a>
+                        <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=verEventos" class="nav-link">Eventos</a>
+                        <a href="PaginaEventos.html" class="nav-link">Eventos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=reportarIncidencia" class="nav-link">Reportar Incidencia</a>
+                        <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/IncidenciaServlet3" class="nav-link">Lista de Incidencias</a>
+                        <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=verCalendario" class="nav-link">Mira Tu Calendario!</a>
+                        <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=historialEventos"  class="nav-link">Historial De Eventos</a>
+                        <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
                     </li>
                 </ul>
             </nav>
@@ -60,12 +58,12 @@
         <div class="contenedor-v2">
             <div class="contenedor"><h2 class="labelFormulario contenedor mt-3">Formulario de Incidencia</h2></div>
             <div class="contenedor mt-3 mb-1 ms-4">
-                <form class="row align-items-start needs-validation" method="post" action="<%=request.getContextPath()%>/VecinosJSPS/VecinoPruebaServlet">>
+                <form class="row align-items-start needs-validation" novalidate>
                     <div class="col">
                         <div class="row">
                             <div class="mb-3">
-                                <label for="nombreIncidencia" class="form-label"> Nombre de la Incidencia: </label>
-                                <input type="text" name="nombreIncidencia" id="nombreIncidencia" class="form-control" placeholder="" required>
+                                <label for="nombreIncidencia" class="form-label">Nombre de la Incidencia: </label>
+                                <input type="text" id="nombreIncidencia" class="form-control" placeholder="" required>
                                 <div class="valid-feedback">
                                     Todo correcto
                                 </div>
@@ -78,7 +76,7 @@
                         <div class="row">
                             <div class="mb-3">
                                 <label for="lugarIncidencia" class="form-label">Lugar</label>
-                                <input type="text" name="lugarIncidencia" id="lugarIncidencia" class="form-control" placeholder="" required>
+                                <input type="text" id="lugarIncidencia" class="form-control" placeholder="" required>
                                 <div class="valid-feedback">
                                     Todo correcto
                                 </div>
@@ -90,7 +88,7 @@
                         <div class="row">
                             <div class="mb-3">
                                 <label for="referencia" class="form-label">Referencia</label>
-                                <input type="text" name="referencia" id="referencia" class="form-control" placeholder="" required>
+                                <input type="text" id="referencia" class="form-control" placeholder="" required>
                                 <div class="valid-feedback">
                                     Todo correcto
                                 </div>
@@ -102,7 +100,7 @@
                         <div class="row">
                             <div class="mb-3">
                                 <label for="tipo" class="form-label" style=" margin-right: 15px;">Tipo de Incidencia:</label>
-                                <select name="tipo" id="tipo" required>
+                                <select id="tipo" name="tipo" required>
                                     <option value="accidente">Accidente</option>
                                     <option value="alteración_del_orden">Alteracion del orden público</option>
                                     <option value="robo">Robo agravado</option>
@@ -114,13 +112,13 @@
                         <div class="row">
                             <div class="mb-3">
                                 <label for="contacto" class="form-label">Contacto (opcional): </label>
-                                <input type="text" name="contacto" id="contacto" class="form-control" placeholder="">
+                                <input type="text" id="contacto" class="form-control" placeholder="">
                             </div>
                         </div>
                         <div class="row">
                             <div class="mb-3">
                                 <label for="ambulancia" class="form-label" style=" margin-right: 15px;">¿Requiere Ambulancia?</label>
-                                <select name="ambulancia" id="ambulancia" required>
+                                <select id="ambulancia" name="ambulancia" required>
                                     <option value="si">Sí</option>
                                     <option value="no">No</option>
                                 </select>
@@ -134,7 +132,7 @@
                         </div>
                         <div class="row mb-3">
                             <label for="descripcion" class="form-label">Descripción:</label>
-                            <textarea name="descripcion" id="descripcion" class="form-control" rows="10" placeholder="Escribe una descripción detallada aquí..." required style="resize: none;"></textarea>
+                            <textarea id="descripcion" class="form-control" rows="10" placeholder="Escribe una descripción detallada aquí..." required style="resize: none;"></textarea>
                             <div class="valid-feedback">
                                 Todo correcto
                             </div>
