@@ -57,7 +57,7 @@
                   <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
               </li>
               <li class="nav-item">
-                  <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
+                  <a href="VecinoSanmi2.jsp" class="nav-link">Lista de Vecinos</a>
               </li>
           </ul>
       </nav>             

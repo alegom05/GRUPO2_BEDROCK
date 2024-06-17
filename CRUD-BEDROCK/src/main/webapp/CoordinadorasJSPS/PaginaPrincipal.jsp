@@ -13,20 +13,20 @@
     <div class="ParteSuperior">
         <div class="row">
             <div class="col-md-3 d-flex justify-content-start align-items-center">
-                <img src="./CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
+                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
                 <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
                 <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
-                    <img src="./CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                    <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>
         </div>
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
@@ -44,7 +44,7 @@
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
                 </li>
             </ul>
         </nav>             
@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex">
-                                <img src="./CoordinadorasJSPS/imagenes_eventos/deporte/evento1.jpg" alt="Imagen 2" class="img-fluid rounded">
+                                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/imagenes_eventos/deporte/evento1.jpg" alt="Imagen 2" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>                    
@@ -87,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex">
-                                <img src="./CoordinadorasJSPS/imagenes_eventos/deporte/evento2.jpg" alt="Imagen 2" class="img-fluid rounded">
+                                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/imagenes_eventos/deporte/evento2.jpg" alt="Imagen 2" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>
@@ -105,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex">
-                                <img src="./CoordinadorasJSPS/imagenes_eventos/deporte/evento3.jpg" alt="Imagen 2" class="img-fluid rounded">
+                                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/imagenes_eventos/deporte/evento3.jpg" alt="Imagen 2" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
             </div>
             <div class="contenedor mt-2 row align-items-center fondo_recuadros">
                 <div class="col-md-5 d-flex justify-content-center">
-                    <img src="./CoordinadorasJSPS/fotos_pag_princ/fotomunicipalidad.jpg" alt="Imagen" class="img-muni">
+                    <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/fotos_pag_princ/fotomunicipalidad.jpg" alt="Imagen" class="img-muni">
                 </div>
                 <div class="col-md-7">
                     <h3 class="custom-h3">¡Bienvenidos a la página oficial de la Municipalidad de San Miguel! Somos el equipo encargado de brindarte seguridad y bienestar en tu comunidad. Nuestro compromiso es velar por tu tranquilidad y la de tu familia, gestionando servicios y programas que mejoren la calidad de vida en nuestro distrito. ¡Contáctanos para conocer más sobre cómo trabajamos juntos por un San Miguel seguro y próspero para todos!</h3>
@@ -161,13 +161,13 @@
                 <div class="footer-section">
                     <h4>Siguenos en nuestras redes: </h4>
                     <a href="https://www.facebook.com/municipalidadsanmiguel/?locale=es_LA" target="_blank">
-                        <img  src="./CoordinadorasJSPS/logos/facebook.png" alt="Imagen 1" class="img-thumbnail">
+                        <img  src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/facebook.png" alt="Imagen 1" class="img-thumbnail">
                     </a>
                     <a href="https://www.instagram.com/municipalidadsanmiguel/" target="_blank">
-                        <img  src="./CoordinadorasJSPS/logos/instagram.png" alt="Imagen 2" class="img-thumbnail">
+                        <img  src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/instagram.png" alt="Imagen 2" class="img-thumbnail">
                     </a>
                     <a href="https://www.tiktok.com/@munisanmiguel" target="_blank">
-                        <img src="./CoordinadorasJSPS/logos/tiktok.png" alt="Imagen 3" class="img-thumbnail">
+                        <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/tiktok.png" alt="Imagen 3" class="img-thumbnail">
                     </a>
                 </div>
             </div>
@@ -181,7 +181,7 @@
         </div>
 
     <!-- Script de Bootstrap -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Script personalizado -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {

@@ -6,6 +6,7 @@ import com.example.grupo2.Beans.Usuario;
 import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.IncidenciaDao;
 import com.example.grupo2.daos.SerenazgosDao;
+import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,19 +27,25 @@ public class CoordisServlet extends HttpServlet {
         String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
-
+        UsuarioDao usuarioDao = new UsuarioDao();
 
         switch (action) {
             case "listarin" -> {
                 ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidencias();
                 request.setAttribute("lista",listaIncidencias);
-                RequestDispatcher view =request.getRequestDispatcher("CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request,response);
             }
             case "listarev" -> {
                 ArrayList<Evento> listaEventos = eventoDao.listarEventos();
                 request.setAttribute("lista",listaEventos);
-                RequestDispatcher view =request.getRequestDispatcher("CoordinadorasJSPS/HistorialDeEventos.jsp");
+                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
+                view.forward(request,response);
+            }
+            case "listarve" -> {
+                ArrayList<Usuario> listaUsuario = usuarioDao.listarUsuarios();
+                request.setAttribute("lista",listaUsuario);
+                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinoSanmi.jsp");
                 view.forward(request,response);
             }
             case "formCrear" -> {
@@ -57,11 +64,20 @@ public class CoordisServlet extends HttpServlet {
                 }*/
             }
             //JSPS
+            case "paginaPrincipal" -> {
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaPrincipal.jsp");
+            }
+            case "Eventos" -> {
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaEventos.jsp");
+            }
             case "listarIncidencias" -> {
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/ListaDeIncidencias.jsp");
             }
             case "listarEventos" -> {
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/HistorialDeEventos.jsp");
+            }
+            case "listarVecinos" -> {
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/VecinoSanmi.jsp");
             }
         }
 
