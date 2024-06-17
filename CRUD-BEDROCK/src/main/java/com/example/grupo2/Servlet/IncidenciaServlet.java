@@ -94,6 +94,14 @@ public class IncidenciaServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
 
+            case "lista3":
+                ArrayList<Incidencia> listaIncidencias3 = incidenciaDao.listarIncidencias();
+                request.setAttribute("incidencia", listaIncidencias3);
+
+                view = request.getRequestDispatcher("/VecinosJSPS/listaIncidencias-Vecino.jsp");
+                view.forward(request, response);
+                break;
+
             //Borrado físico ahora se usa un borrado lógico
             /*case "borrar":
                 String idd = request.getParameter("id");

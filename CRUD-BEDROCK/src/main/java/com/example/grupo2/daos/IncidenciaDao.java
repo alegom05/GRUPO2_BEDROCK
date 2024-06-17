@@ -22,11 +22,11 @@ public class IncidenciaDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select i.idIncidenciaReportada, i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%Y-%m-%d %H:%i') AS fecha_formateada, i.estadoIncidencia ,concat(u.nombre,' ',u.apellido) as vecino, u.correo\n" +
-                "                from incidencia i\n" +
-                "                join usuario u on u.idUsuario=i.idUsuario\n" +
-                "                join tipo t on i.idtipo = t.idtipo\n" +
-                "                where i.isDeleted = 0;";
+        String sql = "select i.idIncidenciaReportada, i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.estadoIncidencia ,concat(u.nombre,' ',u.apellido) as vecino, u.correo, i.lugar\n" +
+                "                           from incidencia i\n" +
+                "                            join usuario u on u.idUsuario=i.idUsuario\n" +
+                "                           join tipo t on i.idtipo = t.idtipo\n" +
+                "                            where i.isDeleted = 0;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -41,6 +41,7 @@ public class IncidenciaDao {
                 incidencia.setEstadoIncidencia(rs.getString(5));
                 incidencia.setNombreUsuario(rs.getString(6));
                 incidencia.setCorreoUsuario(rs.getString(7));
+                incidencia.setLugar(rs.getString(8));
 
                 listaIncidencias.add(incidencia);
             }
@@ -115,6 +116,26 @@ public class IncidenciaDao {
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setString(1,descripcionEliminacion);
                     pstmt.setInt(2, Integer.parseInt(id));
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void crearIncidencia(Incidencia incidencia){
+        try {
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+                String sql = "";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setString(1,incidencia.getCriticidad());
+
                     pstmt.executeUpdate();
                 }
             }

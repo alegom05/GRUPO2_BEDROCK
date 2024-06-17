@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Blob;
 
-@WebServlet(name = "VecinoPruebaServlet", value = "/VecinoPruebaServlet")
+@WebServlet(name = "VecinoIndexServlet", value = "/VecinoIndexServlet")
 public class VecinoIndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

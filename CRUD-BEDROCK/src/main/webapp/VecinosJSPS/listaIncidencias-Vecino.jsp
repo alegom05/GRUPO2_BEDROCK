@@ -13,7 +13,7 @@
         <title>Lista de Incidencias</title>
     </head>
     <body>
-        <div class="ParteSuperior">
+        <div class="ParteSuperior" style="overflow-x: hidden">
             <div class="row">
                 <div class="col-md-3 d-flex justify-content-start align-items-center">
                     <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
@@ -32,16 +32,16 @@
             <nav class="letra_botones_encabezado">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
+                        <a href="${pageContext.request.contextPath}/VecinoIndexServlet" class="nav-link">Municipalidad</a>
                     </li>
                     <li class="nav-item">
                         <a href="PaginaEventos.html" class="nav-link">Eventos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
+                        <a href="${pageContext.request.contextPath}/VecinosJSPS/reportarIncidencia-Vecino.jsp" class="nav-link">Reportar Incidencia</a>
                     </li>
                     <li class="nav-item">
-                        <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+                        <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3" class="nav-link">Lista de Incidencias</a>
                     </li>
                     <li class="nav-item">
                         <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
@@ -87,7 +87,7 @@
                             <tr>
                                 <td><%=incidencia1.getTipoIncidencia()%></td>
                                 <td><%=incidencia1.getNombreIncidencia()%></td>
-                                <td><%=incidencia1.getFecha()%></td>
+                                <td><%=incidencia1.getFechaIncidencia()%></td>
                                 <td><%=incidencia1.getLugar()%></td>
                             </tr>
                             <%  }  %>
@@ -138,6 +138,6 @@
                     });
                 });
             </script>
-
+        </div>
     </body>
 </html>
