@@ -20,13 +20,13 @@
     <div class="ParteSuperior">
         <div class="row">
             <div class="col-md-3 d-flex justify-content-start align-items-center">
-                <img src="./CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
                 <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
                 <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
                 <a href="logIN.html">
-                    <img src="./CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                    <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>
         </div>
@@ -80,9 +80,9 @@
 
         <div class="row mt-3 custom-cartanz-2">
             <div class="col-md-4">
-                <a href="./EventosDetallado1.html" class="card-link">
+                <a href="${pageContext.request.contextPath}/EventosDetallado1.html" class="card-link">
                     <div class="card shadow">
-                        <img src="./imagenes_eventos/deporte/evento1.jpg" alt="Evento 1" class="card-img-top w-100">
+                        <img src="${pageContext.request.contextPath}/imagenes_eventos/deporte/evento1.jpg" alt="Evento 1" class="card-img-top w-100">
                         <div class="card-body">
                             <h5 class="card-title">Maraton de San Miguel</h5>
                             <p class="card-text">30/08/2024</p>
@@ -94,7 +94,7 @@
             <div class="col-md-4 custom-cartanz-2">
                 <a href="./EventosDetallado2.html" class="card-link">
                     <div class="card shadow">
-                        <img src="./imagenes_eventos/deporte/evento2.jpg" alt="Evento 2" class="card-img-top w-100">
+                        <img src="${pageContext.request.contextPath}/imagenes_eventos/deporte/evento2.jpg" alt="Evento 2" class="card-img-top w-100">
                         <div class="card-body">
                             <h5 class="card-title">Torneo de futbol juvenil</h5>
                             <p class="card-text">25/08/2024</p>
@@ -105,7 +105,7 @@
             <div class="col-md-4 custom-cartanz-2">
                 <a href="./EventosDetallado3.html" class="card-link">
                     <div class="card shadow">
-                        <img src="./imagenes_eventos/deporte/evento3.jpg" alt="Evento 3" class="card-img-top w-100">
+                        <img src="${pageContext.request.contextPath}/imagenes_eventos/deporte/evento3.jpg" alt="Evento 3" class="card-img-top w-100">
                         <div class="card-body">
                             <h5 class="card-title">Carrera de ciclismo</h5>
                             <p class="card-text">15/08/2024</p>
@@ -116,7 +116,7 @@
             <div class="col-md-4 mt-4 custom-cartanz-2">
                 <a href="./EventosDetallado4.html" class="card-link">
                     <div class="card shadow">
-                        <img src="./imagenes_eventos/deporte/evento4.jpg" alt="Evento 4" class="card-img-top w-100">
+                        <img src="${pageContext.request.contextPath}/imagenes_eventos/deporte/evento4.jpg" alt="Evento 4" class="card-img-top w-100">
                         <div class="card-body">
                             <h5 class="card-title">Torneo Raqueta Dorada</h5>
                             <p class="card-text">03/08/2024</p>
