@@ -211,6 +211,8 @@ INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('AD', 'Administ
 INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('CO', 'Coordinadoras');
 INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('SE', 'Serenazgo');
 INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('VE', 'Vecino');
+/*INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('C0', 'PreCoordinadora');
+INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('V0', 'PreVecino');*/
 
 -- Datos de usuario
 INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
@@ -307,15 +309,6 @@ INSERT INTO `basededatos3`.`incidencia`
 ('Persona atrapada', 'Persona atrapada en un ascensor', 'Calle 10, Barranco', 'Referencia 78, Barranco', '923456789', 0, 0, 17, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0),
 ('Accidente de tráfico', 'Accidente de tráfico sin heridos', 'Av. Brasil 789, Jesús María', 'Referencia 90, Jesús María', '934567890', 0, 0, 18, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0),
 ('Alarma', 'Alarma de seguridad activada sin motivo', 'Jr. Puno 112, Cercado de Lima', 'Referencia 12, Cercado de Lima', '945678901', 0, 0, 19, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0);
-
-/*
-INSERT INTO `basededatos3`.`incidencia` 
-(`nombre`, `descripcion`, `lugar`, `referencia`, `contacto`, `requiereAmbulancia`, `requiereBomberos`, `idUsuario`, `criticidad`, `tipoPersonal`, `personalRefuerzo`, `descripcionSolucion`, `descripcionEliminacion`, `estadoPersonal`, `estadoIncidencia`, `idtipo`, `foto`, `isDeleted`) VALUES
-('Accidente de tráfico', 'Accidente de tráfico sin heridos', 'Av. Brasil 789, Jesús María', 'Referencia 90, Jesús María', '934567890', 0, 18, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0),
-('Alarma', 'Alarma de seguridad activada sin motivo', 'Jr. Puno 112, Cercado de Lima', 'Referencia 12, Cercado de Lima', '945678901', 0, 19, NULL, NULL, NULL, NULL, NULL, NULL, 'Falsa alarma', 'OT', NULL, 0);
-
-
-*/
 
 -- Eventos
 ALTER TABLE evento AUTO_INCREMENT = 2001;
