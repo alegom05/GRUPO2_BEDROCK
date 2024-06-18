@@ -166,7 +166,7 @@ public class IncidenciaServlet extends HttpServlet {
                 nuevaIncidencia.setDescripcion(descripcionIncidencia);
                 nuevaIncidencia.setContacto(phoneNumber);
                 nuevaIncidencia.setRequiereAmbulancia(ambulancia);
-                nuevaIncidencia.setFotoIncidencia(foto);
+                /*nuevaIncidencia.setFotoIncidencia(foto);*/
                 nuevaIncidencia.setIdTipoIncidencia(tipoIncidencia);
                 nuevaIncidencia.setIdUsuario(idUsuario);
 

@@ -189,6 +189,19 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`incidencia` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+
+-- -----------------------------------------------------
+-- Table `basededatos3`.`credenciales`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
+  `idcredenciales` INT NOT NULL,
+  `idUsuario` INT NULL,
+  `correo` VARCHAR(45) NULL,
+  `clave` VARCHAR(45) NULL,
+  `claveHash` VARCHAR(45) NULL,
+  PRIMARY KEY (`idcredenciales`))
+ENGINE = InnoDB;
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
