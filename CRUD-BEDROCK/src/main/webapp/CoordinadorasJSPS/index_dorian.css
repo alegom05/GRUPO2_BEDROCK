@@ -1,0 +1,385 @@
+.img-thumbnail{
+    max-width: 80px; 
+}
+#boton {
+    background:  rgb(6, 106, 255);
+    border: none;
+    font-size: 1.2rem; /* Tamaño del texto */
+    color: white;
+    width: 120px; /* Ancho automático */
+    height: 42px; /* Alto fijo */
+}
+.btn-group {
+    display: flex;
+    justify-content: space-between;
+}
+.imagen-container {
+    /*background: #1abc9c;
+
+    background: linear-gradient(to right, #31cbac54, #24957e46, #209d544c);
+    padding: 10px;
+    margin-top: 20px;*/
+    background-image: url('./assets/images/Sanmiguel_costaverde.jpeg');
+    background-size: cover; /* Ajusta la imagen para cubrir todo el contenedor */
+    background-position: center; /* Centra la imagen */
+    background-color: rgba(255, 255, 255, 0.5); /* Color blanco con 50% de transparencia */
+    padding: 100px;
+}
+.imagen-container img {
+    width: 100%;
+    height: auto; /* Establece una altura fija para todas las imágenes */
+    object-fit: cover; /* Recorta las imágenes para que mantengan la proporción */
+}
+/*.custom-h3 {
+    font-size: 1.3rem; 
+    text-align: left; 
+    font-weight: normal;
+    line-height: 1.8; 
+}*/
+.img-muni{
+    max-width: 500px; 
+}
+.footer-section {
+    
+    padding: 20px; /* Espacio interno */
+    margin-top: 20px; /* Margen superior */
+}
+
+a {
+    text-decoration: none;
+}
+body {
+    background-color: #ffffff; /* Cambia este valor por el azul que desees */
+    margin: 0; /* Asegura que no haya margen alrededor del cuerpo */
+    padding: 0; /* Asegura que no haya relleno alrededor del cuerpo */
+}
+
+.evento {
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #000064b3;
+    color: white;
+    padding: 5px;
+}
+.card-title {
+    color: black;
+}
+.card-text {
+    color: black;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#imagen_evento {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px; 
+    height: 300px; 
+    object-fit: cover; 
+}
+
+#boton-ult{
+    margin-bottom: 20px;
+}
+#container-evento-det{
+    background-color: #AFF4C6;
+}
+
+.form-label{
+    margin-top: 10px;
+    /*margin-bottom: 10px;*/
+    display: block;
+    /*font-size: 18px;*/    
+}
+
+.labelFormulario{
+    margin-top: 15px;
+}
+
+#btnEnvio{
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+.align-button {
+    position: relative;
+    top: 30px; /* Ajusta la posición vertical según sea necesario */
+}
+#btnRedireccional{
+    margin-top: 20px;
+}
+
+.headerLOG{
+    background-color: #198754;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+#contenedorLOG {
+    margin: 125px auto;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.miParrafo{
+    font-size: 1.2rem;
+}
+
+#lupaICON,
+#tachoICON {
+  margin: 0; /* Establecer el margen en cero */
+  margin-left: 20px;
+  
+}
+
+.botonesGroup{
+    text-align: center;
+}
+
+.imagenCapacitacion{
+    max-width: 400px; /* Ancho máximo de la imagen */
+    max-height: 4000px; /* Altura máxima de la imagen */
+    width: auto; /* Permitir que el ancho se ajuste automáticamente */
+    height: auto;   
+    margin-left: 50px;
+}
+
+.infoCapacitacion{
+    margin-left: 50px;
+}
+
+.gradient-custom-2 {
+
+    /* fallback for old browsers */
+    background: #1abc9c;
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #119a7f, #0a5546, #209d54);
+    }
+    
+    @media (min-width: 768px) {
+    .gradient-form {
+    height: 100vh !important;
+    }
+    }
+
+    @media (min-width: 769px) {
+    .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+    }
+}
+
+.gradient-custom-3{
+    /* fallback for old browsers */
+    background: #069369;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+/* Cambio de color al pasar el cursor */
+.gradient-custom-3:hover {
+    /* Nuevo color de fondo al pasar el cursor */
+    background: #0a5546;
+    color: white;
+}
+
+#botonesPrincipal{
+    background: #1abc9c;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #1abc9c, #16a085, #2ecc71);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #1abc9c, #16a085, #2ecc71);
+}
+
+.pie_pagina{
+    background: #1abc9c;
+
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #1abc9c, #16a085, #2ecc71);
+
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, #1abc9c, #16a085, #2ecc71);
+}
+
+.ParteSuperior{
+    background: rgb(8,67,148);
+    background: linear-gradient(0deg, rgba(8,67,148,1) 0%, rgba(38,149,226,1) 100%);
+    color: #f2f4f5; /* Letra en blanco */
+}    
+
+.img-thumbnail{
+    max-width: 80px; 
+    border: none;
+    background: none;
+    margin-right: 10px;
+}
+
+.letra_botones_encabezado{
+    font-size: 1.15rem;
+    font-weight: 550; 
+}
+
+nav {
+    background: rgb(8,67,148);
+    background: linear-gradient(0deg, rgba(8,67,148,0.3533788515406162) 0%, rgba(38,117,226,0.29735644257703087) 100%);
+    text-align: center; /* Centra el contenido */
+}
+
+.nav {
+    list-style-type: none; /* Elimina los puntos de la lista */
+    padding: 0;
+    margin: 0;
+    display: flex; /* Utiliza flexbox */
+    justify-content: center; /* Centra los elementos horizontalmente */
+}
+
+.nav-item {
+    margin: 0 10px; /* Espacio entre elementos */
+}
+
+.nav-link {
+    display: inline-block; /* Permite aplicar estilos a los enlaces */
+    padding: 10px 15px;
+    color: #fff; /* Color del texto */
+    text-decoration: none; /* Quita el subrayado de los enlaces */
+}
+
+.contenedor{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+.contenedor2{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 50px;
+}
+
+.texto-con-imagen {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.texto-con-imagen h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.texto-con-imagen .fecha-hora {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+.texto-con-imagen .descripcion {
+    font-size: 18px;
+    line-height: 150%;
+}
+
+.subtitulos{
+    margin-left : 20px; 
+}
+
+.descripcion{
+    font-size: 18px;
+    line-height: 1.6;
+    font-family: Arial, sans-serif; /* Cambia la fuente si lo deseas */
+    color: #333; /* Cambia el color del texto si lo deseas */
+    margin-top: 20px;
+}
+
+.pie_de_pagina{
+    margin-top: 50px;
+}
+
+.descripcion-capacitacion {
+    font-family: Arial, sans-serif; /* Cambia la fuente si lo deseas */
+    font-size: 18px;
+    line-height: 1.6;
+    color: #333; /* Cambia el color del texto si lo deseas */
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.contenedor-evaluacion{
+    margin: 50px auto;
+    width: 50%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;  
+
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.bodyForms{
+    background-color: #eee;
+}
+#formsCuadros{
+    background-color: #fff;
+}
+
+.align-button {
+    position: relative;
+    top: 30px; /* Ajusta la posición vertical según sea necesario */
+}
+.alerta-custom {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    border-radius: 5px;
+    z-index: 9999;
+}
+.mensaje{
+    color: rgb(145, 14, 14);
+    background-color: #fa6675;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    display: none; /* Ocultar el mensaje inicialmente */
+    font-weight: bold; /* Hacer que el texto sea negrita */
+}
+#successMessage{
+    background-color: #40ffa0;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-weight: bold; /* Hacer que el texto sea negrita */
+}
