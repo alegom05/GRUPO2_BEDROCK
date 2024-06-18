@@ -30,7 +30,9 @@ public class VecinoIndexServlet extends HttpServlet {
                 request.getRequestDispatcher("./VecinosJSPS/reportarIncidenciaPrueba.jsp").forward(request,response);
                 break;
 
+
         }
+
     }
 
     @Override

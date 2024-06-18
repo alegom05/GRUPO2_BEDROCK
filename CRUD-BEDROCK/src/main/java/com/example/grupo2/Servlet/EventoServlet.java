@@ -66,6 +66,13 @@ public class EventoServlet extends HttpServlet {
                 }
                 response.sendRedirect(request.getContextPath()+"/EventoServlet");
                 break;
+
+            //JSP
+            case "eventos":
+                response.sendRedirect(request.getContextPath() + "/VecinosJSPS/paginaEventos-Vecino.jsp");
+
+            case "calendario":
+                response.sendRedirect(request.getContextPath() + "/VecinosJSPS/Calendario.jsp");
         }
     }
 

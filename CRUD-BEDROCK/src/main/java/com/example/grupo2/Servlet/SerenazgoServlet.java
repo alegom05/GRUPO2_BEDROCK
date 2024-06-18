@@ -44,9 +44,6 @@ public class SerenazgoServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/Serenazgos");
                 }
             }
-
-
-
         }
 
 
