@@ -152,8 +152,9 @@ public class IncidenciaServlet extends HttpServlet {
                 Part filePart = request.getPart("imagen"); // Obtén la parte del archivo
                 byte[] foto = null;
                 if (filePart != null && filePart.getSize() > 0) {
-                    InputStream fileContent = filePart.getInputStream();
-                    foto = fileContent.readAllBytes(); // Lee el contenido del archivo como un array de bytes
+                    try (InputStream fileContent = filePart.getInputStream()) {
+                        foto = fileContent.readAllBytes(); // Lee el contenido del archivo como un array de bytes
+                    }
                 }
                 String tipoIncidencia = request.getParameter("tipo");
                 System.out.println(tipoIncidencia);
