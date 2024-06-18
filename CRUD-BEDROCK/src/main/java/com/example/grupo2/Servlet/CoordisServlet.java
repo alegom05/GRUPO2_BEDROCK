@@ -24,6 +24,7 @@ public class CoordisServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
+        Incidencia incidencia = new Incidencia();
         String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
@@ -31,7 +32,8 @@ public class CoordisServlet extends HttpServlet {
 
         switch (action) {
             case "listarin" -> {
-                ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidencias();
+                String id = request.getParameter("idUsuario");
+                ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidenciasDeUnUsuario(id);
                 request.setAttribute("lista",listaIncidencias);
                 RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request,response);

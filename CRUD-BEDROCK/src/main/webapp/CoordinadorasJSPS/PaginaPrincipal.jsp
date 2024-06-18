@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,9 +18,12 @@
                 <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
-                <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
+                <a href="DetallesUsuario.html">
+                    <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+                </a>
+                <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
-                    <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                    <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>
         </div>
@@ -32,7 +36,7 @@
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=crearin" class="nav-link">Reportar Incidencia</a>
+                    <a href="<%=request.getContextPath()%>/Coordis?a=listarin&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Lista de Incidencias</a>
