@@ -63,7 +63,7 @@
     <div class="contenedor-v2">
         <div class="contenedor"><h2 class="labelFormulario contenedor mt-3">Formulario de Incidencia</h2></div>
         <div class="contenedor mt-3 mb-1 ms-4">
-            <form method="post" action="<%=request.getContextPath()%>/Coordis?a=crearrIn" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+            <form method="post" action="<%=request.getContextPath()%>/Coordis?a=crearIn" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
                 <div class="col">
                     <div class="row">
                         <div class="mb-3">
