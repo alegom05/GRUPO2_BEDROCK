@@ -108,8 +108,8 @@ public class EventoServlet extends HttpServlet {
         EventoDao eventoDao = new EventoDao();
 
         switch (action) {
-            /*case "crear":
-
+            case "crear":
+                /*
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 String lugar = request.getParameter("lugar");
@@ -118,7 +118,6 @@ public class EventoServlet extends HttpServlet {
                 String fechaInicio = request.getParameter("fechaInicial");
                 String fechaFin = request.getParameter("fechaFinal");
                 String hora= request.getParameter("hora");
-                String frecuencia= request.getParameter("frecuencia");
 
                 boolean esValido= true;
                 if(esValido){
@@ -144,36 +143,7 @@ public class EventoServlet extends HttpServlet {
                     }
                 }else{
                     request.getRequestDispatcher("CoordinadorasJSPS/CrearEvento.jsp").forward(request,response);
-                }
-                break;*/
-
-            case "crear":
-
-                String nombre = request.getParameter("nombre");
-                String descripcion = request.getParameter("descripcion");
-                String lugar = request.getParameter("lugar");
-                String encargado = request.getParameter("encargado");
-                String vacantes = request.getParameter("vacantes");
-                String fechaInicio = request.getParameter("fechaInicial");
-                String fechaFin = request.getParameter("fechaFinal");
-                String hora= request.getParameter("hora");
-                String frecuencia= request.getParameter("frecuencia");
-
-
-                Evento nuevoEvento = new Evento();
-                nuevoEvento.setNombre(nombre);
-                nuevoEvento.setDescripcion(descripcion);
-                nuevoEvento.setLugar(lugar);
-                nuevoEvento.setNombreProfesor(encargado);
-                nuevoEvento.setVacantes(Integer.parseInt(vacantes));
-                nuevoEvento.setFechaInicial(Date.valueOf(fechaInicio));
-                nuevoEvento.setFechaFinal(Date.valueOf(fechaFin));
-                nuevoEvento.setHora(Time.valueOf(hora));
-                nuevoEvento.setFrecuencia(Integer.parseInt(frecuencia));
-
-                eventoDao.crearEvento(nuevoEvento);
-                response.sendRedirect(request.getContextPath()+ "/EventoServlet?action=lista&idEvento" + );
-
+                }*/
                 break;
 
             case "modificar":
