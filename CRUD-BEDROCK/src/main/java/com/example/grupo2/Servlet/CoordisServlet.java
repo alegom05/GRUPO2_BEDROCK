@@ -72,6 +72,7 @@ public class CoordisServlet extends HttpServlet {
             //JSPS
             case "paginaPrincipal" -> {
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaPrincipal.jsp");
+
             }
             case "Eventos" -> {
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaEventos.jsp");
