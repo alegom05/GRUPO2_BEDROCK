@@ -26,6 +26,7 @@
                     <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
             </div>
+
         </div>
         <nav class="letra_botones_encabezado">
             <ul class="nav">

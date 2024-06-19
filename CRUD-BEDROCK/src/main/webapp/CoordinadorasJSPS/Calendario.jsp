@@ -1,6 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,34 +32,37 @@
               <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
           </div>
           <div class="col-md-9 d-flex align-items-center justify-content-end">
-              <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
-              <a href="login.jsp">
-                  <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+              <a href="DetallesUsuario.html">
+                  <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+              </a>
+              <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br>Rol: <%=usuarioSesion.getRol()%></h2>
+              <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
+                  <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
               </a>
           </div>
       </div>
       <nav class="letra_botones_encabezado">
           <ul class="nav">
               <li class="nav-item">
-                  <a href="PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
+                  <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
               </li>
               <li class="nav-item">
-                  <a href="PaginaEventos.jsp" class="nav-link">Eventos</a>
+                  <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
               </li>
               <li class="nav-item">
-                  <a href="ReportarIncidencia2.jsp" class="nav-link">Reportar Incidencia</a>
+                  <a href="${pageContext.request.contextPath}/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
               </li>
               <li class="nav-item">
-                  <a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
+                  <a href="${pageContext.requestcontextPath}/Coordis?a=listarin&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
               </li>
               <li class="nav-item">
-                  <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
+                  <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
               </li>
               <li class="nav-item">
-                  <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+                  <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
               </li>
               <li class="nav-item">
-                  <a href="VecinoSanmi2.jsp" class="nav-link">Lista de Vecinos</a>
+                  <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
               </li>
           </ul>
       </nav>             
