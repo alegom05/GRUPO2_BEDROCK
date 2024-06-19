@@ -5,7 +5,13 @@
   Time: 16:34
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="com.example.grupo2.daos.EventoDao" %>
+<%@ page import="com.example.grupo2.Beans.Evento" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.Math" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -75,92 +81,63 @@
         <div class="col">
             <nav aria-label="Page navigation" class="no_colocar_fondo mb-3">
                 <ul class="pagination justify-content-end">
+                    <%
+                        EventoDao eventosDAO = new EventoDao();
+                        int pageSize = 6;
+                        int totalEvents = eventosDAO.contarEventos();
+                        int totalPages = (int) Math.ceil(totalEvents / (double) pageSize);
+                        int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+                        if (currentPage > 1) {
+                    %>
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Previous">
+                        <a class="page-link" href="paginaEventos-Vecino.jsp?page=<%= currentPage - 1 %>" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li class="page-item"><a class="page-link" href="paginaEventos-Vecino.jsp">1</a></li>
-                    <li class="page-item"><a class="page-link" href="PaginaEventos2.html">2</a></li>
-                    <li class="page-item"><a class="page-link" href="PaginaEventos3.html">3</a></li>
+                    <%
+                        }
+                        for (int i = 1; i <= totalPages; i++) {
+                    %>
+                    <li class="page-item <%= i == currentPage ? "active" : "" %>">
+                        <a class="page-link" href="paginaEventos-Vecino.jsp?page=<%= i %>"><%= i %></a>
+                    </li>
+                    <%
+                        }
+                        if (currentPage < totalPages) {
+                    %>
                     <li class="page-item">
-                        <a class="page-link" href="#" aria-label="Next">
+                        <a class="page-link" href="paginaEventos-Vecino.jsp?page=<%= currentPage + 1 %>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
+                    <%
+                        }
+                    %>
                 </ul>
             </nav>
         </div>
     </div>
 
     <div class="row">
+        <%
+            ArrayList<Evento> listaeventos = eventosDAO.listarEventos_limitado(currentPage, pageSize);
+            for (Evento evento : listaeventos) {
+        %>
         <div class="col-md-4 custom-cartanz-2">
-            <a href="./EventosDetallado1.html" class="card-link">
+            <a href="<%= request.getContextPath() %>/EventosDetallado?id=<%= evento.getIdEvento() %>" class="card-link">
                 <div class="card shadow">
-                    <img src="../imagenes_eventos-Vecino/primer_evento.jpg" alt="Evento 1" class="card-img-top w-100">
+                    <img src="<%= request.getContextPath() %>/imagenEvento?id=<%= evento.getIdEvento() %>" alt="Imagen del evento" class="card-img-top w-100">
                     <div class="card-body">
-                        <h5 class="card-title">Día de Santa Rosa de Lima</h5>
-                        <p class="card-text">30/08/2024</p>
+                        <h5 class="card-title"><%= evento.getNombre() %></h5>
+                        <p class="card-text"><%= evento.getFechaFinal() %></p>
                     </div>
                 </div>
             </a>
         </div>
-
-        <div class="col-md-4 custom-cartanz-2">
-            <a href="./EventosDetallado2.html" class="card-link">
-                <div class="card shadow">
-                    <img src="../imagenes_eventos-Vecino/segundo_evento.avif" alt="Evento 2" class="card-img-top w-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Aniversario Plaza San Miguel</h5>
-                        <p class="card-text">25/08/2024</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4 custom-cartanz-2">
-            <a href="./EventosDetallado3.html" class="card-link">
-                <div class="card shadow">
-                    <img src="../imagenes_eventos-Vecino/tercer_evento.jpg" alt="Evento 3" class="card-img-top w-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Big Drummers</h5>
-                        <p class="card-text">15/08/2024</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4 mt-4 custom-cartanz-2">
-            <a href="./EventosDetallado4.html" class="card-link">
-                <div class="card shadow">
-                    <img src="../imagenes_eventos-Vecino/cuarto_evento.jpg" alt="Evento 4" class="card-img-top w-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Torneo Raqueta Dorada</h5>
-                        <p class="card-text">03/08/2024</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4 mt-4 custom-cartanz-2">
-            <a href="./EventosDetallado5.html" class="card-link">
-                <div class="card shadow">
-                    <img src="../imagenes_eventos-Vecino/quinto_evento.jpg" alt="Evento 5" class="card-img-top w-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Copa San Miguel</h5>
-                        <p class="card-text">24/07/2024</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-        <div class="col-md-4 mt-4 custom-cartanz-2">
-            <a href="./EventosDetallado6.html" class="card-link">
-                <div class="card shadow">
-                    <img src="../imagenes_eventos-Vecino/sexto_evento.jpg" alt="Evento 6" class="card-img-top w-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Rawayana en Lima</h5>
-                        <p class="card-text">18/07/2024</p>
-                    </div>
-                </div>
-            </a>
-        </div>
+        <%
+            }
+        %>
     </div>
 </div>
 <!-- Script de Bootstrap -->
