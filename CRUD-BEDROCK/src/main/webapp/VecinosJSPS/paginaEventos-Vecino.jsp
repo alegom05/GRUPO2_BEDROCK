@@ -33,9 +33,9 @@
             <a href="DetallesUsuario.html">
                 <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
-            <a href="logIN.html">
-                <img src="../logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
+                <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
     </div>
@@ -54,7 +54,7 @@
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
+                <a href="<%=request.getContextPath()%>/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
                 <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>

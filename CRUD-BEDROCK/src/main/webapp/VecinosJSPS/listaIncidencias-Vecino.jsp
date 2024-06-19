@@ -47,7 +47,7 @@
                         <a href="${pageContext.request.contextPath}/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
                     </li>
                     <li class="nav-item">
-                        <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+                        <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=historialEventos" class="nav-link">Historial De Eventos</a>
                     </li>
                 </ul>
             </nav>

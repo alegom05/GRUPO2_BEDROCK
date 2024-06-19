@@ -27,6 +27,9 @@ public class VecinoIndexServlet extends HttpServlet {
             case "new":
                 request.getRequestDispatcher("./VecinosJSPS/reportarIncidenciaPrueba.jsp").forward(request,response);
                 break;
+            case "historialEventos":
+                request.getRequestDispatcher("./VecinosJSPS/historialEventosVecino.jsp").forward(request,response);
+                break;
 
 
         }

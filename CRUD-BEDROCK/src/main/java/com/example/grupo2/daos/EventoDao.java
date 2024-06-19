@@ -59,6 +59,47 @@ public class EventoDao {
         System.out.println(lista);
         return lista;
     }
+    public static ArrayList<Evento> listarEventosCalendario() {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Evento> lista = new ArrayList<>();
+
+        String sql = "SELECT * FROM evento";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Evento evento = new Evento();
+                evento.setIdEvento(rs.getInt(1));
+                evento.setNombre(rs.getString(2));
+                evento.setFechaInicial(rs.getDate(3));
+                evento.setFechaFinal(rs.getDate(4));
+                evento.setFoto(rs.getBlob(5));
+                evento.setMateriales(rs.getString(6));
+                evento.setLugar(rs.getString(7));
+                evento.setHora(rs.getTime(8));
+                evento.setFrecuencia(rs.getInt(9));
+                evento.setVacantes(rs.getInt(10));
+                evento.setDescripcion(rs.getString(11));
+                evento.setTipo(rs.getString(12));
+                evento.setIdProfesor(rs.getInt(13));
+                evento.setEstadoEvento(rs.getString(14));
+
+                lista.add(evento);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(lista);
+        return lista;
+    }
 
     public static ArrayList<Evento> listarEventos_limitado(int page, int pageSize) {
 
