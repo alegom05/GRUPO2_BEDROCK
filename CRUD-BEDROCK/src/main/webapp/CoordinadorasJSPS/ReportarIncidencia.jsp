@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/CoordinadorasJSPS/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
     <title>Formulario de Incidencia</title>
 </head>
 <body style="height: 100vh; margin: 0;">
@@ -37,25 +37,25 @@
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="PaginaPrincipal.html" class="nav-link">Municipalidad</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
-                    <a href="PaginaEventos.html" class="nav-link">Eventos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
+                    <a href="<%=request.getContextPath()%>/Coordis?a=listarin&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="VecinoSanmi.html" class="nav-link">Lista de Vecinos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
                 </li>
             </ul>
         </nav>             
