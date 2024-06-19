@@ -17,7 +17,7 @@
     <title>Lista de Incidencias</title>
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="./logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">

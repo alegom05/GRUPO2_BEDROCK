@@ -50,10 +50,10 @@
                 <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=crearin" class="nav-link">Reportar Incidencia</a>
+                <a href="${pageContext.request.contextPath}/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Lista de Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Coordis?a=listarin&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
