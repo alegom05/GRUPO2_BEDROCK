@@ -148,6 +148,42 @@ public class EventoDao {
         return lista;
     }
 
+    public static ArrayList<Evento> listarEventos_populares() {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Evento> lista = new ArrayList<>();
+
+        String sql = "SELECT idEvento, nombre, fechaInicial, hora, descripcion\n" +
+                "FROM basededatos3.evento\n" +
+                "ORDER BY vacantes DESC\n" +
+                "LIMIT 3;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                Evento evento = new Evento();
+                evento.setIdEvento(rs.getInt(1));
+                evento.setNombre(rs.getString(2));
+                evento.setFechaInicial(rs.getDate(3));
+                evento.setHora(rs.getTime(4));
+                evento.setDescripcion(rs.getString(5));
+
+                lista.add(evento);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(lista);
+        return lista;
+    }
+
     public int contarEventos() {
 
         try {
