@@ -170,7 +170,7 @@ public class EventoServlet extends HttpServlet {
                 nuevoEvento.setFrecuencia(Integer.parseInt(frecuencia));
 
                 eventoDao.crearEvento(nuevoEvento);
-                response.sendRedirect(request.getContextPath()+ "/EventoServlet?action=lista&idEvento" + );
+                response.sendRedirect(request.getContextPath()+ "/EventoServlet?action=lista&idEvento" );
 
                 break;
 
