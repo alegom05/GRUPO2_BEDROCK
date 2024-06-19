@@ -71,7 +71,7 @@ a {
     text-decoration: none;
 }
 body {
-    background-image: white/*linear-gradient(to top, #ece7f0 0%, #eaeaf7 100%)*/;
+    background-image: white;/*linear-gradient(to top, #ece7f0 0%, #eaeaf7 100%)*/
     margin: 0; /* Asegura que no haya margen alrededor del cuerpo */
     padding: 0; /* Asegura que no haya relleno alrededor del cuerpo */
     margin: 0;
@@ -96,8 +96,9 @@ body {
 }
 .card{
     border: none;
-    background: rgb(231, 14, 115);
-    background: linear-gradient(0deg, #5349dfb7 0%, rgb(255, 255, 255) 50%);
+    background: rgb(54, 129, 169);
+    /*background: rgb(231, 14, 115);*/
+    /*background: linear-gradient(0deg, #5349dfb7 0%, rgb(88, 140, 77) 50%);*/
 }
 .card-title {
     color: black;
