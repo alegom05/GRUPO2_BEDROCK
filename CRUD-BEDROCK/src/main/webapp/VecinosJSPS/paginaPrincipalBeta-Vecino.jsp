@@ -55,7 +55,7 @@
                         <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
+                        <a href="<%=request.getContextPath()%>/EventoServlet?action=calendario&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Mira Tu Calendario!</a>
                     </li>
                     <li class="nav-item">
                         <a href="<%=request.getContextPath()%>/EventoServlet?action=listaEventosVecino&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Historial De Eventos</a>

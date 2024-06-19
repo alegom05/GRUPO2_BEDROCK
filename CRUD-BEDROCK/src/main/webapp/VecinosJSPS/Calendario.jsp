@@ -5,7 +5,6 @@
 <%@ page import="com.example.grupo2.Beans.Evento" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-
 <%
     ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario");
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy, M-1, dd");
