@@ -73,7 +73,9 @@ public class EventoDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select e.idEvento, e.nombre , e.fechaInicial, e.fechaFinal, e.foto, e.materiales, e.lugar, e.hora, e.frecuencia, e.vacantes, e.descripcion, e.tipo, e.idProfesor, e.estadoEvento \n" +
+        String sql = "select e.idEvento, e.nombre , e.fechaInicial, e.fechaFinal, e.foto," +
+                " e.materiales, e.lugar, e.hora, e.frecuencia, e.vacantes, e.descripcion," +
+                " e.tipo, e.idProfesor, e.estadoEvento \n" +
                 "from evento e\n" +
                 "left join profesor p on e.idProfesor=p.idProfesor\n" +
                 "left join evento_has_usuario h on e.idEvento=h.idEvento\n" +
