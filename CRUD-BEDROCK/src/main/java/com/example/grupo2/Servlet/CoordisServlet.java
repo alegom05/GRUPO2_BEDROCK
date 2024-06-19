@@ -37,6 +37,7 @@ public class CoordisServlet extends HttpServlet {
                 request.setAttribute("lista",listaIncidencias);
                 RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request,response);
+
             }
             case "listarev" -> {
                 ArrayList<Evento> listaEventos = eventoDao.listarEventos();

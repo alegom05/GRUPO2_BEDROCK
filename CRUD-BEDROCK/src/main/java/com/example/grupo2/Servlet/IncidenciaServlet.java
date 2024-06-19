@@ -103,6 +103,10 @@ public class IncidenciaServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/VecinosJSPS/reportarIncidencia-Vecino.jsp");
                 view.forward(request, response);
                 break;
+            case "formCrear2":
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidencia.jsp");
+                view.forward(request, response);
+                break;
             //para que el vecino pueda ver sus incidencias
             case "lista3":
                 String idUsuario = request.getParameter("idUsuario");
