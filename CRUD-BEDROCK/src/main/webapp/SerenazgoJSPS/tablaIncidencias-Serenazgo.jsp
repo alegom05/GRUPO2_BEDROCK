@@ -25,16 +25,16 @@
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
-            <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
+            <h4 class="textoDeParteSuperiorIzquierda">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h4 style="margin-top: 10px; margin-right: 40px; text-align: right; "><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
+            <h4 class="textoDeParteSuperiorDerecha"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>
         </div>
     </div>
-    <nav class="letra_botones_encabezado">
+    <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
         <ul class="nav">
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
@@ -206,6 +206,12 @@
     }
 
     function confirmarEliminar() {
+        var descripcion = document.getElementById('descripcionEliminar').value.trim();
+
+        if (descripcion === "") {
+            alert("Por favor, ingresa una descripción.");
+            return;
+        }
         $('#eliminarIncidenciaModal').modal('hide');
         $('#confirmarEliminar').modal('show');
     }
@@ -225,12 +231,26 @@
         }
     }
 
+
     /*function eliminarIncidencia(id) {
         // Mostrar el modal de eliminación de incidencia
         $('#eliminarIncidenciaModal').modal('show');
         window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=borrar&id=' + id;
         }*/
 </script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Selecciona el modal por su ID
+        var eliminarIncidenciaModal = document.getElementById('eliminarIncidenciaModal');
+
+        // Añade un evento que se dispare cuando el modal se oculta
+        eliminarIncidenciaModal.addEventListener('hidden.bs.modal', function() {
+            // Limpia el contenido del textarea
+            document.getElementById('descripcionEliminar').value = '';
+        });
+    });
+</script>
+
 </body>
 </html>
 

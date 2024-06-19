@@ -18,21 +18,23 @@
     <link href="${pageContext.request.contextPath}/SerenazgoJSPS/style-Serenazgo.css" rel="stylesheet">
 </head>
 <body>
+<!-- Loader HTML -->
+
 <div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
-            <h4 style="margin-top: 10px; font-family: Roboto;">¡Juntos Por<br>San Miguel!</h4>
+            <h4 class="textoDeParteSuperiorIzquierda">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h4 style="margin-top: 10px; margin-right: 40px; text-align: right; "><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
+            <h4 class="textoDeParteSuperiorDerecha"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>
         </div>
     </div>
-    <nav class="letra_botones_encabezado">
-        <ul class="nav">
+    <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
+        <ul class="nav" >
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
@@ -52,7 +54,7 @@
 
 <header id="top" role="banner" class="header">
     <div class="container-bootstrap">
-        <h2 class="heading-4" style="font-family: Arial, sans-serif">Bienvenido personal de Serenazgo</h2>
+        <h2 class="heading-4" style="font-family: 'Roboto Thin', sans-serif">Bienvenido personal de Serenazgo</h2>
     </div>
 
     <a id="searchAll2" href="tablaIncidencias-Serenazgo.jsp" class="btn">
@@ -148,6 +150,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 <!--<script>
         document.addEventListener("DOMContentLoaded", function() {
             // Selecciona el carousel

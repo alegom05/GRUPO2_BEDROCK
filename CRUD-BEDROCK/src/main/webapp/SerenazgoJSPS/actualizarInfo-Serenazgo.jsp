@@ -24,16 +24,16 @@
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="../assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
-            <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
+            <h4 class="textoDeParteSuperiorIzquierda">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h4 style="margin-top: 10px; margin-right: 40px; text-align: right; "><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
+            <h4 class="textoDeParteSuperiorDerecha"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="../assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>
         </div>
     </div>
-    <nav class="letra_botones_encabezado">
+    <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
         <ul class="nav">
             <li class="nav-item">
                 <a href="paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>

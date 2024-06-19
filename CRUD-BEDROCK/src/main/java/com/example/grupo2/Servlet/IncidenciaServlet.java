@@ -193,6 +193,7 @@ public class IncidenciaServlet extends HttpServlet {
                 String id = request.getParameter("id");
                 String descripcion = request.getParameter("descripcion");
 
+
                 if (id != null && descripcion != null) {
                     incidenciaDao.borrarIncidencia(id, descripcion);
                 }
