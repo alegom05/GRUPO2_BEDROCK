@@ -14,8 +14,7 @@
 
 
 <%
-    ArrayList<Evento> evento = (ArrayList<Evento>) request.getAttribute("lista");
-
+    ArrayList<Evento> evento = (ArrayList<Evento>) request.getAttribute("listaEventos");
 %>
 
 <!DOCTYPE html>

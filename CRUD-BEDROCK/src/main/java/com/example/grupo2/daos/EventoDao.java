@@ -299,4 +299,47 @@ public class EventoDao {
         }
 
     }
+
+    public static ArrayList<Evento> listarEventosporIdUsuario(String id) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Evento> listaEventosUsuario = new ArrayList<>();
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT e.idEvento, e.nombre, e.fechaInicial, e.fechaFinal, e.hora, e.lugar, e.descripcion\n" +
+                "FROM evento e\n" +
+                "JOIN evento_has_usuario eu ON e.idEvento = eu.idEvento\n" +
+                "JOIN usuario u ON eu.idUsuario = u.idUsuario\n" +
+                "WHERE u.idUsuario = ?;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, Integer.parseInt(id));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Evento eventoUsuario= new Evento();
+                eventoUsuario.setIdEvento(rs.getInt(1));
+                eventoUsuario.setNombre(rs.getString(2));
+                eventoUsuario.setFechaInicial(rs.getDate(3));
+                eventoUsuario.setFechaFinal(rs.getDate(4));
+                eventoUsuario.setHora(rs.getTime(5));
+                eventoUsuario.setLugar(rs.getString(6));
+                eventoUsuario.setDescripcion(rs.getString(7));
+                
+                listaEventosUsuario.add(eventoUsuario);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(listaEventosUsuario);
+        return listaEventosUsuario;
+    }
 }

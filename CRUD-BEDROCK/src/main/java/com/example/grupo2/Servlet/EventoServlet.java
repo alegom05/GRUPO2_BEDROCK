@@ -77,6 +77,13 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("listaCalendario",listaCalendario);
                 response.sendRedirect(request.getContextPath() + "/VecinosJSPS/Calendario.jsp");
                 break;
+
+            case "listaEventosVecino":
+                ArrayList<Evento> listaVeci = eventoDao.listarEventos();
+                request.setAttribute("listaEventos",listaVeci);
+                response.sendRedirect(request.getContextPath() + "./VecinosJSPS/historialEventosVecino.jsp");
+
+                break;
         }
     }
 
