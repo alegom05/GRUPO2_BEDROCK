@@ -112,6 +112,9 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+                            <div id="alertaDescripcion" class="alert alert-danger" style="display: none;">
+                                Por favor, ingresa una descripción.
+                            </div>
                             <form class="row align-items-start mb-3">
                                 <div class="mb-3">
                                     <label for="message-text" class="form-label">Descripción:</label>
@@ -126,6 +129,7 @@
                     </div>
                 </div>
             </div>
+
 
             <!-- Modal para confirmar eliminación -->
             <div class="modal fade" id="confirmarEliminar" tabindex="-1" aria-labelledby="confirmarEliminarInci" aria-hidden="true">
@@ -207,9 +211,13 @@
 
     function confirmarEliminar() {
         var descripcion = document.getElementById('descripcionEliminar').value.trim();
+        var alertaDescripcion = document.getElementById('alertaDescripcion');
 
         if (descripcion === "") {
-            alert("Por favor, ingresa una descripción.");
+            alertaDescripcion.style.display = 'block';
+            setTimeout(function() {
+                alertaDescripcion.style.display = 'none';
+            }, 3000);
             return;
         }
         $('#eliminarIncidenciaModal').modal('hide');
@@ -242,6 +250,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Selecciona el modal por su ID
         var eliminarIncidenciaModal = document.getElementById('eliminarIncidenciaModal');
+
 
         // Añade un evento que se dispare cuando el modal se oculta
         eliminarIncidenciaModal.addEventListener('hidden.bs.modal', function() {
