@@ -143,14 +143,9 @@ public class EventoDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select e.idEvento, e.nombre , e.fechaInicial, e.fechaFinal, e.foto," +
-                " e.materiales, e.lugar, e.hora, e.frecuencia, e.vacantes, e.descripcion," +
-                " e.tipo, e.idProfesor, e.estadoEvento \n" +
-                "from evento e\n" +
-                "left join profesor p on e.idProfesor=p.idProfesor\n" +
-                "left join evento_has_usuario h on e.idEvento=h.idEvento\n" +
-                "left join fotosdeeventos f on e.idEvento = f.idEvento\n" +
-                "where e.idEvento = ?";
+        String sql = "SELECT e.*, p.nombre AS nombreProfesor\n" +
+                "FROM evento e\n" +
+                "INNER JOIN profesor p ON e.idProfesor = p.idProfesor where idEvento=?;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -169,10 +164,12 @@ public class EventoDao {
                     evento.setLugar(rs.getString(7));
                     evento.setHora(rs.getTime(8));
                     evento.setFrecuencia(rs.getInt(9));
-                    evento.setDescripcion(rs.getString(10));
-                    evento.setTipo(rs.getString(11));
-                    evento.setIdProfesor(rs.getInt(12));
-                    evento.setEstadoEvento(rs.getString(13));
+                    evento.setVacantes(rs.getInt(10));
+                    evento.setDescripcion(rs.getString(11));
+                    evento.setTipo(rs.getString(12));
+                    evento.setIdProfesor(rs.getInt(13));
+                    evento.setEstadoEvento(rs.getString(14));
+                    evento.setNombreProfesor(rs.getString(15));
                 }
             }
         } catch (SQLException e) {

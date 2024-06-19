@@ -20,6 +20,15 @@ public class Evento {
     private String tipo;
     private int idProfesor;
     private String estadoEvento;
+    private String nombreProfesor;
+
+    public String getNombreProfesor() {
+        return nombreProfesor;
+    }
+
+    public void setNombreProfesor(String nombreProfesor) {
+        this.nombreProfesor = nombreProfesor;
+    }
 
     public int getIdEvento() {
         return idEvento;

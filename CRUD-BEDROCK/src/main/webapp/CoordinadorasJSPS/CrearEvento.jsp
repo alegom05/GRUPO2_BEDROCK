@@ -118,7 +118,7 @@
                                     <div class="invalid-feedback">Es necesario poner la hora del evento.</div>
                                 </div>
                                 <div class="col">
-                                    <label for="frecuencia">Frecuencia</label>
+                                    <label form="frecuencia">Frecuencia</label>
                                     <select class="form-control" id="frecuenciaEvento" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
@@ -130,7 +130,7 @@
                                 </div>
                             </div>
                             <div class="row-md-auto mt-3">
-                                <label for="diasSemana">Días de la semana</label>
+                                <label form="diasSemana">Días de la semana</label>
                                 <div class="row">
                                     <div class="form-check col">
                                         <input class="form-check-input" type="checkbox" id="lunes" >
