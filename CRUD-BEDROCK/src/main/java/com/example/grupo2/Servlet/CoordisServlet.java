@@ -58,8 +58,8 @@ public class CoordisServlet extends HttpServlet {
                 view.forward(request, response);
 
             }
-            case "formCrear" -> {
-                RequestDispatcher view = request.getRequestDispatcher("/AdministradorJSPS/nuevoSerenazgo-Admin.jsp");
+            case "crearev" -> {
+                RequestDispatcher view = request.getRequestDispatcher("/AdministradorJSPS/CrearEvento.jsp");
                 view.forward(request, response);
             }
             case "editar" -> {
