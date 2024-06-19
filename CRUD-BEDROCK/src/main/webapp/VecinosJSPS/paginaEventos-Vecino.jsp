@@ -26,18 +26,19 @@
 <div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="../logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-            <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
+            <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <a href="DetallesUsuario.html">
                 <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Alexander Velez</h2>
-            <a href="logIN.html">
-                <img src="../logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
+                <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
+
     </div>
     <nav class="letra_botones_encabezado">
         <ul class="nav">
@@ -125,7 +126,7 @@
             for (Evento evento : listaeventos) {
         %>
         <div class="col-md-4 custom-cartanz-2">
-            <a href="<%= request.getContextPath() %>/EventosDetallado?id=<%= evento.getIdEvento() %>" class="card-link">
+            <a href="${pageContext.request.contextPath}/EventoServlet?action=evento_detallados&id=<%= evento.getIdEvento() %>" class="card-link">
                 <div class="card shadow">
                     <img src="<%= request.getContextPath() %>/imagenEvento?id=<%= evento.getIdEvento() %>" alt="Imagen del evento" class="card-img-top w-100">
                     <div class="card-body">

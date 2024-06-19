@@ -25,8 +25,8 @@
 <div class="ParteSuperior" style="overflow-x: hidden">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="${pageContext.request.contextPath}/logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-            <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
+            <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <a href="DetallesUsuario.html">
@@ -37,6 +37,7 @@
                 <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
+
     </div>
     <nav class="letra_botones_encabezado">
         <ul class="nav">
@@ -79,7 +80,7 @@
                     <div class="elemento_texto_evento">
                         <h4>Detalles del evento:</h4>
                     </div>
-                    <div class="elemento_texto_evento w-75">
+                    <div class="elemento_texto_evento">
                         <h4><%= evento.getDescripcion() %></h4>
                     </div>
                     <div class="elemento_texto_evento">
@@ -89,7 +90,7 @@
                         <h4>Vacantes Disponibles: <%= evento.getVacantes() %></h4>
                     </div>
                     <div class="row w-75 align-items-center">
-                        <div class="col-md-6 pr-md-0 w-75">
+                        <div class="col-md-6 pr-md-0">
                             <h4>Frecuencia: <%= evento.getFrecuencia() %></h4>
                         </div>
                     </div>
