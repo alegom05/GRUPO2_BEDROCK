@@ -39,22 +39,25 @@
       <nav class="letra_botones_encabezado">
           <ul class="nav">
               <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/VecinoIndexServlet" class="nav-link">Municipalidad</a>
+                  <a href="PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
               </li>
               <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/EventoServlet?action=eventos" class="nav-link">Eventos</a>
+                  <a href="PaginaEventos.jsp" class="nav-link">Eventos</a>
               </li>
               <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear" class="nav-link">Reportar Incidencia</a>
+                  <a href="ReportarIncidencia2.jsp" class="nav-link">Reportar Incidencia</a>
               </li>
               <li class="nav-item">
-                  <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                  <a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
               </li>
               <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
+                  <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
               </li>
               <li class="nav-item">
                   <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+              </li>
+              <li class="nav-item">
+                  <a href="VecinoSanmi2.jsp" class="nav-link">Lista de Vecinos</a>
               </li>
           </ul>
       </nav>             
