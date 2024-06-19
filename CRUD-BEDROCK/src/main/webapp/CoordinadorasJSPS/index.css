@@ -10,7 +10,7 @@ h7 {
 }
 .pie_de_pagina {
     background: rgb(159, 169, 184);
-    background: linear-gradient(0deg, rgba(135, 51, 190, 0.527) 0%, rgba(101, 70, 175, 0.753) 100%);
+    background: linear-gradient(0deg, rgba(135, 51, 190, 0.53) 0%, rgba(101, 70, 175, 0.753) 100%);
     color: #f2f4f5; /* Letra en blanco */
     max-height: 200px; /* Cambia este valor según tus necesidades */
     overflow: hidden; /* Para evitar que el contenido desborde */

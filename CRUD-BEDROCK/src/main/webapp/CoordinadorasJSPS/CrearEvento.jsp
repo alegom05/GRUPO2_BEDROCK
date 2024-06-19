@@ -1,4 +1,8 @@
+<%@ page import="com.example.grupo2.Beans.Evento" %>
+<%@ page import ="com.example.grupo2.Beans.Usuario"%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%  Evento evento = (Evento) request.getAttribute("evento");%>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./CoordinadorasJSPS/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
 </head>
 <body>
     <div class="ParteSuperior">
@@ -42,7 +46,7 @@
                     <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=historialEventos" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
@@ -55,7 +59,7 @@
             <div class="contenedor mt-4 text-center">
                 <h1>Crear Evento</h1>
             </div>
-            <form class="row align-items-start needs-validation" novalidate>
+            <form class="row align-items-start needs-validation"  action="<%=request.getContextPath()%>/Coordis?a=listarev" novalidate>
                 <div class="col-md-6 mb-3">
                     <div class="contenedor mt-4 text-center">
                         <img src="./imagenes_eventos/deporte/evento1.jpg" alt="Evento" id="imagen_detallada" class="img-fluid mx-auto">
@@ -120,7 +124,7 @@
                                 </div>
                                 <div class="col">
                                     <label form="frecuencia">Frecuencia</label>
-                                    <select class="form-control" id="frecuenciaEvento" required>
+                                    <select class="form-control" id="frecuencia" required>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -162,6 +166,10 @@
                                         <label class="form-check-label" for="domingo">Domingo</label>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="mb-3">
+                                <input type="hidden" class="form-control" id="idUsuario" name="idUsuario" value="<%=usuarioSesion.getId()%>">
+                                <input type="hidden" class="form-control" id="tipoUsuario" name="tipoUsuario" value="<%=usuarioSesion.getTipo()%>">
                             </div>
                             <div class="d-grid gap-2 mt-3">
                                 <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
@@ -229,7 +237,7 @@
         // Lógica del modal de confirmación
         document.getElementById('confirmButton').addEventListener('click', function () {
             // Aquí se puede redirigir a la página deseada después de confirmar
-            window.location.href = 'PaginaEventos.html';
+            window.location.href = "${pageContext.request.contextPath}/Coordis?a=listarev";
         });
 
         // Lógica de carga de imagen

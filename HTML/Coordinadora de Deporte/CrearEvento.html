@@ -119,6 +119,7 @@
                                 <div class="col">
                                     <label for="frecuencia">Frecuencia</label>
                                     <select class="form-control" id="frecuenciaEvento" required>
+                                        <option value="">Seleccione</option>
                                         <option value="1">1</option>
                                         <option value="2">2</option>
                                         <option value="3">3</option>
@@ -132,7 +133,7 @@
                                 <label for="diasSemana">Días de la semana</label>
                                 <div class="row">
                                     <div class="form-check col">
-                                        <input class="form-check-input" type="checkbox" id="lunes" >
+                                        <input class="form-check-input" type="checkbox" id="lunes">
                                         <label class="form-check-label" for="lunes">Lunes</label>
                                     </div>
                                     <div class="form-check col">
@@ -140,7 +141,7 @@
                                         <label class="form-check-label" for="martes">Martes</label>
                                     </div>
                                     <div class="form-check col">
-                                        <input class="form-check-input" type="checkbox" id="miercoles" >
+                                        <input class="form-check-input" type="checkbox" id="miercoles">
                                         <label class="form-check-label" for="miercoles">Miércoles</label>
                                     </div>
                                     <div class="form-check col">
@@ -162,7 +163,7 @@
                                 </div>
                             </div>
                             <div class="d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal" disabled>
                                     Guardar
                                 </button>
                                 <a href="PaginaEventos.html" class="btn btn-secondary">Volver</a>
@@ -242,24 +243,39 @@
             }
         });
 
-
         // Lógica para activar el botón de guardar después de que se completen todos los campos del formulario
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.querySelector('form');
+            const submitButton = form.querySelector('button[type="submit"]');
+            const inputs = form.querySelectorAll('input, textarea, select');
 
-            form.addEventListener('input', function () {
-                const inputs = form.querySelectorAll('input, textarea, select');
+            function checkFormValidity() {
                 let isValid = true;
-
                 inputs.forEach(function (input) {
                     if (!input.checkValidity()) {
                         isValid = false;
                     }
                 });
-
-                const submitButton = document.querySelector('button[type="submit"]');
                 submitButton.disabled = !isValid;
+            }
+
+            inputs.forEach(function (input) {
+                input.addEventListener('input', checkFormValidity);
             });
+
+            form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                } else {
+                    event.preventDefault(); // Evitar el envío real del formulario
+                    document.getElementById("successMessage").classList.remove("d-none");
+                    document.getElementById("errorMessage").classList.add("d-none");
+                }
+                form.classList.add('was-validated');
+            });
+
+            checkFormValidity(); // Comprobar la validez inicial del formulario
         });
     </script>
 </body>

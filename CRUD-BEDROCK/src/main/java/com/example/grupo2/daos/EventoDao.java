@@ -295,10 +295,11 @@ public class EventoDao {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        String sql = "INSERT INTO `basededatos3`.`usuario` (`nombre`, `descripcion`, `lugar`, `encargado`, `vacantes`, `fechaInicio`, `fechaFin`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
+        //String sql = "INSERT INTO `basededatos3`.`usuario` (`nombre`, `descripcion`, `lugar`, `encargado`, `vacantes`, `fechaInicio`, `fechaFin`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql2 = "INSERT INTO evento (nombre,descripcion,lugar,idProfesor,vacantes, fechaInicial, fechaFinal, hora, frecuencia) \n"+
+                "VALUES(?,?,?,?,?,?,?,?,?);";
         try (Connection connection = DriverManager.getConnection(url, username, password);
-             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+             PreparedStatement pstmt = connection.prepareStatement(sql2);) {
 
             pstmt.setString(1, evento.getNombre());
             pstmt.setString(2, evento.getDescripcion());
@@ -308,6 +309,7 @@ public class EventoDao {
             pstmt.setDate(6, evento.getFechaInicial());
             pstmt.setDate(7, evento.getFechaFinal());
             pstmt.setTime(8,evento.getHora());
+            pstmt.setInt(9,evento.getFrecuencia());
             pstmt.executeUpdate();
 
 

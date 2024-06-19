@@ -10,7 +10,9 @@
     ArrayList<Evento> evento = (ArrayList<Evento>) request.getAttribute("lista");
 
 %>
-
+<%  boolean esDeportivo = false;
+    boolean esCultural = false;
+    usuarioSesion.getTipo(); %>
 <!DOCTYPE html>
 <html lang="es">
 <head>

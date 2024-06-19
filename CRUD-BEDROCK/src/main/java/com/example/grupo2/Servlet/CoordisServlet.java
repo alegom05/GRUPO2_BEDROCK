@@ -136,7 +136,7 @@ public class CoordisServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/Serenazgos");
             }
 
-            case "crearIn" ->{
+            case "crearrIn" ->{
                 String nombreIncidencia = request.getParameter("nombreIncidencia");
                 String lugar = request.getParameter("lugarIncidencia");
                 String referencia = request.getParameter("referencia");
@@ -174,7 +174,7 @@ public class CoordisServlet extends HttpServlet {
                 System.out.println(nuevaIncidencia.getContacto());
                 System.out.println(nuevaIncidencia.getIdTipoIncidencia());
                 System.out.println(nuevaIncidencia.getIdUsuario());
-                response.sendRedirect(request.getContextPath() + "/Coordis?a=listarin&idUsuario" + idUsuario);
+                response.sendRedirect(request.getContextPath() + "/Coordis?a=listarin&idUsuario=" + idUsuario);
 
 
             }
