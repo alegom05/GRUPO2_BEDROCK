@@ -82,7 +82,6 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
                     </tr>
                 </thead>
                 <tbody>
-                <tbody>
                 <% for (Usuario usuario : listaUsuarios) {%>
                 <tr>
                     <td><%=usuario.getDni()%> </td>
@@ -94,7 +93,6 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
                     <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>--%>
                 </tr>
                 <% } %>
-                </tbody>
     
 
                 </tbody>
