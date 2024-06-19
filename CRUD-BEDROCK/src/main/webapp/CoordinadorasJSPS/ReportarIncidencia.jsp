@@ -2,12 +2,11 @@
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import ="com.example.grupo2.Beans.Usuario"%>
+<%  Incidencia incidencia = (Incidencia) request.getAttribute("incidencia");%>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 
 
-<%
-    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("listarin");
-%>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -28,7 +27,7 @@
                 <a href="DetallesUsuario.html">
                     <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                 </a>
-                <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
+                <h3 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br>Rol: <%=usuarioSesion.getRol()%></h3>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                     <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
@@ -37,22 +36,22 @@
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=paginaPrincipal" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=listarev" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<%=request.getContextPath()%>/Coordis?a=listarin&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Reportar Incidencia</a>
+                    <a href="<%=request.getContextPath()%>/Coordis?action=crearin" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarin" class="nav-link">Lista de Incidencias</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=listarin" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=listarev" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
@@ -63,7 +62,7 @@
     <div class="contenedor-v2">
         <div class="contenedor"><h2 class="labelFormulario contenedor mt-3">Formulario de Incidencia</h2></div>
         <div class="contenedor mt-3 mb-1 ms-4">
-            <form class="row align-items-start needs-validation" novalidate>
+            <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=crear" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
                 <div class="col">
                     <div class="row">
                         <div class="mb-3">
@@ -131,20 +130,23 @@
                     </div>
                 </div>
                 <div class="col me-4">
-                        <div class="row mb-3">
-                            <label for="imagen" class="form-label">Subir Imagen:</label>
-                            <input type="file" id="imagen" class="form-control" accept="image/*">
+                    <div class="row mb-3">
+                        <label for="imagen" class="form-label">Subir Imagen:</label>
+                        <input type="file" id="imagen" class="form-control" accept="image/*">
+                    </div>
+                    <div class="row mb-3">
+                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <textarea id="descripcion" class="form-control" rows="10" placeholder="Escribe una descripción detallada aquí..." required style="resize: none;"></textarea>
+                        <div class="valid-feedback">
+                            Todo correcto
                         </div>
-                        <div class="row mb-3">
-                            <label for="descripcion" class="form-label">Descripción:</label>
-                            <textarea id="descripcion" class="form-control" rows="10" placeholder="Escribe una descripción detallada aquí..." required style="resize: none;"></textarea>
-                            <div class="valid-feedback">
-                                Todo correcto
-                            </div>
-                            <div class="invalid-feedback">
-                                Es necesario proporcionar una descripción.
-                            </div>
+                        <div class="invalid-feedback">
+                            Es necesario proporcionar una descripción.
                         </div>
+                    </div>
+                    <div class="mb-3">
+                        <input type="hidden" class="form-control" id="idUsuario" name="idUsuario" value="<%=usuarioSesion.getId()%>">
+                    </div>
                 </div>   
                 <div>
                     <button type="submit" class="btn btn-primary" id="boton">Confirmar</button>
