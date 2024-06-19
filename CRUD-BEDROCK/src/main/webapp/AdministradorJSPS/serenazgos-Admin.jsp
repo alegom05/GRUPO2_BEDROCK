@@ -18,6 +18,7 @@
     <title>Serenazgos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="${pageContext.request.contextPath}/AdministradorJSPS/style-Admin.css" rel="stylesheet">
 
 </head>
@@ -92,10 +93,10 @@
             <th>Nombres</th>
             <th>Apellidos</th>
             <th>DNI</th>
+            <th>Correo</th>
             <th>Turno</th>
             <th>Tipo</th>
-            <th>Editar</th>
-            <th>Eliminar</th>
+            <th>Accion a realizar</th>
 
         </tr>
         </thead>
@@ -106,10 +107,20 @@
             <td><%=serenazgo1.getNombre()%></td>
             <td><%=serenazgo1.getApellido()%></td>
             <td><%=serenazgo1.getDni()%></td>
+            <td><%=serenazgo1.getCorreo()%></td>
             <td><%=serenazgo1.getTurnoSerenazgo()%></td>
             <td><%=serenazgo1.getTipo()%></td>
-            <td><a href="<%=request.getContextPath()%>/Serenazgos?a=editar&id=<%=serenazgo1.getId() %>" class="btn btn-outline-secondary"><img src="${pageContext.request.contextPath}/Administrador/assets/icons/pencil.svg" alt="Editar"></a></td>
-            <td><button onclick="setSerenazgoId('<%= serenazgo1.getId() %>')" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="${pageContext.request.contextPath}/Administrador/assets/icons/trash.svg" alt="Eliminar"></button></td>
+            <td>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a href="<%=request.getContextPath()%>/Serenazgos?a=editar&id=<%=serenazgo1.getId() %>" class="dropdown-item">Editar</a></li>
+                        <li><a onclick="setSerenazgoId('<%= serenazgo1.getId() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a></li>
+                    </ul>
+                </div>
+            </td>
         </tr>
         <%  }  %>
         </tbody>

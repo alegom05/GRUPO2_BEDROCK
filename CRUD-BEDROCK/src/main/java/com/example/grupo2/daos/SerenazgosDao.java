@@ -19,7 +19,7 @@ public class SerenazgosDao {
         ArrayList<Usuario> listaSerenazgos = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT nombre, apellido, dni, turnoSerenazgo, tipo, idUsuario FROM basededatos3.usuario WHERE idRoles = 'SE'")){
+             ResultSet rs = stmt.executeQuery("SELECT nombre, apellido, dni, turnoSerenazgo, tipo, idUsuario, correo FROM basededatos3.usuario WHERE idRoles = 'SE'")){
             while (rs.next()){
                 Usuario serenazgo = new Usuario();
                 serenazgo.setNombre(rs.getString(1));
@@ -28,6 +28,7 @@ public class SerenazgosDao {
                 serenazgo.setTurnoSerenazgo(rs.getString(4));
                 serenazgo.setTipo(rs.getString(5));
                 serenazgo.setId(rs.getInt(6));
+                serenazgo.setCorreo(rs.getString(7));
                 listaSerenazgos.add(serenazgo);
                 System.out.println(serenazgo);
             }
