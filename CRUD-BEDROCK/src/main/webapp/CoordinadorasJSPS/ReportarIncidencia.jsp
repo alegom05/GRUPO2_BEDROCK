@@ -43,7 +43,7 @@
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<%=request.getContextPath()%>/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
+                    <a href="<%=request.getContextPath()%>/Coordis?a=crearin" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarin&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
@@ -63,12 +63,12 @@
     <div class="contenedor-v2">
         <div class="contenedor"><h2 class="labelFormulario contenedor mt-3">Formulario de Incidencia</h2></div>
         <div class="contenedor mt-3 mb-1 ms-4">
-            <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=crear" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+            <form method="post" action="<%=request.getContextPath()%>/Coordis?a=crearIn" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
                 <div class="col">
                     <div class="row">
                         <div class="mb-3">
                             <label for="nombreIncidencia" class="form-label">Nombre de la Incidencia: </label>
-                            <input type="text" id="nombreIncidencia" class="form-control" placeholder="" required>
+                            <input type="text" id="nombreIncidencia" name="nombreIncidencia" class="form-control" placeholder="" required>
                             <div class="valid-feedback">
                                 Todo correcto
                             </div>
@@ -81,7 +81,7 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="lugarIncidencia" class="form-label">Lugar</label>
-                            <input type="text" id="lugarIncidencia" class="form-control" placeholder="" required>
+                            <input type="text" id="lugarIncidencia" name="lugarIncidencia" class="form-control" placeholder="" required>
                             <div class="valid-feedback">
                                 Todo correcto
                             </div>
@@ -93,7 +93,7 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="referencia" class="form-label">Referencia</label>
-                            <input type="text" id="referencia" class="form-control" placeholder="" required>
+                            <input type="text" id="referencia" name="referencia" class="form-control" placeholder="" required>
                             <div class="valid-feedback">
                                 Todo correcto
                             </div>
@@ -106,10 +106,11 @@
                         <div class="mb-3">
                             <label for="tipo" class="form-label" style=" margin-right: 15px;">Tipo de Incidencia:</label>
                             <select id="tipo" name="tipo" required>
-                                <option value="accidente">Accidente</option>
-                                <option value="alteración_del_orden">Alteracion del orden público</option>
-                                <option value="robo">Robo agravado</option>
-                                <option value="emergencia_medica">Emergencia Médica</option>
+                                <option value="AC">Accidente</option>
+                                <option value="AL">Alteracion del orden público</option>
+                                <option value="RO">Robo agravado</option>
+                                <option value="EM">Emergencia Médica</option>
+                                <option value="OT">Otro</option>
                                 <!-- Agrega más opciones según necesites -->
                             </select>
                         </div>
@@ -117,15 +118,15 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="contacto" class="form-label">Contacto (opcional): </label>
-                            <input type="text" id="contacto" class="form-control" placeholder="">
+                            <input type="text" id="contacto" name="contacto" class="form-control" placeholder="">
                         </div>
                     </div>
                     <div class="row">
                         <div class="mb-3">
                             <label for="ambulancia" class="form-label" style=" margin-right: 15px;">¿Requiere Ambulancia?</label>
                             <select id="ambulancia" name="ambulancia" required>
-                                <option value="si">Sí</option>
-                                <option value="no">No</option>
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
                             </select>                        
                         </div>
                     </div>
@@ -133,11 +134,11 @@
                 <div class="col me-4">
                     <div class="row mb-3">
                         <label for="imagen" class="form-label">Subir Imagen:</label>
-                        <input type="file" id="imagen" class="form-control" accept="image/*">
+                        <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
                     </div>
                     <div class="row mb-3">
                         <label for="descripcion" class="form-label">Descripción:</label>
-                        <textarea id="descripcion" class="form-control" rows="10" placeholder="Escribe una descripción detallada aquí..." required style="resize: none;"></textarea>
+                        <textarea id="descripcion"  name="descripcion" class="form-control" rows="10" placeholder="Escribe una descripción detallada aquí..." required style="resize: none;"></textarea>
                         <div class="valid-feedback">
                             Todo correcto
                         </div>

@@ -186,6 +186,9 @@ public class IncidenciaServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);
 
                 break;
+
+
+
             case "borrar":
                 String id = request.getParameter("id");
                 String descripcion = request.getParameter("descripcion");

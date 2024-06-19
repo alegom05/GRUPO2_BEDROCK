@@ -13,8 +13,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 @WebServlet(name = "Coordis", value = "/Coordis")
@@ -54,6 +56,7 @@ public class CoordisServlet extends HttpServlet {
             case "crearin" -> {
                 RequestDispatcher view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidencia.jsp");
                 view.forward(request, response);
+
             }
             case "formCrear" -> {
                 RequestDispatcher view = request.getRequestDispatcher("/AdministradorJSPS/nuevoSerenazgo-Admin.jsp");
@@ -104,6 +107,7 @@ public class CoordisServlet extends HttpServlet {
 
         String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
         SerenazgosDao serenazgosDao = new SerenazgosDao();
+        IncidenciaDao incidenciaDao = new IncidenciaDao();
 
         switch (action) {
             case "agregar" -> {
@@ -130,6 +134,49 @@ public class CoordisServlet extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 serenazgosDao.eliminarSerenazgo(id);
                 response.sendRedirect(request.getContextPath() + "/Serenazgos");
+            }
+
+            case "crearIn" ->{
+                String nombreIncidencia = request.getParameter("nombreIncidencia");
+                String lugar = request.getParameter("lugarIncidencia");
+                String referencia = request.getParameter("referencia");
+                String descripcionIncidencia = request.getParameter("descripcion");
+                String phoneNumber = request.getParameter("contacto");
+                boolean ambulancia = Boolean.parseBoolean(request.getParameter("ambulancia"));
+
+                Part filePart = request.getPart("imagen"); // Obtén la parte del archivo
+                byte[] foto = null;
+                if (filePart != null && filePart.getSize() > 0) {
+                    try (InputStream fileContent = filePart.getInputStream()) {
+                        foto = fileContent.readAllBytes(); // Lee el contenido del archivo como un array de bytes
+                    }
+                }
+                String tipoIncidencia = request.getParameter("tipo");
+                System.out.println(tipoIncidencia);
+                int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+
+                Incidencia nuevaIncidencia = new Incidencia();
+                nuevaIncidencia.setNombreIncidencia(nombreIncidencia);
+                nuevaIncidencia.setLugar(lugar);
+                nuevaIncidencia.setReferencia(referencia);
+                nuevaIncidencia.setDescripcion(descripcionIncidencia);
+                nuevaIncidencia.setContacto(phoneNumber);
+                nuevaIncidencia.setRequiereAmbulancia(ambulancia);
+                /*nuevaIncidencia.setFotoIncidencia(foto);*/
+                nuevaIncidencia.setIdTipoIncidencia(tipoIncidencia);
+                nuevaIncidencia.setIdUsuario(idUsuario);
+
+                incidenciaDao.crearIncidencia(nuevaIncidencia);
+                System.out.println(nuevaIncidencia.getNombreIncidencia());
+                System.out.println(nuevaIncidencia.getLugar());
+                System.out.println(nuevaIncidencia.getReferencia());
+                System.out.println(nuevaIncidencia.getDescripcion());
+                System.out.println(nuevaIncidencia.getContacto());
+                System.out.println(nuevaIncidencia.getIdTipoIncidencia());
+                System.out.println(nuevaIncidencia.getIdUsuario());
+                response.sendRedirect(request.getContextPath() + "/Coordis?a=listarin&idUsuario" + idUsuario);
+
+
             }
 
 
