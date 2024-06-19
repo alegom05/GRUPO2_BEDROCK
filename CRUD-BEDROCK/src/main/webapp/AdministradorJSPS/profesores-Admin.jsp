@@ -18,6 +18,7 @@
     <title>Profesores</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link href="${pageContext.request.contextPath}/AdministradorJSPS/style-Admin.css" rel="stylesheet">
 
 </head>
@@ -103,8 +104,17 @@
                 <td><%=profesor1.getNombre()%></td>
                 <td><%=profesor1.getApellido()%></td>
                 <td><%=profesor1.getCurso()%></td>
-                <td><button onclick="setProfesorId('<%= profesor1.getId() %>')" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal"><img src="${pageContext.request.contextPath}/Administrador/assets/icons/trash.svg" alt="Eliminar"></button></td>
-
+                <td>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a href="<%=request.getContextPath()%>/Profesores?a=editar&id=<%=profesor1.getId() %>" class="dropdown-item">Editar</a></li>
+                            <li><a onclick="setProfesorId('<%= profesor1.getId() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a></li>
+                        </ul>
+                    </div>
+                </td>
             </tr>
             <%  }  %>
             </tbody>

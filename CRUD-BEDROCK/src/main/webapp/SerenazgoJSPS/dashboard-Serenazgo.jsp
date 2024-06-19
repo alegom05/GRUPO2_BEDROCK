@@ -44,7 +44,7 @@
 <div class="ParteSuperior" style="overflow-x: hidden ">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
+            <img style="margin-left: 10px" src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail">
             <h4 class="parteSuperiorText">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
@@ -54,7 +54,7 @@
             </a>
         </div>
     </div>
-    <nav class="letra_botones_encabezado">
+    <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
         <ul class="nav">
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
