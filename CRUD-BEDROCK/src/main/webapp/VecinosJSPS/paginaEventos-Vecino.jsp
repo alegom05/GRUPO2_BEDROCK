@@ -1,7 +1,3 @@
-<%@ page import="com.example.grupo2.daos.EventoDao" %>
-<%@ page import="com.example.grupo2.Beans.Evento" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.lang.Math" %>
 <%--
   Created by IntelliJ IDEA.
   User: doria
@@ -9,7 +5,13 @@
   Time: 16:34
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="com.example.grupo2.daos.EventoDao" %>
+<%@ page import="com.example.grupo2.Beans.Evento" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.lang.Math" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,22 +42,22 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="paginaPrincipal-Vecino.jsp" class="nav-link">Municipalidad</a>
+                <a href="${pageContext.request.contextPath}/VecinoIndexServlet" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="paginaEventos-Vecino.jsp" class="nav-link">Eventos</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet?action=eventos" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="ListaDeIncidencias.html" class="nav-link">Lista de Incidencias</a>
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
             </li>
         </ul>
     </nav>
@@ -142,3 +144,4 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

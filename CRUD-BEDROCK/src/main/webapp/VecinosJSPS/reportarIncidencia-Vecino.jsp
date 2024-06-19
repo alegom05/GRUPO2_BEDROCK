@@ -41,7 +41,7 @@
                 <a href="${pageContext.request.contextPath}/VecinoIndexServlet" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="PaginaEventos.html" class="nav-link">Eventos</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet?action=eventos" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear" class="nav-link">Reportar Incidencia</a>
@@ -50,10 +50,11 @@
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="Calendario.html" class="nav-link">Mira Tu Calendario!</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="HistorialDeEventos.html" class="nav-link">Historial De Eventos</a>
+                <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+            </li>
             </li>
         </ul>
     </nav>

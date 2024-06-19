@@ -1,6 +1,5 @@
 package com.example.grupo2.Servlet;
 
-import com.example.grupo2.daos.VecinosDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,7 +8,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.sql.Blob;
 
 @WebServlet(name = "VecinoIndexServlet", value = "/VecinoIndexServlet")
 public class VecinoIndexServlet extends HttpServlet {
@@ -23,7 +21,7 @@ public class VecinoIndexServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
 
-        VecinosDao newVecinoDao = new VecinosDao();
+        //VecinosDao newVecinoDao = new VecinosDao();
 
         switch (action){
             case "new":
@@ -37,7 +35,7 @@ public class VecinoIndexServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        VecinosDao jobVecino = new VecinosDao();
+
 
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
 
@@ -89,7 +87,7 @@ public class VecinoIndexServlet extends HttpServlet {
                 boolean isAllValid = true;
 
                 if(isAllValid){
-                    jobVecino.crearIncidencia(nombreIncidencia,descripcionIncidencia,lugarIncidencia,referenciaIncidencia,contactoIncidencia,idTipoIncidencia,requiereAmbulancia);
+
                     response.sendRedirect(request.getContextPath() + "/JobServlet");
                 }else{
                     request.getRequestDispatcher("VecinosJSPS/reportarIncidenciaPrueba.jsp").forward(request,response);
