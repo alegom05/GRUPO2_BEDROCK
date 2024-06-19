@@ -77,7 +77,24 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("listaCalendario",listaCalendario);
                 response.sendRedirect(request.getContextPath() + "/VecinosJSPS/Calendario.jsp");
                 break;
+
+            case "listaEventosVecino":
+                String idUsuario = request.getParameter("idUsuario");
+                ArrayList<Evento> listaVeci = eventoDao.listarEventosporIdUsuario(idUsuario);
+                request.setAttribute("listaEventos",listaVeci);
+                view = request.getRequestDispatcher("/VecinosJSPS/historialEventosVecino.jsp");
+                view.forward(request, response);
+                break;
+            case "evento_detallados":
+                String id_ev = request.getParameter("id");
+                if (id_ev == null || id_ev.isEmpty()) {
+                    id_ev = "default_value"; // Valor por defecto si 'id' está vacío
+                }
+                request.setAttribute("id", id_ev);
+                response.sendRedirect(request.getContextPath() + "/VecinosJSPS/EventosDetallado.jsp?id=" + id_ev);
+                break;
         }
+
     }
 
     @Override

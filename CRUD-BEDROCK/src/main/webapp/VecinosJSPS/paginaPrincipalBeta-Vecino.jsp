@@ -1,4 +1,6 @@
-<%--
+<%@ page import="com.example.grupo2.Beans.Evento" %>
+<%@ page import="com.example.grupo2.daos.EventoDao" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: user
   Date: 16/06/2024
@@ -7,7 +9,10 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-
+<%
+    EventoDao eventosDAO = null;
+    ArrayList<Evento> eventos_populares = eventosDAO.listarEventos_populares();
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -27,7 +32,7 @@
                 </div>
                 <div class="col-md-9 d-flex align-items-center justify-content-end">
                     <a href="DetallesUsuario.html">
-                        <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+                        <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                     </a>
                     <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
                     <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
@@ -53,7 +58,7 @@
                         <a href="<%=request.getContextPath()%>/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=historialEventos" class="nav-link">Historial De Eventos</a>
+                        <a href="<%=request.getContextPath()%>/EventoServlet?action=listaEventosVecino&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Historial De Eventos</a>
                     </li>
                 </ul>
             </nav>
@@ -65,60 +70,32 @@
             </div>
             <div id="carouselExample" class="carousel slide contenedor mt-2" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <div class="carousel-item active">
+                    <%
+                        boolean isActive = true;
+                        for (Evento evento : eventos_populares) {
+                    %>
+                    <div class="carousel-item <%= isActive ? "active" : "" %>">
                         <div class="imagen-container">
                             <div class="row">
                                 <div class="col-md-6 div-50 d-flex">
                                     <div>
-                                        <h1 class="texto-con-imagen">Rawayana en Lima</h1>
-                                        <h3 class="texto-con-imagen">Fecha y hora: <br> 18/07/24 21:00 <br> Descripción: <br> Concierto solo una noche</h3>
+                                        <h1 class="texto-con-imagen"><%= evento.getNombre() %></h1>
+                                        <h3 class="texto-con-imagen">Fecha y hora: <br> <%= evento.getFechaInicial() %> <%= evento.getHora() %> <br> Descripción: <br> <%= evento.getDescripcion() %></h3>
                                         <div class="d-flex mt-4">
-                                            <a href="EventosDetallado6.html" class="btn btn-primary"><h7>Más Información</h7></a>
+                                            <a href="${pageContext.request.contextPath}/EventoServlet?action=evento_detallados&id=<%= evento.getIdEvento() %>" class="btn btn-primary"><h7>Más Información</h7></a>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 d-flex">
-                                    <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/sexto_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
+                                    <img src="<%=request.getContextPath()%>/imagenEvento?id=<%= evento.getIdEvento() %>" alt="Imagen" class="img-fluid rounded">
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="carousel-item">
-                        <div class="imagen-container">
-                            <div class="row">
-                                <div class="col-md-6 div-50 d-flex">
-                                    <div>
-                                        <h1 class="texto-con-imagen">Cine en Familia</h1>
-                                        <h3 class="texto-con-imagen">Fecha y hora: <br> 01/05/2024 18:00 <br> Descripción: <br> Cine totalmente gratis</h3>
-                                        <div class="d-flex mt-4">
-                                            <a href="EventosDetallado9.html" class="btn btn-primary"><h7>Más Información</h7></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 d-flex">
-                                    <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/sexto_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="imagen-container">
-                            <div class="row">
-                                <div class="col-md-6 div-50 d-flex">
-                                    <div>
-                                        <h1 class="texto-con-imagen">Cine en Familia</h1>
-                                        <h3 class="texto-con-imagen">Fecha y hora: <br> 01/05/2024 18:00 <br> Descripción: <br> Cine totalmente gratis</h3>
-                                        <div class="d-flex mt-4">
-                                            <a href="EventosDetallado9.html" class="btn btn-primary"><h7>Más Información</h7></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 d-flex">
-                                    <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/noveno_evento.jpg" alt="Imagen 2" class="img-fluid rounded">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <%
+                            isActive = false;
+                        }
+                    %>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
