@@ -32,10 +32,10 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/VecinosJSPS/VecinoIndexServlet" class="nav-link">Municipalidad</a>
+                <a href="${pageContext.request.contextPath}/VecinoIndexServlet" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/VecinosJSPS/paginaEventos-Vecino.jsp" class="nav-link">Eventos</a>
+                <a href="paginaEventos-Vecino.jsp" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
