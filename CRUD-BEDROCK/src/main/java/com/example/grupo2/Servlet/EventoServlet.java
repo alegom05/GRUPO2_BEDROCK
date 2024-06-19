@@ -84,7 +84,16 @@ public class EventoServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "./VecinosJSPS/historialEventosVecino.jsp");
 
                 break;
+            case "evento_detallados":
+                String id_ev = request.getParameter("id");
+                if (id_ev == null || id_ev.isEmpty()) {
+                    id_ev = "default_value"; // Valor por defecto si 'id' está vacío
+                }
+                request.setAttribute("id", id_ev);
+                response.sendRedirect(request.getContextPath() + "/VecinosJSPS/EventosDetallado.jsp?id=" + id_ev);
+                break;
         }
+
     }
 
     @Override
