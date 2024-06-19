@@ -1,6 +1,16 @@
+
+
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.grupo2.Beans.Evento" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
+<%
+    ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy, M-1, dd");
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH, mm");
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -13,7 +23,7 @@
     />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="CalendarioEventos.css" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="style-Vecino.css" />
     <title>Calendario</title>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script
@@ -30,9 +40,9 @@
               <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
           </div>
           <div class="col-md-9 d-flex align-items-center justify-content-end">
-              <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
-              <a href="login.jsp">
-                  <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+              <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
+              <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
+                  <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
               </a>
           </div>
       </div>
@@ -54,7 +64,7 @@
                   <a href="${pageContext.request.contextPath}/EventoServlet?action=calendario" class="nav-link">Mira Tu Calendario!</a>
               </li>
               <li class="nav-item">
-                  <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+                  <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=historialEventos" class="nav-link">Historial De Eventos</a>
               </li>
           </ul>
       </nav>             
@@ -462,28 +472,21 @@
           c1 = 3329,
           h, 
           m;
-          
+
+          <% for (Evento evento : eventos) {
+            String[] dateParts = dateFormat.format(evento.getFechaInicial()).split(", ");
+            String[] timeParts = timeFormat.format(evento.getHora()).split(", ");
+            %>
           data.push({
-          title: "Cine en Familia",
-          start: new Date(2024, 4, 30, 18, 0), // Año, mes (0-11), día, hora, minuto
-          end: end, // Opcional: fecha y hora de finalización
-          allDay: false, // Opcional: indicador booleano para eventos que duran todo el día
-          text: "Discutir los proyectos actuales y asignar tareas" // Descripción adicional del evento
+              title: "<%= evento.getNombre() %>",
+              start: new Date(<%= dateParts[0] %>, <%= dateParts[1] %>, <%= dateParts[2] %>, <%= timeParts[0] %>, <%= timeParts[1] %>),
+              end: null, // Opcional: fecha y hora de finalización
+              allDay: false, // Opcional: indicador booleano para eventos que duran todo el día
+              text: "" // Descripción adicional del evento
           });
-          data.push({
-          title: "Copa San Miguel",
-          start: new Date(2024, 4, 25, 10, 0), // Año, mes (0-11), día, hora, minuto
-          end: end, // Opcional: fecha y hora de finalización
-          allDay: false, // Opcional: indicador booleano para eventos que duran todo el día
-          text: "Discutir los proyectos actuales y asignar tareas" // Descripción adicional del evento
-          });
-          data.push({
-          title: "Aniversario Plaza San Miguel",
-          start: new Date(2024, 4, 25, 20, 0), // Año, mes (0-11), día, hora, minuto
-          end: end, // Opcional: fecha y hora de finalización
-          allDay: false, // Opcional: indicador booleano para eventos que duran todo el día
-          text: "Discutir los proyectos actuales y asignar tareas" // Descripción adicional del evento
-          });
+          <% } %>
+
+          console.log(data);
         
         data.sort(function(a,b) { return (+a.start) - (+b.start); });
         
