@@ -77,7 +77,7 @@ public class ProfesorServlet extends HttpServlet {
         String curso = request.getParameter("curso");
 
         Profesores prof = new Profesores();
-        prof.setId(id);
+        prof.setId(Integer.parseInt(id));
         prof.setCurso(curso);
 
 

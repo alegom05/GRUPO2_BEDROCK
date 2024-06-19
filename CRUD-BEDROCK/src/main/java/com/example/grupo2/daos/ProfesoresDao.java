@@ -26,7 +26,7 @@ public class ProfesoresDao {
                 profesor.setNombre(rs.getString(1));
                 profesor.setApellido(rs.getString(2));
                 profesor.setCurso(rs.getString(3));
-                profesor.setId(rs.getString(4));
+                profesor.setId(rs.getInt(4));
                 listaProfesores.add(profesor);
                 System.out.println(profesor);
             }
@@ -96,7 +96,7 @@ public class ProfesoresDao {
 
                 if (rs.next()) {
                     profesor = new Profesores();
-                    profesor.setId(rs.getString(1));
+                    profesor.setId(rs.getInt(1));
                     profesor.setNombre(rs.getString(2));
                     profesor.setApellido(rs.getString(3));
                     profesor.setCurso(rs.getString(4));
