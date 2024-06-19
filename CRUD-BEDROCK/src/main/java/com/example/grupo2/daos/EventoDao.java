@@ -352,7 +352,7 @@ public class EventoDao {
         String username = "root";
         String password = "root";
 
-        String sql = "SELECT e.idEvento, e.nombre, e.lugar,e.tipo, e.fechaInicial\n" +
+        String sql = "SELECT e.idEvento, e.nombre, e.lugar,e.tipo,e.fechaInicial,e.hora\n" +
                 "FROM evento e\n" +
                 "JOIN evento_has_usuario eu ON e.idEvento = eu.idEvento\n" +
                 "JOIN usuario u ON eu.idUsuario = u.idUsuario\n" +
@@ -369,6 +369,7 @@ public class EventoDao {
                 eventoUsuario.setLugar(rs.getString(3));
                 eventoUsuario.setTipo(rs.getString(4));
                 eventoUsuario.setFechaInicial(rs.getDate(5));
+                eventoUsuario.setHora(rs.getTime(6));
 
                 listaEventosUsuario.add(eventoUsuario);
             }
