@@ -352,7 +352,7 @@ public class EventoDao {
         String username = "root";
         String password = "root";
 
-        String sql = "SELECT e.idEvento, e.nombre, e.fechaInicial, e.fechaFinal, e.hora, e.lugar, e.descripcion\n" +
+        String sql = "SELECT e.idEvento, e.nombre, e.lugar,e.tipo, e.fechaInicial\n" +
                 "FROM evento e\n" +
                 "JOIN evento_has_usuario eu ON e.idEvento = eu.idEvento\n" +
                 "JOIN usuario u ON eu.idUsuario = u.idUsuario\n" +
@@ -366,12 +366,10 @@ public class EventoDao {
                 Evento eventoUsuario= new Evento();
                 eventoUsuario.setIdEvento(rs.getInt(1));
                 eventoUsuario.setNombre(rs.getString(2));
-                eventoUsuario.setFechaInicial(rs.getDate(3));
-                eventoUsuario.setFechaFinal(rs.getDate(4));
-                eventoUsuario.setHora(rs.getTime(5));
-                eventoUsuario.setLugar(rs.getString(6));
-                eventoUsuario.setDescripcion(rs.getString(7));
-                
+                eventoUsuario.setLugar(rs.getString(3));
+                eventoUsuario.setTipo(rs.getString(4));
+                eventoUsuario.setFechaInicial(rs.getDate(5));
+
                 listaEventosUsuario.add(eventoUsuario);
             }
         } catch (SQLException e) {
