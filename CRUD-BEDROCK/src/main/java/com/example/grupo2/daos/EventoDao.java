@@ -23,10 +23,12 @@ public class EventoDao {
 
         ArrayList<Evento> lista = new ArrayList<>();
 
-        String sql = "SELECT * " +
-                "FROM evento" +
-                "ORDER BY fechaInicial DESC " +
-                "LIMIT ?, ?;";
+        String sql = "select e.idEvento, e.nombre , e.fechaInicial, e.fechaFinal, e.foto, e.materiales, e.lugar, e.hora, e.frecuencia, e.vacantes, e.descripcion, e.tipo, e.idProfesor, e.estadoEvento \n" +
+                "from evento e\n" +
+                "left join profesor p on e.idProfesor=p.idProfesor\n" +
+                "left join evento_has_usuario h on e.idEvento=h.idEvento\n" +
+                "left join fotosdeeventos f on e.idEvento = f.idEvento\n" +
+                "order by e.fechaInicial desc;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql);
