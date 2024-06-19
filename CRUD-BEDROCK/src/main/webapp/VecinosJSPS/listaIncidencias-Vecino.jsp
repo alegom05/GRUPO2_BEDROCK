@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-3 d-flex justify-content-start align-items-center">
                     <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-                    <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+                    <h4 style="margin-top: 10px;" >Juntos Por<br>San Miguel!</h4>
                 </div>
                 <div class="col-md-9 d-flex align-items-center justify-content-end">
                     <a href="${pageContext.request.contextPath}/VecinosJSPS/detallesUsuario-Vecino.jsp">
