@@ -20,7 +20,7 @@
 <div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="./logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
@@ -75,8 +75,8 @@
             <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;" placeholder="Buscar...">
         </div>
         <br>
-        <div class="tabla-container">
-            <table id="miTabla" class="display">
+        <div class="table-responsive">
+            <table id="miTabla" class="display table-responsive">
                 <thead>
                 <tr>
                     <th>Tipo De Incidencia</th>
