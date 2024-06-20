@@ -4,6 +4,7 @@ package com.example.grupo2.daos;
 import com.example.grupo2.Beans.CantidadIncidencias;
 import com.example.grupo2.Beans.Incidencia;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.sql.*;
 public class IncidenciaDao {
@@ -88,8 +89,7 @@ public class IncidenciaDao {
                     incidencia.setRequiereBomberos(rs.getBoolean(9));
                     incidencia.setRequierePolicia(rs.getBoolean(10));
                     incidencia.setUsuario(rs.getString(11));
-                    byte[] fotoBytes = rs.getBytes(12);
-                    incidencia.setFotoIncidencia(fotoBytes);
+                    incidencia.setFotoIncidencia((InputStream) rs.getBlob(12));
                     incidencia.setEstadoIncidencia(rs.getString(13));
                     incidencia.setFechaIncidencia(rs.getString(14));
                     incidencia.setCriticidad(rs.getString(15));
@@ -125,34 +125,34 @@ public class IncidenciaDao {
         }
     }
 
-    public void crearIncidencia(Incidencia incidencia){
+    public void crearIncidencia(Incidencia incidencia) {
         try {
             String user = "root";
             String pass = "root";
             String url = "jdbc:mysql://localhost:3306/basedeDatos3";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
-                String sql = "INSERT INTO incidencia (nombre,descripcion,lugar,referencia,contacto,requiereAmbulancia,foto,idUsuario,estadoIncidencia,idtipo,isDeleted) \n" +
-                        "                        VALUES (?,?,?,?,?,?,?,?,\"Nueva\",?,0);";
+            try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+                String sql = "INSERT INTO incidencia (nombre, descripcion, lugar, referencia, contacto, requiereAmbulancia, foto, idUsuario, estadoIncidencia, idtipo, isDeleted) " +
+                        "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Nueva', ?, 0)";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setString(1,incidencia.getNombreIncidencia());
-                    pstmt.setString(2,incidencia.getDescripcion());
-                    pstmt.setString(3,incidencia.getLugar());
-                    pstmt.setString(4,incidencia.getReferencia());
+                    pstmt.setString(1, incidencia.getNombreIncidencia());
+                    pstmt.setString(2, incidencia.getDescripcion());
+                    pstmt.setString(3, incidencia.getLugar());
+                    pstmt.setString(4, incidencia.getReferencia());
                     if (incidencia.getContacto() != null) {
                         pstmt.setString(5, incidencia.getContacto());
                     } else {
-                        pstmt.setNull(5, Types.VARCHAR); // Assuming contacto is a VARCHAR type
+                        pstmt.setNull(5, Types.VARCHAR);
                     }
-                    pstmt.setBoolean(6,incidencia.isRequiereAmbulancia());
+                    pstmt.setBoolean(6, incidencia.isRequiereAmbulancia());
                     if (incidencia.getFotoIncidencia() != null) {
-                        pstmt.setBytes(7, incidencia.getFotoIncidencia()); // Use setBytes to insert byte array
+                        pstmt.setBlob(7, incidencia.getFotoIncidencia());
                     } else {
-                        pstmt.setNull(7, Types.BLOB); // Assuming foto is a BLOB type
+                        pstmt.setNull(7, Types.BLOB);
                     }
-                    pstmt.setInt(8,incidencia.getIdUsuario());
-                    pstmt.setString(9,incidencia.getIdTipoIncidencia());
+                    pstmt.setInt(8, incidencia.getIdUsuario());
+                    pstmt.setString(9, incidencia.getIdTipoIncidencia());
                     pstmt.executeUpdate();
                 }
             }

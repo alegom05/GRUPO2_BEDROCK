@@ -1,5 +1,7 @@
 package com.example.grupo2.Beans;
 
+import java.io.InputStream;
+
 public class Incidencia {
 
     private int idIncidencia;
@@ -17,7 +19,7 @@ public class Incidencia {
     private String nombreUsuario;
     private String correoUsuario;
     private String usuario;
-    private byte [] fotoIncidencia;
+    private InputStream fotoIncidencia;
     private String descripcionSolucion;
     private String descripcionEliminacion;
     private String fechaIncidencia;
@@ -194,11 +196,11 @@ public class Incidencia {
         this.idTipoIncidencia = idTipoIncidencia;
     }
 
-    public byte[] getFotoIncidencia() {
+    public InputStream getFotoIncidencia() {
         return fotoIncidencia;
     }
 
-    public void setFotoIncidencia(byte[] fotoIncidencia) {
+    public void setFotoIncidencia(InputStream fotoIncidencia) {
         this.fotoIncidencia = fotoIncidencia;
     }
 }
