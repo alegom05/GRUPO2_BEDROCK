@@ -145,12 +145,7 @@ public class CoordisServlet extends HttpServlet {
                 boolean ambulancia = Boolean.parseBoolean(request.getParameter("ambulancia"));
 
                 Part filePart = request.getPart("imagen"); // Obtén la parte del archivo
-                byte[] foto = null;
-                if (filePart != null && filePart.getSize() > 0) {
-                    try (InputStream fileContent = filePart.getInputStream()) {
-                        foto = fileContent.readAllBytes(); // Lee el contenido del archivo como un array de bytes
-                    }
-                }
+                InputStream inputStream=filePart.getInputStream();
                 String tipoIncidencia = request.getParameter("tipo");
                 System.out.println(tipoIncidencia);
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
@@ -162,7 +157,7 @@ public class CoordisServlet extends HttpServlet {
                 nuevaIncidencia.setDescripcion(descripcionIncidencia);
                 nuevaIncidencia.setContacto(phoneNumber);
                 nuevaIncidencia.setRequiereAmbulancia(ambulancia);
-                /*nuevaIncidencia.setFotoIncidencia(foto);*/
+                nuevaIncidencia.setFotoIncidencia(inputStream);
                 nuevaIncidencia.setIdTipoIncidencia(tipoIncidencia);
                 nuevaIncidencia.setIdUsuario(idUsuario);
 
