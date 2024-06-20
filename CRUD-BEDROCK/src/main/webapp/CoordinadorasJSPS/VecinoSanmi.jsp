@@ -77,8 +77,8 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
                 <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;" placeholder="Buscar...">
             </div>
         <br>
-		<div class="tabla-container">
-            <table id="miTabla" class="display">
+		<div class="table-responsive">
+            <table id="miTabla" class="display table-responsive">
                 <thead>
                     <tr>
                         <th>DNI</th>
