@@ -1,0 +1,31 @@
+package com.example.grupo2.Servlet;
+
+import com.example.grupo2.Beans.Eventos;
+import com.example.grupo2.Beans.Usuario;
+import com.example.grupo2.daos.EventosDao;
+import com.example.grupo2.daos.SerenazgosDao;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jdk.jfr.Event;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class EventosServlet {
+    EventosDao dao = new EventosDao();
+    Eventos evento = new Eventos();
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*String accion=request.getParameter("accion")
+        switch (accion) {
+            case "Listar" -> {
+                ArrayList<Eventos> lista=dao.listarEventos();
+                request.setAttribute("lista",lista);
+                request.getRequestDispatcher("index.jsp").forward(request,response);
+            }
+            default -> {
+                request.getRequestDispatcher()
+            }
+        }*/
+    }
+}
