@@ -279,7 +279,7 @@
 
     <%-- Botón "Cerrar incidencia" --%>
     <% if (mostrarCerrar) {%>
-    <button type="button" class="btn gradient-custom-3" data-bs-toggle="modal" data-bs-target="#cerrarIncidencia" id="btnRedireccional"> Cerrar incidencia </button>
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#cerrarIncidencia" id="btnRedireccional"> Cerrar incidencia </button>
     <% } %>
 
     <!-- Modal para cerrar incidencia -->
