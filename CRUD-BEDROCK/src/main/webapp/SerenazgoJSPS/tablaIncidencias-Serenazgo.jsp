@@ -72,19 +72,16 @@
         <table id="miTabla" class="display table-responsive">
 
             <thead>
-            <tr>
-            <tr>
-                <th>Incidencia</th>
-                <th>Tipo de Incidencia</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-                <th>Usuario</th>
-                <th>Correo de Usuario</th>
-                <th>Ver</th>
-                <th>Eliminar</th>
-            </tr>
-
-            </tr>
+                <tr>
+                    <th>Incidencia</th>
+                    <th>Tipo de Incidencia</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Usuario</th>
+                    <th>Correo de Usuario</th>
+                    <th>Ver</th>
+                    <th>Eliminar</th>
+                </tr>
             </thead>
 
             <tbody>
