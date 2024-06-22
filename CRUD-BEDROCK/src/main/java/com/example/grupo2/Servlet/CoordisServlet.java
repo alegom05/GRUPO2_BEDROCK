@@ -31,71 +31,55 @@ public class CoordisServlet extends HttpServlet {
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
         UsuarioDao usuarioDao = new UsuarioDao();
+        RequestDispatcher view;
 
         switch (action) {
-            case "listarin" -> {
+            case "listarin":
                 String id = request.getParameter("idUsuario");
                 ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidenciasDeUnUsuario(id);
                 request.setAttribute("lista",listaIncidencias);
-                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                view =request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request,response);
+                break;
 
-            }
-            case "listarev" -> {
+            case "listarev":
                 ArrayList<Evento> listaEventos = eventoDao.listarEventos();
                 request.setAttribute("lista",listaEventos);
-                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
+                view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
                 view.forward(request,response);
-            }
-            case "listarve" -> {
+                break;
+            case "listarve":
                 ArrayList<Usuario> listaUsuario = usuarioDao.listarUsuarios();
                 request.setAttribute("lista",listaUsuario);
-                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinoSanmi.jsp");
+                view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinoSanmi.jsp");
                 view.forward(request,response);
-            }
-            case "crearin" -> {
-                RequestDispatcher view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidencia.jsp");
+                break;
+            case "formCrearInci":
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidencia.jsp");
                 view.forward(request, response);
-
-            }
-            case "formCrear" -> {
-                RequestDispatcher view = request.getRequestDispatcher("/AdministradorJSPS/nuevoSerenazgo-Admin.jsp");
-                view.forward(request, response);
-            }
-            case "editar" -> {
-                /*int id = Integer.parseInt(request.getParameter("id"));
-                Usuario serenazgo = serenazgosDao.buscarPorId(id);
-                if (serenazgo != null) {
-                    request.setAttribute("serenazgo", serenazgo);
-                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/AdministradorJSPS/editarSerenazgo-Admin.jsp");
-                    requestDispatcher.forward(request, response);
-                } else {
-                    response.sendRedirect(request.getContextPath() + "/Serenazgos");
-                }*/
-            }
+                break;
             //JSPS
-            case "paginaPrincipal" -> {
+            case "paginaPrincipal":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaPrincipal.jsp");
-
-            }
-            case "Eventos" -> {
+                break;
+            case "Eventos":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaEventos.jsp");
-            }
-            case "reportarIncidencia" -> {
+                break;
+            case "reportarIncidencia":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/ReportarIncidencia.jsp");
-            }
-            case "listarIncidencias" -> {
+                break;
+            case "listarIncidencias":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/ListaDeIncidencias.jsp");
-            }
-            case "calendario" -> {
+                break;
+            case "calendario":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/Calendario.jsp");
-            }
-            case "historialEventos" -> {
+                break;
+            case "historialEventos":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/HistorialDeEventos.jsp");
-            }
-            case "listarVecinos" -> {
+                break;
+            case "listarVecinos":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/VecinoSanmi.jsp");
-            }
+                break;
         }
 
 
@@ -106,37 +90,12 @@ public class CoordisServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
-        SerenazgosDao serenazgosDao = new SerenazgosDao();
         IncidenciaDao incidenciaDao = new IncidenciaDao();
+        RequestDispatcher view;
 
         switch (action) {
-            case "agregar" -> {
-                String nombre = request.getParameter("nombre");
-                String apellido = request.getParameter("apellido");
-                String dni = request.getParameter("dni");
-                String nacimiento = request.getParameter("nacimiento");
-                String numtelefono = request.getParameter("telefono");
-                String direccion = request.getParameter("direccion");
-                String tipo = request.getParameter("tipo");
-                String turnoSerenazgo = request.getParameter("turno");
-                String correo_pucp = request.getParameter("correo");
-                String contrasenia = request.getParameter("contrasenia");
 
-                serenazgosDao.crearSerenazgos(nombre, apellido, dni, nacimiento, numtelefono, direccion, tipo, turnoSerenazgo, correo_pucp, contrasenia);
-                response.sendRedirect(request.getContextPath() + "/Serenazgos");
-            }
-            case "actualizar" -> {
-                Usuario serenazgo = leerParametrosRequest(request);
-                serenazgosDao.actualizar(serenazgo);
-                response.sendRedirect(request.getContextPath() + "/Serenazgos");
-            }
-            case "borrar" -> {
-                int id = Integer.parseInt(request.getParameter("id"));
-                serenazgosDao.eliminarSerenazgo(id);
-                response.sendRedirect(request.getContextPath() + "/Serenazgos");
-            }
-
-            case "crearIn" ->{
+            case "crearInci":
                 String nombreIncidencia = request.getParameter("nombreIncidencia");
                 String lugar = request.getParameter("lugarIncidencia");
                 String referencia = request.getParameter("referencia");
@@ -145,19 +104,24 @@ public class CoordisServlet extends HttpServlet {
                 boolean ambulancia = Boolean.parseBoolean(request.getParameter("ambulancia"));
 
                 Part filePart = request.getPart("imagen"); // Obtén la parte del archivo
-                InputStream inputStream=filePart.getInputStream();
+                InputStream foto = null;
+                if (filePart != null && filePart.getSize() > 0) {
+                    foto = filePart.getInputStream(); // Lee el contenido del archivo como un InputStream
+                }
+
                 String tipoIncidencia = request.getParameter("tipo");
                 System.out.println(tipoIncidencia);
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
 
                 Incidencia nuevaIncidencia = new Incidencia();
+
                 nuevaIncidencia.setNombreIncidencia(nombreIncidencia);
                 nuevaIncidencia.setLugar(lugar);
                 nuevaIncidencia.setReferencia(referencia);
                 nuevaIncidencia.setDescripcion(descripcionIncidencia);
                 nuevaIncidencia.setContacto(phoneNumber);
                 nuevaIncidencia.setRequiereAmbulancia(ambulancia);
-                nuevaIncidencia.setFotoIncidencia(inputStream);
+                nuevaIncidencia.setFotoIncidencia(foto);
                 nuevaIncidencia.setIdTipoIncidencia(tipoIncidencia);
                 nuevaIncidencia.setIdUsuario(idUsuario);
 
@@ -169,33 +133,15 @@ public class CoordisServlet extends HttpServlet {
                 System.out.println(nuevaIncidencia.getContacto());
                 System.out.println(nuevaIncidencia.getIdTipoIncidencia());
                 System.out.println(nuevaIncidencia.getIdUsuario());
-                response.sendRedirect(request.getContextPath() + "/Coordis?a=listarin&idUsuario" + idUsuario);
+                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=listaCoordi&idCoordi=" + idUsuario);
+
+                break;
 
 
-            }
 
 
         }
     }
-    public Usuario leerParametrosRequest(HttpServletRequest request) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String telefono = request.getParameter("telefono");
-        String direccion = request.getParameter("direccion");
-        String tipo = request.getParameter("tipo");
-        String turno = request.getParameter("turno");
-        String correo = request.getParameter("correo");
-        String contrasenia = request.getParameter("contrasenia");
 
-        Usuario serenazgo = new Usuario();
-        serenazgo.setId(id);
-        serenazgo.setNumtelefono(telefono);
-        serenazgo.setDireccion(direccion);
-        serenazgo.setTipo(tipo);
-        serenazgo.setTurnoSerenazgo(turno);
-        serenazgo.setCorreo(correo);
-        serenazgo.setClave(contrasenia);
-
-        return serenazgo;
-    }
 
 }

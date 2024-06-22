@@ -2,6 +2,7 @@
 
 <%@ page import="com.example.grupo2.Beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 
 <%
     Evento evento = (Evento) request.getAttribute("listarev");
@@ -42,7 +43,7 @@
                     <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/IncidenciaServlet2" class="nav-link">Lista de Incidencias</a>
+                    <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/CoordisCalendarioServlet" class="nav-link">Mira Tu Calendario!</a>

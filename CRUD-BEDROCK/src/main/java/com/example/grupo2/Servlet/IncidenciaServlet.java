@@ -103,10 +103,13 @@ public class IncidenciaServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/VecinosJSPS/reportarIncidencia-Vecino.jsp");
                 view.forward(request, response);
                 break;
+
+            //Este case será en caso pasemos lo que es la parte de incidencias de CoordisServlet acá (es muy probable)
             case "formCrear2":
-                view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidencia.jsp");
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidenciaVerisonPRUEBA.jsp");
                 view.forward(request, response);
                 break;
+
             //para que el vecino pueda ver sus incidencias
             case "lista3":
                 String idUsuario = request.getParameter("idUsuario");
@@ -114,6 +117,17 @@ public class IncidenciaServlet extends HttpServlet {
                 request.setAttribute("incidencia", listaIncidencias3);
 
                 view = request.getRequestDispatcher("/VecinosJSPS/listaIncidencias-Vecino.jsp");
+                view.forward(request, response);
+                break;
+
+            //Este case será en caso pasemos lo que es la parte de incidencias de CoordisServlet acá (es muy probable)
+            //Para que la coordinadora visualice sus incidencias
+            case "listaCoordi":
+                String idCoordi = request.getParameter("idUsuario");
+                ArrayList<Incidencia> listaIncidenciasCoordi = incidenciaDao.listarIncidenciasDeUnUsuario(idCoordi);
+                request.setAttribute("incidencia", listaIncidenciasCoordi);
+
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request, response);
                 break;
 
@@ -184,6 +198,49 @@ public class IncidenciaServlet extends HttpServlet {
                 System.out.println(nuevaIncidencia.getIdTipoIncidencia());
                 System.out.println(nuevaIncidencia.getIdUsuario());
                 response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);
+
+                break;
+
+            //Para que coordinadora cree su incidencia
+            case "crear2":
+                String nombreIncidencia2 = request.getParameter("nombreIncidencia");
+                String lugar2 = request.getParameter("lugarIncidencia");
+                String referencia2 = request.getParameter("referencia");
+                String descripcionIncidencia2 = request.getParameter("descripcion");
+                String phoneNumber2 = request.getParameter("contacto");
+                boolean ambulancia2 = Boolean.parseBoolean(request.getParameter("ambulancia"));
+
+                Part filePart2 = request.getPart("imagen"); // Obtén la parte del archivo
+                InputStream foto2 = null;
+                if (filePart2 != null && filePart2.getSize() > 0) {
+                    foto2 = filePart2.getInputStream(); // Lee el contenido del archivo como un InputStream
+                }
+
+                String tipoIncidencia2 = request.getParameter("tipo");
+                System.out.println(tipoIncidencia2);
+                int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
+
+                Incidencia nuevaIncidencia2 = new Incidencia();
+
+                nuevaIncidencia2.setNombreIncidencia(nombreIncidencia2);
+                nuevaIncidencia2.setLugar(lugar2);
+                nuevaIncidencia2.setReferencia(referencia2);
+                nuevaIncidencia2.setDescripcion(descripcionIncidencia2);
+                nuevaIncidencia2.setContacto(phoneNumber2);
+                nuevaIncidencia2.setRequiereAmbulancia(ambulancia2);
+                nuevaIncidencia2.setFotoIncidencia(foto2);
+                nuevaIncidencia2.setIdTipoIncidencia(tipoIncidencia2);
+                nuevaIncidencia2.setIdUsuario(idUsuario2);
+
+                incidenciaDao.crearIncidencia(nuevaIncidencia2);
+                System.out.println(nuevaIncidencia2.getNombreIncidencia());
+                System.out.println(nuevaIncidencia2.getLugar());
+                System.out.println(nuevaIncidencia2.getReferencia());
+                System.out.println(nuevaIncidencia2.getDescripcion());
+                System.out.println(nuevaIncidencia2.getContacto());
+                System.out.println(nuevaIncidencia2.getIdTipoIncidencia());
+                System.out.println(nuevaIncidencia2.getIdUsuario());
+                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=listaCoordi&idUsuario=" + idUsuario2);
 
                 break;
 

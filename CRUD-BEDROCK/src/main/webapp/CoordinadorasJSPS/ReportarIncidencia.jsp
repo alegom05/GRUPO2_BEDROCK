@@ -63,7 +63,7 @@
     <div class="contenedor-v2">
         <div class="contenedor"><h2 class="labelFormulario contenedor mt-3">Formulario de Incidencia</h2></div>
         <div class="contenedor mt-3 mb-1 ms-4">
-            <form method="post" action="<%=request.getContextPath()%>/Coordis?a=crearIn" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+            <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=crear2" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
                 <div class="col">
                     <div class="row">
                         <div class="mb-3">
@@ -76,8 +76,8 @@
                                 Es necesario poner el nombre de la incidencia
                             </div>
                         </div>
-                    </div> 
-                    
+                    </div>
+
                     <div class="row">
                         <div class="mb-3">
                             <label for="lugarIncidencia" class="form-label">Lugar</label>
@@ -127,7 +127,7 @@
                             <select id="ambulancia" name="ambulancia" required>
                                 <option value="true">Sí</option>
                                 <option value="false">No</option>
-                            </select>                        
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -138,7 +138,7 @@
                     </div>
                     <div class="row mb-3">
                         <label for="descripcion" class="form-label">Descripción:</label>
-                        <textarea id="descripcion"  name="descripcion" class="form-control" rows="10" placeholder="Escribe una descripción detallada aquí..." required style="resize: none;"></textarea>
+                        <textarea id="descripcion" name="descripcion" class="form-control" rows="10" placeholder="Escribe una descripción detallada aquí..." required style="resize: none;"></textarea>
                         <div class="valid-feedback">
                             Todo correcto
                         </div>
@@ -149,14 +149,15 @@
                     <div class="mb-3">
                         <input type="hidden" class="form-control" id="idUsuario" name="idUsuario" value="<%=usuarioSesion.getId()%>">
                     </div>
-                </div>   
+                </div>
                 <div>
                     <button type="submit" class="btn btn-primary" id="boton">Confirmar</button>
                 </div>
             </form>
             <div id="successMessage" class="text-success text-center mt-2" style="display: none; margin-right: 10px;"></div>
         </div>
-    </div>        
+    </div>
+
     <script>
         (() => {
         'use strict'
