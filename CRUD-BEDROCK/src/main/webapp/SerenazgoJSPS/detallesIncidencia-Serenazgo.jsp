@@ -107,7 +107,7 @@
             </fieldset>
             <br>
             <figure class="figure">
-                <img src="<%= incidencia.getFotoIncidencia() %>" class="figure-img img-fluid rounded" alt="..." style="height: 250px">
+                <img src="<%= request.getContextPath() %>/imagenIncidencia?id=<%= incidencia.getIdIncidencia() %>" class="figure-img img-fluid rounded" alt="..." style="height: 250px">
                 <figcaption class="figure-caption">Foto tomada por usuario.</figcaption>
             </figure>
 

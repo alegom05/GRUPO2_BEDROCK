@@ -89,7 +89,13 @@ public class IncidenciaDao {
                     incidencia.setRequiereBomberos(rs.getBoolean(9));
                     incidencia.setRequierePolicia(rs.getBoolean(10));
                     incidencia.setUsuario(rs.getString(11));
-                    incidencia.setFotoIncidencia((InputStream) rs.getBlob(12));
+                    // Obtener la foto como InputStream desde el Blob
+                    Blob fotoBlob = rs.getBlob(12);
+                    if (fotoBlob != null) {
+                        incidencia.setFotoIncidencia(fotoBlob.getBinaryStream());
+                    } else {
+                        incidencia.setFotoIncidencia(null);
+                    }
                     incidencia.setEstadoIncidencia(rs.getString(13));
                     incidencia.setFechaIncidencia(rs.getString(14));
                     incidencia.setCriticidad(rs.getString(15));

@@ -154,24 +154,24 @@ public class IncidenciaServlet extends HttpServlet {
                 boolean ambulancia = Boolean.parseBoolean(request.getParameter("ambulancia"));
 
                 Part filePart = request.getPart("imagen"); // Obtén la parte del archivo
-                byte[] foto = null;
+                InputStream foto = null;
                 if (filePart != null && filePart.getSize() > 0) {
-                    try (InputStream fileContent = filePart.getInputStream()) {
-                        foto = fileContent.readAllBytes(); // Lee el contenido del archivo como un array de bytes
-                    }
+                    foto = filePart.getInputStream(); // Lee el contenido del archivo como un InputStream
                 }
+
                 String tipoIncidencia = request.getParameter("tipo");
                 System.out.println(tipoIncidencia);
                 int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
 
                 Incidencia nuevaIncidencia = new Incidencia();
+
                 nuevaIncidencia.setNombreIncidencia(nombreIncidencia);
                 nuevaIncidencia.setLugar(lugar);
                 nuevaIncidencia.setReferencia(referencia);
                 nuevaIncidencia.setDescripcion(descripcionIncidencia);
                 nuevaIncidencia.setContacto(phoneNumber);
                 nuevaIncidencia.setRequiereAmbulancia(ambulancia);
-                /*nuevaIncidencia.setFotoIncidencia(foto);*/
+                nuevaIncidencia.setFotoIncidencia(foto);
                 nuevaIncidencia.setIdTipoIncidencia(tipoIncidencia);
                 nuevaIncidencia.setIdUsuario(idUsuario);
 
