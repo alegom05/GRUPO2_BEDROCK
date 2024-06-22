@@ -65,7 +65,7 @@ public class IncidenciaDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia,i.requiereBomberos,i.requierePolicia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto, i.estadoIncidencia,DATE_FORMAT(i.fecha, '%Y-%m-%d %H:%i') AS fecha_formateada, i.criticidad, i.personalRefuerzo,i.descripcionSolucion\n" +
+        String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia,i.requiereBomberos,i.requierePolicia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto, i.estadoIncidencia,DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.criticidad, i.personalRefuerzo,i.descripcionSolucion\n" +
                 "                           from incidencia i \n" +
                 "                         join usuario u on u.idUsuario = i.idUsuario \n" +
                 "                             join tipo t on i.idtipo = t.idtipo \n" +
