@@ -94,9 +94,16 @@
                     <td><%= incidencia.getFechaIncidencia() %></td>
                     <td><%= incidencia.getLugar() %></td>
                     <td>
-                        <button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="mostrarModalEliminar(<%= incidencia.getIdIncidencia() %>)">
-                            <img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar">
-                        </button>
+
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a href="<%=request.getContextPath()%>/Incidencias?action=formCrear2&id=<%=incidencia.getIdIncidencia() %>" class="dropdown-item">Editar</a></li>
+                                <li><a onclick="setIncidenciaParaEliminar('<%= incidencia.getIdIncidencia() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a></li>
+                            </ul>
+                        </div>
                     </td>
                 </tr>
                 <% } %>
@@ -105,9 +112,34 @@
         </div>
     </div>
 </div>
+<!-- Modal de Confirmación de Eliminación -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Advertencia!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro que desea eliminar al docente?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <form action="<%=request.getContextPath()%>/Incidencias?action=borrar" method="post">
+                    <input type="hidden" name="id" id="incidenciaIdToDelete">
+                    <button type="submit" class="btn btn-primary">Sí</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 <script>
     $(document).ready(function() {
         var table = $('#miTabla').DataTable({
@@ -153,7 +185,7 @@
         window.location.href = 'detallesIncidenciasProcesadas.html';
     }
 
-    function mostrarModalEliminar(id) {
+    /*function mostrarModalEliminar(id) {
         incidenciaIdParaEliminar = id;
         $('#eliminarIncidenciaModal').modal('show');
     }
@@ -166,6 +198,24 @@
     function eliminarIncidenciaDefinitivamente() {
         var descripcion = $('#descripcionEliminar').val();
         if (incidenciaIdParaEliminar != null) {
+            $.post('%=request.getContextPath()%>/IncidenciaServlet', {
+                action: 'borrar',
+                id: incidenciaIdParaEliminar,
+                descripcion: descripcion
+            }, function(response) {
+                location.reload();
+            });
+        }
+    }*/
+    var incidenciaIdParaEliminar;
+
+    function setIncidenciaParaEliminar(id) {
+        incidenciaIdParaEliminar = id;
+    }
+
+    function eliminarIncidencia() {
+        var descripcion = $('#descripcionEliminar').val();
+        if (incidenciaIdParaEliminar != null) {
             $.post('<%=request.getContextPath()%>/IncidenciaServlet', {
                 action: 'borrar',
                 id: incidenciaIdParaEliminar,
@@ -176,5 +226,14 @@
         }
     }
 </script>
+
+    <script>
+        function nuevoProfesor() {
+        window.location.href = "<%=request.getContextPath()%>/Incidencias?action=formCrear";
+    }
+        function setProfesorId(id) {
+        document.getElementById('incidenciaIdToDelete').value = id;
+    }
+    </script>
 </body>
 </html>
