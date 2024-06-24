@@ -24,7 +24,7 @@
     <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior" style="overflow-x: hidden">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
@@ -179,12 +179,17 @@
                         </div>
                     </div>
                 </div>
-                <div class="elemento_texto_evento text-center">
-                    <a href="" class="btn btn-mas-grande me-4" data-bs-toggle="modal" data-bs-target="#exampleModal"><h7>Guardar</h7></a>
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="btn btn-primary btn-mas-grande">Cancelar</a>
-                </div>
+
             </form>
 
+
+        </div>
+        <div class="container mt-4 text-center">
+            <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</a>
+            <a href="" class="btn btn-primary" >Iniciar evento</a>
+            <a href="" class="btn btn-primary" >Cerrar evento</a>
+            <a href="" class="btn btn-primary" >Ver lista de participantes</a>
+            <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="btn btn-primary ">Cancelar</a>
         </div>
     </div>
 
