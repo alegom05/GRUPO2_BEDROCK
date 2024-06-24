@@ -39,7 +39,7 @@
             <nav class="letra_botones_encabezado">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="paginaPrincipal-Admin.jsp" class="nav-link">Página principal</a>
+                        <a href="<%=request.getContextPath()%>/AdminIndexServlet" class="nav-link">Página principal</a>
                     </li>
                     <li class="nav-item">
                         <a href="solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>

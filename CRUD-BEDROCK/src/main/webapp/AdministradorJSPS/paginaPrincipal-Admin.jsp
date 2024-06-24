@@ -26,7 +26,7 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/AdministradorJSPS/paginaPrincipal-Admin.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/AdminIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/AdministradorJSPS/solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
@@ -42,59 +42,30 @@
     </nav>
 </div>
 
-<header id="top" role="banner" class="header">
-    <div class="container-bootstrap">
-        <h2 class="heading-4">Bienvenido Administrador</h2>
-    </div>
+    <header id="top" role="banner" class="header">
+        <div class="container-bootstrap">
+            <h2 class="heading-4">Bienvenido Administrador</h2>
+        </div>
 
-    <a id="searchAll2" href="<%=request.getContextPath()%>/Serenazgos" class="btn">
-        <span class="display-6 text-light">¿Buscas la lista de Serenazgos?</span>
-        <p class="display-11 text-light text-left ml-1"> Te ayudamos
-            <i focusable="false" data-fa-i2svg="">
-                <svg class="svg-inline--fa fa-turn-up custom-icon" focusable="false" aria-hidden="true" data-prefix="fas" data-icon="turn-up" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" data-fa-i2svg="">
-                    <path fill="currentColor" d="M350 177.5c3.8-8.8 2-19-4.6-26l-136-144C204.9 2.7 198.6 0 192 0s-12.9 2.7-17.4 7.5l-136 144c-6.6 7-8.4 17.2-4.6 26s12.5 14.5 22 14.5h88l0 192c0 17.7-14.3 32-32 32H32c-17.7 0-32 14.3-32 32v32c0 17.7 14.3 32 32 32l80 0c70.7 0 128-57.3 128-128l0-192h88c9.6 0 18.2-5.7 22-14.5z"></path>
-                </svg>
-            </i>
-        </p>
-        <span class="sr-only"> ir al campo lista de Serenazgos</span>
-    </a>
-
-
-
-
-
-</header>
-
-
-
+    </header>
 
 
 
 <div class="container-fluid py-3" id="primerBloque">
     <h2 class="mb-4 text-center display-5" id="bicentenario">¡Nuestra misión como administrador!</h2>
-    <div class="row mb-5 justify-content-center">
-        <div class="col-12 col-xl-10">
-            <div class="row m-0 p-0">
-
-                <div class="col-12 col-xl-7 my-1">
-                    <img src="${pageContext.request.contextPath}/Administrador/assets/fotos_pag_princ/fotomunicipalidad.jpg" class="img-fluid p-2" alt="Imagen de serenazgos con su vehículo">
-                </div>
-                <div class="col-12 col-xl-5 my-4">
-                    <p class="parrafoMision">Como administrador de la página de San Miguel, su deber es garantizar un entorno seguro y organizado para la comunidad.
-                        Esto implica revisar y aprobar solicitudes de manera eficiente y precisa, así como crear y gestionar los serenazgos de manera efectiva.
-                        Su objetivo es trabajar en estrecha colaboración con la comunidad para mantener altos estándares de seguridad y calidad de vida en nuestra área,
-                        facilitando la comunicación y la acción rápida en situaciones de emergencia.</p>
-                    <div class="row">
-                    </div>
-
-
-                </div>
-
+</div>
+    <div class="contenedor mt-4">
+        <div class="contenedor mt-2 row align-items-center custom-cartanz">
+            <div class="col-md-5 d-flex justify-content-center">
+                <img src="${pageContext.request.contextPath}/Administrador/assets/fotos_pag_princ/fotomunicipalidad.jpg" alt="Imagen" class="img-muni">
+            </div>
+            <div class="col-md-7">
+                <h3 class="parrafoMision">Como administrador de la página de San Miguel su objetivo es trabajar en estrecha colaboración con la comunidad para mantener altos estándares de seguridad y calidad de vida en nuestra área
+                    Esto implica revisar y aprobar solicitudes de manera eficiente y precisa, así como crear y gestionar los serenazgos de manera efectiva.</h3>
             </div>
         </div>
     </div>
-</div>
-
+<br>
 
 <div class="pie_de_pagina container-fluid">
     <div class="row">

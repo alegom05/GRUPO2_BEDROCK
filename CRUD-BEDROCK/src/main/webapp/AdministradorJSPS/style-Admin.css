@@ -338,11 +338,11 @@ div.dataTables_wrapper div.dataTables_filter {
     color: white;
 }
 .header {
-    background: none;
-    background-image: url(../Administrador/assets/fotos_pag_princ/personalMunicipalidad.png);
+    background-image: url(../Administrador/assets/fotos_pag_princ/personalMuni.png);
     background-repeat: no-repeat;
     background-size: cover;
     background-position-x: center;
+    height: 400px;
 }
 #searchAll2 {
     margin-top: 25rem;
@@ -409,4 +409,50 @@ div.dataTables_wrapper div.dataTables_filter {
 }
 .dataTables_filter {
     display: none;
+}
+.custom-cartanz {
+    background-color: #f5f3f3;
+    border-left: 1px solid #D8DEE0;
+    border-right: 1px solid #D8DEE0;
+    border-top: 10px solid #111111;
+    margin-bottom: 28px;
+    padding: 25px;
+    font-size: 16px; /* Tamaño de fuente */
+    line-height: 1.6; /* Altura de línea */
+    margin-top: 20px; /* Margen superior */
+    margin-bottom: 20px; /* Margen inferior */
+    text-align: justify; /* Alineación justificada del texto */
+    padding: 0 20px; /* Relleno lateral */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+}
+.custom-cartanz-2 {
+    margin-bottom: 20px; /* Ajusta el margen inferior entre las tarjetas */
+    padding: 10px; /* Añade un relleno interior a las tarjetas */
+}
+
+.custom-cartanz-2 .card {
+    height: 100%;
+    transition: transform 0.2s; /* Agrega una transición suave al hacer hover */
+}
+
+.custom-cartanz-2 .card:hover {
+    transform: scale(1.05); /* Escala la tarjeta ligeramente al hacer hover */
+}
+
+
+.custom-cartanz-2 .card-body {
+    padding: 10px; /* Añade un relleno interior al cuerpo de la tarjeta */
+}
+
+.custom-cartanz-2 .card-title {
+    font-size: 1.2rem; /* Tamaño de fuente más grande para el título */
+    margin-bottom: 5px; /* Margen inferior para separar el título del texto */
+}
+
+.custom-cartanz-2 .card-text {
+    font-size: 0.9rem; /* Tamaño de fuente más pequeño para el texto */
+}
+h3{
+    line-height: 130%;
+    font-weight: 550;
 }
