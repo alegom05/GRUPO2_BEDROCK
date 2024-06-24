@@ -226,14 +226,5 @@
         }
     }
 </script>
-
-    <script>
-        function nuevoProfesor() {
-        window.location.href = "<%=request.getContextPath()%>/Incidencias?action=formCrear";
-    }
-        function setProfesorId(id) {
-        document.getElementById('incidenciaIdToDelete').value = id;
-    }
-    </script>
 </body>
 </html>
