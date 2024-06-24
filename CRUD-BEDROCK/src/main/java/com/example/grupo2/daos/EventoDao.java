@@ -101,7 +101,7 @@ public class EventoDao {
         return lista;
     }
 
-    public static ArrayList<Evento> listarEventos_limitado(int page, int pageSize) {
+    public static ArrayList<Evento> listarEventos_limitado(int page, int pageSize, String filtro) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -111,15 +111,47 @@ public class EventoDao {
 
         ArrayList<Evento> lista = new ArrayList<>();
 
-        String sql = "SELECT * FROM evento " +
-                "ORDER BY fechaInicial DESC " +
-                "LIMIT ?, ?;";
+        String sql = "SELECT * FROM basededatos3.evento";
+
+        if (filtro != null && !filtro.isEmpty()) {
+            switch (filtro) {
+                case "Cultural":
+                case "Deportivo":
+                    sql += " WHERE tipo = ?";
+                    break;
+                case "Populares":
+                    sql += " ORDER BY vacantes ASC";
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            sql += " ORDER BY fechaInicial DESC";
+        }
+
+        sql += " LIMIT ?, ?;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setInt(1, (page - 1) * pageSize);
-            pstmt.setInt(2, pageSize);
+            int parameterIndex = 1;
+
+            if (filtro != null && !filtro.isEmpty()) {
+                switch (filtro){
+                    case "Cultural":
+                    case "Deportivo":
+                        pstmt.setString(parameterIndex++, filtro);
+                        break;
+                    case "Populares":
+                        break; // No hay parámetros adicionales para "Populares"
+                    default:
+                        break;
+                }
+            }
+
+            pstmt.setInt(parameterIndex++, (page - 1) * pageSize);
+            pstmt.setInt(parameterIndex, pageSize);
+
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
@@ -184,7 +216,7 @@ public class EventoDao {
         return lista;
     }
 
-    public int contarEventos() {
+    public int contarEventos(String filtro) {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -195,10 +227,28 @@ public class EventoDao {
         int count = 0;
         String sql = "SELECT COUNT(*) FROM evento";
 
+        if (filtro != null && !filtro.isEmpty()) {
+            switch (filtro){
+                case "Cultural":
+                    sql += " where tipo=?";
+                    break;
+                case "Deportivo":
+                    sql += " where tipo=?";
+                    break;
+                default:
+                    break;
+            }
+        }
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql)){
+
+            if (filtro != null && (filtro.equals("Cultural") || filtro.equals("Deportivo"))) {
+                pstmt.setString(1, filtro);
+            }
+
             ResultSet rs = pstmt.executeQuery();
+
             if (rs.next()) {
                 count = rs.getInt(1);
             }

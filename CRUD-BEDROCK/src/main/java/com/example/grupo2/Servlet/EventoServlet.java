@@ -95,6 +95,21 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("id", id_ev);
                 response.sendRedirect(request.getContextPath() + "/VecinosJSPS/EventosDetallado.jsp?id=" + id_ev);
                 break;
+            case "listarEventoFiltrado":
+                int pageSize = 6;
+                String filtro = request.getParameter("filtro"); // Obtener filtro
+                int totalEvents = eventoDao.contarEventos(filtro);
+                int totalPages = (int) Math.ceil(totalEvents / (double) pageSize);
+                int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
+
+                ArrayList<Evento> listaEventos = eventoDao.listarEventos_limitado(currentPage, pageSize, filtro);
+
+                request.setAttribute("totalPages", totalPages);
+                request.setAttribute("currentPage", currentPage);
+                request.setAttribute("listaEventos", listaEventos);
+                request.setAttribute("filtro", filtro); // Pasar el filtro a la vista
+                request.getRequestDispatcher("/VecinosJSPS/paginaEventos-Vecino.jsp").forward(request, response);
+                break;
         }
 
     }
