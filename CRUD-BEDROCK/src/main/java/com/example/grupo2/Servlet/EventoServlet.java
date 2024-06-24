@@ -1,9 +1,12 @@
 package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.Evento;
+import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.Beans.Usuario;
 import com.example.grupo2.daos.EventoDao;
+import com.example.grupo2.daos.IncidenciaDao;
 import com.example.grupo2.daos.SerenazgosDao;
+import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -114,6 +117,34 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("filtro", filtro); // Pasar el filtro a la vista
                 request.getRequestDispatcher("/VecinosJSPS/paginaEventos-Vecino.jsp").forward(request, response);
                 break;
+
+            //Este caso servirá para cuando la coordinadora desea revisar los detalles de alguno de sus eventos creados
+            case "detallarParaCoordi":
+                String idCoordi = request.getParameter("id");
+                if(eventoDao.obtenerEventoPorId(idCoordi) != null){
+                    Evento evento2 = eventoDao.obtenerEventoPorId(idCoordi);
+                    if (evento2 != null) {
+                        request.setAttribute("evento", evento2);
+
+                        String estado = evento2.getEstadoEvento();
+                        /*request.setAttribute("mostrarEvaluar", "Nueva".equals(estado));
+                        request.setAttribute("mostrarVerEvaluacion", "En proceso".equals(estado));
+                        request.setAttribute("mostrarFalsaAlarma", "Nueva".equals(estado) || "En proceso".equals(estado));
+                        request.setAttribute("mostrarCerrar","En proceso".equals(estado));*/
+
+
+                        view = request.getRequestDispatcher("/CoordinadorasJSPS/detallesEvento.jsp");
+                        view.forward(request, response);
+                    } else {
+                        response.sendRedirect("error.jsp"); // Página de error en caso de que no se encuentre la incidencia
+                    }
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+
+                view = request.getRequestDispatcher("/HistorialDeEventos.jsp");
+                view.forward(request, response);
+                break;
         }
 
     }
@@ -202,7 +233,32 @@ public class EventoServlet extends HttpServlet {
 
                  */
                 break;
+            case "inscribirse":
+                UsuarioDao usuarioDao = new UsuarioDao();
+                Usuario acompanante= new Usuario();
+                String idUsuarioStr = request.getParameter("idUsuario");
+                if (idUsuarioStr != null && !idUsuarioStr.isEmpty()){
+                    int idUsuario = Integer.parseInt(idUsuarioStr);
+                    //usuarioDao.obtenerUsuarioPorID();
+                }
+                // Obtener los acompañantes adicionales
+                ArrayList<Usuario> lista_acompanantes = new ArrayList<>();
+                for (int i = 1; i <= 3; i++) { // Suponiendo máximo 3 acompañantes
+                    String nombreAcomp = request.getParameter("nombreAcomp" + i);
+                    String apellidoAcomp = request.getParameter("apellidoAcomp" + i);
+                    String dniAcomp = request.getParameter("dniAcomp" + i);
+                    if (nombreAcomp != null && !nombreAcomp.isEmpty() &&
+                            apellidoAcomp != null && !apellidoAcomp.isEmpty() &&
+                            dniAcomp != null && !dniAcomp.isEmpty()) {
+                        acompanante.setNombre(nombreAcomp);
+                        acompanante.setNombre(apellidoAcomp);
+                        acompanante.setNombre(dniAcomp);
+                        lista_acompanantes.add(acompanante);
+                    }
+                }
+                //response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);
 
+                break;
         }
     }
     /*public Usuario leerParametrosRequest(HttpServletRequest request) {

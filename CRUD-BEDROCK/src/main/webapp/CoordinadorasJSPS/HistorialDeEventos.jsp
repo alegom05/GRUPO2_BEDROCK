@@ -90,7 +90,8 @@
                     <th>Lugar</th>
                     <th>Fecha</th>
                     <th>Estado</th>
-                    <th>Opciones</th>
+                    <th>Ver</th>
+                    <th>Eliminar</th>
                 </tr>
                 </thead>
 
@@ -102,18 +103,12 @@
                     <td><%=eventos.getLugar()%></td>
                     <td><%=eventos.getFechaInicial()%></td>
                     <td><%=eventos.getEstadoEvento()%></td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-dots dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=editar&id">Modificar</a></li>
-                                <li><a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=editar&id">Finalizar</a></li>
-                                <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#confirmModal">Eliminar</a></li>
-                            </ul>
-                        </div>
-                    </td>
+                    <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesEvento(<%= eventos.getIdEvento() %>)">
+                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
+                    </button> </td>
+                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" ><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
+
                 </tr>
                 <% } %>
                 </tbody>
@@ -185,6 +180,12 @@
                 $('#customSearch').val('');
             });
         });
+    </script>
+    <script>
+        function detallesEvento(id) {
+            // Redireccionar a otra página HTML
+            window.location.href = '<%=request.getContextPath()%>/EventoServlet?action=detallarParaCoordi&id=' + id;
+        }
     </script>
 </div>
 </body>
