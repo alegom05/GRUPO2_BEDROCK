@@ -20,7 +20,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JuntosPorSanMiguel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style-Vecino.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/VecinosJSPS/style-Vecino.css" rel="stylesheet">
 </head>
 <body>
 <div class="ParteSuperior">
@@ -31,7 +31,7 @@
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <a href="DetallesUsuario.html">
-                <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+                <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
@@ -46,7 +46,7 @@
                 <a href="${pageContext.request.contextPath}/VecinoIndexServlet" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/EventoServlet?action=eventos" class="nav-link">Eventos</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet?action=listarEventoFiltrado" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear" class="nav-link">Reportar Incidencia</a>
@@ -72,10 +72,10 @@
                     Filtrar
                 </button>
                 <div class="dropdown-content" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="EventosDeportivos.html">Eventos Deportivos</a>
-                    <a class="dropdown-item" href="EventosCulturales.html">Eventos Culturales</a>
-                    <a class="dropdown-item" href="EventosMasPopulares.html">Eventos Más Populares</a>
-                    <a class="dropdown-item" href="paginaEventos-Vecino.jsp">Quitar Filtros</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&filtro=Deportivo">Eventos Deportivos</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&filtro=Cultural">Eventos Culturales</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&filtro=Popular">Eventos Más Populares</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado">Quitar Filtros</a>
                 </div>
             </div>
         </div>
@@ -83,16 +83,13 @@
             <nav aria-label="Page navigation" class="no_colocar_fondo mb-3">
                 <ul class="pagination justify-content-end">
                     <%
-                        EventoDao eventosDAO = new EventoDao();
-                        int pageSize = 6;
-                        int totalEvents = eventosDAO.contarEventos();
-                        int totalPages = (int) Math.ceil(totalEvents / (double) pageSize);
-                        int currentPage = request.getParameter("page") != null ? Integer.parseInt(request.getParameter("page")) : 1;
-
+                        int totalPages = (int) request.getAttribute("totalPages");
+                        int currentPage = (int) request.getAttribute("currentPage");
+                        String filtro = (String) request.getAttribute("filtro");
                         if (currentPage > 1) {
                     %>
                     <li class="page-item">
-                        <a class="page-link" href="paginaEventos-Vecino.jsp?page=<%= currentPage - 1 %>" aria-label="Previous">
+                        <a class="page-link" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&page=<%= currentPage - 1 %>&filtro=<%= filtro %>" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -101,14 +98,14 @@
                         for (int i = 1; i <= totalPages; i++) {
                     %>
                     <li class="page-item <%= i == currentPage ? "active" : "" %>">
-                        <a class="page-link" href="paginaEventos-Vecino.jsp?page=<%= i %>"><%= i %></a>
+                        <a class="page-link" href="${pageContext.request.contextPath}/EventoServlet?action=listarEventoFiltrado&page=<%= i %>&filtro=<%= filtro %>"><%= i %></a>
                     </li>
                     <%
                         }
                         if (currentPage < totalPages) {
                     %>
                     <li class="page-item">
-                        <a class="page-link" href="paginaEventos-Vecino.jsp?page=<%= currentPage + 1 %>" aria-label="Next">
+                        <a class="page-link" href="${pageContext.request.contextPath}/EventoServlet?action=listarEventoFiltrado&page=<%= currentPage + 1 %>&filtro=<%= filtro %>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
@@ -122,7 +119,7 @@
 
     <div class="row">
         <%
-            ArrayList<Evento> listaeventos = eventosDAO.listarEventos_limitado(currentPage, pageSize);
+            ArrayList<Evento> listaeventos = (ArrayList<Evento>) request.getAttribute("listaEventos");
             for (Evento evento : listaeventos) {
         %>
         <div class="col-md-4 custom-cartanz-2">

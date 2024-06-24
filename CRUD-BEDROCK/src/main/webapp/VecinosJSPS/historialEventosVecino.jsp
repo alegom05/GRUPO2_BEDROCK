@@ -44,7 +44,7 @@
                         <a href="${pageContext.request.contextPath}/VecinoIndexServlet" class="nav-link">Municipalidad</a>
                     </li>
                     <li class="nav-item">
-                        <a href="${pageContext.request.contextPath}/EventoServlet?action=eventos" class="nav-link">Eventos</a>
+                        <a href="${pageContext.request.contextPath}/EventoServlet?action=listarEventoFiltrado" class="nav-link">Eventos</a>
                     </li>
                     <li class="nav-item">
                         <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear" class="nav-link">Reportar Incidencia</a>
