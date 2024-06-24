@@ -137,6 +137,9 @@ public class EventoServlet extends HttpServlet {
                 String fechaInicio = request.getParameter("fechaInicio");
                 String fechaFin = request.getParameter("fechaFin");
                 String hora= request.getParameter("hora");
+                String materiales= request.getParameter("materiales");
+                String frecuencia= request.getParameter("frecuencia");
+
 
                 Part filePart= request.getPart("imagen");
                 InputStream foto= null;
@@ -155,6 +158,8 @@ public class EventoServlet extends HttpServlet {
                 evento1.setFechaInicial(Date.valueOf(fechaInicio));
                 evento1.setFechaFinal(Date.valueOf(fechaFin));
                 evento1.setHora(Time.valueOf(hora));
+                evento1.setMateriales(materiales);
+                evento1.setFrecuencia(Integer.parseInt(frecuencia));
 
                 eventoDao.crearEvento(evento1);
 
