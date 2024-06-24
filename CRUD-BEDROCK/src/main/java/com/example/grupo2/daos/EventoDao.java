@@ -340,7 +340,38 @@ public class EventoDao {
 
 
     public void crearEvento(Evento evento){
-        try {
+
+        try{
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://localhost:3306/basededatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try (Connection conn= DriverManager.getConnection(url, user,pass)){
+                String sql= "INSERT INTO evento (nombre,fechaInicial,fechaFinal,foto,materiales, lugar, hora, frecuencia,vacantes, descripcion, tipo,idProfesor,estadoEvento)"+
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,'Cultural',?,'Pronto')";
+
+                try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+                    pstmt.setString(1,evento.getNombre());
+                    pstmt.setDate(2, evento.getFechaInicial());
+                    pstmt.setDate(3,evento.getFechaFinal());
+                    pstmt.setBlob(4,evento.getFoto());
+                    pstmt.setString(5,evento.getMateriales());
+                    pstmt.setString(6,evento.getLugar());
+                    pstmt.setTime(7,evento.getHora());
+                    pstmt.setInt(8,evento.getFrecuencia());
+                    pstmt.setInt(9,evento.getVacantes());
+                    pstmt.setString(10,evento.getDescripcion());
+                    pstmt.setInt(11,evento.getIdProfesor());
+                    pstmt.executeUpdate();
+                }
+            }
+
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        /*try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -363,7 +394,7 @@ public class EventoDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
     public void borrarEvento(String id) throws SQLException{

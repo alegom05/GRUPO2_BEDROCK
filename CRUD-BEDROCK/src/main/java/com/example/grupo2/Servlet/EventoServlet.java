@@ -6,17 +6,21 @@ import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.SerenazgosDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.sql.Date;
 
+@MultipartConfig
 @WebServlet(name = "EventoServlet", value = "/EventoServlet")
 public class EventoServlet extends HttpServlet {
     @Override
@@ -124,41 +128,39 @@ public class EventoServlet extends HttpServlet {
 
         switch (action) {
             case "crear":
-                /*
+
                 String nombre = request.getParameter("nombre");
-                String descripcion = request.getParameter("descripcion");
+                String descripcion = request.getParameter("detalles");
                 String lugar = request.getParameter("lugar");
-                String encargado = request.getParameter("encargado");
+                String encargado = request.getParameter("profesor");
                 String vacantes = request.getParameter("vacantes");
-                String fechaInicio = request.getParameter("fechaInicial");
-                String fechaFin = request.getParameter("fechaFinal");
+                String fechaInicio = request.getParameter("fechaInicio");
+                String fechaFin = request.getParameter("fechaFin");
                 String hora= request.getParameter("hora");
 
-                boolean esValido= true;
-                if(esValido){
+                Part filePart= request.getPart("imagen");
+                InputStream foto= null;
+                if (filePart != null && filePart.getSize() >0){
+                    foto= filePart.getInputStream();
+                }
 
 
-                    Evento evento= eventoDao.obtenerEventoPorId();
+                Evento evento1 = new Evento();
 
-                    if(evento==null){
-                        Evento evento1 = new Evento();
-                        evento1.setNombre(nombre);
-                        evento1.setDescripcion(descripcion);
-                        evento1.setLugar(lugar);
-                        evento1.setIdProfesor(Integer.parseInt(encargado));
-                        evento1.setVacantes(Integer.parseInt(vacantes));
-                        evento1.setFechaInicial(Date.valueOf(fechaInicio));
-                        evento1.setFechaFinal(Date.valueOf(fechaFin));
-                        evento1.setHora(Time.valueOf(hora));
+                evento1.setNombre(nombre);
+                evento1.setDescripcion(descripcion);
+                evento1.setLugar(lugar);
+                evento1.setIdProfesor(Integer.parseInt(encargado));
+                evento1.setVacantes(Integer.parseInt(vacantes));
+                evento1.setFechaInicial(Date.valueOf(fechaInicio));
+                evento1.setFechaFinal(Date.valueOf(fechaFin));
+                evento1.setHora(Time.valueOf(hora));
 
-                        eventoDao.crearEvento(evento1);
-                        response.sendRedirect(request.getContextPath()+"/EventoServlet");
-                    }else{
-                        request.getRequestDispatcher("CoordinadorasJSPS/CrearEvento.jsp").forward(request,response);
-                    }
-                }else{
-                    request.getRequestDispatcher("CoordinadorasJSPS/CrearEvento.jsp").forward(request,response);
-                }*/
+                eventoDao.crearEvento(evento1);
+
+                response.sendRedirect(request.getContextPath()+"/EventoServlet?action=lista");
+
+
                 break;
 
             case "modificar":
