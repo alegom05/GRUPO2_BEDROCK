@@ -390,3 +390,9 @@ custom-cartanz-2 {
     margin-top: 5%;
 }
 
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

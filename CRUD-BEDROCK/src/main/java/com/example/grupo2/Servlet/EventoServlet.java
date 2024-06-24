@@ -194,6 +194,17 @@ public class EventoServlet extends HttpServlet {
 
                 eventoDao.crearEvento(evento1);
 
+                System.out.println(evento1.getNombre());
+                System.out.println(evento1.getDescripcion());
+                System.out.println(evento1.getLugar());
+                System.out.println(evento1.getIdProfesor());
+                System.out.println(evento1.getVacantes());
+                System.out.println(evento1.getFechaInicial());
+                System.out.println(evento1.getFechaFinal());
+                System.out.println(evento1.getHora());
+                System.out.println(evento1.getMateriales());
+                System.out.println(evento1.getFrecuencia());
+
                 response.sendRedirect(request.getContextPath()+"/EventoServlet?action=lista");
 
 

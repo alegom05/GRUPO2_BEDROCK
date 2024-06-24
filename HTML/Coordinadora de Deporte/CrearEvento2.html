@@ -64,6 +64,12 @@
                             <input type="file" id="uploadImage" name="uploadImage" class="d-none" accept="image/*" required>
                             <div class="invalid-feedback">Es necesario subir una imagen para el evento.</div>
                         </div>
+                        <div class="button-container mt-3">
+                            <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal" disabled>
+                                Guardar
+                            </button>
+                            <a href="PaginaEventos.html" class="btn btn-secondary mt-2">Volver</a>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6 d-flex align-items-center">
@@ -71,7 +77,7 @@
                         <div class="mt-2">
                             <div class="mb-2">
                                 <label for="nombre">Nombre del Evento</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre"  required>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
                                 <div class="invalid-feedback">Es necesario poner el nombre del evento.</div>
                             </div>
                             <div class="mb-2">
@@ -80,20 +86,25 @@
                                 <div class="invalid-feedback">Es necesario poner los detalles del evento.</div>
                             </div>
                             <div class="mb-2">
+                                <label for="materiales">Materiales</label>
+                                <input type="text" class="form-control" id="materiales" name="materiales" required>
+                                <div class="invalid-feedback">Es necesario poner los materiales a utilizar.</div>
+                            </div>
+                            <div class="mb-2">
                                 <label for="lugar">Lugar</label>
-                                <input type="text" class="form-control" id="lugar" name="lugar"  required>
+                                <input type="text" class="form-control" id="lugar" name="lugar" required>
                                 <div class="invalid-feedback">Es necesario poner el lugar del evento.</div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label for="profesor">Encargado</label>
-                                    <input type="text" class="form-control" id="profesor" name="profesor"  required>
+                                    <input type="text" class="form-control" id="profesor" name="profesor" required>
                                     <div class="invalid-feedback">Es necesario poner el encargado del evento.</div>
                                 </div>
                                 <div class="col-md-auto">
                                     <div class="mb-2">
                                         <label for="vacantes">Número de Vacantes</label>
-                                        <input type="number" class="form-control" id="vacantes" name="vacantes" min="1"  required>
+                                        <input type="number" class="form-control" id="vacantes" name="vacantes" min="1" required>
                                         <div class="invalid-feedback">Es necesario poner el número de vacantes.</div>
                                     </div>
                                 </div>
@@ -101,19 +112,19 @@
                             <div class="row">
                                 <div class="col">
                                     <label for="fechaInicio">Fecha Inicio</label>
-                                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"  required>
+                                    <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
                                     <div class="invalid-feedback">Es necesario poner la fecha de inicio.</div>
                                 </div>
                                 <div class="col">
                                     <label for="fechaFin">Fecha Fin</label>
-                                    <input type="date" class="form-control" id="fechaFin" name="fechaFin"  required>
+                                    <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
                                     <div class="invalid-feedback">Es necesario poner la fecha de fin.</div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col">
                                     <label for="hora">Hora</label>
-                                    <input type="time" class="form-control" id="hora" name="hora"  required>
+                                    <input type="time" class="form-control" id="hora" name="hora" required>
                                     <div class="invalid-feedback">Es necesario poner la hora del evento.</div>
                                 </div>
                                 <div class="col">
@@ -162,12 +173,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-grid gap-2 mt-3">
-                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal" disabled>
-                                    Guardar
-                                </button>
-                                <a href="PaginaEventos.html" class="btn btn-secondary">Volver</a>
-                            </div>
+                        
                             <div class="row">
                                 <div class="col">
                                     <div class="alert alert-success mt-3 d-none" id="successMessage">Evento registrado con éxito.</div>
