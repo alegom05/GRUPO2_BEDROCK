@@ -6,27 +6,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juntos Por San Miguel</title>
+    <title>Crear Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
+    <link href="./CoordinadorasJSPS/index.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior container-fluid">
+<div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
-            <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
+            <img src="./CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+            <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <a href="DetallesUsuario.html">
-                <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
-            </a>
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br>Rol: <%=usuarioSesion.getRol()%></h2>
-            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
-                <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
+            <a href="login.jsp">
+                <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
-
     </div>
     <nav class="letra_botones_encabezado">
         <ul class="nav">
@@ -34,10 +30,10 @@
                 <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=paginaPrincipal" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/Coordis?a=formCrearInci" class="nav-link">Reportar Incidencia</a>
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear2" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
@@ -70,8 +66,10 @@
                         <input type="file" id="imagen" name="imagen" class="d-none" accept="image/*" required>
                         <div class="invalid-feedback">Es necesario subir una imagen para el evento.</div>
                     </div>
-                    <div class="mt-3 d-flex justify-content-between">
-                        <button type="submit" class="btn btn-primary" id="submitButton" disabled>Guardar</button>
+                    <div class="d-grid gap-2 mt-3">
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                            Crear
+                        </button>
                         <a href="PaginaEventos.html" class="btn btn-secondary">Volver</a>
                     </div>
                 </div>
@@ -81,7 +79,7 @@
                     <div class="mt-2">
                         <div class="mb-2">
                             <label for="nombre">Nombre del Evento</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            <input type="text" class="form-control" id="nombre" name="nombre"  required>
                             <div class="invalid-feedback">Es necesario poner el nombre del evento.</div>
                         </div>
                         <div class="mb-2">
@@ -96,19 +94,19 @@
                         </div>
                         <div class="mb-2">
                             <label for="lugar">Lugar</label>
-                            <input type="text" class="form-control" id="lugar" name="lugar" required>
+                            <input type="text" class="form-control" id="lugar" name="lugar"  required>
                             <div class="invalid-feedback">Es necesario poner el lugar del evento.</div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <label for="profesor">Encargado</label>
-                                <input type="text" class="form-control" id="profesor" name="profesor" required>
+                                <input type="text" class="form-control" id="profesor" name="profesor"  required>
                                 <div class="invalid-feedback">Es necesario poner el encargado del evento.</div>
                             </div>
                             <div class="col-md-auto">
                                 <div class="mb-2">
                                     <label for="vacantes">Número de Vacantes</label>
-                                    <input type="number" class="form-control" id="vacantes" name="vacantes" min="1" required>
+                                    <input type="number" class="form-control" id="vacantes" name="vacantes" min="1"  required>
                                     <div class="invalid-feedback">Es necesario poner el número de vacantes.</div>
                                 </div>
                             </div>
@@ -116,24 +114,24 @@
                         <div class="row">
                             <div class="col">
                                 <label for="fechaInicio">Fecha Inicio</label>
-                                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
+                                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"  required>
                                 <div class="invalid-feedback">Es necesario poner la fecha de inicio.</div>
                             </div>
                             <div class="col">
                                 <label for="fechaFin">Fecha Fin</label>
-                                <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
+                                <input type="date" class="form-control" id="fechaFin" name="fechaFin"  required>
                                 <div class="invalid-feedback">Es necesario poner la fecha de fin.</div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <label for="hora">Hora</label>
-                                <input type="time" class="form-control" id="hora" name="hora" required>
+                                <input type="time" class="form-control" id="hora" name="hora"  required>
                                 <div class="invalid-feedback">Es necesario poner la hora del evento.</div>
                             </div>
                             <div class="col">
                                 <label form="frecuencia">Frecuencia</label>
-                                <select class="form-control" id="frecuencia" name="frecuencia" required>
+                                <select class="form-control" id="frecuencia" required>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -147,7 +145,7 @@
                             <label form="diasSemana">Días de la semana</label>
                             <div class="row">
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="lunes">
+                                    <input class="form-check-input" type="checkbox" id="lunes" >
                                     <label class="form-check-label" for="lunes">Lunes</label>
                                 </div>
                                 <div class="form-check col">
@@ -155,7 +153,7 @@
                                     <label class="form-check-label" for="martes">Martes</label>
                                 </div>
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="miercoles">
+                                    <input class="form-check-input" type="checkbox" id="miercoles" >
                                     <label class="form-check-label" for="miercoles">Miércoles</label>
                                 </div>
                                 <div class="form-check col">
@@ -250,6 +248,7 @@
             reader.readAsDataURL(file);
         }
     });
+
 
     // Lógica para activar el botón de guardar después de que se completen todos los campos del formulario
     document.addEventListener('DOMContentLoaded', function () {
