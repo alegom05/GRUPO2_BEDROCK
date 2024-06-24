@@ -120,7 +120,7 @@
 
                 </div>
                 <div class="elemento_texto_evento d-flex mt-1">
-                    <a href="<%= request.getContextPath() %>/Inscribirse?id=<%= evento.getIdEvento() %>" class="btn btn-mas-grande"><h7>Inscribirse</h7></a>
+                    <a href="<%= request.getContextPath() %>/VecinosJSPS/inscribirse-Vecino.jsp" class="btn btn-mas-grande"><h7>Inscribirse</h7></a>
                 </div>
             </div>
         </div>
