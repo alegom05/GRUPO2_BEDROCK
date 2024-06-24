@@ -135,7 +135,7 @@ public class IncidenciaDao {
         try {
             String user = "root";
             String pass = "root";
-            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
+            String url = "jdbc:mysql://localhost:3306/basededatos3";
 
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection conn = DriverManager.getConnection(url, user, pass)) {

@@ -38,6 +38,7 @@ public class CoordisServlet extends HttpServlet {
                 String id = request.getParameter("idUsuario");
                 ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidenciasDeUnUsuario(id);
                 request.setAttribute("lista",listaIncidencias);
+
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view.forward(request,response);
                 break;
@@ -55,7 +56,7 @@ public class CoordisServlet extends HttpServlet {
                 view.forward(request,response);
                 break;
             case "formCrearInci":
-                view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidencia.jsp");
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidenciaVerisonPRUEBA.jsp");
                 view.forward(request, response);
                 break;
             //JSPS
@@ -133,7 +134,7 @@ public class CoordisServlet extends HttpServlet {
                 System.out.println(nuevaIncidencia.getContacto());
                 System.out.println(nuevaIncidencia.getIdTipoIncidencia());
                 System.out.println(nuevaIncidencia.getIdUsuario());
-                response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=listaCoordi&idCoordi=" + idUsuario);
+                response.sendRedirect(request.getContextPath() + "/Coordis?action=listain&idUsuario" + idUsuario);
 
                 break;
 

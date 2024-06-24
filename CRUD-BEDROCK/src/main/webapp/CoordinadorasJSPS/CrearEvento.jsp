@@ -42,7 +42,7 @@
                     <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=historialEventos" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
@@ -55,7 +55,7 @@
             <div class="contenedor mt-4 text-center">
                 <h1>Crear Evento</h1>
             </div>
-            <form class="row align-items-start needs-validation" novalidate>
+            <form method="post" action="<%=request.getContextPath()%>/EventoServlet?action=crear" class="row align-items-start needs-validation" novalidate>
                 <div class="col-md-6 mb-3">
                     <div class="contenedor mt-4 text-center">
                         <img src="./imagenes_eventos/deporte/evento1.jpg" alt="Evento" id="imagen_detallada" class="img-fluid mx-auto">
@@ -165,7 +165,7 @@
                             </div>
                             <div class="d-grid gap-2 mt-3">
                                 <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                                    Guardar
+                                    Crear
                                 </button>
                                 <a href="PaginaEventos.html" class="btn btn-secondary">Volver</a>
                             </div>
@@ -229,7 +229,7 @@
         // Lógica del modal de confirmación
         document.getElementById('confirmButton').addEventListener('click', function () {
             // Aquí se puede redirigir a la página deseada después de confirmar
-            window.location.href = 'PaginaEventos.html';
+            window.location.href = "${pageContext.request.contextPath}/Coordis?a=listarev";
         });
 
         // Lógica de carga de imagen
