@@ -1,6 +1,7 @@
 package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.Evento;
+import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.Beans.Usuario;
 import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.SerenazgosDao;
@@ -113,6 +114,34 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("listaEventos", listaEventos);
                 request.setAttribute("filtro", filtro); // Pasar el filtro a la vista
                 request.getRequestDispatcher("/VecinosJSPS/paginaEventos-Vecino.jsp").forward(request, response);
+                break;
+
+            //Este caso servirá para cuando la coordinadora desea revisar los detalles de alguno de sus eventos creados
+            case "detallarParaCoordi":
+                String idCoordi = request.getParameter("id");
+                if(eventoDao.obtenerEventoPorId(idCoordi) != null){
+                    Evento evento2 = eventoDao.obtenerEventoPorId(idCoordi);
+                    if (evento2 != null) {
+                        request.setAttribute("evento", evento2);
+
+                        String estado = evento2.getEstadoEvento();
+                        /*request.setAttribute("mostrarEvaluar", "Nueva".equals(estado));
+                        request.setAttribute("mostrarVerEvaluacion", "En proceso".equals(estado));
+                        request.setAttribute("mostrarFalsaAlarma", "Nueva".equals(estado) || "En proceso".equals(estado));
+                        request.setAttribute("mostrarCerrar","En proceso".equals(estado));*/
+
+
+                        view = request.getRequestDispatcher("/CoordinadorasJSPS/detallesEvento.jsp");
+                        view.forward(request, response);
+                    } else {
+                        response.sendRedirect("error.jsp"); // Página de error en caso de que no se encuentre la incidencia
+                    }
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+
+                view = request.getRequestDispatcher("/HistorialDeEventos.jsp");
+                view.forward(request, response);
                 break;
         }
 

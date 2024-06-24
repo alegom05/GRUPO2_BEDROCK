@@ -184,7 +184,7 @@
     <script>
         function detallesEvento(id) {
             // Redireccionar a otra página HTML
-            window.location.href = '<%=request.getContextPath()%>/EventoServlet?action=detallar&id=' + id;
+            window.location.href = '<%=request.getContextPath()%>/EventoServlet?action=detallarParaCoordi&id=' + id;
         }
     </script>
 </div>
