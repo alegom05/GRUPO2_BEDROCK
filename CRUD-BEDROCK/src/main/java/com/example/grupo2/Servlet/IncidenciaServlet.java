@@ -98,15 +98,18 @@ public class IncidenciaServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
                 view.forward(request, response);
                 break;
+                //detalle de incidencia para coordi
             case "detallar3":
                 String id3 = request.getParameter("id");
                 if (incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id3)) != null) {
                     Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id3));
                     request.setAttribute("incidencia", incidencia);
-                    request.getRequestDispatcher("/CoordinadorasJSPS/detallesIncidencia.jsp").forward(request, response);
+                    RequestDispatcher view1 = request.getRequestDispatcher("/CoordinadorasJSPS/detallesIncidencia.jsp");
+                    view1.forward(request, response);
                 }else {
                     response.sendRedirect("error.jsp");
                 }
+                break;
             //para que el vecino cree una incidencia
             case "formCrear":
                 view = request.getRequestDispatcher("/VecinosJSPS/reportarIncidencia-Vecino.jsp");
