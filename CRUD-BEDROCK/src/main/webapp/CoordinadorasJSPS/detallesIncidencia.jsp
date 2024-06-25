@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 <%
     Incidencia incidencia = (Incidencia) request.getAttribute("incidencia");
 %>
@@ -33,7 +35,7 @@
             <p><strong>Estado:</strong> <%= incidencia.getEstadoIncidencia() %></p>
         </div>
     </div>
-    <a href="<%=request.getContextPath()%>/Incidencias?action=listaCoordi&idUsuario=<%=request.getSession().getAttribute("usuarioSesion")%>" class="btn btn-secondary mt-4">Volver a la lista de incidencias</a>
+    <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="btn btn-secondary mt-4">Volver a la lista de incidencias</a>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
