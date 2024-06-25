@@ -2,7 +2,7 @@
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-
+<!--jsp:useBean type="java.util.ArrayList<com.example.grupo2.Beans.Incidencia>" scope="request" id="incidencia"/-->
 <%
     ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("incidencia");
 %>
@@ -52,7 +52,7 @@
                 <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}%/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}%/EventoServlet" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
@@ -95,7 +95,7 @@
                     <td><%= incidencia.getFechaIncidencia() %></td>
                     <td><%= incidencia.getLugar() %></td>
                     <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
-                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
+                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="VerDetalles">
                     </button> </td>
                 </tr>
                 <% } %>
