@@ -66,7 +66,7 @@
             </select>
         </div>
         <div class="filter-right">
-            <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
+            <button id="limpiarFiltros" type="button" class="btn btn-dark">Limpiar Filtros</button>
         </div>
     </div>
     <br>

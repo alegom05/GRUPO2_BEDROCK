@@ -333,8 +333,11 @@ div.dataTables_wrapper div.dataTables_filter {
     font-weight: bold;
     font-size: 1.2em;
 }
+.btn-info {
+    color: #ffffff;            /* Color del texto blanco */
+}
 .custom-btn:hover {
-    background-color: #57d5e8; /* Cambia este color al que desees */
+    background-color: #3ad0e7; /* Cambia este color al que desees */
     color: white;
 }
 .header {
@@ -414,7 +417,7 @@ div.dataTables_wrapper div.dataTables_filter {
     background-color: #f5f3f3;
     border-left: 1px solid #D8DEE0;
     border-right: 1px solid #D8DEE0;
-    border-top: 10px solid #111111;
+    border-top: 10px solid #101010;
     margin-bottom: 28px;
     padding: 25px;
     font-size: 16px; /* Tamaño de fuente */
@@ -455,4 +458,12 @@ div.dataTables_wrapper div.dataTables_filter {
 h3{
     line-height: 130%;
     font-weight: 550;
+}
+.modal-dialog-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.custom-alert {
+    display: none;
 }

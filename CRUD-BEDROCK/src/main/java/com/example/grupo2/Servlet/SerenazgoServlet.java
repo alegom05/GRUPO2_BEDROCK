@@ -82,6 +82,27 @@ public class SerenazgoServlet extends HttpServlet {
                 serenazgosDao.eliminarSerenazgo(id);
                 response.sendRedirect(request.getContextPath() + "/Serenazgos");
             }
+            case "cambiarContra" -> {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String clave = request.getParameter("clave");
+            }
+            case "cambiarContrasenia" -> {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String oldPassword = request.getParameter("oldPassword");
+                String newPassword = request.getParameter("newPassword");
+
+                // Verificar que la contraseña antigua sea correcta
+                Usuario serenazgo = serenazgosDao.buscarPorId(id);
+                if (serenazgo != null && serenazgo.getClave().equals(oldPassword)) {
+                    // Actualizar la contraseña
+                    serenazgosDao.actualizarContrasenia(id, newPassword);
+                    response.sendRedirect(request.getContextPath() + "/Serenazgos?a=editar&id=" + id);
+                } else {
+                    // Redirigir con un mensaje de error
+                    request.setAttribute("error", "La contraseña antigua es incorrecta.");
+                    request.getRequestDispatcher("/ruta/del/formulario").forward(request, response);
+                }
+            }
 
 
         }

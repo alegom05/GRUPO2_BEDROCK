@@ -57,7 +57,7 @@
 
 
     <div class="container mt-4 table-responsive">
-        <button onclick="nuevoProfesor()" type="button" class="btn btn-outline-info custom-btn">Agregar Profesor</button>
+        <button onclick="nuevoProfesor()" type="button" class="btn btn-info custom-btn">Agregar Profesor</button>
         <br>
         <br>
         <div class="filter-container">
@@ -80,7 +80,7 @@
 
             </div>
             <div class="filter-right">
-                <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
+                <button id="limpiarFiltros" type="button" class="btn btn-dark">Limpiar Filtros</button>
             </div>
         </div>
 

@@ -110,10 +110,10 @@
                                 <div class="mb-3">
                                     <label for="tipo" class="form-label">Tipo: (*)</label><br>
                                     <select id="tipo" name="tipo" class="form-select" required>
-                                        <option value="Bicicleta" <%= "Bicicleta".equals(serenazgo.getTipo()) ? "selected" : "" %>>Bicicleta</option>
-                                        <option value="Canino" <%= "Canino".equals(serenazgo.getTipo()) ? "selected" : "" %>>Canino</option>
+                                        <option value="En bicicleta" <%= "En bicicleta".equals(serenazgo.getTipo()) ? "selected" : "" %>>En bicicleta</option>
+                                        <option value="Con canino" <%= "Con canino".equals(serenazgo.getTipo()) ? "selected" : "" %>>Con canino</option>
                                         <option value="A pie" <%= "A pie".equals(serenazgo.getTipo()) ? "selected" : "" %>>A pie</option>
-                                        <option value="Vehículo" <%= "Vehículo".equals(serenazgo.getTipo()) ? "selected" : "" %>>Vehículo</option>
+                                        <option value="Con vehículo" <%= "Con vehículo".equals(serenazgo.getTipo()) ? "selected" : "" %>>Con vehículo</option>
                                     </select>
                                     <div class="invalid-feedback">Por favor escoja una opción.</div>
 
@@ -144,23 +144,57 @@
                         </div>
                         <div class="col">
                             <div class="mb-3">
-                                <label for="contrasenia" class="form-label">Contraseña: (*)</label>
-                                <input type="password" class="form-control" id="contrasenia" value="<%=serenazgo.getClave()%>" name="contrasenia" required>
-                                <div class="invalid-feedback">Por favor ingresar contraseña.</div>
+                                <label class="form-label">Contraseña: (*)</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="*************" aria-describedby="button-addon2"  disabled>
+                                    <button onclick="setSerenazgoClave('<%= serenazgo.getClave() %>')" class="btn btn-outline-secondary" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#passwordModal">
+                                     <img src="${pageContext.request.contextPath}/Administrador/assets/icons/pencil.svg">
+                                        </button>
+                                </div>
                             </div>
-                            <div class="mb-3">
-                                <h3 class="obligatory-fields">(*)Campos obligatorios</h3>
-                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
             <div class="btn-container">
-                <button type="submit" class="btn btn-outline-primary" style="width: 280px;">Actualizar</button>
+                <button type="submit" class="btn btn-primary" style="width: 280px;">Actualizar</button>
             </div>
         </form>
     </div>
 </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModalLabel">Cambiar Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changePasswordForm" method="POST" action="<%=request.getContextPath()%>/Serenazgos?a=cambiarContrasenia&id=<%=serenazgo.getId()%>">
+                        <div class="mb-3">
+                            <label for="oldPassword" class="form-label">Contraseña antigua</label>
+                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmNewPassword" class="form-label">Confirmar Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <!-- Incluir los archivos JavaScript de Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -239,7 +273,77 @@
             event.target.value = event.target.value.replace(/[^a-zA-Z0-9!@#$%^&*]/g, "");
         }
     });
+    let currentPassword = '';
+
+    function setSerenazgoClave(clave) {
+        currentPassword = clave;
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var passwordModal = document.getElementById('passwordModal');
+
+        // Evento que se dispara cuando el modal se oculta
+        passwordModal.addEventListener('hidden.bs.modal', function () {
+            // Limpiar los campos de entrada de contraseña
+            document.getElementById('oldPassword').value = '';
+            document.getElementById('newPassword').value = '';
+            document.getElementById('confirmNewPassword').value = '';
+        });
+
+    document.getElementById("changePasswordForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const oldPasswordInput = document.getElementById("oldPassword");
+        const newPasswordInput = document.getElementById("newPassword");
+        const confirmNewPasswordInput = document.getElementById("confirmNewPassword");
+
+        const oldPassword = oldPasswordInput.value;
+        const newPassword = newPasswordInput.value;
+        const confirmNewPassword = confirmNewPasswordInput.value;
+
+        // Verificar que la contraseña antigua sea correcta
+        if (oldPassword !== currentPassword) {
+            Swal.fire({
+                title: 'Error',
+                text: 'La contraseña antigua es incorrecta.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        // Verificar que la nueva contraseña no sea igual a la antigua
+        if (newPassword === oldPassword) {
+            Swal.fire({
+                title: 'Error',
+                text: 'La nueva contraseña no puede ser igual a la antigua.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        // Verificar que la confirmación de la nueva contraseña coincida con la nueva contraseña
+        if (newPassword !== confirmNewPassword) {
+            Swal.fire({
+                title: 'Error',
+                text: 'La confirmación de la nueva contraseña no coincide.',
+                icon: 'error',
+                confirmButtonText: 'Aceptar'
+            });
+            return;
+        }
+
+        // Aquí puedes agregar la lógica para manejar el cambio de contraseña
+        this.submit();
+    });
+    });
+
+
 
 </script>
+    <!-- Incluir SweetAlert desde un CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>

@@ -57,7 +57,7 @@
 
 
 <div class="container mt-4 table-responsive">
-    <button onclick="nuevoSerenazgo()" type="button" class="btn btn-outline-info custom-btn">Agregar Serenazgo</button>
+    <button onclick="nuevoSerenazgo()" type="button" class="btn btn-info custom-btn">Agregar Serenazgo</button>
     <br>
     <br>
     <div class="filter-container">
@@ -84,7 +84,7 @@
 
         </div>
         <div class="filter-right">
-            <button id="limpiarFiltros" type="button" class="btn btn-outline-dark">Limpiar Filtros</button>
+            <button id="limpiarFiltros" type="button" class="btn btn-dark">Limpiar Filtros</button>
         </div>
     </div>
     <table id="miTabla" class="display">
@@ -185,8 +185,8 @@
             $('#filtroTipo, #filtroTurno').on('change', function() {
                 var tipo = $('#filtroTipo').val();
                 var turno = $('#filtroTurno').val();
-                table.column(4).search(tipo).draw();
-                table.column(3).search(turno).draw();
+                table.column(5).search(tipo).draw();
+                table.column(4).search(turno).draw();
             });
 
             $('#limpiarFiltros').on('click', function() {

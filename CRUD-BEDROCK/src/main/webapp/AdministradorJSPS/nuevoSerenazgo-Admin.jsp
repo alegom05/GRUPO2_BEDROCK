@@ -27,7 +27,7 @@
     </div>
     <div class="col-md-9 d-flex align-items-center justify-content-end">
       <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Administrador</h2>
-      <a href="login.html">
+      <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
         <img src="${pageContext.request.contextPath}/Administrador/assets/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail cerrar-sesion-img">
       </a>
     </div>
@@ -111,10 +111,10 @@
                   <label for="tipo" class="form-label">Tipo: (*)</label><br>
                   <select id="tipo" name="tipo" class="form-select" required>
                     <option value="" disabled selected>Escoja una opción</option>
-                    <option value="Bicicleta">Bicicleta</option>
-                    <option value="Canino">Canino</option>
+                    <option value="En bicicleta">En bicicleta</option>
+                    <option value="Con canino">Con canino</option>
                     <option value="A pie">A pie</option>
-                    <option value="Vehículo">Vehículo</option>
+                    <option value="Con vehículo">Con vehículo</option>
                   </select>
                   <div class="invalid-feedback">Por favor escoja una opción.</div>
                 </div>
@@ -156,7 +156,7 @@
         </div>
       </div>
       <div class="btn-container">
-        <button type="submit" class="btn btn-outline-primary" style="width: 200px;">Crear</button>
+        <button type="submit" class="btn btn-primary" style="width: 200px;">Crear</button>
       </div>
     </form>
   </div>

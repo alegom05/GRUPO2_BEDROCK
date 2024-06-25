@@ -111,7 +111,7 @@ public class SerenazgosDao {
             throw new RuntimeException(e);
         }
 
-        String sql = "UPDATE usuario SET telefono=?, direccion=?, tipo=?, turnoSerenazgo=?, correo=?, clave=? where idUsuario=?";
+        String sql = "UPDATE usuario SET telefono=?, direccion=?, tipo=?, turnoSerenazgo=?, correo=? where idUsuario=?";
 
         try (Connection connection = DriverManager.getConnection(url, user, pass);
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
@@ -121,8 +121,7 @@ public class SerenazgosDao {
             pstmt.setString(3, serenazgo.getTipo());
             pstmt.setString(4, serenazgo.getTurnoSerenazgo());
             pstmt.setString(5, serenazgo.getCorreo());
-            pstmt.setString(6, serenazgo.getClave());
-            pstmt.setInt(7, serenazgo.getId());
+            pstmt.setInt(6, serenazgo.getId());
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -147,6 +146,25 @@ public class SerenazgosDao {
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }
+    }
+    public void actualizarContrasenia(int id, String nuevaContrasenia) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String sql = "UPDATE usuario SET clave = ? WHERE idUsuario = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, nuevaContrasenia);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
 
