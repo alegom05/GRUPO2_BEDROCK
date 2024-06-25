@@ -63,9 +63,11 @@
 </div>
 <div class="contenedor"><h2 class="labelFormulario contenedor mt-4">Inscripción a un evento</h2></div>
 <div class="container mt-4 mb-4">
-    <form method="post" action="<%=request.getContextPath()%>/EventoServlet?action=inscribirse" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+    <form method="POST" action="<%=request.getContextPath()%>/EventoServlet?action=inscribirse" class="row align-items-start needs-validation" novalidate>
         <h4 class="labelFormulario">Persona a inscribirse</h4>
         <div class="row">
+            <input type="hidden" name="IDusuario" value="${IDusuario}">
+            <input type="hidden" name="IDevento" value="${IDevento}">
             <div class="col">
                 <div class="mb-3">
                     <label for="nombrePersona" class="form-label">Nombre</label>
@@ -87,9 +89,7 @@
             </div>
         </div>
 
-        <div class="mt-2" id="acompanantesContainer">
-
-        </div>
+        <div class="mt-2" id="acompanantesContainer"></div>
         <div>
             <button type="button" class="btn btn-primary mt-3" onclick="agregarAcomp()" style="width: 100%">Agregar acompañante adicional</button>
             <div id="mensaje" class="mensaje text-center" style="display: none;"></div>
@@ -102,6 +102,7 @@
     </form>
 </div>
 
+
 <script>
     (() => {
         'use strict'
@@ -112,8 +113,8 @@
         // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', event => {
-                event.preventDefault(); // Evitar la recarga de la página
                 if (!form.checkValidity()) {
+                    event.preventDefault(); // Evita el envío si no es válido
                     event.stopPropagation()
                 } else {
                     const successMessage = document.getElementById('successMessage');
