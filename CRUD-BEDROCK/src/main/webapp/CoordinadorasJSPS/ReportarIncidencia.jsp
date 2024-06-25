@@ -52,7 +52,7 @@
                     <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
+                    <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
@@ -171,14 +171,14 @@
                 event.preventDefault(); // Evitar la recarga de la página
                 if (!form.checkValidity()) {
                     event.stopPropagation()
-                } else {
+                } /*else {
                     const successMessage = document.getElementById('successMessage');
                     successMessage.textContent = 'El formulario se ha enviado correctamente.';
                     successMessage.style.display = 'block';
                     setTimeout(() => {
                         successMessage.style.display = 'none';
                     }, 3000); // El mensaje se ocultará después de 2 segundos (5000 milisegundos)
-                }
+                }*/
                 form.classList.add('was-validated');
             }, false)
         })

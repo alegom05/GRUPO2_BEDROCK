@@ -10,19 +10,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./CoordinadorasJSPS/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="./CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
-            <a href="login.jsp">
-                <img src="./logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+            <a href="DetallesUsuario.html">
+                <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+            </a>
+            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br>Rol: <%=usuarioSesion.getRol()%></h2>
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
+                <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
     </div>
@@ -32,10 +35,10 @@
                 <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?action=paginaPrincipal" class="nav-link">Eventos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear2" class="nav-link">Reportar Incidencia</a>
+                <a href="${pageContext.request.contextPath}/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
@@ -44,7 +47,7 @@
                 <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
@@ -57,23 +60,15 @@
         <div class="contenedor mt-4 text-center">
             <h1>Crear Evento</h1>
         </div>
-        <form method="post" action="<%=request.getContextPath()%>/EventoServlet?action=crear" class="row align-items-start needs-validation" novalidate>
+         <form method="post" action="<%=request.getContextPath()%>/EventoServlet?action=crear" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
             <div class="col-md-6 mb-3">
                 <div class="contenedor mt-4 text-center">
-                    <img src="./imagenes_eventos/deporte/evento1.jpg" alt="Evento" id="imagen_detallada" class="img-fluid mx-auto">
+
                     <div class="mt-3">
-                        <label for="imagen" class="btn btn-primary">
-                            <i class="bi bi-upload"></i> Subir Imagen
-                        </label>
-                        <input type="file" id="imagen" name="imagen" class="d-none" accept="image/*" required>
-                        <div class="invalid-feedback">Es necesario subir una imagen para el evento.</div>
+                        <label for="imagen" class="form-label">Subir Imagen:</label>
+                        <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
                     </div>
-                    <div class="d-grid gap-2 mt-3">
-                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal">
-                            Crear
-                        </button>
-                        <a href="PaginaEventos.html" class="btn btn-secondary">Volver</a>
-                    </div>
+
                 </div>
             </div>
             <div class="col-md-6 d-flex align-items-center">
@@ -85,9 +80,9 @@
                             <div class="invalid-feedback">Es necesario poner el nombre del evento.</div>
                         </div>
                         <div class="mb-2">
-                            <label for="detalles">Detalles</label>
-                            <textarea class="form-control" id="detalles" name="detalles" rows="3" required></textarea>
-                            <div class="invalid-feedback">Es necesario poner los detalles del evento.</div>
+                            <label for="descripcion">Descripcióm</label>
+                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
+                            <div class="invalid-feedback">Es necesario introducir la descripción del evento.</div>
                         </div>
                         <div class="mb-2">
                             <label for="materiales">Materiales</label>
@@ -132,8 +127,8 @@
                                 <div class="invalid-feedback">Es necesario poner la hora del evento.</div>
                             </div>
                             <div class="col">
-                                <label form="frecuencia">Frecuencia</label>
-                                <select class="form-control" id="frecuencia" required>
+                                <label for="frecuencia">Frecuencia</label>
+                                <select class="form-control" id="frecuencia" name="frecuencia" required>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -143,8 +138,11 @@
                                 <div class="invalid-feedback">Es necesario seleccionar la frecuencia del evento.</div>
                             </div>
                         </div>
-                        <div class="row-md-auto mt-3">
-                            <label form="diasSemana">Días de la semana</label>
+                        <div class="mb-3">
+                            <input type="hidden" class="form-control" id="tipoEvento" name="tipoEvento" value="<%=usuarioSesion.getTipo()%>">
+                        </div>
+                        <!--<div class="row-md-auto mt-3">
+                            <label for="diasSemana">Días de la semana</label>
                             <div class="row">
                                 <div class="form-check col">
                                     <input class="form-check-input" type="checkbox" id="lunes" >
@@ -175,7 +173,7 @@
                                     <label class="form-check-label" for="domingo">Domingo</label>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row">
                             <div class="col">
                                 <div class="alert alert-success mt-3 d-none" id="successMessage">Evento registrado con éxito.</div>
@@ -183,8 +181,13 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
+             <div class="mt-4 text-center">
+                 <button type="submit" class="btn btn-primary" >Crear</button>
+                 <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="btn btn-secondary">Volver</a>
+             </div>
         </form>
     </div>
 </div>
@@ -222,11 +225,12 @@
                     if (form.checkValidity() === false) {
                         event.preventDefault();
                         event.stopPropagation();
-                    } else {
+                        //Esa parte del else evitaba el envío del formulario también en la vista de reportar incidencia xd
+                    }/* else {
                         event.preventDefault(); // Evitar el envío real del formulario
                         document.getElementById("successMessage").classList.remove("d-none");
                         document.getElementById("errorMessage").classList.add("d-none");
-                    }
+                    }*/
                     form.classList.add('was-validated');
                 }, false);
             });
