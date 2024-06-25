@@ -2,10 +2,11 @@
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-<!--jsp:useBean type="java.util.ArrayList<com.example.grupo2.Beans.Incidencia>" scope="request" id="incidencia"/-->
+
 <%
     ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("incidencia");
 %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -51,7 +52,7 @@
                 <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}%/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
@@ -64,7 +65,7 @@
     <h2 style="text-align: center;">Incidencias Registradas este mes</h2>
     <div class="container mt-4">
         <div style="display: flex; justify-content: space-between;">
-            <select id="filtroIncidencia" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none; width: 130px; height: 50px;" >
+            <select id="filtroIncidencia" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none; width: 130px; height: 50px;">
                 <option value="" disabled selected>Filtrar Por</option>
                 <option value="">Todos</option>
                 <option value="robo">Robo</option>
@@ -83,7 +84,7 @@
                     <th>Nombre</th>
                     <th>Fecha</th>
                     <th>Lugar</th>
-                    <th>Acciones</th>
+                    <th>Inspeccionar</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -93,18 +94,9 @@
                     <td><%= incidencia.getNombreIncidencia() %></td>
                     <td><%= incidencia.getFechaIncidencia() %></td>
                     <td><%= incidencia.getLugar() %></td>
-                    <td>
-
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-ellipsis-v"></i>
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a href="<%=request.getContextPath()%>/Incidencias?action=formCrear2&id=<%=incidencia.getIdIncidencia() %>" class="dropdown-item">Editar</a></li>
-                                <li><a onclick="setIncidenciaParaEliminar('<%= incidencia.getIdIncidencia() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a></li>
-                            </ul>
-                        </div>
-                    </td>
+                    <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
+                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
+                    </button> </td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -112,27 +104,7 @@
         </div>
     </div>
 </div>
-<!-- Modal de Confirmación de Eliminación -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Advertencia!</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                ¿Está seguro que desea eliminar al docente?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                <form action="<%=request.getContextPath()%>/Incidencias?action=borrar" method="post">
-                    <input type="hidden" name="id" id="incidenciaIdToDelete">
-                    <button type="submit" class="btn btn-primary">Sí</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
@@ -176,55 +148,17 @@
             table.search('').columns().search('').draw();
         });
     });
-
     function detallesIncidencia(id) {
-        window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=detallar&id=' + id;
+        // Redireccionar a otra página HTML
+        window.location.href = '<%=request.getContextPath()%>/Incidencias?action=detallar3&id=' + id;
     }
 
     function detallesIncidencia1() {
-        window.location.href = 'detallesIncidenciasProcesadas.html';
+        // Redireccionar a otra página HTML
+        window.location.href = 'detallesIncidencias.html';
     }
 
-    /*function mostrarModalEliminar(id) {
-        incidenciaIdParaEliminar = id;
-        $('#eliminarIncidenciaModal').modal('show');
-    }
 
-    function confirmarEliminar() {
-        $('#eliminarIncidenciaModal').modal('hide');
-        $('#confirmarEliminar').modal('show');
-    }
-
-    function eliminarIncidenciaDefinitivamente() {
-        var descripcion = $('#descripcionEliminar').val();
-        if (incidenciaIdParaEliminar != null) {
-            $.post('%=request.getContextPath()%>/IncidenciaServlet', {
-                action: 'borrar',
-                id: incidenciaIdParaEliminar,
-                descripcion: descripcion
-            }, function(response) {
-                location.reload();
-            });
-        }
-    }*/
-    var incidenciaIdParaEliminar;
-
-    function setIncidenciaParaEliminar(id) {
-        incidenciaIdParaEliminar = id;
-    }
-
-    function eliminarIncidencia() {
-        var descripcion = $('#descripcionEliminar').val();
-        if (incidenciaIdParaEliminar != null) {
-            $.post('<%=request.getContextPath()%>/IncidenciaServlet', {
-                action: 'borrar',
-                id: incidenciaIdParaEliminar,
-                descripcion: descripcion
-            }, function(response) {
-                location.reload();
-            });
-        }
-    }
 </script>
 </body>
 </html>
