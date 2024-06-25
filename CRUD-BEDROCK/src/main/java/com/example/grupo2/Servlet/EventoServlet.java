@@ -36,12 +36,18 @@ public class EventoServlet extends HttpServlet {
 
         switch (action) {
             case "lista":
-                ArrayList<Evento> lista = eventoDao.listarEventos();
-                request.setAttribute("lista",lista);
+                String idCoordii= request.getParameter("idUsuario");
+
+                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosCoordi(idCoordii);
+                request.setAttribute("evento",listaEventos2);
                 RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
                 view.forward(request,response);
 
                 break;
+            case "lista2":
+                String idCoordinadora = request.getParameter("idUsuario");
+                //ArrayList<Evento> listaEventosCoordi = eventoDao.
+
 
             case "new":
                 request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp").forward(request,response);

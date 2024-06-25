@@ -13,6 +13,48 @@ public class EventoDao {
     private static String password = "root";
     private static String url = "jdbc:mysql://localhost:3306/basededatos3";
 
+    //Metodo para listar eventos de coordi
+    public static ArrayList<Evento> listarEventosCoordi(String id){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }catch(ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Evento> listaEventos = new ArrayList<>();
+
+        String url= "jdbc:mysql://localhost:3306/basededatos3?";
+        String username= "root";
+        String password= "root";
+
+        String sql="select e.nombre,p.nombre,e.lugar ,e.fechaInicial,e.lugar,e.estadoEvento\n"+
+                "from evento e\n"+
+                "join profesor p on e.idProfesor= p.idProfesor\n"+
+                "where idUsuario=?";
+
+
+        try(Connection conn= DriverManager.getConnection(url,username,password);
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, Integer.parseInt(id));
+            ResultSet rs= pstmt.executeQuery();
+            while (rs.next()){
+                Evento evento = new Evento();
+                evento.setNombre(rs.getString(1));
+                evento.setNombreProfesor(rs.getString(2));
+                evento.setLugar(rs.getString(3));
+                evento.setFechaInicial(rs.getDate(4));
+                evento.setEstadoEvento(rs.getString(5));
+
+                listaEventos.add(evento);
+
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        System.out.println(listaEventos);
+        return listaEventos;
+    }
+
     public static ArrayList<Evento> listarEventos() {
 
         try {
