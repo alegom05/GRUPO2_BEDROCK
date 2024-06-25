@@ -58,6 +58,103 @@ public class UsuarioDao {
         return listaUsuarios;
     }
 
+    public static int esUsuario(int IdUsuario) {
+        int Es_un_usuario=0;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "        SELECT\n" +
+                "                CASE\n" +
+                "        WHEN EXISTS (\n" +
+                "                SELECT 1\n" +
+                "        FROM basededatos3.usuario\n" +
+                "        WHERE idUsuario = ?\n" +
+                "        ) THEN 1\n" +
+                "        ELSE 0\n" +
+                "        END AS usuario_existe;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, IdUsuario);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Es_un_usuario=(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Es_un_usuario;
+    }
+
+    public static int esEvento(int IdEvento) {
+        int Es_un_evento=0;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT \n" +
+                "    CASE \n" +
+                "        WHEN EXISTS (\n" +
+                "            SELECT 1\n" +
+                "            FROM basededatos3.evento\n" +
+                "            WHERE idEvento = ?\n" +
+                "        ) THEN 1\n" +
+                "        ELSE 0\n" +
+                "    END AS evento_existe;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, IdEvento);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Es_un_evento=(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Es_un_evento;
+    }
+
+    public static void inscribirEvento(int IdUsuario, int IdEvento){
+        // Falta aplicar algunaas resstricciones como que no se pueda inscribir al mismo evento mas de una vez
+        // Tambien lo de los acompañantes y sus tablas
+        // Tambien paginas de redireccionamiento
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "INSERT INTO basededatos3.evento_has_usuario (idEvento, idUsuario)\n" +
+                "VALUES (?,?);";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, IdEvento);
+            pstmt.setInt(2, IdUsuario);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /*public Incidencia obtenerIncidenciaPorId(int id) {
 
         try {

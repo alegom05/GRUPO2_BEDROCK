@@ -16,10 +16,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.sql.Date;
 
@@ -29,23 +32,25 @@ public class EventoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html");
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         EventoDao eventoDao = new EventoDao();
-
+        RequestDispatcher view;
         switch (action) {
+            //Este case será para el listado de eventos de coordinadora
             case "lista":
-                ArrayList<Evento> lista = eventoDao.listarEventos();
-                request.setAttribute("lista",lista);
-                RequestDispatcher view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
+                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
+                request.setAttribute("listaEventos",listaEventos2);
+
+                view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
                 view.forward(request,response);
 
                 break;
 
-            case "new":
-                request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp").forward(request,response);
+            case "formCrear":
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
+                view.forward(request, response);
                 break;
+
 
             case "editar":
                 String id= request.getParameter("id");
@@ -145,6 +150,24 @@ public class EventoServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/HistorialDeEventos.jsp");
                 view.forward(request, response);
                 break;
+            case "inscribirse_evento":
+                UsuarioDao usuarioDao = new UsuarioDao();
+                String idStrUsu = request.getParameter("idUsu");
+                String idStrEvento = request.getParameter("idEven");
+                if (idStrEvento != null && !idStrEvento.isEmpty() && idStrUsu != null && !idStrUsu.isEmpty()){
+                    int idUsuario2 = Integer.parseInt(idStrUsu);
+                    int idEvento = Integer.parseInt(idStrEvento);
+                    int veri_usu = usuarioDao.esUsuario(idUsuario2);
+                    int veri_even = usuarioDao.esEvento(idEvento);
+                    if (veri_usu!=0 && veri_even!=0) {
+                        request.setAttribute("IDusuario", idUsuario2);
+                        request.setAttribute("IDevento", idEvento);
+                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/inscribirse-Vecino.jsp");
+                        requestDispatcher.forward(request, response);
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/EventoServlet");
+                    }
+                }
         }
 
     }
@@ -161,39 +184,76 @@ public class EventoServlet extends HttpServlet {
             case "crear":
 
                 String nombre = request.getParameter("nombre");
-                String descripcion = request.getParameter("detalles");
+                String descripcion = request.getParameter("descripcion");
                 String lugar = request.getParameter("lugar");
                 String encargado = request.getParameter("profesor");
                 String vacantes = request.getParameter("vacantes");
                 String fechaInicio = request.getParameter("fechaInicio");
                 String fechaFin = request.getParameter("fechaFin");
-                String hora= request.getParameter("hora");
+
+                String horaParam = request.getParameter("hora");
+
                 String materiales= request.getParameter("materiales");
                 String frecuencia= request.getParameter("frecuencia");
 
+                String tipoEvento= request.getParameter("tipoEvento");
 
-                Part filePart= request.getPart("imagen");
-                InputStream foto= null;
-                if (filePart != null && filePart.getSize() >0){
-                    foto= filePart.getInputStream();
+                Part filePart = request.getPart("imagen"); // Obtén la parte del archivo
+                InputStream foto = null;
+                if (filePart != null && filePart.getSize() > 0) {
+                    foto = filePart.getInputStream(); // Lee el contenido del archivo como un InputStream
                 }
-
+                System.out.println(nombre);
+                System.out.println(descripcion);
+                System.out.println(lugar);
+                System.out.println(encargado);
+                System.out.println(vacantes);
+                System.out.println(fechaInicio);
+                System.out.println(fechaFin);
+                System.out.println(horaParam);
+                System.out.println(materiales);
+                System.out.println(frecuencia);
+                System.out.println(tipoEvento);
 
                 Evento evento1 = new Evento();
 
-                evento1.setNombre(nombre);
-                evento1.setDescripcion(descripcion);
-                evento1.setLugar(lugar);
-                evento1.setIdProfesor(Integer.parseInt(encargado));
-                evento1.setVacantes(Integer.parseInt(vacantes));
-                evento1.setFechaInicial(Date.valueOf(fechaInicio));
-                evento1.setFechaFinal(Date.valueOf(fechaFin));
-                evento1.setHora(Time.valueOf(hora));
-                evento1.setMateriales(materiales);
-                evento1.setFrecuencia(Integer.parseInt(frecuencia));
+                try {
+                    evento1.setNombre(nombre);
+                    evento1.setDescripcion(descripcion);
+                    evento1.setLugar(lugar);
+                    evento1.setVacantes(Integer.parseInt(vacantes));
+                    evento1.setFechaInicial(Date.valueOf(fechaInicio));
+                    evento1.setFechaFinal(Date.valueOf(fechaFin));
 
-                eventoDao.crearEvento(evento1);
+                    // Validar y convertir la hora
+                    if (horaParam != null && !horaParam.isEmpty()) {
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                        long ms = sdf.parse(horaParam).getTime();
+                        evento1.setHora(new Time(ms));
+                    }
 
+                    evento1.setMateriales(materiales);
+                    evento1.setFrecuencia(Integer.parseInt(frecuencia));
+                    evento1.setTipo(tipoEvento);
+                    evento1.setFoto(foto);
+                    evento1.setIdProfesor(4);
+
+                    eventoDao.crearEvento(evento1);
+                    response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+
+                } catch (NumberFormatException e) {
+                    // Manejo de errores de formato de número
+                    request.setAttribute("errorMessage", "El número de vacantes y la frecuencia deben ser números enteros.");
+                    request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
+                } catch (IllegalArgumentException e) {
+                    // Manejo de errores de formato de fecha
+                    request.setAttribute("errorMessage", "Formato de fecha inválido: debe ser yyyy-MM-dd.");
+                    request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
+                } catch (ParseException e) {
+                    // Manejo de errores de formato de hora
+                    request.setAttribute("errorMessage", "Formato de hora inválido: debe ser HH:mm.");
+                    request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
+                }
                 System.out.println(evento1.getNombre());
                 System.out.println(evento1.getDescripcion());
                 System.out.println(evento1.getLugar());
@@ -204,8 +264,7 @@ public class EventoServlet extends HttpServlet {
                 System.out.println(evento1.getHora());
                 System.out.println(evento1.getMateriales());
                 System.out.println(evento1.getFrecuencia());
-
-                response.sendRedirect(request.getContextPath()+"/EventoServlet?action=lista");
+                System.out.println(evento1.getTipo());
 
 
                 break;
@@ -246,14 +305,27 @@ public class EventoServlet extends HttpServlet {
                 break;
             case "inscribirse":
                 UsuarioDao usuarioDao = new UsuarioDao();
+                String idStrUsu = request.getParameter("IDusuario");
+                String idStrEvento = request.getParameter("IDevento");
                 Usuario acompanante= new Usuario();
-                String idUsuarioStr = request.getParameter("idUsuario");
-                if (idUsuarioStr != null && !idUsuarioStr.isEmpty()){
-                    int idUsuario = Integer.parseInt(idUsuarioStr);
-                    //usuarioDao.obtenerUsuarioPorID();
-                }
+                if (idStrEvento != null && !idStrEvento.isEmpty() && idStrUsu != null && !idStrUsu.isEmpty()){
+                    int idUsuario3 = Integer.parseInt(idStrUsu);
+                    int idEvento2 = Integer.parseInt(idStrEvento);
+                    usuarioDao.inscribirEvento(idUsuario3,idEvento2);
+                    /*try {
+                        int idUsuario = Integer.parseInt(idStrUsu);
+                        int idEvento = Integer.parseInt(idStrEvento);
+                        usuarioDao.inscribirEvento(idUsuario, idEvento);
+                        response.sendRedirect(request.getContextPath() + "/ruta/donde/quiere/redirigir");
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        response.sendRedirect(request.getContextPath() + "/ruta/error");
+                    }*/
+                } /*else {
+                    response.sendRedirect(request.getContextPath() + "/ruta/error");
+                }*/
                 // Obtener los acompañantes adicionales
-                ArrayList<Usuario> lista_acompanantes = new ArrayList<>();
+                /*ArrayList<Usuario> lista_acompanantes = new ArrayList<>();
                 for (int i = 1; i <= 3; i++) { // Suponiendo máximo 3 acompañantes
                     String nombreAcomp = request.getParameter("nombreAcomp" + i);
                     String apellidoAcomp = request.getParameter("apellidoAcomp" + i);
@@ -266,7 +338,7 @@ public class EventoServlet extends HttpServlet {
                         acompanante.setNombre(dniAcomp);
                         lista_acompanantes.add(acompanante);
                     }
-                }
+                }*/
                 //response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);
 
                 break;
@@ -281,16 +353,16 @@ public class EventoServlet extends HttpServlet {
         String correo = request.getParameter("correo");
         String contrasenia = request.getParameter("contrasenia");
 
-        Usuario serenazgo = new Usuario();
-        serenazgo.setId(id);
-        serenazgo.setNumtelefono(telefono);
-        serenazgo.setDireccion(direccion);
-        serenazgo.setTipo(tipo);
-        serenazgo.setTurnoSerenazgo(turno);
-        serenazgo.setCorreo(correo);
-        serenazgo.setClave(contrasenia);
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNumtelefono(telefono);
+        usuario.setDireccion(direccion);
+        usuario.setTipo(tipo);
+        usuario.setTurnoSerenazgo(turno);
+        usuario.setCorreo(correo);
+        usuario.setClave(contrasenia);
 
-        return serenazgo;
+        return usuario;
     }*/
 
 }

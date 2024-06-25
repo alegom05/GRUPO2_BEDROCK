@@ -1,7 +1,13 @@
-<%@ page import="com.example.grupo2.Beans.Evento" %>
+<%--
+  Created by IntelliJ IDEA.
+  User: Isaac
+  Date: 24/06/2024
+  Time: 12:51
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<% Evento evento = (Evento) request.getAttribute("evento");%>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,47 +16,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Evento</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
+    <link href="<%= request.getContextPath() %>/CoordinadorasJSPSindex.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior container-fluid">
+<div class="ParteSuperior">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+            <img src="<%= request.getContextPath() %>/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <a href="DetallesUsuario.html">
-                <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
-            </a>
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br>Rol: <%=usuarioSesion.getRol()%></h2>
-            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
-                <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
+            <a href="<%= request.getContextPath() %>/logIN.jsp">
+                <img src="<%= request.getContextPath() %>/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
     </div>
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
+                <a href="<%= request.getContextPath() %>/PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
+                <a href="<%= request.getContextPath() %>/PaginaEventos.jsp" class="nav-link">Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
+                <a href="<%= request.getContextPath() %>/ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                <a href="<%= request.getContextPath() %>/ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
+                <a href="<%= request.getContextPath() %>/Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
+                <a href="<%= request.getContextPath() %>/HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
+                <a href="<%= request.getContextPath() %>/VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
             </li>
         </ul>
     </nav>
@@ -60,15 +63,23 @@
         <div class="contenedor mt-4 text-center">
             <h1>Crear Evento</h1>
         </div>
-         <form method="post" action="<%=request.getContextPath()%>/EventoServlet?action=crear" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+        <form class="row align-items-start needs-validation" novalidate action="<%= request.getContextPath() %>/CreateEventServlet" method="post" enctype="multipart/form-data">
             <div class="col-md-6 mb-3">
                 <div class="contenedor mt-4 text-center">
-
+                    <img src="<%= request.getContextPath() %>/imagenes_eventos/deporte/evento1.jpg" alt="Evento" id="imagen_detallada" class="img-fluid mx-auto">
                     <div class="mt-3">
-                        <label for="imagen" class="form-label">Subir Imagen:</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
+                        <label for="uploadImage" class="btn btn-primary">
+                            <i class="bi bi-upload"></i> Subir Imagen
+                        </label>
+                        <input type="file" id="uploadImage" name="uploadImage" class="d-none" accept="image/*" required>
+                        <div class="invalid-feedback">Es necesario subir una imagen para el evento.</div>
                     </div>
-
+                    <div class="button-container mt-3">
+                        <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#confirmModal" disabled>
+                            Guardar
+                        </button>
+                        <a href="<%= request.getContextPath() %>/PaginaEventos.jsp" class="btn btn-secondary mt-2">Volver</a>
+                    </div>
                 </div>
             </div>
             <div class="col-md-6 d-flex align-items-center">
@@ -76,34 +87,34 @@
                     <div class="mt-2">
                         <div class="mb-2">
                             <label for="nombre">Nombre del Evento</label>
-                            <input type="text" class="form-control" id="nombre" name="nombre"  required>
+                            <input type="text" class="form-control" id="nombre" name="nombre" required>
                             <div class="invalid-feedback">Es necesario poner el nombre del evento.</div>
                         </div>
                         <div class="mb-2">
-                            <label for="descripcion">Descripcióm</label>
-                            <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
-                            <div class="invalid-feedback">Es necesario introducir la descripción del evento.</div>
+                            <label for="detalles">Detalles</label>
+                            <textarea class="form-control" id="detalles" name="detalles" rows="3" required></textarea>
+                            <div class="invalid-feedback">Es necesario poner los detalles del evento.</div>
                         </div>
                         <div class="mb-2">
                             <label for="materiales">Materiales</label>
-                            <input type="text" class="form-control" id="materiales" name="materiales">
-                            <div class="invalid-feedback">Es necesario poner los materiales.</div>
+                            <input type="text" class="form-control" id="materiales" name="materiales" required>
+                            <div class="invalid-feedback">Es necesario poner los materiales a utilizar.</div>
                         </div>
                         <div class="mb-2">
                             <label for="lugar">Lugar</label>
-                            <input type="text" class="form-control" id="lugar" name="lugar"  required>
+                            <input type="text" class="form-control" id="lugar" name="lugar" required>
                             <div class="invalid-feedback">Es necesario poner el lugar del evento.</div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <label for="profesor">Encargado</label>
-                                <input type="text" class="form-control" id="profesor" name="profesor"  required>
+                                <input type="text" class="form-control" id="profesor" name="profesor" required>
                                 <div class="invalid-feedback">Es necesario poner el encargado del evento.</div>
                             </div>
                             <div class="col-md-auto">
                                 <div class="mb-2">
                                     <label for="vacantes">Número de Vacantes</label>
-                                    <input type="number" class="form-control" id="vacantes" name="vacantes" min="1"  required>
+                                    <input type="number" class="form-control" id="vacantes" name="vacantes" min="1" required>
                                     <div class="invalid-feedback">Es necesario poner el número de vacantes.</div>
                                 </div>
                             </div>
@@ -111,24 +122,25 @@
                         <div class="row">
                             <div class="col">
                                 <label for="fechaInicio">Fecha Inicio</label>
-                                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio"  required>
+                                <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" required>
                                 <div class="invalid-feedback">Es necesario poner la fecha de inicio.</div>
                             </div>
                             <div class="col">
                                 <label for="fechaFin">Fecha Fin</label>
-                                <input type="date" class="form-control" id="fechaFin" name="fechaFin"  required>
+                                <input type="date" class="form-control" id="fechaFin" name="fechaFin" required>
                                 <div class="invalid-feedback">Es necesario poner la fecha de fin.</div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col">
                                 <label for="hora">Hora</label>
-                                <input type="time" class="form-control" id="hora" name="hora"  required>
+                                <input type="time" class="form-control" id="hora" name="hora" required>
                                 <div class="invalid-feedback">Es necesario poner la hora del evento.</div>
                             </div>
                             <div class="col">
                                 <label for="frecuencia">Frecuencia</label>
-                                <select class="form-control" id="frecuencia" name="frecuencia" required>
+                                <select class="form-control" id="frecuenciaEvento" name="frecuencia" required>
+                                    <option value="">Seleccione</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -138,42 +150,40 @@
                                 <div class="invalid-feedback">Es necesario seleccionar la frecuencia del evento.</div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <input type="hidden" class="form-control" id="tipoEvento" name="tipoEvento" value="<%=usuarioSesion.getTipo()%>">
-                        </div>
-                        <!--<div class="row-md-auto mt-3">
+                        <div class="row-md-auto mt-3">
                             <label for="diasSemana">Días de la semana</label>
                             <div class="row">
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="lunes" >
+                                    <input class="form-check-input" type="checkbox" id="lunes" name="diasSemana" value="Lunes">
                                     <label class="form-check-label" for="lunes">Lunes</label>
                                 </div>
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="martes">
+                                    <input class="form-check-input" type="checkbox" id="martes" name="diasSemana" value="Martes">
                                     <label class="form-check-label" for="martes">Martes</label>
                                 </div>
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="miercoles" >
+                                    <input class="form-check-input" type="checkbox" id="miercoles" name="diasSemana" value="Miércoles">
                                     <label class="form-check-label" for="miercoles">Miércoles</label>
                                 </div>
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="jueves">
+                                    <input class="form-check-input" type="checkbox" id="jueves" name="diasSemana" value="Jueves">
                                     <label class="form-check-label" for="jueves">Jueves</label>
                                 </div>
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="viernes">
+                                    <input class="form-check-input" type="checkbox" id="viernes" name="diasSemana" value="Viernes">
                                     <label class="form-check-label" for="viernes">Viernes</label>
                                 </div>
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="sabado">
+                                    <input class="form-check-input" type="checkbox" id="sabado" name="diasSemana" value="Sábado">
                                     <label class="form-check-label" for="sabado">Sábado</label>
                                 </div>
                                 <div class="form-check col">
-                                    <input class="form-check-input" type="checkbox" id="domingo">
+                                    <input class="form-check-input" type="checkbox" id="domingo" name="diasSemana" value="Domingo">
                                     <label class="form-check-label" for="domingo">Domingo</label>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
+
                         <div class="row">
                             <div class="col">
                                 <div class="alert alert-success mt-3 d-none" id="successMessage">Evento registrado con éxito.</div>
@@ -181,13 +191,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-             <div class="mt-4 text-center">
-                 <button type="submit" class="btn btn-primary" >Crear</button>
-                 <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="btn btn-secondary">Volver</a>
-             </div>
         </form>
     </div>
 </div>
@@ -225,12 +230,11 @@
                     if (form.checkValidity() === false) {
                         event.preventDefault();
                         event.stopPropagation();
-                        //Esa parte del else evitaba el envío del formulario también en la vista de reportar incidencia xd
-                    }/* else {
+                    } else {
                         event.preventDefault(); // Evitar el envío real del formulario
                         document.getElementById("successMessage").classList.remove("d-none");
                         document.getElementById("errorMessage").classList.add("d-none");
-                    }*/
+                    }
                     form.classList.add('was-validated');
                 }, false);
             });
@@ -240,7 +244,7 @@
     // Lógica del modal de confirmación
     document.getElementById('confirmButton').addEventListener('click', function () {
         // Aquí se puede redirigir a la página deseada después de confirmar
-        window.location.href = "${pageContext.request.contextPath}/Coordis?a=listarev";
+        window.location.href = '<%= request.getContextPath() %>/PaginaEventos.jsp';
     });
 
     // Lógica de carga de imagen
@@ -255,25 +259,41 @@
         }
     });
 
-
     // Lógica para activar el botón de guardar después de que se completen todos los campos del formulario
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.querySelector('form');
+        const submitButton = form.querySelector('button[type="submit"]');
+        const inputs = form.querySelectorAll('input, textarea, select');
 
-        form.addEventListener('input', function () {
-            const inputs = form.querySelectorAll('input, textarea, select');
+        function checkFormValidity() {
             let isValid = true;
-
             inputs.forEach(function (input) {
                 if (!input.checkValidity()) {
                     isValid = false;
                 }
             });
-
-            const submitButton = document.querySelector('button[type="submit"]');
             submitButton.disabled = !isValid;
+        }
+
+        inputs.forEach(function (input) {
+            input.addEventListener('input', checkFormValidity);
         });
+
+        form.addEventListener('submit', function (event) {
+            if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+            } else {
+                event.preventDefault(); // Evitar el envío real del formulario
+                document.getElementById("successMessage").classList.remove("d-none");
+                document.getElementById("errorMessage").classList.add("d-none");
+            }
+            form.classList.add('was-validated');
+        });
+
+        checkFormValidity(); // Comprobar la validez inicial del formulario
     });
 </script>
 </body>
 </html>
+

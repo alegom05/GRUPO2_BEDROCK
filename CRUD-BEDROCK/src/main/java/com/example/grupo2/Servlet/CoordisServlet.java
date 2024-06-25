@@ -44,8 +44,9 @@ public class CoordisServlet extends HttpServlet {
                 break;
 
             case "listarev":
-                ArrayList<Evento> listaEventos = eventoDao.listarEventos();
-                request.setAttribute("lista",listaEventos);
+                //String idCoordi= request.getParameter("idUsuario");
+                ArrayList<Evento> listaEventos = eventoDao.listarEventosParaCoordi();
+                request.setAttribute("listaEventos",listaEventos);
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
                 view.forward(request,response);
                 break;

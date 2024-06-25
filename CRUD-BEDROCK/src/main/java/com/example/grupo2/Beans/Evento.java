@@ -1,5 +1,6 @@
 package com.example.grupo2.Beans;
 
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Time;
 import java.sql.Date;
@@ -10,7 +11,7 @@ public class Evento {
     private String nombre;
     private Date fechaInicial;
     private Date fechaFinal;
-    private Blob foto;
+    private InputStream foto;
     private String materiales;
     private String lugar;
     private Time hora;
@@ -62,11 +63,11 @@ public class Evento {
         this.fechaFinal = fechaFinal;
     }
 
-    public Blob getFoto() {
+    public InputStream getFoto() {
         return foto;
     }
 
-    public void setFoto(Blob foto) {
+    public void setFoto(InputStream foto) {
         this.foto = foto;
     }
 

@@ -7,7 +7,7 @@
 
 
 <%
-    ArrayList<Evento> evento = (ArrayList<Evento>) request.getAttribute("lista");
+    ArrayList<Evento> evento = (ArrayList<Evento>) request.getAttribute("listaEventos");
 
 %>
 
@@ -59,7 +59,7 @@
                 <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
@@ -77,7 +77,7 @@
 
             <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;" placeholder="Buscar...">
             <div class="col d-flex justify-content-end">
-                <a href="<%=request.getContextPath()%>/EventoServlet?action=new" class="btn btn-primary"><h7>Crear evento</h7></a>
+                <a href="<%=request.getContextPath()%>/EventoServlet?action=formCrear" class="btn btn-primary"><h7>Crear evento</h7></a>
             </div>
         </div>
         <br>
@@ -99,7 +99,7 @@
                 <% for (Evento eventos: evento){%>
                 <tr>
                     <td><%=eventos.getNombre()%></td>
-                    <td><%=eventos.getIdProfesor()%></td>
+                    <td><%=eventos.getNombreProfesor()%></td>
                     <td><%=eventos.getLugar()%></td>
                     <td><%=eventos.getFechaInicial()%></td>
                     <td><%=eventos.getEstadoEvento()%></td>

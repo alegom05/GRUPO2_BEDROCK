@@ -13,6 +13,94 @@ public class EventoDao {
     private static String password = "root";
     private static String url = "jdbc:mysql://localhost:3306/basededatos3";
 
+    //Método que lista todos los eventos, por el momento no podemos listar para una sola coordinadora ya que hace
+    //falta una conexión uno amuchos en la base de datos
+    //Este listado se debería modificar una vez se tenga la relación uno a muchos en la tabla de datos,
+    //lo único que cambiaría es agregar un "where idUsuario= " y estaría correcto
+    public static ArrayList<Evento> listarEventosParaCoordi(){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }catch(ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Evento> listaEventos = new ArrayList<>();
+
+        String url= "jdbc:mysql://localhost:3306/basededatos3?";
+        String username= "root";
+        String password= "root";
+
+        String sql="SELECT e.*, p.nombre AS nombreProfesor\n" +
+                "                FROM evento e\n" +
+                "                INNER JOIN profesor p ON e.idProfesor = p.idProfesor;";
+
+
+        try(Connection conn= DriverManager.getConnection(url,username,password);
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            ResultSet rs= pstmt.executeQuery();
+            while (rs.next()){
+                Evento evento = new Evento();
+                evento.setIdEvento(rs.getInt("idEvento"));
+                evento.setNombre(rs.getString("nombre"));
+                evento.setNombreProfesor(rs.getString("nombreProfesor"));
+                evento.setLugar(rs.getString("lugar"));
+                evento.setFechaInicial(rs.getDate("fechaInicial"));
+                evento.setEstadoEvento(rs.getString("estadoEvento"));
+                listaEventos.add(evento);
+
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        System.out.println(listaEventos);
+        return listaEventos;
+    }
+
+
+
+
+    //Metodo para listar eventos de coordi
+    public static ArrayList<Evento> listarEventosCoordi(String id){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        }catch(ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Evento> listaEventos = new ArrayList<>();
+
+        String url= "jdbc:mysql://localhost:3306/basededatos3?";
+        String username= "root";
+        String password= "root";
+
+        String sql="select e.nombre,p.nombre,e.lugar ,e.fechaInicial,e.lugar,e.estadoEvento\n"+
+                "from evento e\n"+
+                "join profesor p on e.idProfesor= p.idProfesor\n"+
+                "where idUsuario=?";
+
+
+        try(Connection conn= DriverManager.getConnection(url,username,password);
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, Integer.parseInt(id));
+            ResultSet rs= pstmt.executeQuery();
+            while (rs.next()){
+                Evento evento = new Evento();
+                evento.setNombre(rs.getString(1));
+                evento.setNombreProfesor(rs.getString(2));
+                evento.setLugar(rs.getString(3));
+                evento.setFechaInicial(rs.getDate(4));
+                evento.setEstadoEvento(rs.getString(5));
+
+                listaEventos.add(evento);
+
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+        System.out.println(listaEventos);
+        return listaEventos;
+    }
+
     public static ArrayList<Evento> listarEventos() {
 
         try {
@@ -40,7 +128,12 @@ public class EventoDao {
                 evento.setNombre(rs.getString(2));
                 evento.setFechaInicial(rs.getDate(3));
                 evento.setFechaFinal(rs.getDate(4));
-                evento.setFoto(rs.getBlob(5));
+                Blob fotoBlob = rs.getBlob(5);
+                if (fotoBlob != null) {
+                    evento.setFoto(fotoBlob.getBinaryStream());
+                } else {
+                    evento.setFoto(null);
+                }
                 evento.setMateriales(rs.getString(6));
                 evento.setLugar(rs.getString(7));
                 evento.setHora(rs.getTime(8));
@@ -81,7 +174,12 @@ public class EventoDao {
                 evento.setNombre(rs.getString(2));
                 evento.setFechaInicial(rs.getDate(3));
                 evento.setFechaFinal(rs.getDate(4));
-                evento.setFoto(rs.getBlob(5));
+                Blob fotoBlob = rs.getBlob(12);
+                if (fotoBlob != null) {
+                    evento.setFoto(fotoBlob.getBinaryStream());
+                } else {
+                    evento.setFoto(null);
+                }
                 evento.setMateriales(rs.getString(6));
                 evento.setLugar(rs.getString(7));
                 evento.setHora(rs.getTime(8));
@@ -160,7 +258,12 @@ public class EventoDao {
                 evento.setNombre(rs.getString(2));
                 evento.setFechaInicial(rs.getDate(3));
                 evento.setFechaFinal(rs.getDate(4));
-                evento.setFoto(rs.getBlob(5));
+                Blob fotoBlob = rs.getBlob(12);
+                if (fotoBlob != null) {
+                    evento.setFoto(fotoBlob.getBinaryStream());
+                } else {
+                    evento.setFoto(null);
+                }
                 evento.setMateriales(rs.getString(6));
                 evento.setLugar(rs.getString(7));
                 evento.setHora(rs.getTime(8));
@@ -288,7 +391,12 @@ public class EventoDao {
                     evento.setNombre(rs.getString(2));
                     evento.setFechaInicial(rs.getDate(3));
                     evento.setFechaFinal(rs.getDate(4));
-                    evento.setFoto(rs.getBlob(5));
+                    Blob fotoBlob = rs.getBlob(5);
+                    if (fotoBlob != null) {
+                        evento.setFoto(fotoBlob.getBinaryStream());
+                    } else {
+                        evento.setFoto(null);
+                    }
                     evento.setMateriales(rs.getString(6));
                     evento.setLugar(rs.getString(7));
                     evento.setHora(rs.getTime(8));
@@ -350,20 +458,25 @@ public class EventoDao {
 
             try (Connection conn= DriverManager.getConnection(url, user,pass)){
                 String sql= "INSERT INTO evento (nombre,fechaInicial,fechaFinal,foto,materiales, lugar, hora, frecuencia,vacantes, descripcion, tipo,idProfesor,estadoEvento)"+
-                        "VALUES (?,?,?,?,?,?,?,?,?,?,'Cultural',?,'Pronto')";
+                        "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,'Pronto')";
 
                 try(PreparedStatement pstmt = conn.prepareStatement(sql)){
                     pstmt.setString(1,evento.getNombre());
                     pstmt.setDate(2, evento.getFechaInicial());
                     pstmt.setDate(3,evento.getFechaFinal());
-                    pstmt.setBlob(4,evento.getFoto());
+                    if (evento.getFoto() != null) {
+                        pstmt.setBlob(4, evento.getFoto());
+                    } else {
+                        pstmt.setNull(4, Types.BLOB);
+                    }
                     pstmt.setString(5,evento.getMateriales());
                     pstmt.setString(6,evento.getLugar());
                     pstmt.setTime(7,evento.getHora());
                     pstmt.setInt(8,evento.getFrecuencia());
                     pstmt.setInt(9,evento.getVacantes());
                     pstmt.setString(10,evento.getDescripcion());
-                    pstmt.setInt(11,evento.getIdProfesor());
+                    pstmt.setString(11,evento.getTipo());
+                    pstmt.setInt(12,evento.getIdProfesor());
                     pstmt.executeUpdate();
                 }
             }
