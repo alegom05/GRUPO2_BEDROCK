@@ -150,6 +150,24 @@ public class EventoServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/HistorialDeEventos.jsp");
                 view.forward(request, response);
                 break;
+            case "inscribirse_evento":
+                UsuarioDao usuarioDao = new UsuarioDao();
+                String idStrUsu = request.getParameter("idUsu");
+                String idStrEvento = request.getParameter("idEven");
+                if (idStrEvento != null && !idStrEvento.isEmpty() && idStrUsu != null && !idStrUsu.isEmpty()){
+                    int idUsuario2 = Integer.parseInt(idStrUsu);
+                    int idEvento = Integer.parseInt(idStrEvento);
+                    int veri_usu = usuarioDao.esUsuario(idUsuario2);
+                    int veri_even = usuarioDao.esEvento(idEvento);
+                    if (veri_usu!=0 && veri_even!=0) {
+                        request.setAttribute("IDusuario", idUsuario2);
+                        request.setAttribute("IDevento", idEvento);
+                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/inscribirse-Vecino.jsp");
+                        requestDispatcher.forward(request, response);
+                    } else {
+                        response.sendRedirect(request.getContextPath() + "/EventoServlet");
+                    }
+                }
         }
 
     }
@@ -287,14 +305,27 @@ public class EventoServlet extends HttpServlet {
                 break;
             case "inscribirse":
                 UsuarioDao usuarioDao = new UsuarioDao();
+                String idStrUsu = request.getParameter("IDusuario");
+                String idStrEvento = request.getParameter("IDevento");
                 Usuario acompanante= new Usuario();
-                String idUsuarioStr = request.getParameter("idUsuario");
-                if (idUsuarioStr != null && !idUsuarioStr.isEmpty()){
-                    int idUsuario = Integer.parseInt(idUsuarioStr);
-                    //usuarioDao.obtenerUsuarioPorID();
-                }
+                if (idStrEvento != null && !idStrEvento.isEmpty() && idStrUsu != null && !idStrUsu.isEmpty()){
+                    int idUsuario3 = Integer.parseInt(idStrUsu);
+                    int idEvento2 = Integer.parseInt(idStrEvento);
+                    usuarioDao.inscribirEvento(idUsuario3,idEvento2);
+                    /*try {
+                        int idUsuario = Integer.parseInt(idStrUsu);
+                        int idEvento = Integer.parseInt(idStrEvento);
+                        usuarioDao.inscribirEvento(idUsuario, idEvento);
+                        response.sendRedirect(request.getContextPath() + "/ruta/donde/quiere/redirigir");
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        response.sendRedirect(request.getContextPath() + "/ruta/error");
+                    }*/
+                } /*else {
+                    response.sendRedirect(request.getContextPath() + "/ruta/error");
+                }*/
                 // Obtener los acompañantes adicionales
-                ArrayList<Usuario> lista_acompanantes = new ArrayList<>();
+                /*ArrayList<Usuario> lista_acompanantes = new ArrayList<>();
                 for (int i = 1; i <= 3; i++) { // Suponiendo máximo 3 acompañantes
                     String nombreAcomp = request.getParameter("nombreAcomp" + i);
                     String apellidoAcomp = request.getParameter("apellidoAcomp" + i);
@@ -307,7 +338,7 @@ public class EventoServlet extends HttpServlet {
                         acompanante.setNombre(dniAcomp);
                         lista_acompanantes.add(acompanante);
                     }
-                }
+                }*/
                 //response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);
 
                 break;
@@ -322,16 +353,16 @@ public class EventoServlet extends HttpServlet {
         String correo = request.getParameter("correo");
         String contrasenia = request.getParameter("contrasenia");
 
-        Usuario serenazgo = new Usuario();
-        serenazgo.setId(id);
-        serenazgo.setNumtelefono(telefono);
-        serenazgo.setDireccion(direccion);
-        serenazgo.setTipo(tipo);
-        serenazgo.setTurnoSerenazgo(turno);
-        serenazgo.setCorreo(correo);
-        serenazgo.setClave(contrasenia);
+        Usuario usuario = new Usuario();
+        usuario.setId(id);
+        usuario.setNumtelefono(telefono);
+        usuario.setDireccion(direccion);
+        usuario.setTipo(tipo);
+        usuario.setTurnoSerenazgo(turno);
+        usuario.setCorreo(correo);
+        usuario.setClave(contrasenia);
 
-        return serenazgo;
+        return usuario;
     }*/
 
 }
