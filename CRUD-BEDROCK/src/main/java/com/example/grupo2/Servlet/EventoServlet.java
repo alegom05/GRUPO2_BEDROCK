@@ -312,6 +312,7 @@ public class EventoServlet extends HttpServlet {
                     int idUsuario3 = Integer.parseInt(idStrUsu);
                     int idEvento2 = Integer.parseInt(idStrEvento);
                     usuarioDao.inscribirEvento(idUsuario3,idEvento2);
+
                     /*try {
                         int idUsuario = Integer.parseInt(idStrUsu);
                         int idEvento = Integer.parseInt(idStrEvento);
