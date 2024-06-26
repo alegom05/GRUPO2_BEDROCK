@@ -36,9 +36,7 @@
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
                 </li>
-                <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Eventos</a>
-                </li>
+
                 <li class="nav-item">
                     <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
                 </li>
