@@ -128,6 +128,42 @@ public class UsuarioDao {
         return Es_un_evento;
     }
 
+    public static int EstaInscrito(int IdEvento, int IdUsuario) {
+        int Esta_inscrito=0;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT \n" +
+                "    CASE \n" +
+                "        WHEN EXISTS (\n" +
+                "            SELECT 1 \n" +
+                "            FROM basededatos3.evento_has_usuario \n" +
+                "            WHERE idUsuario = ? AND idEvento = ?\n" +
+                "        ) THEN 1 \n" +
+                "        ELSE 0 \n" +
+                "    END AS estaInscrito";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, IdUsuario);
+            pstmt.setInt(2, IdEvento);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Esta_inscrito=(rs.getInt(1));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Esta_inscrito;
+    }
+
     public static void inscribirEvento(int IdUsuario, int IdEvento){
         // Falta aplicar algunaas resstricciones como que no se pueda inscribir al mismo evento mas de una vez
         // Tambien lo de los acompañantes y sus tablas
