@@ -34,7 +34,7 @@
                 </div>
                 <div class="botones-cambio-contrasena">
                     <button type="submit" class="btn gradient-custom-3">Aceptar</button>
-                    <a href="${pageContext.request.contextPath}/VecinosJSPS/detallesUsuario-Vecino.jsp" class="btn btn-secondary">Cancelar</a>
+                    <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>
         </div>

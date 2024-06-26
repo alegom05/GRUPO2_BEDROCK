@@ -1,6 +1,6 @@
-<%-- InfoUsuario.jsp --%>
+<%@ page import="com.example.grupo2.Beans.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+<jsp:useBean id="usuarioSesion" scope="request" type="com.example.grupo2.Beans.Usuario"/>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,7 +19,7 @@
                     <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
                 </div>
                 <div class="col-md-9 d-flex align-items-center justify-content-end">
-                    <a href="${pageContext.request.contextPath}/VecinosJSPS/detallesUsuario-Vecino.jsp">
+                    <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>">
                         <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                     </a>
                     <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
@@ -57,18 +57,39 @@
                 <h2 class="labelFormulario contenedor mt-3">Información de Usuario</h2>
             </div>
             <div class="contenedor mt-3 mb-1 ms-4">
-                <form class="row align-items-start needs-validation" novalidate>
-                    <div class="col">
+                <div class="row">
+                    <div class="col-md-4">
                         <fieldset disabled>
                             <div>
                                 <label for="disabledTextInput" class="form-label" style="margin-top: 10px;">Nombre</label>
                                 <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getNombre()%>">
                             </div>
                         </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <fieldset disabled>
+                            <label for="disabledTextInput" class="form-label" style="margin-top: 10px;">Apellido</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getApellido()%>">
+                        </fieldset>
+                    </div>
+                    <div class="col-md-4">
+                        <fieldset disabled>
+                            <label for="disabledTextInput" class="form-label" style="margin-top: 10px;">DNI</label>
+                            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getDni()%>">
+                        </fieldset>
+                    </div>
+
+
+                </div>
+                <form class="row align-items-start needs-validation" method="post" action="<%=request.getContextPath()%>/VecinoIndexServlet?action=actualizarDatos" novalidate>
+                    <div>
+                        <input type="hidden" name="id" class="form-control" value="<%=usuarioSesion.getId()%>">
+                    </div>
+                    <div class="col">
                         <div>
                             <label for="urbanizacionInput" class="form-label" style="margin-top: 10px;">Urbanización</label>
                             <div class="input-group">
-                                <input type="text" id="urbanizacionInput" class="form-control" placeholder="<%=usuarioSesion.getUrbanizacion()%>" disabled>
+                                <input type="text" id="urbanizacionInput" class="form-control" name="urbanizacionInput" placeholder="<%=usuarioSesion.getUrbanizacion()%>" value="<%=usuarioSesion.getUrbanizacion()%>">
                                 <button class="btn btn-outline-secondary" type="button" onclick="enableField('urbanizacionInput')">
                                     <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg" width="20" height="20">
                                 </button>
@@ -85,14 +106,10 @@
                         </div>
                     </div>
                     <div class="col me-4">
-                        <fieldset disabled>
-                            <label for="disabledTextInput" class="form-label" style="margin-top: 10px;">Apellido</label>
-                            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getApellido()%>">
-                        </fieldset>
                         <div>
                             <label for="direccionInput" class="form-label" style="margin-top: 10px;">Dirección</label>
                             <div class="input-group">
-                                <input type="text" id="direccionInput" class="form-control" placeholder="<%=usuarioSesion.getDireccion()%>" disabled>
+                                <input type="text" id="direccionInput" class="form-control" name="direccionInput" placeholder="<%=usuarioSesion.getDireccion()%>" value="<%=usuarioSesion.getDireccion()%>">
                                 <button class="btn btn-outline-secondary" type="button" onclick="enableField('direccionInput')">
                                     <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg" width="20" height="20">
                                 </button>
@@ -100,22 +117,18 @@
                         </div>
                     </div>
                     <div class="col me-4">
-                        <fieldset disabled>
-                            <label for="disabledTextInput" class="form-label" style="margin-top: 10px;">DNI</label>
-                            <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuarioSesion.getDni()%>">
-                        </fieldset>
                         <div>
                             <label for="telefonoInput" class="form-label" style="margin-top: 10px;">Teléfono</label>
                             <div class="input-group">
-                                <input type="text" id="telefonoInput" class="form-control" placeholder="<%=usuarioSesion.getNumtelefono()%>" disabled oninput="validatePhoneInput(this)">
+                                <input type="text" id="telefonoInput" class="form-control" name="telefonoInput" placeholder="<%=usuarioSesion.getNumtelefono()%>" value="<%=usuarioSesion.getNumtelefono()%>" oninput="validatePhoneInput(this)">
                                 <button class="btn btn-outline-secondary" type="button" onclick="enableField('telefonoInput')">
                                     <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg" width="20" height="20">
                                 </button>
                             </div>
                         </div>
                     </div>
+                    <button class="btn btn-primary mt-3" type="submit">Guardar Cambios</button>
                 </form>
-                <button class="btn btn-primary mt-3" onclick="saveChanges()">Guardar Cambios</button>
                 <div id="successMessage" class="text-success text-center mt-2" style="display: none; margin-right: 10px;"></div>
             </div>
         </div>
