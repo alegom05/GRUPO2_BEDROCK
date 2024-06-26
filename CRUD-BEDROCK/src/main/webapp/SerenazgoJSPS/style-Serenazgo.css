@@ -393,7 +393,7 @@ nav {
 
 .header {
     background: none;
-    background-image: url("../assets/images/serenoJAJA.jpeg");
+    background-image: url("../assets/images/serenazgoRecortado.jpg");
     background-repeat:no-repeat; /* Indicamos que no se repetira */
     background-size:cover; /* Encajamos la imagen al 100% del ancho */
     background-position-x: center;
@@ -402,7 +402,7 @@ nav {
 }
 
 #searchAll2{
-    margin-top: 25rem;
+    margin-top: 15rem;
     padding: 0 1rem 0 2rem;
     color: #FFFFFF !important;
     background-color: rgba(31,32,37,.85);
