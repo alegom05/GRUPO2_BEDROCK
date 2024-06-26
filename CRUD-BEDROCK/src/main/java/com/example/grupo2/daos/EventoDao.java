@@ -626,8 +626,8 @@ public class EventoDao {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
             try (Connection conn= DriverManager.getConnection(url, user,pass)){
-                String sql= "INSERT INTO fotosdeeventos (fotosDeEventos)"+
-                        "VALUES (?)";
+                String sql= "INSERT INTO fotosdeeventos (fotosDeEventos,idEvento)"+
+                        "VALUES (?,?)";
 
                 try(PreparedStatement pstmt = conn.prepareStatement(sql)){
                     if (evento.getFoto() != null) {
@@ -635,6 +635,7 @@ public class EventoDao {
                     } else {
                         pstmt.setNull(1, Types.BLOB);
                     }
+                    pstmt.setInt(2, evento.getIdEvento());
 
                 }
             }
