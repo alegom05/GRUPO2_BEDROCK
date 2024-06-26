@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
   `idUsuario` INT NOT NULL,
   `correo` VARCHAR(45) NULL DEFAULT NULL,
   `clave` VARCHAR(45) NULL DEFAULT NULL,
-  `claveHash` VARCHAR(45) NULL DEFAULT NULL,
+  `claveHash` VARCHAR(64) NULL DEFAULT NULL,
   PRIMARY KEY (`idcredenciales`),
   INDEX `idUsuario_idx` (`idUsuario` ASC) VISIBLE,
   CONSTRAINT `idUsuario`
@@ -237,6 +237,9 @@ INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('VE', 'Vecino')
 /*INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('C0', 'PreCoordinadora');
 INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('V0', 'PreVecino');*/
 
+-- Deshabilitar la verificación de claves foráneas
+SET FOREIGN_KEY_CHECKS = 0;
+
 -- Datos de usuario
 INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento, idcredenciales) VALUES
 ('Christopher','Terrones Peña','12345678','912345678','cterrones@gmail.com','123456','Calle 123','Urbanización ABC',NULL,NULL,'AD','08:00:00','16:00:00','1987-11-15',1),
@@ -269,6 +272,8 @@ INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, 
 ('Carlos','Martínez Díaz','45608901','945608901','cmartinez@gmail.com','mnopqr','Jirón 101',NULL,'Mañana','Con canino','SE','08:00:00','16:00:00','1987-01-28',28),
 ('Lucía','Gómez Ruiz','56780012','956780012','lgomez@gmail.com','stuvwx','Boulevard 202',NULL,'Tarde','En bicicleta','SE','16:00:00','00:00:00','1989-08-03',29),
 ('José','Fernández Torres','61890123','961890123','jfernandez@gmail.com','yzabcd','Alameda 303','Urbanización PQR',NULL,'Cultura','CO','00:00:00','08:00:00','1991-09-12',30);
+
+
 
 -- Datos de profesores
 INSERT INTO profesor (nombre, apellido, curso) VALUES
@@ -366,9 +371,25 @@ INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asist
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2002', '15', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2003', '2', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2003', '1', '1', '0',NULL);
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '2' '1', '0',NULL);
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '2', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '15', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '17', '0', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '3', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`,  `asistio`, `cometioFalta`, `descripcion`) VALUES ('2004', '5', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '13', '1', '1','Fomenta a la destruccion de la propiedad publica y genera altercados');
+
+-- credenciales
+
+
+-- Insertar datos en credenciales
+INSERT INTO credenciales (idCredenciales, idUsuario, correo, clave, claveHash)
+SELECT 
+    idUsuario as idCredenciales,
+    idUsuario,
+    correo,
+    clave,
+    SHA2(clave, 256) as claveHash
+FROM usuario;
+
+-- Habilitar la verificación de claves foráneas
+SET FOREIGN_KEY_CHECKS = 1;
