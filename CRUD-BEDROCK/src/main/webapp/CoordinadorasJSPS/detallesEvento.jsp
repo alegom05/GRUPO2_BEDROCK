@@ -10,6 +10,10 @@
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 
 <% Evento evento = (Evento) request.getAttribute("evento");
+    boolean mostrarGuardar = (Boolean) request.getAttribute("mostrarGuardar");
+    boolean mostrarIniciar = (Boolean) request.getAttribute("mostrarIniciar");
+    boolean mostrarCerrar = (Boolean) request.getAttribute("mostrarCerrar");
+
     %>
 <!DOCTYPE html>
 <html lang="en">
@@ -179,9 +183,92 @@
             </form>
         </div>
         <div class="container mt-4 text-center">
-            <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</a>
-            <a href="" class="btn btn-primary" >Iniciar evento</a>
-            <a href="" class="btn btn-primary" >Cerrar evento</a>
+
+            <!-- Versión que te lleva a modal, lo comento por el momento-->
+            <!--<a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</a>-->
+            <% if (mostrarGuardar) { %>
+            <button type="button" class="btn btn-primary" id="btnRedireccional">Guardar cambios</button>
+            <% } %>
+
+            <% if (mostrarIniciar) { %>
+            <button type="button" class="btn btn-primary" id="btnRedireccional" data-bs-toggle="modal" data-bs-target="#exampleModal">Iniciar evento</button>
+            <% } %>
+            <!-- Modal para iniciar evento (cambia el estado de "Pronto" a "En curso" -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Iniciar evento</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Está segur@ de inciar el evento?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <form method="POST" action="<%= request.getContextPath() %>/EventoServlet?action=eventoEnCurso">
+                                <div>
+                                    <input type="hidden" name="idEvento" value="<%=evento.getIdEvento()%>">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Confirmar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <% if (mostrarCerrar) { %>
+            <button type="button" class="btn btn-primary" id="btnRedireccional" data-bs-toggle="modal" data-bs-target="#culminarEventoModal" onclick="mostrarModalCulminar(<%= evento.getIdEvento()%>)">Culminar evento</button>
+            <% } %>
+            <!-- Modal para culminar evento -->
+            <div class="modal fade" id="culminarEventoModal" tabindex="-1" aria-labelledby="culminarEventoModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="culminarEventoModalLabel">Culminar evento</h1>
+                            <h3> Por favor, suba fotos del evento que demuestre su asistencia.</h3>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div id="alertaFoto" class="alert alert-danger" style="display: none;">
+                                Para continuar debe subir las fotos.
+                            </div>
+                            <form  class="row align-items-start mb-3" novalidate enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="imagen" class="form-label">Subir Imagen:</label>
+                                    <input type="file" id="imagenAsistencia" name="imagenAsistencia" class="form-control" accept="image/*">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-success" onclick="confirmarCulminar()">Continuar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal para confirmar el culminar -->
+            <div class="modal fade" id="confirmarCulminar" tabindex="-1" aria-labelledby="confirmarCulminarEvento" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="confirmarCulminarEvento">Confirmar acción</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Estás seguro de que deseas culminar este evento?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-danger" onclick="culminarEventoDefinitivamente()">Culminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
             <a href="" class="btn btn-primary" >Ver lista de participantes</a>
             <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="btn btn-primary ">Cancelar</a>
         </div>
@@ -248,7 +335,7 @@
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         function soloLetras(event) {
             var inputValue = event.key;
@@ -313,6 +400,59 @@
             document.getElementById('registroExitosoModal').setAttribute('style', 'display: none');
             document.body.classList.remove('modal-open');
             document.body.setAttribute('style', '');
+        });
+
+    </script>
+    <script>
+        $(document).ready(function() {
+            var eventoIdParaCulminar;
+
+            function mostrarModalCulminar(id) {
+                eventoIdParaCulminar = id;
+                $('#culminarEventoModal').modal('show');
+            }
+
+            function confirmarCulminar() {
+                var foto = document.getElementById('imagenAsistencia');
+                var alertaFoto = document.getElementById('alertaFoto');
+
+                if (!foto.files || !foto.files.length) {
+                    alertaFoto.style.display = 'block';
+                    setTimeout(function() {
+                        alertaFoto.style.display = 'none';
+                    }, 3000);
+                    return;
+                }
+                console.log("Ocultando modal 'culminarEventoModal'");
+                $('#culminarEventoModal').modal('hide');
+
+                console.log("Mostrando modal 'confirmarCulminar'");
+                $('#confirmarCulminar').modal('show');
+            }
+
+            function culminarEventoDefinitivamente() {
+                var foto = document.getElementById('imagenAsistencia');
+
+                if (eventoIdParaCulminar != null && foto.files.length > 0) {
+                    var formData = new FormData();
+                    formData.append('action', 'borrar');
+                    formData.append('id', eventoIdParaCulminar);
+                    formData.append('foto', foto.files[0]);
+
+                    // Realizar la solicitud de eliminación con la imagen
+                    $.ajax({
+                        url: '<%=request.getContextPath()%>/EventoServlet?action=publicarFotosAsistencia',
+                        type: 'POST',
+                        data: formData,
+                        processData: false, // No procesar los datos
+                        contentType: false, // No establecer el tipo de contenido
+                        success: function(response) {
+                            // Recargar la página para actualizar la tabla
+                            location.reload();
+                        }
+                    });
+                }
+            }
         });
 
     </script>

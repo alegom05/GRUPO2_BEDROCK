@@ -575,7 +575,7 @@ public class EventoDao {
     }
 
     //Este dao permitirá iniciar un evento, debido a eso el query actualizará el estado del evento,
-    public void editarEstadoInicioEvento(String id) {
+    public void editarEstadoEventoEnCurso(String id) {
         try {
             String user = "root";
             String pass = "root";
@@ -592,5 +592,55 @@ public class EventoDao {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    //Esta función permitirá la culminación de un evento, (lo usa coordi)
+    public void editarEstadoEventoCuliminado(String id) {
+        try {
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://127.0.0.1:3306/basedeDatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+                String sql = "UPDATE evento SET estadoEvento = 'Culminado' WHERE idEvento = ?;";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setInt(1, Integer.parseInt(id));
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void publicarFotosAsistencia(Evento evento){
+
+        try{
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://localhost:3306/basededatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+
+            try (Connection conn= DriverManager.getConnection(url, user,pass)){
+                String sql= "INSERT INTO fotosdeeventos (fotosDeEventos)"+
+                        "VALUES (?)";
+
+                try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+                    if (evento.getFoto() != null) {
+                        pstmt.setBlob(1, evento.getFotoAsistenciaEvento());
+                    } else {
+                        pstmt.setNull(1, Types.BLOB);
+                    }
+
+                }
+            }
+
+        }catch (SQLException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+
     }
 }

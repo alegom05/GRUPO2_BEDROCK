@@ -132,10 +132,9 @@ public class EventoServlet extends HttpServlet {
                         request.setAttribute("evento", evento2);
 
                         String estado = evento2.getEstadoEvento();
-                        /*request.setAttribute("mostrarEvaluar", "Nueva".equals(estado));
-                        request.setAttribute("mostrarVerEvaluacion", "En proceso".equals(estado));
-                        request.setAttribute("mostrarFalsaAlarma", "Nueva".equals(estado) || "En proceso".equals(estado));
-                        request.setAttribute("mostrarCerrar","En proceso".equals(estado));*/
+                        request.setAttribute("mostrarGuardar","Pronto".equals(estado));
+                        request.setAttribute("mostrarIniciar", "Pronto".equals(estado));
+                        request.setAttribute("mostrarCerrar","En curso".equals(estado));
 
 
                         view = request.getRequestDispatcher("/CoordinadorasJSPS/detallesEvento.jsp");
@@ -269,6 +268,21 @@ public class EventoServlet extends HttpServlet {
 
                 break;
 
+            //Este case servirá para que coordi confirme que asistió al evento (por ahora solo podemos subir una foto,
+            //se debe arreglar base de datos para solucionar eso)
+            case "publicarFotosAsistencia":
+                Part filePart2 = request.getPart("imagen"); // Obtén la parte del archivo
+                InputStream foto2 = null;
+                if (filePart2 != null && filePart2.getSize() > 0) {
+                    foto2 = filePart2.getInputStream(); // Lee el contenido del archivo como un InputStream
+                }
+                Evento evento2 = new Evento();
+                evento2.setFoto(foto2);
+                eventoDao.publicarFotosAsistencia(evento2);
+                response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+
+                break;
+
             case "modificar":
                 /*
                 String nombre2 = request.getParameter("nombre");
@@ -344,10 +358,30 @@ public class EventoServlet extends HttpServlet {
                 }*/
                 break;
 
-            //Case que servirá para inciar el evento
-            case "eventoIniciado":
-
+            //Case que servirá para inciar el evento que ha creado la coordinadora, cambiará su parámetro de estado "pronto"
+            // a un estado "en curso"
+            case "eventoEnCurso":
+                String idEvento = request.getParameter("idEvento");
+                if (idEvento != null) {
+                    eventoDao.editarEstadoEventoEnCurso(idEvento);
+                    response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
                 break;
+
+            //Case que servirá para culminar el evento que ha creado la coordinadora, cambiará su parámetro de estado "En curso"
+            // a un estado "Culminado"
+            case "eventoCulminado":
+                String idEvento2 = request.getParameter("idEvento");
+                if (idEvento2 != null) {
+                    eventoDao.editarEstadoEventoEnCurso(idEvento2);
+                    response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+                break;
+
         }
     }
     /*public Usuario leerParametrosRequest(HttpServletRequest request) {

@@ -22,6 +22,7 @@ public class Evento {
     private int idProfesor;
     private String estadoEvento;
     private String nombreProfesor;
+    private InputStream fotoAsistenciaEvento;
 
     public String getNombreProfesor() {
         return nombreProfesor;
@@ -141,5 +142,13 @@ public class Evento {
 
     public void setEstadoEvento(String estadoEvento) {
         this.estadoEvento = estadoEvento;
+    }
+
+    public InputStream getFotoAsistenciaEvento() {
+        return fotoAsistenciaEvento;
+    }
+
+    public void setFotoAsistenciaEvento(InputStream fotoAsistenciaEvento) {
+        this.fotoAsistenciaEvento = fotoAsistenciaEvento;
     }
 }
