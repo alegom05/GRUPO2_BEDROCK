@@ -101,13 +101,15 @@ public class IncidenciaServlet extends HttpServlet {
                 //detalle de incidencia para coordi
             case "detallar3":
                 String id3 = request.getParameter("id");
+                int idint = Integer.parseInt(id3);
                 if (incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id3)) != null) {
-                    Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id3));
+                    Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(idint);
                     request.setAttribute("incidencia", incidencia);
                     RequestDispatcher view1 = request.getRequestDispatcher("/CoordinadorasJSPS/detallesIncidencia.jsp");
                     view1.forward(request, response);
                 }else {
-                    response.sendRedirect("error.jsp");
+                   System.out.println("Incidencia no encontrada para el ID: " + id3); // Log de incidencia no encontrada
+                   //response.sendRedirect("error.jsp");
                 }
                 break;
             //para que el vecino cree una incidencia

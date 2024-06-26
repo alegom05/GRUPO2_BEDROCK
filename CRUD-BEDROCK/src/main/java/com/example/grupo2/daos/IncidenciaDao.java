@@ -329,7 +329,7 @@ public class IncidenciaDao {
         String username = "root";
         String password = "root";
 
-        String sql = "select i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.lugar\n" +
+        String sql = "select i.idIncidenciaReportada,i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.lugar\n" +
                 "                                          from incidencia i\n" +
                 "                                          join tipo t on i.idtipo = t.idtipo\n" +
                 "                                         where i.isDeleted = 0 and idUsuario=?;";
@@ -340,10 +340,11 @@ public class IncidenciaDao {
             ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
                 Incidencia incidencia = new Incidencia();
-                incidencia.setNombreIncidencia(rs.getString(1));
-                incidencia.setTipoIncidencia(rs.getString(2));
-                incidencia.setFechaIncidencia(rs.getString(3));
-                incidencia.setLugar(rs.getString(4));
+                incidencia.setIdIncidencia(rs.getInt(1));
+                incidencia.setNombreIncidencia(rs.getString(2));
+                incidencia.setTipoIncidencia(rs.getString(3));
+                incidencia.setFechaIncidencia(rs.getString(4));
+                incidencia.setLugar(rs.getString(5));
 
                 listaIncidenciasUnUsuario.add(incidencia);
             }
