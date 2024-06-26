@@ -164,7 +164,8 @@ public class EventoServlet extends HttpServlet {
                             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/inscribirse-Vecino.jsp");
                             requestDispatcher.forward(request, response);
                         }else{
-                            request.setAttribute("estaRegistrado", 1);
+                            HttpSession currentSession = request.getSession();
+                            currentSession.setAttribute("estaRegistrado", 1);
                             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/EventoServlet?action=listarEventoFiltrado");
                             requestDispatcher.forward(request, response);
                         }
@@ -351,9 +352,9 @@ public class EventoServlet extends HttpServlet {
                         }
                     }
                     // Almacenar atributos en la sesión
-                    HttpSession session = request.getSession();
-                    request.setAttribute("inscripcionExitosa", 1);
-                    request.setAttribute("numAcompanantes", numAcompanantes);
+                    HttpSession currentSession = request.getSession();
+                    currentSession.setAttribute("inscripcionExitosa", 1);
+                    currentSession.setAttribute("numAcompanantes", numAcompanantes);
                     // Redirigir a la página de eventos filtrados
                     response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listarEventoFiltrado");
                     /*try {

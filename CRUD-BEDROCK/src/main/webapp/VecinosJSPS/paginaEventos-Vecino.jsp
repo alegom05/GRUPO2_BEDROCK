@@ -11,6 +11,9 @@
 <%@ page import="java.lang.Math" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+<%
+    HttpSession currentSession = request.getSession();
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -162,9 +165,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Te has inscrito correctamente.
-                    <% if (request.getAttribute("numAcompanantes") != null) { %>
-                    <p>Número de acompañantes: <%= request.getAttribute("numAcompanantes") %></p>
+                    Te has inscrito correctamente!!!
+                    <% if (currentSession.getAttribute("numAcompanantes") != null) { %>
+                    <p>Número de acompañantes: <%= currentSession.getAttribute("numAcompanantes") %></p>
                     <% } %>
                 </div>
                 <div class="modal-footer">
@@ -179,19 +182,30 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
     // Mostrar el modal si el atributo estaRegistrado es 1
-    <% if (request.getAttribute("estaRegistrado") != null && (int) request.getAttribute("estaRegistrado") == 1) { %>
+    <%
+        if (currentSession.getAttribute("estaRegistrado") != null && (int) currentSession.getAttribute("estaRegistrado") == 1) {
+    %>
     var myModal = new bootstrap.Modal(document.getElementById('registroModal'), {
         keyboard: false
     });
     myModal.show();
-    <% } %>
+    <%
+        currentSession.removeAttribute("estaRegistrado");
+    }
+    %>
     // Mostrar el modal si la inscripción fue exitosa
-    <% if (request.getAttribute("inscripcionExitosa") != null && (int) request.getAttribute("inscripcionExitosa") == 1) { %>
+    <%
+        if (currentSession.getAttribute("inscripcionExitosa") != null && (int) currentSession.getAttribute("inscripcionExitosa") == 1) {
+    %>
     var inscripcionModal = new bootstrap.Modal(document.getElementById('inscripcionModal'), {
         keyboard: false
     });
     inscripcionModal.show();
-    <% } %>
+    <%
+        currentSession.removeAttribute("inscripcionExitosa");
+        currentSession.removeAttribute("numAcompanantes");
+    }
+    %>
 </script>
 </body>
 </html>
