@@ -256,6 +256,7 @@ public class EventoDao {
                 Evento evento = new Evento();
                 evento.setIdEvento(rs.getInt(1));
                 evento.setNombre(rs.getString(2));
+
                 evento.setFechaInicial(rs.getDate(3));
                 evento.setFechaFinal(rs.getDate(4));
                 Blob fotoBlob = rs.getBlob(12);

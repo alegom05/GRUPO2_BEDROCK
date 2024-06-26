@@ -136,9 +136,63 @@
             }
         %>
     </div>
+    <!-- Modal Ya inscrito -->
+    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registroModalLabel">Aviso</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Ya estás registrado en este evento.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de inscripción exitosa -->
+    <div class="modal fade" id="inscripcionModal" tabindex="-1" aria-labelledby="inscripcionModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="inscripcionModalLabel">Inscripción Exitosa</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Te has inscrito correctamente.
+                    <% if (request.getAttribute("numAcompanantes") != null) { %>
+                    <p>Número de acompañantes: <%= request.getAttribute("numAcompanantes") %></p>
+                    <% } %>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Script de Bootstrap -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Mostrar el modal si el atributo estaRegistrado es 1
+    <% if (request.getAttribute("estaRegistrado") != null && (int) request.getAttribute("estaRegistrado") == 1) { %>
+    var myModal = new bootstrap.Modal(document.getElementById('registroModal'), {
+        keyboard: false
+    });
+    myModal.show();
+    <% } %>
+    // Mostrar el modal si la inscripción fue exitosa
+    <% if (request.getAttribute("inscripcionExitosa") != null && (int) request.getAttribute("inscripcionExitosa") == 1) { %>
+    var inscripcionModal = new bootstrap.Modal(document.getElementById('inscripcionModal'), {
+        keyboard: false
+    });
+    inscripcionModal.show();
+    <% } %>
+</script>
 </body>
 </html>
 
