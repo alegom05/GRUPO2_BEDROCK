@@ -29,7 +29,7 @@
                 <a href="${pageContext.request.contextPath}/AdminIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/AdministradorJSPS/solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
+                <a href="<%=request.getContextPath()%>/Solicitudes" class="nav-link">Administración de solicitudes</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Serenazgos" class="nav-link">Serenazgos</a>
@@ -52,6 +52,7 @@
 
 
 <div class="container-fluid py-3" id="primerBloque">
+    <br>
     <h2 class="mb-4 text-center display-5" id="bicentenario">¡Nuestra misión como administrador!</h2>
 </div>
     <div class="contenedor mt-4">

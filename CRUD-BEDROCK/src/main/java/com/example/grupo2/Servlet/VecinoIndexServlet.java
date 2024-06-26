@@ -1,10 +1,13 @@
 package com.example.grupo2.Servlet;
 
+import com.example.grupo2.Beans.Usuario;
+import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
@@ -15,23 +18,26 @@ public class VecinoIndexServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher;
 
-        requestDispatcher = request.getRequestDispatcher("./VecinosJSPS/paginaPrincipalBeta-Vecino.jsp");
+        request.setCharacterEncoding("UTF-8");
+        String action = request.getParameter("action") == null ? "pagPrincipal" : request.getParameter("action");
+        UsuarioDao newVecinoDao = new UsuarioDao();
 
-        requestDispatcher.forward(request,response);
-
-        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
-
-        //VecinosDao newVecinoDao = new VecinosDao();
-
-        switch (action){
-            case "new":
-                request.getRequestDispatcher("./VecinosJSPS/reportarIncidenciaPrueba.jsp").forward(request,response);
-                break;
-            case "historialEventos":
-                request.getRequestDispatcher("./VecinosJSPS/historialEventosVecino.jsp").forward(request,response);
-                break;
-
-
+        switch (action) {
+            case "pagPrincipal" -> {
+                requestDispatcher = request.getRequestDispatcher("./VecinosJSPS/paginaPrincipalBeta-Vecino.jsp");
+                requestDispatcher.forward(request,response);
+            }
+            case "editar" -> {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Usuario vecino = newVecinoDao.buscarPorId(id);
+                if (vecino != null) {
+                    request.setAttribute("usuarioSesion", vecino);
+                    requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/detallesUsuario-Vecino.jsp");
+                    requestDispatcher.forward(request, response);
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/VecinoIndexServlet");
+                }
+            }
         }
 
     }
@@ -39,63 +45,37 @@ public class VecinoIndexServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
+        UsuarioDao userDao = new UsuarioDao();
 
-        switch (action){
-            case "crear"://creamos una nueva incidencia
+        switch (action) {
+            case "actualizarDatos" -> {
+                Usuario vecino = leerParametrosRequest(request);
+                userDao.actualizar(vecino);
+                response.sendRedirect(request.getContextPath() + "/VecinoIndexServlet");
 
-                String nombreIncidencia=request.getParameter("");
-                String descripcionIncidencia=request.getParameter("");
-                String lugarIncidencia=request.getParameter("");
-                String referenciaIncidencia=request.getParameter("");
-                String contactoIncidencia=request.getParameter("contacto");
-                String tipoIncidencia=request.getParameter("tipo");
-                String ambulancia=request.getParameter("ambulancia");
+            }
+            case "cambiarContra" -> {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String clave = request.getParameter("clave");
+            }
 
-                String idTipoIncidencia="";
-                Boolean requiereAmbulancia=true;
-
-                switch (tipoIncidencia){
-                    case "accidente":
-                        idTipoIncidencia="AC";
-                        break;
-                    case "alteracion_del_orden":
-                        idTipoIncidencia="AL";
-                        break;
-                    case "robo":
-                        idTipoIncidencia="RO";
-                        break;
-                    case "emergencia_medica":
-                        idTipoIncidencia="EM";
-                        break;
-                    default:
-                        idTipoIncidencia="OT";
-                        break;
-
-                }
-                switch (ambulancia){
-                    case "si":
-                        requiereAmbulancia=true;
-                        break;
-                    case "no":
-                        requiereAmbulancia=false;
-                        break;
-                    default:
-                        requiereAmbulancia=true;
-                        break;
-
-                }
-
-                boolean isAllValid = true;
-
-                if(isAllValid){
-
-                    response.sendRedirect(request.getContextPath() + "/JobServlet");
-                }else{
-                    request.getRequestDispatcher("VecinosJSPS/reportarIncidenciaPrueba.jsp").forward(request,response);
-                }
-                break;
+        }
     }
+    public Usuario leerParametrosRequest(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String urbanizacion = request.getParameter("urbanizacionInput");
+        String direccion = request.getParameter("direccionInput");
+        String telefono = request.getParameter("telefonoInput");
+        String contrasenia = request.getParameter("contrasenia");
+
+        Usuario vecino = new Usuario();
+        vecino.setId(id);
+        vecino.setUrbanizacion(urbanizacion);
+        vecino.setNumtelefono(telefono);
+        vecino.setDireccion(direccion);
+        vecino.setClave(contrasenia);
+
+        return vecino;
     }
 }
