@@ -18,54 +18,53 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JuntosPorSanMiguel</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior" style="overflow-x: hidden">
-    <div class="row">
-        <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-            <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+    <div class="ParteSuperior" style="overflow-x: hidden">
+        <div class="row">
+            <div class="col-md-3 d-flex justify-content-start align-items-center">
+                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+                <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+            </div>
+            <div class="col-md-9 d-flex align-items-center justify-content-end">
+                <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
+                <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
+                    <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                </a>
+            </div>
         </div>
-        <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
-            <a href="logIN.html">
-                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
-            </a>
-        </div>
-    </div>
-    <nav class="letra_botones_encabezado">
-        <ul class="nav">
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
-            </li>
+        <nav class="letra_botones_encabezado">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
+                </li>
 
-            <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear2" class="nav-link">Reportar Incidencia</a>
-            </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
-            </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
-            </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
-            </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
-            </li>
-        </ul>
-    </nav>
-</div>
-<!--<div id="container-frase" style="max-width: 80%; margin: 0 auto; margin-top: 70px; margin-bottom:10px">
-    <h1>
-        hola
-    </h1>
-</div>-->
+                <li class="nav-item">
+                    <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear2" class="nav-link">Reportar Incidencia</a>
+                </li>
+                <li class="nav-item">
+                    <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                </li>
+                <li class="nav-item">
+                    <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
+                </li>
+                <li class="nav-item">
+                    <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
+                </li>
+                <li class="nav-item">
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <!--<div id="container-frase" style="max-width: 80%; margin: 0 auto; margin-top: 70px; margin-bottom:10px">
+        <h1>
+            hola
+        </h1>
+    </div>-->
 
 <div id="container-evento-det" style="max-width: 80%; margin: 0 auto; margin-top: 70px;">
 
@@ -177,10 +176,7 @@
                         </div>
                     </div>
                 </div>
-
             </form>
-
-
         </div>
         <div class="container mt-4 text-center">
             <a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</a>
@@ -251,6 +247,7 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <script>
         function soloLetras(event) {
@@ -319,5 +316,6 @@
         });
 
     </script>
+</div>
 </body>
 </html>
