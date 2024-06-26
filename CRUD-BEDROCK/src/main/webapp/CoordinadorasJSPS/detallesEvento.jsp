@@ -235,7 +235,7 @@
                             </div>
                             <form  class="row align-items-start mb-3" novalidate enctype="multipart/form-data">
                                 <div class="mb-3">
-                                    <label for="imagen" class="form-label">Subir Imagen:</label>
+                                    <label for="imagenAsistencia" class="form-label">Subir Imagen:</label>
                                     <input type="file" id="imagenAsistencia" name="imagenAsistencia" class="form-control" accept="image/*">
                                 </div>
                             </form>
@@ -336,7 +336,58 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <script>
+
+
+        function mostrarModalCulminar(id) {
+            eventoIdParaCulminar = id;
+            $('#culminarEventoModal').modal('show');
+        }
+
+        function confirmarCulminar() {
+            var foto = document.getElementById('imagenAsistencia');
+            var alertaFoto = document.getElementById('alertaFoto');
+
+            if (!foto.files || !foto.files.length) {
+                alertaFoto.style.display = 'block';
+                setTimeout(function() {
+                    alertaFoto.style.display = 'none';
+                }, 3000);
+                return;
+            }
+            console.log("Ocultando modal 'culminarEventoModal'");
+            $('#culminarEventoModal').modal('hide');
+
+            console.log("Mostrando modal 'confirmarCulminar'");
+            $('#confirmarCulminar').modal('show');
+        }
+
+        function culminarEventoDefinitivamente() {
+            var foto = document.getElementById('imagenAsistencia');
+            var idDeEvento = eventoIdParaCulminar; // Supongo que idDeEvento es el mismo que eventoIdParaCulminar
+
+            if (idDeEvento != null && foto.files.length > 0) {
+                var formData = new FormData();
+                formData.append('action', 'culminar');
+                formData.append('id', idDeEvento);
+                formData.append('foto', foto.files[0]);
+
+                // Realizar la solicitud de eliminación con la imagen
+                $.ajax({
+                    url: '<%=request.getContextPath()%>/EventoServlet',
+                    action: 'publicarFotosAsistencia',
+                    type: 'POST',
+                    data: formData,
+                    processData: false, // No procesar los datos
+                    contentType: false, // No establecer el tipo de contenido
+                    success: function(response) {
+                        // Recargar la página para actualizar la tabla
+                        location.reload();
+                    }
+                });
+            }
+        }
         function soloLetras(event) {
             var inputValue = event.key;
             if (!/^[a-zA-Z\s]*$/.test(inputValue)) {
@@ -403,59 +454,7 @@
         });
 
     </script>
-    <script>
-        $(document).ready(function() {
-            var eventoIdParaCulminar;
 
-            function mostrarModalCulminar(id) {
-                eventoIdParaCulminar = id;
-                $('#culminarEventoModal').modal('show');
-            }
-
-            function confirmarCulminar() {
-                var foto = document.getElementById('imagenAsistencia');
-                var alertaFoto = document.getElementById('alertaFoto');
-
-                if (!foto.files || !foto.files.length) {
-                    alertaFoto.style.display = 'block';
-                    setTimeout(function() {
-                        alertaFoto.style.display = 'none';
-                    }, 3000);
-                    return;
-                }
-                console.log("Ocultando modal 'culminarEventoModal'");
-                $('#culminarEventoModal').modal('hide');
-
-                console.log("Mostrando modal 'confirmarCulminar'");
-                $('#confirmarCulminar').modal('show');
-            }
-
-            function culminarEventoDefinitivamente() {
-                var foto = document.getElementById('imagenAsistencia');
-
-                if (eventoIdParaCulminar != null && foto.files.length > 0) {
-                    var formData = new FormData();
-                    formData.append('action', 'borrar');
-                    formData.append('id', eventoIdParaCulminar);
-                    formData.append('foto', foto.files[0]);
-
-                    // Realizar la solicitud de eliminación con la imagen
-                    $.ajax({
-                        url: '<%=request.getContextPath()%>/EventoServlet?action=publicarFotosAsistencia',
-                        type: 'POST',
-                        data: formData,
-                        processData: false, // No procesar los datos
-                        contentType: false, // No establecer el tipo de contenido
-                        success: function(response) {
-                            // Recargar la página para actualizar la tabla
-                            location.reload();
-                        }
-                    });
-                }
-            }
-        });
-
-    </script>
 </div>
 </body>
 </html>

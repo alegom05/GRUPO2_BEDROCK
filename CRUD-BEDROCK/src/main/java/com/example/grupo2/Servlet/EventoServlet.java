@@ -276,13 +276,16 @@ public class EventoServlet extends HttpServlet {
             //Este case servirá para que coordi confirme que asistió al evento (por ahora solo podemos subir una foto,
             //se debe arreglar base de datos para solucionar eso)
             case "publicarFotosAsistencia":
-                Part filePart2 = request.getPart("imagen"); // Obtén la parte del archivo
+                Part filePart2 = request.getPart("imagenAsistencia"); // Obtén la parte del archivo
                 InputStream foto2 = null;
                 if (filePart2 != null && filePart2.getSize() > 0) {
                     foto2 = filePart2.getInputStream(); // Lee el contenido del archivo como un InputStream
                 }
+                String idEventoAsistencia = request.getParameter("idEvento");
+                System.out.println(idEventoAsistencia);
                 Evento evento2 = new Evento();
                 evento2.setFoto(foto2);
+                evento2.setIdEvento(Integer.parseInt(idEventoAsistencia));
                 eventoDao.publicarFotosAsistencia(evento2);
                 response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
 
