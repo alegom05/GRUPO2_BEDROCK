@@ -312,6 +312,24 @@ public class EventoServlet extends HttpServlet {
                     int idUsuario3 = Integer.parseInt(idStrUsu);
                     int idEvento2 = Integer.parseInt(idStrEvento);
                     usuarioDao.inscribirEvento(idUsuario3,idEvento2);
+
+                    // Obtener los acompañantes adicionales
+                    for (int i = 1; i <= 3; i++) { // Suponiendo máximo 3 acompañantes
+                        String i_str = String.valueOf(i); // Convertir el índice a String
+
+                        String nombreAcomp = request.getParameter("nombreAcomp" + i_str);
+                        String apellidoAcomp = request.getParameter("apellidoAcomp" + i_str);
+                        String dniAcomp = request.getParameter("dniAcomp" + i_str);
+                        if (nombreAcomp != null && !nombreAcomp.isEmpty() &&
+                                apellidoAcomp != null && !apellidoAcomp.isEmpty() &&
+                                dniAcomp != null && !dniAcomp.isEmpty()) {
+                            acompanante.setNombre(nombreAcomp);
+                            acompanante.setApellido(apellidoAcomp);
+                            acompanante.setDni(dniAcomp);
+                            usuarioDao.inscribirConAconpanante(acompanante,idUsuario3,idEvento2);
+                        }
+                        response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listarEventoFiltrado");
+                    }
                     /*try {
                         int idUsuario = Integer.parseInt(idStrUsu);
                         int idEvento = Integer.parseInt(idStrEvento);
@@ -324,23 +342,6 @@ public class EventoServlet extends HttpServlet {
                 } /*else {
                     response.sendRedirect(request.getContextPath() + "/ruta/error");
                 }*/
-                // Obtener los acompañantes adicionales
-                /*ArrayList<Usuario> lista_acompanantes = new ArrayList<>();
-                for (int i = 1; i <= 3; i++) { // Suponiendo máximo 3 acompañantes
-                    String nombreAcomp = request.getParameter("nombreAcomp" + i);
-                    String apellidoAcomp = request.getParameter("apellidoAcomp" + i);
-                    String dniAcomp = request.getParameter("dniAcomp" + i);
-                    if (nombreAcomp != null && !nombreAcomp.isEmpty() &&
-                            apellidoAcomp != null && !apellidoAcomp.isEmpty() &&
-                            dniAcomp != null && !dniAcomp.isEmpty()) {
-                        acompanante.setNombre(nombreAcomp);
-                        acompanante.setNombre(apellidoAcomp);
-                        acompanante.setNombre(dniAcomp);
-                        lista_acompanantes.add(acompanante);
-                    }
-                }*/
-                //response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);
-
                 break;
         }
     }

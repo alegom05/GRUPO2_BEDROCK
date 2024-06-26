@@ -155,6 +155,33 @@ public class UsuarioDao {
         }
     }
 
+    public static void inscribirConAconpanante(Usuario aconpanante, int IdUsuario, int IdEvento){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "INSERT INTO basededatos3.aconpanantes (NombreAconpanantes, ApellidoAconpanantes, DniAconpanantes, evento_has_usuario_idEvento, evento_has_usuario_idUsuario)\n" +
+                "VALUES (?,?,?,?,?);\n";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, aconpanante.getNombre());
+            pstmt.setString(2, aconpanante.getApellido());
+            pstmt.setString(3, aconpanante.getDni());
+            pstmt.setInt(4, IdEvento);
+            pstmt.setInt(5, IdUsuario);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /*public Incidencia obtenerIncidenciaPorId(int id) {
 
         try {
