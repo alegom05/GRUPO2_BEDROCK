@@ -33,9 +33,7 @@
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
                 </li>
-                <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
-                </li>
+
                 <li class="nav-item">
                     <a href="<%=request.getContextPath()%>/Coordis?a=formCrearInci" class="nav-link">Reportar Incidencia</a>
                 </li>

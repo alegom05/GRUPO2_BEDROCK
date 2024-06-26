@@ -39,9 +39,7 @@
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
             </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="nav-link">Eventos</a>
-            </li>
+
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
             </li>
@@ -94,7 +92,7 @@
                     <td><%= incidencia.getNombreIncidencia() %></td>
                     <td><%= incidencia.getFechaIncidencia() %></td>
                     <td><%= incidencia.getLugar() %></td>
-                    <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
+                    <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%=(incidencia.getIdIncidencia()) %>)">
                         <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="VerDetalles">
                     </button> </td>
                 </tr>
@@ -148,17 +146,18 @@
             table.search('').columns().search('').draw();
         });
     });
+
+</script>
+<script>
     function detallesIncidencia(id) {
         // Redireccionar a otra página HTML
-        window.location.href = '<%=request.getContextPath()%>/Incidencias?action=detallar3&id=' + id;
+        window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=detallar3&id=' + id;
     }
 
     function detallesIncidencia1() {
         // Redireccionar a otra página HTML
         window.location.href = 'detallesIncidencias.html';
     }
-
-
 </script>
 </body>
 </html>

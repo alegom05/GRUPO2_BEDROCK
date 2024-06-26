@@ -28,7 +28,7 @@
             <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <a href="DetallesUsuario.html">
+            <a href="${pageContext.request.contextPath}/VecinosJSPS/detallesUsuario-Vecino.jsp">
                 <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
@@ -88,12 +88,82 @@
                 </div>
             </div>
         </div>
-
-        <div class="mt-2" id="acompanantesContainer"></div>
-        <div>
-            <button type="button" class="btn btn-primary mt-3" onclick="agregarAcomp()" style="width: 100%">Agregar acompañante adicional</button>
-            <div id="mensaje" class="mensaje text-center" style="display: none;"></div>
+        <div id="acompanantesContainer">
+            <!-- Acompañante 1 -->
+            <div class="mt-2">
+                <h4 class="labelFormulario">Acompañante 1</h4>
+                <div class="row align-items-start">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="nombreAcomp1" class="form-label">Nombre</label>
+                            <input type="text" id="nombreAcomp1" name="nombreAcomp1" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="apellidoAcomp1" class="form-label">Apellido</label>
+                            <input type="text" id="apellidoAcomp1" name="apellidoAcomp1" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="dniAcomp1" class="form-label">DNI</label>
+                            <input type="text" id="dniAcomp1" name="dniAcomp1" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Acompañante 2 -->
+            <div class="mt-2">
+                <h4 class="labelFormulario">Acompañante 2</h4>
+                <div class="row align-items-start">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="nombreAcomp2" class="form-label">Nombre</label>
+                            <input type="text" id="nombreAcomp2" name="nombreAcomp2" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="apellidoAcomp2" class="form-label">Apellido</label>
+                            <input type="text" id="apellidoAcomp2" name="apellidoAcomp2" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="dniAcomp2" class="form-label">DNI</label>
+                            <input type="text" id="dniAcomp2" name="dniAcomp2" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Acompañante 3 -->
+            <div class="mt-2">
+                <h4 class="labelFormulario">Acompañante 3</h4>
+                <div class="row align-items-start">
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="nombreAcomp3" class="form-label">Nombre</label>
+                            <input type="text" id="nombreAcomp3" name="nombreAcomp3" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="apellidoAcomp3" class="form-label">Apellido</label>
+                            <input type="text" id="apellidoAcomp3" name="apellidoAcomp3" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="mb-3">
+                            <label for="dniAcomp3" class="form-label">DNI</label>
+                            <input type="text" id="dniAcomp3" name="dniAcomp3" class="form-control" placeholder="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="labelFormulario">Nota: Recuerde que si va a agregar Acompañantes tiene que llenar todo el campo correspondiente o no se le registrará</h6>
         </div>
+
         <div>
             <button type="submit" class="btn btn-primary mt-3" id="boton">Confirmar</button>
             <button type="button" class="btn btn-primary mt-3" id="boton" onclick="window.history.back()">Volver</button>
@@ -122,7 +192,7 @@
                     successMessage.style.display = 'block';
                     setTimeout(() => {
                         successMessage.style.display = 'none';
-                    }, 3000); // El mensaje se ocultará después de 2 segundos (5000 milisegundos)
+                    }, 3000); // El mensaje se ocultará después de 3 segundos (3000 milisegundos)
                 }
                 form.classList.add('was-validated');
             }, false)
@@ -139,6 +209,7 @@
         document.getElementById("apellidoPersona").removeAttribute("placeholder");
         document.getElementById("dniPersona").removeAttribute("placeholder");
     }
+
     function mostrarMensaje(mensaje, tipo) {
         const mensajeDiv = document.getElementById('mensaje');
         mensajeDiv.textContent = mensaje;
@@ -154,60 +225,6 @@
         setTimeout(() => {
             mensajeDiv.style.display = 'none';
         }, 3000);
-    }
-
-    function agregarAcomp() {
-        if (numAcomp >= 3) {
-            mostrarMensaje('No puedes agregar más de 3 acompañantes!', 'error');
-            return;
-        }
-
-        numAcomp++;
-        const nuevoAcomp = `
-                <div class="mt-2">
-                    <h4 class="labelFormulario">Acompañante ${numAcomp}</h4>
-                    <div class="row align-items-start">
-                        <div class="col">
-                            <div class="mb-3">
-                                <label for="nombreAcomp${numAcomp}" class="form-label">Nombre</label>
-                                <input type="text" id="nombreAcomp${numAcomp}" class="form-control" placeholder="" required>
-                                <div class="valid-feedback">
-                                    Todo correcto
-                                </div>
-                                <div class="invalid-feedback">
-                                    Es necesario poner el nombre
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="mb-3">
-                                <label for="apellidoAcomp${numAcomp}" class="form-label">Apellido</label>
-                                <input type="text" id="apellidoAcomp${numAcomp}" class="form-control" placeholder="" required>
-                                <div class="valid-feedback">
-                                    Todo correcto
-                                </div>
-                                <div class="invalid-feedback">
-                                    Es necesario poner el apellido
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="mb-3">
-                                <label for="dniAcomp${numAcomp}" class="form-label">DNI</label>
-                                <input type="text" id="dniAcomp${numAcomp}" class="form-control" placeholder="" required>
-                                <div class="valid-feedback">
-                                    Todo correcto
-                                </div>
-                                <div class="invalid-feedback">
-                                    Es necesario poner el DNI
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-        document.getElementById("acompanantesContainer").insertAdjacentHTML("beforeend", nuevoAcomp);
     }
 
     // Validar que solo se ingresen letras en los campos de nombre y apellido
@@ -227,9 +244,8 @@
             event.target.value = value;
         }
     });
-
-
 </script>
+
 
 
 </body>

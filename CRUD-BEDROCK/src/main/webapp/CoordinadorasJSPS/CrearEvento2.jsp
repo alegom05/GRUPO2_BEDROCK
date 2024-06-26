@@ -37,9 +37,7 @@
             <li class="nav-item">
                 <a href="<%= request.getContextPath() %>/PaginaPrincipal.jsp" class="nav-link">Municipalidad</a>
             </li>
-            <li class="nav-item">
-                <a href="<%= request.getContextPath() %>/PaginaEventos.jsp" class="nav-link">Eventos</a>
-            </li>
+
             <li class="nav-item">
                 <a href="<%= request.getContextPath() %>/ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
             </li>
