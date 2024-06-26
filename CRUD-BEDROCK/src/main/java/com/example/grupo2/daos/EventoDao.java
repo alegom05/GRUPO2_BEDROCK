@@ -573,4 +573,24 @@ public class EventoDao {
         System.out.println(listaEventosUsuario);
         return listaEventosUsuario;
     }
+
+    //Este dao permitirá iniciar un evento, debido a eso el query actualizará el estado del evento,
+    public void editarEstadoInicioEvento(String id) {
+        try {
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://127.0.0.1:3306/basedeDatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+                String sql = "UPDATE evento SET estadoEvento = 'En curso' WHERE idEvento = ?;";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                    pstmt.setInt(1, Integer.parseInt(id));
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

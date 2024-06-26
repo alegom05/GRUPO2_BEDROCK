@@ -343,6 +343,11 @@ public class EventoServlet extends HttpServlet {
                     response.sendRedirect(request.getContextPath() + "/ruta/error");
                 }*/
                 break;
+
+            //Case que servirá para inciar el evento
+            case "eventoIniciado":
+
+                break;
         }
     }
     /*public Usuario leerParametrosRequest(HttpServletRequest request) {
