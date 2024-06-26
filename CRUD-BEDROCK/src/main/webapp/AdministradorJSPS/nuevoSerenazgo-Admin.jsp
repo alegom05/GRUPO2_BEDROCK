@@ -38,7 +38,7 @@
         <a href="<%=request.getContextPath()%>/AdminIndexServlet" class="nav-link">Página principal</a>
       </li>
       <li class="nav-item">
-        <a href="${pageContext.request.contextPath}/AdministradorJSPS/solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
+        <a href="<%=request.getContextPath()%>/Solicitudes" class="nav-link">Administración de solicitudes</a>
       </li>
       <li class="nav-item">
         <a href="<%=request.getContextPath()%>/Serenazgos" class="nav-link">Serenazgos</a>

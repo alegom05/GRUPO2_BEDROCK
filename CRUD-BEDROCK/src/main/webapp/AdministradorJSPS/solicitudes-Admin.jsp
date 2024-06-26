@@ -6,6 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.grupo2.Beans.Solicitudes" %>
+<%@ page import="java.util.Objects" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean type="java.util.ArrayList<com.example.grupo2.Beans.Solicitudes>" scope="request" id="solicitudes"/>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +42,7 @@
                 <a href="<%=request.getContextPath()%>/AdminIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="solicitudes-Admin.jsp" class="nav-link">Administración de solicitudes</a>
+                <a href="<%=request.getContextPath()%>/Solicitudes" class="nav-link">Administración de solicitudes</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Serenazgos" class="nav-link">Serenazgos</a>
@@ -74,230 +79,45 @@
         <thead class="cabecera-tabla">
         <tr>
             <th>Nombre</th>
+            <th>Apellido</th>
             <th>DNI</th>
             <th>Correo</th>
+            <th>Dirección</th>
             <th>Rol solicitado</th>
             <th >Acción a realizar</th>
         </tr>
         </thead>
 
         <tbody>
+            <% for (Solicitudes solicitudes1 : solicitudes) { %>
         <tr>
-            <td>ENRIQUE SIGIFREDO CENTENO MENDOZA</td>
-            <td>12345678</td>
-            <td>ecenteno@gmail.com</td>
-            <td>Vecino</td>
+            <td><%=solicitudes1.getNombre()%></td>
+            <td><%=solicitudes1.getApellido()%></td>
+            <td><%=solicitudes1.getDni()%></td>
+            <td><%=solicitudes1.getCorreo()%></td>
+            <td><%=solicitudes1.getDireccion()%></td>
+            <td>
+                <% if ("VE".equals(solicitudes1.getRol())) { %>
+                Coordinadora
+                <% } else if ("US".equals(solicitudes1.getRol())) { %>
+                Vecino
+                <% } else { %>
+                <%=solicitudes1.getRol()%>
+                <% } %>
+            </td>
             <td>
                 <div class="dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
+                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Solicitudes?a=aprobar&id=<%=solicitudes1.getIdsolicitud() %>">Aprobar</a></li>
+                        <li><a onclick="setSerenazgoId('<%= solicitudes1.getIdsolicitud() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
                     </ul>
                 </div>
             </td>
         </tr>
-        <tr>
-            <td>JAIME DANIEL SANTOS BALON</td>
-            <td>23456789</td>
-            <td>asantos@gmail.com</td>
-            <td>Vecino</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>MARIA JOSE FRIERE ALMEIDA</td>
-            <td>92345678</td>
-            <td>mfriere@gmail.com</td>
-            <td>Vecino</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>MONICA CRISTINA GUAMAN GUAMAN</td>
-            <td>73345678</td>
-            <td>mguaman@gmail.com</td>
-            <td>Vecino</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>MARIO FRANCISCO JATIVA REYES</td>
-            <td>68545678</td>
-            <td>mjativa@gmail.com</td>
-            <td>Vecino</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>FIDEL ANTONIO VISCAINO BURGOS </td>
-            <td>73192458</td>
-            <td>fviscaino@gmail.com</td>
-            <td>Vecino</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>HECTOR PATRICIO TAPIA RAMIREZ</td>
-            <td>78962589</td>
-            <td>htapia@gmail.com</td>
-            <td>Vecino</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>XIMENA ELIZABETH CAYAMBE BADILLO</td>
-            <td>15697538</td>
-            <td>xcayambe@gmail.com</td>
-            <td>Coordinadora</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>SONIA LILIAN BERMEO AYNAGUANO</td>
-            <td>75925658</td>
-            <td>sbermeo@gmail.com</td>
-            <td>Coordinadora</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>KAREN VIVIANA LUZARDO ALARCON</td>
-            <td>16839756</td>
-            <td>kluzardo@gmail.com</td>
-            <td>Coordinadora</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>STEPHANIE JUDITH BADILLO HERRERA</td>
-            <td>48632698</td>
-            <td>sbadillo@gmail.com</td>
-            <td>Coordinadora</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-        <tr>
-            <td>ANA MILENA ARBELÁEZ HURTADO</td>
-            <td>79863589</td>
-            <td>aarbelaez@gmail.com</td>
-            <td>Coordinadora</td>
-            <td>
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Aprobar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
-                        <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Banear</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
+            <%  }  %>
         </tbody>
     </table>
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -312,7 +132,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="submit" class="btn btn-danger">Sí</button>
+                    <form action="<%=request.getContextPath()%>/Solicitudes?a=rechazar" method="post">
+                        <input type="hidden" name="id" id="serenazgoIdToDelete">
+                        <button type="submit" class="btn btn-primary">Sí</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -350,7 +173,7 @@
 
             $('#filtroMiembro').on('change', function() {
                 var miembro = $(this).val();
-                table.column(3).search(miembro).draw();
+                table.column(5).search(miembro).draw();
             });
 
             $('#limpiarFiltros').on('click', function() {
@@ -361,6 +184,12 @@
                 table.search(this.value).draw();
             });
         });
+    </script>
+    <script>
+
+        function setSerenazgoId(id) {
+            document.getElementById('serenazgoIdToDelete').value = id;
+        }
     </script>
 </div>
 </body>
