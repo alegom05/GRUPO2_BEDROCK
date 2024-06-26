@@ -279,5 +279,94 @@ public class UsuarioDao {
             e.printStackTrace();
         }
     }*/
+    public Usuario buscarPorId(int id) {
+        Usuario vecino = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String user = "root";
+        String pass = "root";
+
+        String sql = "SELECT * FROM usuario where idUsuario = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+
+                if (rs.next()) {
+                    vecino = new Usuario();
+                    vecino.setId(rs.getInt(1));
+                    vecino.setNombre(rs.getString(2));
+                    vecino.setApellido(rs.getString(3));
+                    vecino.setDni(rs.getString(4));
+                    vecino.setNumtelefono(rs.getString(5));
+                    vecino.setClave(rs.getString(7));
+                    vecino.setDireccion(rs.getString(8));
+                    vecino.setUrbanizacion(rs.getString(9));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return vecino;
+    }
+    public void actualizar(Usuario vecino) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String user = "root";
+        String pass = "root";
+
+        String sql = "UPDATE usuario SET telefono=?, direccion=?, urbanizacion=? where idUsuario=?";
+
+        try (Connection connection = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            pstmt.setString(1, vecino.getNumtelefono());
+            pstmt.setString(2, vecino.getDireccion());
+            pstmt.setString(3, vecino.getUrbanizacion());
+            pstmt.setInt(4, vecino.getId());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    public void actualizarContrasenia(int id, String nuevaContrasenia) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String user = "root";
+        String pass = "root";
+        String sql = "UPDATE usuario SET clave = ? WHERE idUsuario = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, nuevaContrasenia);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 }
 
