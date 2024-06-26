@@ -11,10 +11,7 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
+import jakarta.servlet.http.*;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -120,6 +117,7 @@ public class EventoServlet extends HttpServlet {
                 request.setAttribute("currentPage", currentPage);
                 request.setAttribute("listaEventos", listaEventos);
                 request.setAttribute("filtro", filtro); // Pasar el filtro a la vista
+
                 request.getRequestDispatcher("/VecinosJSPS/paginaEventos-Vecino.jsp").forward(request, response);
                 break;
 
@@ -162,8 +160,15 @@ public class EventoServlet extends HttpServlet {
                     if (veri_usu!=0 && veri_even!=0) {
                         request.setAttribute("IDusuario", idUsuario2);
                         request.setAttribute("IDevento", idEvento);
-                        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/inscribirse-Vecino.jsp");
-                        requestDispatcher.forward(request, response);
+                        int veri_inscripcion = usuarioDao.EstaInscrito(idEvento,idUsuario2);
+                        if (veri_inscripcion==0){
+                            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/inscribirse-Vecino.jsp");
+                            requestDispatcher.forward(request, response);
+                        }else{
+                            request.setAttribute("estaRegistrado", 1);
+                            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/EventoServlet?action=listarEventoFiltrado");
+                            requestDispatcher.forward(request, response);
+                        }
                     } else {
                         response.sendRedirect(request.getContextPath() + "/EventoServlet");
                     }
@@ -308,6 +313,7 @@ public class EventoServlet extends HttpServlet {
                 String idStrUsu = request.getParameter("IDusuario");
                 String idStrEvento = request.getParameter("IDevento");
                 Usuario acompanante= new Usuario();
+                int numAcompanantes = 0;
                 if (idStrEvento != null && !idStrEvento.isEmpty() && idStrUsu != null && !idStrUsu.isEmpty()){
                     int idUsuario3 = Integer.parseInt(idStrUsu);
                     int idEvento2 = Integer.parseInt(idStrEvento);
@@ -327,9 +333,15 @@ public class EventoServlet extends HttpServlet {
                             acompanante.setApellido(apellidoAcomp);
                             acompanante.setDni(dniAcomp);
                             usuarioDao.inscribirConAconpanante(acompanante,idUsuario3,idEvento2);
+                            numAcompanantes=i;
                         }
-                        response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listarEventoFiltrado");
                     }
+                    // Almacenar atributos en la sesión
+                    HttpSession session = request.getSession();
+                    request.setAttribute("inscripcionExitosa", 1);
+                    request.setAttribute("numAcompanantes", numAcompanantes);
+                    // Redirigir a la página de eventos filtrados
+                    response.sendRedirect(request.getContextPath() + "/EventoServlet?action=listarEventoFiltrado");
                     /*try {
                         int idUsuario = Integer.parseInt(idStrUsu);
                         int idEvento = Integer.parseInt(idStrEvento);
