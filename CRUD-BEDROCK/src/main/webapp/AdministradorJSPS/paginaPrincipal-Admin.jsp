@@ -52,6 +52,7 @@
 
 
 <div class="container-fluid py-3" id="primerBloque">
+    <br>
     <h2 class="mb-4 text-center display-5" id="bicentenario">¡Nuestra misión como administrador!</h2>
 </div>
     <div class="contenedor mt-4">

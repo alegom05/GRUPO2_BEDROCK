@@ -290,53 +290,51 @@
             document.getElementById('confirmNewPassword').value = '';
         });
 
-    document.getElementById("changePasswordForm").addEventListener("submit", function(event) {
-        event.preventDefault();
+        document.getElementById("changePasswordForm").addEventListener("submit", function(event) {
+            event.preventDefault();
 
-        const oldPasswordInput = document.getElementById("oldPassword");
-        const newPasswordInput = document.getElementById("newPassword");
-        const confirmNewPasswordInput = document.getElementById("confirmNewPassword");
+            const oldPasswordInput = document.getElementById("oldPassword");
+            const newPasswordInput = document.getElementById("newPassword");
+            const confirmNewPasswordInput = document.getElementById("confirmNewPassword");
 
-        const oldPassword = oldPasswordInput.value;
-        const newPassword = newPasswordInput.value;
-        const confirmNewPassword = confirmNewPasswordInput.value;
+            const oldPassword = oldPasswordInput.value;
+            const newPassword = newPasswordInput.value;
+            const confirmNewPassword = confirmNewPasswordInput.value;
 
-        // Verificar que la contraseña antigua sea correcta
-        if (oldPassword !== currentPassword) {
-            Swal.fire({
-                title: 'Error',
-                text: 'La contraseña antigua es incorrecta.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
-            return;
-        }
+            // Función para abrir el diálogo de SweetAlert2 con estilo personalizado
+            function abrirSweetAlert(titulo, texto, icono) {
+                Swal.fire({
+                    title: titulo,
+                    text: texto,
+                    icon: icono,
+                    confirmButtonText: 'Aceptar',
+                    customClass: {
+                        confirmButton: 'btn btn-primary'
+                    }
+                });
+            }
 
-        // Verificar que la nueva contraseña no sea igual a la antigua
-        if (newPassword === oldPassword) {
-            Swal.fire({
-                title: 'Error',
-                text: 'La nueva contraseña no puede ser igual a la antigua.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
-            return;
-        }
+            // Verificar que la contraseña antigua sea correcta
+            if (oldPassword !== currentPassword) {
+                abrirSweetAlert('Error', 'La contraseña antigua es incorrecta.', 'error');
+                return;
+            }
 
-        // Verificar que la confirmación de la nueva contraseña coincida con la nueva contraseña
-        if (newPassword !== confirmNewPassword) {
-            Swal.fire({
-                title: 'Error',
-                text: 'La confirmación de la nueva contraseña no coincide.',
-                icon: 'error',
-                confirmButtonText: 'Aceptar'
-            });
-            return;
-        }
+            // Verificar que la nueva contraseña no sea igual a la antigua
+            if (newPassword === oldPassword) {
+                abrirSweetAlert('Error', 'La nueva contraseña no puede ser igual a la antigua.', 'error');
+                return;
+            }
 
-        // Aquí puedes agregar la lógica para manejar el cambio de contraseña
-        this.submit();
-    });
+            // Verificar que la confirmación de la nueva contraseña coincida con la nueva contraseña
+            if (newPassword !== confirmNewPassword) {
+                abrirSweetAlert('Error', 'La confirmación de la nueva contraseña no coincide.', 'error');
+                return;
+            }
+
+            // Aquí puedes agregar la lógica para manejar el cambio de contraseña
+            this.submit();
+        });
     });
 
 
