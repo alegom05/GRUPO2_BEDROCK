@@ -89,10 +89,11 @@
                         int totalPages = (int) request.getAttribute("totalPages");
                         int currentPage = (int) request.getAttribute("currentPage");
                         String filtro = (String) request.getAttribute("filtro");
+                        String filtroParam = filtro != null && !filtro.isEmpty() ? "&filtro=" + filtro : "";
                         if (currentPage > 1) {
                     %>
                     <li class="page-item">
-                        <a class="page-link" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&page=<%= currentPage - 1 %>&filtro=<%= filtro %>" aria-label="Previous">
+                        <a class="page-link" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&page=<%= currentPage - 1 %><%= filtroParam %>" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
@@ -101,14 +102,14 @@
                         for (int i = 1; i <= totalPages; i++) {
                     %>
                     <li class="page-item <%= i == currentPage ? "active" : "" %>">
-                        <a class="page-link" href="${pageContext.request.contextPath}/EventoServlet?action=listarEventoFiltrado&page=<%= i %>&filtro=<%= filtro %>"><%= i %></a>
+                        <a class="page-link" href="<%= request.getContextPath() %>/EventoServlet?action=listarEventoFiltrado&page=<%= i %><%= filtroParam %>"><%= i %></a>
                     </li>
                     <%
                         }
                         if (currentPage < totalPages) {
                     %>
                     <li class="page-item">
-                        <a class="page-link" href="${pageContext.request.contextPath}/EventoServlet?action=listarEventoFiltrado&page=<%= currentPage + 1 %>&filtro=<%= filtro %>" aria-label="Next">
+                        <a class="page-link" href="<%= request.getContextPath() %>/EventoServlet?action=listarEventoFiltrado&page=<%= currentPage + 1 %><%= filtroParam %>" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
