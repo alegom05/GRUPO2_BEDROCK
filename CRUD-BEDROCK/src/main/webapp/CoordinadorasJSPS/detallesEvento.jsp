@@ -226,7 +226,7 @@
                     <div class="modal-content">
                         <div class="modal-header">
                             <h1 class="modal-title fs-5" id="culminarEventoModalLabel">Culminar evento</h1>
-                            <h3> Por favor, suba fotos del evento que demuestre su asistencia.</h3>
+
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -235,7 +235,7 @@
                             </div>
                             <form  class="row align-items-start mb-3" novalidate enctype="multipart/form-data">
                                 <div class="mb-3">
-                                    <label for="imagenAsistencia" class="form-label">Subir Imagen:</label>
+                                    <label for="imagenAsistencia" class="form-label">Por favor suba imágenes que demuestren su asistencia al evento:</label>
                                     <input type="file" id="imagenAsistencia" name="imagenAsistencia" class="form-control" accept="image/*">
                                 </div>
                             </form>
