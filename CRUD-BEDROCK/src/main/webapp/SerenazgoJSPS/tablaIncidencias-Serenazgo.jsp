@@ -63,16 +63,29 @@
 
 <div class="container mt-4">
 
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; gap: 40px; align-items: flex-start; margin-top: 40px;">
+        <div id="search-container" class="mb-3" ></div> <!-- Contenedor para el campo de búsqueda -->
+
         <select id="filtroEstado" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
-            <<option value="">Filtrar por </option>
+            <option value="">Filtrar por estado </option>
             <option value="nueva">Nuevas</option>
             <option value="en proceso">En proceso</option>
+            <option value="cerrado">Cerrado</option>
             <option value="falsa alarma">Falsa alarma</option>
         </select>
 
 
-        <button id="limpiarFiltros" class="btn gradient-custom-3">Limpiar Filtros</button>
+        <select id="filtroTipo" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
+            <option value="">Filtrar por tipo</option>
+            <option value="accidente">Accidente</option>
+            <option value="alteración de orden público">Alteración del orden público</option>
+            <option value="emergencia médica">Emergencia médica</option>
+            <option value="robo agravado">Robo agravado</option>
+            <option value="otro">Otro</option>
+        </select>
+
+
+        <button id="limpiarFiltros" class="btn gradient-custom-5">Limpiar Filtros</button>
     </div>
     <br>
     <div class="table-responsive">
@@ -97,7 +110,19 @@
                 <td><%=incidencia.getNombreIncidencia()%></td>
                 <td><%=incidencia.getTipoIncidencia()%> </td>
                 <td><%=incidencia.getFechaIncidencia()%></td>
-                <td><%=incidencia.getEstadoIncidencia()%></td>
+                <% if (incidencia.getEstadoIncidencia().equalsIgnoreCase("nueva")) { %>
+                <td class="bg-info-subtle"><%=incidencia.getEstadoIncidencia()%></td>
+                <% } %>
+                <% if (incidencia.getEstadoIncidencia().equalsIgnoreCase("falsa alarma")) { %>
+                <td class="bg-danger-subtle"><%=incidencia.getEstadoIncidencia()%></td>
+                <% } %>
+                <% if (incidencia.getEstadoIncidencia().equalsIgnoreCase("en proceso")) { %>
+                <td class="bg-warning-subtle"><%=incidencia.getEstadoIncidencia()%></td>
+                <% } %>
+                <% if (incidencia.getEstadoIncidencia().equalsIgnoreCase("cerrado")) { %>
+                <td class="bg-success-subtle"><%=incidencia.getEstadoIncidencia()%></td>
+                <% } %>
+
                 <td><%=incidencia.getNombreUsuario()%></td>
                 <td><%=incidencia.getCorreoUsuario()%></td>
                 <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
@@ -180,7 +205,11 @@
             }
 
         });
-        $('.dataTables_filter input').css('margin-bottom', '20px');
+
+        // Mueve el contenedor del campo de búsqueda a la nueva ubicación
+        $('.dataTables_filter').appendTo('#search-container');
+
+        $('.dataTables_filter input').css('margin-top', '8px');
         $('#miTabla thead').css({
             'background-image': 'linear-gradient(to right, #0f0f3d, #191970)',
             'color': 'white'
@@ -192,10 +221,21 @@
             table.column(3).search(estado).draw();
         });
 
+        $('#filtroTipo').on('change', function() {
+            var tipo = $(this).val();
+            table.column(1).search(tipo).draw();
+        });
+
         $('#limpiarFiltros').on('click', function() {
             $('#filtroEstado').val('');
+            $('#filtroTipo').val('');
             table.search('').columns().search('').draw();
         });
+
+
+
+
+
     });
 </script>
 <script>

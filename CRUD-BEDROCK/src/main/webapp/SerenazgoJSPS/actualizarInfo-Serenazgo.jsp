@@ -105,7 +105,9 @@
             <div class="mb-3" style="margin-top: 10px;">
                 <label for="numTelefono" class="form-label">Teléfono</label>
                 <input type="text" id="numTelefono" class="form-control" name="numTelefono" value="<%=usuario.getNumtelefono()%>">
-
+                <div id="telefonoAdvertencia" class="form-text text-danger" style="display: none;">
+                    Se debe ingresar un número de 9 dígitos.
+                </div>
 
             </div>
 
@@ -133,6 +135,47 @@
     </form>
 
 </div>
+
+<script>
+    document.addEventListener("input", function(event) {
+        if (event.target && event.target.id && event.target.id.startsWith("numTelefono")) {
+            let value = event.target.value.replace(/\D/g, ""); // Eliminar caracteres no numéricos
+            if (value.length > 9) {
+                value = value.slice(0, 9);
+            }
+            event.target.value = value;
+
+            const btnEnvio = document.getElementById('btnEnvio');
+            const telefonoAdvertencia = document.getElementById('telefonoAdvertencia');
+
+            // Habilitar o deshabilitar el botón de envío según la longitud del número de teléfono
+            if (value.length === 9) {
+                btnEnvio.disabled = false;
+                telefonoAdvertencia.style.display = 'none';
+            } else {
+                btnEnvio.disabled = true;
+                telefonoAdvertencia.style.display = 'block';
+            }
+        }
+    });
+
+    // Inicialmente deshabilitar el botón si el campo de teléfono no tiene 9 cifras
+    document.addEventListener("DOMContentLoaded", function() {
+        const numTelefono = document.getElementById('numTelefono');
+        const btnEnvio = document.getElementById('btnEnvio');
+        const telefonoAdvertencia = document.getElementById('telefonoAdvertencia');
+
+        if (numTelefono.value.length !== 9) {
+            btnEnvio.disabled = true;
+            telefonoAdvertencia.style.display = 'block';
+        } else {
+            telefonoAdvertencia.style.display = 'none';
+        }
+    });
+</script>
+
+
+
 
 </body>
 </html>

@@ -214,6 +214,19 @@ body {
     color: white;
 }
 
+.gradient-custom-5{
+    /* fallback for old browsers */
+    background: #26a7df;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+/* Cambio de color al pasar el cursor */
+.gradient-custom-5:hover {
+    /* Nuevo color de fondo al pasar el cursor */
+    background: #0c6488;
+    color: white;
+}
+
 /*PALABRA CLAVE CAMBIOPAPUS*/
 #botonesPrincipal{
     /*background: #1abc9c;*/
