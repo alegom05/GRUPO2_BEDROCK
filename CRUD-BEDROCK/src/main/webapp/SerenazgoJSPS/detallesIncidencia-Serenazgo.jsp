@@ -2,6 +2,8 @@
 
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 
 <%
     Incidencia incidencia = (Incidencia) request.getAttribute("incidencia");
@@ -20,7 +22,14 @@
     <title>Detalles incidencia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/SerenazgoJSPS/style-Serenazgo.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 <body>
 <div class="ParteSuperior container-fluid">
@@ -45,7 +54,7 @@
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>

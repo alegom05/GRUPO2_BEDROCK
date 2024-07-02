@@ -15,7 +15,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JuntosPorSanMiguel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/SerenazgoJSPS/style-Serenazgo.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 <body>
 <!-- Loader HTML -->
@@ -33,7 +40,7 @@
             </a>
         </div>
     </div>
-    <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
+    <nav class="letra_botones_encabezado" style="font-family: 'Lato',sans-serif">
         <ul class="nav" >
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
@@ -42,8 +49,9 @@
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard </a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
+
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
             </li>

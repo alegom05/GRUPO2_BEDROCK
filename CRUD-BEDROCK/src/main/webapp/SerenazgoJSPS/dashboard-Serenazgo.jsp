@@ -38,6 +38,11 @@
             font-size: 24px;
         }
     </style>
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
 </head>
 
 <body>
@@ -63,7 +68,7 @@
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>

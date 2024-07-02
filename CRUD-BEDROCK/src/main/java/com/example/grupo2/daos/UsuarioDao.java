@@ -6,7 +6,7 @@ import com.example.grupo2.Beans.Usuario;
 
 import java.util.ArrayList;
 import java.sql.*;
-public class UsuarioDao {
+public class UsuarioDao extends daoBase {
 
     public static ArrayList<Usuario> listarUsuarios() {
 
@@ -47,7 +47,7 @@ public class UsuarioDao {
                 usuario.setRol(rs.getString(11));
                 usuario.setHoraInicio(rs.getTime(12));
                 usuario.setHoraFin(rs.getTime(13));
-                usuario.setFechaNacimiento(rs.getTime(14));
+                usuario.setFechaNacimiento(rs.getDate(14));
 
                 listaUsuarios.add(usuario);
             }
@@ -365,6 +365,63 @@ public class UsuarioDao {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    //Método para actualizar el número de celular del serenazgo puesto que este solo puede actualizar este campo y también su contraseña
+    public void actualizarCelular(Usuario serenazgo) {
+        String sql = "UPDATE usuario SET telefono=? where idUsuario=?";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            pstmt.setString(1, serenazgo.getNumtelefono());
+            pstmt.setInt(2, serenazgo.getId());
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Listar información de serenazgo (usuario) realizo esto con el objetivo de que la info sea en tiempo real, por ejemplo si
+    //el administrador cambia algo y el sereno no tenga que esperar a volver a ingresar a su cuenta para ver los cambios
+    //nota: este método podrá ser utilizado en totalidad para otros roles
+    //No listaremos la clave por motivos de seguridad, esta solo queda al realizar el login
+    public Usuario listarPorId(int id) {
+
+        Usuario usuario = new Usuario();
+        String sql = "SELECT * FROM usuario where idUsuario = ?";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            pstmt.setInt(1, id);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+
+                if (rs.next()) {
+                    usuario = new Usuario();
+                    usuario.setId(rs.getInt(1));
+                    usuario.setNombre(rs.getString(2));
+                    usuario.setApellido(rs.getString(3));
+                    usuario.setDni(rs.getString(4));
+                    usuario.setNumtelefono(rs.getString(5));
+                    usuario.setCorreo(rs.getString(6));
+                    usuario.setDireccion(rs.getString(8));
+                    usuario.setUrbanizacion(rs.getString(9));
+                    usuario.setTurnoSerenazgo(rs.getString(10));
+                    usuario.setTipo(rs.getString(11));
+                    usuario.setRol(rs.getString(12));
+                    usuario.setHoraInicio(rs.getTime(13));
+                    usuario.setHoraFin(rs.getTime(14));
+                    usuario.setFechaNacimiento(rs.getDate(15));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return usuario;
     }
 
 

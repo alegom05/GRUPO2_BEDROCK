@@ -39,7 +39,7 @@ public class LoginDao {
                     usuario.setTurnoSerenazgo(rs.getString(10));
                     usuario.setTipo(rs.getString(11));
                     usuario.setRol(rs.getString(12));
-                    usuario.setFechaNacimiento(rs.getTime(15));
+                    usuario.setFechaNacimiento(rs.getDate(15));
                 }
 
             }

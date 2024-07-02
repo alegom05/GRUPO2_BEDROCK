@@ -1,4 +1,5 @@
 package com.example.grupo2.Beans;
+import java.sql.Date;
 import java.sql.Time;
 
 public class Usuario {
@@ -18,7 +19,7 @@ public class Usuario {
     private String rol;
     private Time horaInicio;
     private Time horaFin;
-    private Time fechaNacimiento;
+    private Date fechaNacimiento;
 
     public int getId() {
         return id;
@@ -148,11 +149,11 @@ public class Usuario {
         this.horaFin = horaFin;
     }
 
-    public Time getFechaNacimiento() {
+    public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Time fechaNacimiento) {
+    public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 }
