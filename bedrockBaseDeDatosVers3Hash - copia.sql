@@ -32,46 +32,20 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `urbanizacion` VARCHAR(45) NULL DEFAULT NULL,
   `turnoSerenazgo` VARCHAR(45) NULL DEFAULT NULL,
   `tipo` VARCHAR(45) NULL DEFAULT NULL,
+  `idRoles` VARCHAR(20) NOT NULL,
   `horaInicio` TIME NOT NULL,
   `horaFin` TIME NOT NULL,
   `fecha_nacimiento` DATE NULL DEFAULT NULL,
-  `idRoles` VARCHAR(20) NULL DEFAULT NULL,
-  PRIMARY KEY (`idUsuario`),
+  PRIMARY KEY (`idUsuario`, `idRoles`),
   UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
   UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) VISIBLE,
   INDEX `fk_usuario_roles1_idx` (`idRoles` ASC) VISIBLE,
   CONSTRAINT `fk_usuario_roles1`
     FOREIGN KEY (`idRoles`)
-    REFERENCES `basededatos3`.`roles` (`idRoles`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `basededatos3`.`roles` (`idRoles`))
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
-
--- -----------------------------------------------------
--- Table `basededatos3`.`solicitudes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `basededatos3`.`solicitudes` (
-  `idsolicitudes` INT NOT NULL,
-  `estadosolicitud` TINYINT NULL DEFAULT NULL,
-  `fechasolicitud` DATE NULL DEFAULT NULL,
-  `usuario_idUsuario` INT NOT NULL,
-  `roles_idRoles` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`idsolicitudes`),
-  INDEX `fk_solicitudes_usuario1_idx` (`usuario_idUsuario` ASC) VISIBLE,
-  INDEX `fk_solicitudes_roles1_idx` (`roles_idRoles` ASC) VISIBLE,
-  CONSTRAINT `fk_solicitudes_roles1`
-    FOREIGN KEY (`roles_idRoles`)
-    REFERENCES `basededatos3`.`roles` (`idRoles`),
-  CONSTRAINT `fk_solicitudes_usuario1`
-    FOREIGN KEY (`usuario_idUsuario`)
-    REFERENCES `basededatos3`.`usuario` (`idUsuario`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-ALTER TABLE `basededatos3`.`solicitudes`
-MODIFY `roles_idRoles` VARCHAR(20) NULL DEFAULT NULL;
 
 -- -----------------------------------------------------
 -- Table `basededatos3`.`credenciales`
@@ -382,8 +356,6 @@ INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asist
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`,  `asistio`, `cometioFalta`, `descripcion`) VALUES ('2004', '5', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '13', '1', '1','Fomenta a la destruccion de la propiedad publica y genera altercados');
 
--- 
-
 -- credenciales
 
 -- Insertar datos en credenciales
@@ -395,17 +367,3 @@ SELECT
     SHA2(clave, 256) as claveHash,
     idUsuario
 FROM usuario;
-
-INSERT INTO `basededatos3`.`solicitudes` (`idsolicitudes`, `estadosolicitud`, `fechasolicitud`, `usuario_idUsuario`, `roles_idRoles`)
-VALUES 
-(1, 0, '2024-06-01', 1, NULL),
-(2, 0, '2024-06-02', 2, NULL),
-(3, 0, '2024-06-03', 3, NULL),
-(4, 0, '2024-06-04', 4, NULL),
-(5, 0, '2024-06-05', 5, NULL),
-(6, 0, '2024-06-06', 6, NULL),
-(7, 0, '2024-06-07', 7, NULL),
-(8, 0, '2024-06-08', 8, NULL),
-(9, 0, '2024-06-09', 9, NULL),
-(10, 0, '2024-06-10', 10, NULL);
-
