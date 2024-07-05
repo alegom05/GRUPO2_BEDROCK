@@ -54,25 +54,24 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `basededatos3`.`solicitudes` (
   `idsolicitudes` INT NOT NULL,
-  `estadosolicitud` TINYINT NULL,
-  `fechasolicitud` DATE NULL,
+  `estadosolicitud` TINYINT NULL DEFAULT NULL,
+  `fechasolicitud` DATE NULL DEFAULT NULL,
   `usuario_idUsuario` INT NOT NULL,
-  `usuario_idRoles` VARCHAR(20) NOT NULL,
-  `roles_idRoles` VARCHAR(20) NOT NULL,
+  `roles_idRoles` VARCHAR(20) NULL DEFAULT NULL,
   PRIMARY KEY (`idsolicitudes`),
-  INDEX `fk_solicitudes_usuario1_idx` (`usuario_idUsuario` ASC, `usuario_idRoles` ASC) VISIBLE,
+  INDEX `fk_solicitudes_usuario1_idx` (`usuario_idUsuario` ASC) VISIBLE,
   INDEX `fk_solicitudes_roles1_idx` (`roles_idRoles` ASC) VISIBLE,
-  CONSTRAINT `fk_solicitudes_usuario1`
-    FOREIGN KEY (`usuario_idUsuario`)
-    REFERENCES `basededatos3`.`usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
   CONSTRAINT `fk_solicitudes_roles1`
     FOREIGN KEY (`roles_idRoles`)
-    REFERENCES `basededatos3`.`roles` (`idRoles`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+    REFERENCES `basededatos3`.`roles` (`idRoles`),
+  CONSTRAINT `fk_solicitudes_usuario1`
+    FOREIGN KEY (`usuario_idUsuario`)
+    REFERENCES `basededatos3`.`usuario` (`idUsuario`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+ALTER TABLE `basededatos3`.`solicitudes`
+MODIFY `roles_idRoles` VARCHAR(20) NULL DEFAULT NULL;
 
 -- -----------------------------------------------------
 -- Table `basededatos3`.`credenciales`
@@ -142,7 +141,6 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`roles` (
   PRIMARY KEY (`idRoles`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
 
 
 -- -----------------------------------------------------
@@ -394,3 +392,16 @@ SELECT
     SHA2(clave, 256) as claveHash,
     idUsuario
 FROM usuario;
+
+INSERT INTO `basededatos3`.`solicitudes` (`idsolicitudes`, `estadosolicitud`, `fechasolicitud`, `usuario_idUsuario`, `roles_idRoles`)
+VALUES 
+(1, 0, '2024-06-01', 1, NULL),
+(2, 0, '2024-06-02', 2, NULL),
+(3, 0, '2024-06-03', 3, NULL),
+(4, 0, '2024-06-04', 4, NULL),
+(5, 0, '2024-06-05', 5, NULL),
+(6, 0, '2024-06-06', 6, NULL),
+(7, 0, '2024-06-07', 7, NULL),
+(8, 0, '2024-06-08', 8, NULL),
+(9, 0, '2024-06-09', 9, NULL),
+(10, 0, '2024-06-10', 10, NULL);
