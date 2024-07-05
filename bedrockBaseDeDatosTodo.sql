@@ -359,17 +359,17 @@ INSERT INTO evento (nombre, fechaInicial, fechaFinal, foto, materiales, lugar, h
 ('Familiar', '2024-06-20', '2024-06-20', X'', 'Juegos de mesa, pelotas', 'Municipalidad de San Miguel, Lima', '10:30:00', '5', '12', 'Festival de juegos familiares', 'Cultural', '10', 'Pronto');
 
 -- evento_has_usuario
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`, `descripcion`) VALUES ('2001', '1', '1', '0',NULL);
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`, `descripcion`) VALUES ('2001', '12', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`, `descripcion`) VALUES ('2002', '16', '1', '0','Ataca a otros participantes durante el partido');
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2002', '7', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`, `descripcion`) VALUES ('2003', '8', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2002', '10', '0', '0',NULL);
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2002', '15', '1', '0',NULL);
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2002', '12', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2003', '2', '1', '0',NULL);
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2003', '1', '1', '0',NULL);
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2003', '11', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '2', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '15', '1', '0',NULL);
-INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '17', '0', '0',NULL);
+INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '11', '0', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '3', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`,  `asistio`, `cometioFalta`, `descripcion`) VALUES ('2004', '5', '1', '0',NULL);
 INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asistio`, `cometioFalta`,`descripcion`) VALUES ('2004', '13', '1', '1','Fomenta a la destruccion de la propiedad publica y genera altercados');
