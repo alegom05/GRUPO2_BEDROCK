@@ -18,53 +18,6 @@ CREATE SCHEMA IF NOT EXISTS `basededatos3` DEFAULT CHARACTER SET utf8 ;
 USE `basededatos3` ;
 
 -- -----------------------------------------------------
--- Table `basededatos3`.`usuario`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
-  `idUsuario` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NULL DEFAULT NULL,
-  `apellido` VARCHAR(45) NULL DEFAULT NULL,
-  `dni` VARCHAR(8) NULL DEFAULT NULL,
-  `telefono` CHAR(9) NULL DEFAULT NULL,
-  `correo` VARCHAR(45) NOT NULL,
-  `clave` VARCHAR(45) NOT NULL,
-  `direccion` VARCHAR(45) NULL DEFAULT NULL,
-  `urbanizacion` VARCHAR(45) NULL DEFAULT NULL,
-  `turnoSerenazgo` VARCHAR(45) NULL DEFAULT NULL,
-  `tipo` VARCHAR(45) NULL DEFAULT NULL,
-  `idRoles` VARCHAR(20) NOT NULL,
-  `horaInicio` TIME NOT NULL,
-  `horaFin` TIME NOT NULL,
-  `fecha_nacimiento` DATE NULL DEFAULT NULL,
-  PRIMARY KEY (`idUsuario`, `idRoles`),
-  UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
-  UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) VISIBLE,
-  INDEX `fk_usuario_roles1_idx` (`idRoles` ASC) VISIBLE,
-  CONSTRAINT `fk_usuario_roles1`
-    FOREIGN KEY (`idRoles`)
-    REFERENCES `basededatos3`.`roles` (`idRoles`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
-
--- -----------------------------------------------------
--- Table `basededatos3`.`credenciales`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
-  `idcredenciales` INT NOT NULL,
-  `correo` VARCHAR(45) NULL DEFAULT NULL,
-  `clave` VARCHAR(45) NULL DEFAULT NULL,
-  `claveHash` VARCHAR(64) NULL DEFAULT NULL,
-  `idUsuario` INT NOT NULL,
-  PRIMARY KEY (`idcredenciales`),
-  INDEX `fk_credenciales_usuario1_idx` (`idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_credenciales_usuario1`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `basededatos3`.`usuario` (`idUsuario`))
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
--- -----------------------------------------------------
 -- Table `basededatos3`.`profesor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `basededatos3`.`profesor` (
@@ -74,9 +27,26 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`profesor` (
   `curso` VARCHAR(60) NOT NULL,
   PRIMARY KEY (`idProfesor`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
+-- -----------------------------------------------------
+-- Table `basededatos3`.`credenciales`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
+  `idcredenciales` INT NOT NULL,
+  `idUsuario` INT NOT NULL,
+  `correo` VARCHAR(45) NULL DEFAULT NULL,
+  `clave` VARCHAR(45) NULL DEFAULT NULL,
+  `claveHash` VARCHAR(64) NULL DEFAULT NULL,
+  PRIMARY KEY (`idcredenciales`),
+  INDEX `idUsuario_idx` (`idUsuario` ASC) VISIBLE,
+  CONSTRAINT `idUsuario`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `basededatos3`.`usuario` (`idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
 -- Table `basededatos3`.`evento`
@@ -96,13 +66,13 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`evento` (
   `tipo` VARCHAR(10) NULL DEFAULT NULL,
   `idProfesor` INT NOT NULL,
   `estadoEvento` VARCHAR(45) NOT NULL,
+  
   PRIMARY KEY (`idEvento`),
   INDEX `fk_Evento_Profesor1_idx` (`idProfesor` ASC) VISIBLE,
   CONSTRAINT `fk_Evento_Profesor1`
     FOREIGN KEY (`idProfesor`)
     REFERENCES `basededatos3`.`profesor` (`idProfesor`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 2021
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -116,6 +86,43 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`roles` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
+
+-- -----------------------------------------------------
+-- Table `basededatos3`.`usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
+  `idUsuario` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `apellido` VARCHAR(45) NULL DEFAULT NULL,
+  `dni` VARCHAR(8) NULL DEFAULT NULL,
+  `telefono` CHAR(9) NULL DEFAULT NULL,
+  `correo` VARCHAR(45) NOT NULL,
+  `clave` VARCHAR(45) NOT NULL,
+  `direccion` VARCHAR(45) NULL DEFAULT NULL,
+  `urbanizacion` VARCHAR(45) NULL DEFAULT NULL,
+  `turnoSerenazgo` VARCHAR(45) NULL DEFAULT NULL,
+  `tipo` VARCHAR(45) NULL DEFAULT NULL,
+  `idRoles` VARCHAR(20) NOT NULL,
+  `horaInicio` TIME NOT NULL,
+  `horaFin` TIME NOT NULL,
+  `fecha_nacimiento` DATE NULL DEFAULT NULL,
+  `idcredenciales` INT NOT NULL,
+  PRIMARY KEY (`idUsuario`, `idRoles`),
+  UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
+  UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) VISIBLE,
+  INDEX `fk_usuario_roles1_idx` (`idRoles` ASC) VISIBLE,
+  INDEX `fk_usuario_credenciales1_idx` (`idcredenciales` ASC) VISIBLE,
+  CONSTRAINT `fk_usuario_roles1`
+    FOREIGN KEY (`idRoles`)
+    REFERENCES `basededatos3`.`roles` (`idRoles`),
+  CONSTRAINT `fk_usuario_credenciales1`
+    FOREIGN KEY (`idcredenciales`)
+    REFERENCES `basededatos3`.`credenciales` (`idcredenciales`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 31
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -177,10 +184,10 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`incidencia` (
   `lugar` VARCHAR(200) NOT NULL,
   `referencia` VARCHAR(45) NOT NULL,
   `contacto` VARCHAR(45) NULL DEFAULT NULL,
-  `fecha` DATETIME NULL DEFAULT CURRENT_TIMESTAMP,
-  `requiereAmbulancia` TINYINT NULL DEFAULT NULL,
-  `requierePolicia` TINYINT NULL DEFAULT NULL,
-  `requiereBomberos` TINYINT NULL DEFAULT NULL,
+  `fecha` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  `requiereAmbulancia` TINYINT DEFAULT NULL,
+  `requierePolicia` TINYINT DEFAULT NULL,
+  `requiereBomberos` TINYINT DEFAULT NULL,  
   `idUsuario` INT NOT NULL,
   `criticidad` VARCHAR(45) NULL DEFAULT NULL,
   `tipoPersonal` VARCHAR(45) NULL DEFAULT NULL,
@@ -203,9 +210,20 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`incidencia` (
     FOREIGN KEY (`idUsuario`)
     REFERENCES `basededatos3`.`usuario` (`idUsuario`))
 ENGINE = InnoDB
-AUTO_INCREMENT = 1039
 DEFAULT CHARACTER SET = utf8;
 
+
+-- -----------------------------------------------------
+-- Table `basededatos3`.`credenciales`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
+  `idcredenciales` INT NOT NULL,
+  `idUsuario` INT NULL,
+  `correo` VARCHAR(45) NULL,
+  `clave` VARCHAR(45) NULL,
+  `claveHash` VARCHAR(45) NULL,
+  PRIMARY KEY (`idcredenciales`))
+ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
@@ -219,38 +237,42 @@ INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('VE', 'Vecino')
 /*INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('C0', 'PreCoordinadora');
 INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('V0', 'PreVecino');*/
 
+-- Deshabilitar la verificación de claves foráneas
+SET FOREIGN_KEY_CHECKS = 0;
+
 -- Datos de usuario
-INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
-('Christopher','Terrones Peña','12345678','912345678','cterrones@gmail.com','123456','Calle 123','Urbanización ABC',NULL,NULL,'AD','08:00:00','16:00:00','1987-11-15'),
-('Beto','García Fernández','23456789','923456789','bgarcia@gmail.com','123456','Av. Principal','Urbanización XYZ',NULL,'Cultura','CO','20:00:00','04:00:00','1990-02-22'),
-('Nikol','Montes Esteban','34567890','934567890','nmontes@gmail.com','123456','Calle 456','Urbanización DEF',NULL,'Deporte','CO','08:00:00','16:00:00','1993-03-18'),
-('Isaac','Huamaní Sulca','45678901','945678901','ihuamani@gmail.com','123456','Av. Secundaria','Urbanización GHI',NULL,'Deporte','CO','20:00:00','04:00:00','1991-05-09'),
-('Elena','Hernández Gómez','56789012','956789012','ehernandez@gmail.com','123456','Calle 789','Urbanización JKL',NULL,'Cultura','CO','08:00:00','16:00:00','1992-07-22'),
-('Dorian','Felix Naula','67890123','967890123','dfelix@gmail.com','123456','Av. Alternativa',NULL,'Noche','A pie','SE','20:00:00','04:00:00','1988-10-30'),
-('Alejandro','Gómez Mostacero','78901234','978901234','agomez@gmail.com','123456','Calle 111',NULL,'Mañana','A pie','SE','08:00:00','16:00:00','1989-12-14'),
-('Hugo','Díaz Fernández','89012345','989012345','hdiaz@gmail.com','123456','Av. Principal',NULL,'Noche','En bicicleta','SE','20:00:00','04:00:00','1995-06-19'),
-('Isabel','Fernández Martínez','90123456','990123456','ifernandez@gmail.com','123456','Calle 222',NULL,'Mañana','Con canino','SE','08:00:00','16:00:00','1994-08-24'),
-('Estefany','Fuentes Gutierrez','01234567','901234567','efuentes@gmail.com','123456','Av. Secundaria',NULL,'Noche','En bicicleta','SE','20:00:00','04:00:00','1993-01-17'),
-('Fabricio','Estrada Castillo','23487405','923487405','festrada@gmail.com','123456','Calle 333','Urbanización BCD',NULL,NULL,'VE','08:00:00','16:00:00','1987-11-11'),
-('Adrián','Tipo Leon','45786934','945786934','atipo@gmail.com','123456','Av. Alternativa','Urbanización EFG',NULL,NULL,'VE','20:00:00','04:00:00','1990-03-29'),
-('María','Cruz Martínez','27845674','927845674','mcruz@gmail.com','123456','Calle 444','Urbanización HIJ',NULL,NULL,'VE','08:00:00','16:00:00','1988-05-06'),
-('Natalia','Martínez López','36458976','936458976','nmartinez@gmail.com','123456','Av. Principal','Urbanización KLM',NULL,NULL,'VE','20:00:00','04:00:00','1991-04-25'),
-('Oscar','Hernández Gómez','39084657','939084657','ohernandez@gmail.com','123456','Calle 555','Urbanización NOP',NULL,NULL,'VE','08:00:00','16:00:00','1992-08-14'),
-('Patricia','López Fernández','67546834','967546834','plopez@gmail.com','123456','Av. Secundaria','Urbanización QRS',NULL,NULL,'VE','20:00:00','04:00:00','1994-06-07'),
-('Quirino','Gómez Díaz','37895674','937895674','qgomez@gmail.com','123456','Calle 666','Urbanización TUV',NULL,NULL,'VE','08:00:00','16:00:00','1993-09-20'),
-('Lucía','Pérez Sánchez','87654321','987654321','lperez@gmail.com','654321','Calle 123','Urbanización ABC',NULL,NULL,'VE','22:00:00','06:00:00','1989-12-27'),
-('Luis','Martínez Ramírez','11223344','911223344','lmartinez@gmail.com','abcdef','Av. Principal 789','Urbanización DEF',NULL,NULL,'VE','14:00:00','22:00:00','1995-05-04'),
-('Marta','García López','22334455','922334455','mgarcia@gmail.com','qwerty','Calle 456','Urbanización GHI',NULL,NULL,'VE','08:00:00','16:00:00','1988-07-30'),
-('Pedro','Hernández Torres','33445566','933445566','phernandez@gmail.com','zxcvbn','Calle 789','Urbanización JKL',NULL,NULL,'VE','22:00:00','06:00:00','1994-01-12'),
-('Lucía','Fernández Gómez','44556677','944556677','lfernandez@gmail.com','mnbvcx','Av. Secundaria 123','Urbanización MNO',NULL,NULL,'VE','14:00:00','22:00:00','1995-12-02'),
-('Carlos','Sánchez Ruiz','55667788','955667788','csanchez@gmail.com','poiuyt','Calle 101',NULL,'Mañana','Con canino','SE','08:00:00','16:00:00','1989-05-15'),
-('Elena','Díaz Fernández','66778899','966778899','ediaz@gmail.com','lkjhg','Calle 202','Urbanización STU',NULL,'Deporte','CO','22:00:00','06:00:00','1987-03-11'),
-('Juan','Rodríguez Martínez','77889900','977889900','jrodriguez@gmail.com','asdfgh','Calle 303','Urbanización VWX',NULL,NULL,'VE','14:00:00','22:00:00','1992-10-17'),
-('Luis','Gallego López','23416789','923416789','lgallego@gmail.com','abcdef','Avenida 456','Urbanización DEF',NULL,'Cultura','CO','16:00:00','00:00:00','1993-11-09'),
-('María','Rodríguez Sánchez','34517890','934517890','mrodriguez@gmail.com','ghijkl','Pasaje 789',NULL,'Noche','A pie','SE','00:00:00','08:00:00','1988-12-21'),
-('Carlos','Martínez Díaz','45608901','945608901','cmartinez@gmail.com','mnopqr','Jirón 101',NULL,'Mañana','Con canino','SE','08:00:00','16:00:00','1987-01-28'),
-('Lucía','Gómez Ruiz','56780012','956780012','lgomez@gmail.com','stuvwx','Boulevard 202',NULL,'Tarde','En bicicleta','SE','16:00:00','00:00:00','1989-08-03'),
-('José','Fernández Torres','61890123','961890123','jfernandez@gmail.com','yzabcd','Alameda 303','Urbanización PQR',NULL,'Cultura','CO','00:00:00','08:00:00','1991-09-12');
+INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento, idcredenciales) VALUES
+('Christopher','Terrones Peña','12345678','912345678','cterrones@gmail.com','123456','Calle 123','Urbanización ABC',NULL,NULL,'AD','08:00:00','16:00:00','1987-11-15',1),
+('Beto','García Fernández','23456789','923456789','bgarcia@gmail.com','123456','Av. Principal','Urbanización XYZ',NULL,'Cultura','CO','20:00:00','04:00:00','1990-02-22',2),
+('Nikol','Montes Esteban','34567890','934567890','nmontes@gmail.com','123456','Calle 456','Urbanización DEF',NULL,'Deporte','CO','08:00:00','16:00:00','1993-03-18',3),
+('Isaac','Huamaní Sulca','45678901','945678901','ihuamani@gmail.com','123456','Av. Secundaria','Urbanización GHI',NULL,'Deporte','CO','20:00:00','04:00:00','1991-05-09',4),
+('Elena','Hernández Gómez','56789012','956789012','ehernandez@gmail.com','123456','Calle 789','Urbanización JKL',NULL,'Cultura','CO','08:00:00','16:00:00','1992-07-22',5),
+('Dorian','Felix Naula','67890123','967890123','dfelix@gmail.com','123456','Av. Alternativa',NULL,'Noche','A pie','SE','20:00:00','04:00:00','1988-10-30',6),
+('Alejandro','Gómez Mostacero','78901234','978901234','agomez@gmail.com','123456','Calle 111',NULL,'Mañana','A pie','SE','08:00:00','16:00:00','1989-12-14',7),
+('Hugo','Díaz Fernández','89012345','989012345','hdiaz@gmail.com','123456','Av. Principal',NULL,'Noche','En bicicleta','SE','20:00:00','04:00:00','1995-06-19',8),
+('Isabel','Fernández Martínez','90123456','990123456','ifernandez@gmail.com','123456','Calle 222',NULL,'Mañana','Con canino','SE','08:00:00','16:00:00','1994-08-24',9),
+('Estefany','Fuentes Gutierrez','01234567','901234567','efuentes@gmail.com','123456','Av. Secundaria',NULL,'Noche','En bicicleta','SE','20:00:00','04:00:00','1993-01-17',10),
+('Fabricio','Estrada Castillo','23487405','923487405','festrada@gmail.com','123456','Calle 333','Urbanización BCD',NULL,NULL,'VE','08:00:00','16:00:00','1987-11-11',11),
+('Adrián','Tipo Leon','45786934','945786934','atipo@gmail.com','123456','Av. Alternativa','Urbanización EFG',NULL,NULL,'VE','20:00:00','04:00:00','1990-03-29',12),
+('María','Cruz Martínez','27845674','927845674','mcruz@gmail.com','123456','Calle 444','Urbanización HIJ',NULL,NULL,'VE','08:00:00','16:00:00','1988-05-06',13),
+('Natalia','Martínez López','36458976','936458976','nmartinez@gmail.com','123456','Av. Principal','Urbanización KLM',NULL,NULL,'VE','20:00:00','04:00:00','1991-04-25',14),
+('Oscar','Hernández Gómez','39084657','939084657','ohernandez@gmail.com','123456','Calle 555','Urbanización NOP',NULL,NULL,'VE','08:00:00','16:00:00','1992-08-14',15),
+('Patricia','López Fernández','67546834','967546834','plopez@gmail.com','123456','Av. Secundaria','Urbanización QRS',NULL,NULL,'VE','20:00:00','04:00:00','1994-06-07',16),
+('Quirino','Gómez Díaz','37895674','937895674','qgomez@gmail.com','123456','Calle 666','Urbanización TUV',NULL,NULL,'VE','08:00:00','16:00:00','1993-09-20',17),
+('Lucía','Pérez Sánchez','87654321','987654321','lperez@gmail.com','654321','Calle 123','Urbanización ABC',NULL,NULL,'VE','22:00:00','06:00:00','1989-12-27',18),
+('Luis','Martínez Ramírez','11223344','911223344','lmartinez@gmail.com','abcdef','Av. Principal 789','Urbanización DEF',NULL,NULL,'VE','14:00:00','22:00:00','1995-05-04',19),
+('Marta','García López','22334455','922334455','mgarcia@gmail.com','qwerty','Calle 456','Urbanización GHI',NULL,NULL,'VE','08:00:00','16:00:00','1988-07-30',20),
+('Pedro','Hernández Torres','33445566','933445566','phernandez@gmail.com','zxcvbn','Calle 789','Urbanización JKL',NULL,NULL,'VE','22:00:00','06:00:00','1994-01-12',21),
+('Lucía','Fernández Gómez','44556677','944556677','lfernandez@gmail.com','mnbvcx','Av. Secundaria 123','Urbanización MNO',NULL,NULL,'VE','14:00:00','22:00:00','1995-12-02',22),
+('Carlos','Sánchez Ruiz','55667788','955667788','csanchez@gmail.com','poiuyt','Calle 101',NULL,'Mañana','Con canino','SE','08:00:00','16:00:00','1989-05-15',23),
+('Elena','Díaz Fernández','66778899','966778899','ediaz@gmail.com','lkjhg','Calle 202','Urbanización STU',NULL,'Deporte','CO','22:00:00','06:00:00','1987-03-11',24),
+('Juan','Rodríguez Martínez','77889900','977889900','jrodriguez@gmail.com','asdfgh','Calle 303','Urbanización VWX',NULL,NULL,'VE','14:00:00','22:00:00','1992-10-17',25),
+('Luis','Gallego López','23416789','923416789','lgallego@gmail.com','abcdef','Avenida 456','Urbanización DEF',NULL,'Cultura','CO','16:00:00','00:00:00','1993-11-09',26),
+('María','Rodríguez Sánchez','34517890','934517890','mrodriguez@gmail.com','ghijkl','Pasaje 789',NULL,'Noche','A pie','SE','00:00:00','08:00:00','1988-12-21',27),
+('Carlos','Martínez Díaz','45608901','945608901','cmartinez@gmail.com','mnopqr','Jirón 101',NULL,'Mañana','Con canino','SE','08:00:00','16:00:00','1987-01-28',28),
+('Lucía','Gómez Ruiz','56780012','956780012','lgomez@gmail.com','stuvwx','Boulevard 202',NULL,'Tarde','En bicicleta','SE','16:00:00','00:00:00','1989-08-03',29),
+('José','Fernández Torres','61890123','961890123','jfernandez@gmail.com','yzabcd','Alameda 303','Urbanización PQR',NULL,'Cultura','CO','00:00:00','08:00:00','1991-09-12',30);
+
 
 
 -- Datos de profesores
@@ -358,12 +380,16 @@ INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asist
 
 -- credenciales
 
+
 -- Insertar datos en credenciales
-INSERT INTO credenciales (idCredenciales, correo, clave, claveHash, idUsuario)
+INSERT INTO credenciales (idCredenciales, idUsuario, correo, clave, claveHash)
 SELECT 
     idUsuario as idCredenciales,
+    idUsuario,
     correo,
     clave,
-    SHA2(clave, 256) as claveHash,
-    idUsuario
+    SHA2(clave, 256) as claveHash
 FROM usuario;
+
+-- Habilitar la verificación de claves foráneas
+SET FOREIGN_KEY_CHECKS = 1;
