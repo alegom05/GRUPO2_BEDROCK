@@ -282,7 +282,7 @@ INSERT INTO profesor (nombre, apellido, curso) VALUES
 ('Eduardo', 'Gómez Díaz', 'Carrera de tres pies'),
 ('Carolina', 'Díaz Fernández', 'Festival de juegos familiares'),
 ('Jorge', 'Fernández Martínez', 'Juegos deportivos para los niños'),
-('Ana', 'Mendoza García', 'Juegos deportivos para los niños');
+('Catalina', 'Mendoza García', 'Juegos deportivos para los niños');
 
 -- Tipo
 INSERT INTO `basededatos3`.`tipo` (`idtipo`, `nombre`) VALUES ('RO', 'Robo agravado');

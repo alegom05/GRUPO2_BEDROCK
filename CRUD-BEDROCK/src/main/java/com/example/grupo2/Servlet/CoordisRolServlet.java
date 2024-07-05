@@ -5,7 +5,6 @@ import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.Beans.Usuario;
 import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.IncidenciaDao;
-import com.example.grupo2.daos.SerenazgosDao;
 import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -20,7 +19,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 @WebServlet(name = "Coordis", value = "/Coordis")
-public class CoordisServlet extends HttpServlet {
+public class CoordisRolServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -59,6 +58,29 @@ public class CoordisServlet extends HttpServlet {
             case "formCrearInci":
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidenciaVerisonPRUEBA.jsp");
                 view.forward(request, response);
+                break;
+            //Lista de incidencias -> Listar Coordis
+            case "listaCoordi":
+                String idCoordi = request.getParameter("idUsuario");
+                ArrayList<Incidencia> listaIncidenciasCoordi = incidenciaDao.listarIncidenciasDeUnUsuario(idCoordi);
+                request.setAttribute("incidencia", listaIncidenciasCoordi);
+
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
+                view.forward(request, response);
+                break;
+            //Detalle de incidencia -> Detalles de una incidencia para Coordis
+            case "detallar3":
+                String id3 = request.getParameter("id");
+                int idint = Integer.parseInt(id3);
+                if (incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id3)) != null) {
+                    Incidencia incidencia3 = incidenciaDao.obtenerIncidenciaPorId(idint);
+                    request.setAttribute("incidencia", incidencia3);
+                    RequestDispatcher view1 = request.getRequestDispatcher("/CoordinadorasJSPS/detallesIncidencia.jsp");
+                    view1.forward(request, response);
+                }else {
+                    System.out.println("Incidencia no encontrada para el ID: " + id3); // Log de incidencia no encontrada
+                    //response.sendRedirect("error.jsp");
+                }
                 break;
             //JSPS
             case "paginaPrincipal":

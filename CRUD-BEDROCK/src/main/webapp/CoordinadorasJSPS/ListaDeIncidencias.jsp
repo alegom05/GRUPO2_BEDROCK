@@ -82,7 +82,7 @@
                     <th>Nombre</th>
                     <th>Fecha</th>
                     <th>Lugar</th>
-                    <th>Inspeccionar</th>
+                    <th>Ver</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -151,7 +151,7 @@
 <script>
     function detallesIncidencia(id) {
         // Redireccionar a otra página HTML
-        window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=detallar3&id=' + id;
+        window.location.href = '<%=request.getContextPath()%>/Coordis?a=detallar3&id=' + id;
     }
 
     function detallesIncidencia1() {
