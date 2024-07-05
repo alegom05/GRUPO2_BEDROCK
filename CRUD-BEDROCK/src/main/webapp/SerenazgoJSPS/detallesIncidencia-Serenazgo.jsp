@@ -129,7 +129,7 @@
 
 <div class="botonesGroup">
 
-    <button type="button" class="btn gradient-custom-3" id="btnRedireccional">Exportar</button>
+    <button type="button" class="btn gradient-custom-3" id="btnExportar" onclick="exportarPDF()">Exportar</button>
 
     <% if (mostrarEvaluar) { %>
     <!--<a href="${pageContext.request.contextPath}/SerenazgoJSPS/evaluarIncidencias-Serenazgo.jsp" type="button" class="btn gradient-custom-3" id="btnRedireccional">Evaluar incidencia</a>-->
@@ -204,9 +204,17 @@
 
             </div>
 
+
+
         </div>
 
     </div>
+
+    <script>
+        function exportarPDF() {
+            window.location.href = '<%=request.getContextPath()%>/ExportarPDFServlet?id=<%=incidencia.getIdIncidencia()%>';
+        }
+    </script>
 
     <% if (mostrarVerEvaluacion) { %>
     <button type="button" class="btn gradient-custom-3" data-bs-toggle="modal" data-bs-target="#verEvaluacionIncidencia" id="btnRedireccional">Ver evaluación</button>

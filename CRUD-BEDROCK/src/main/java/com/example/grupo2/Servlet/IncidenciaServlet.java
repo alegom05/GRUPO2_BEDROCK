@@ -50,8 +50,9 @@ public class IncidenciaServlet extends HttpServlet {
                         request.setAttribute("mostrarFalsaAlarma", "Nueva".equals(estado) || "En proceso".equals(estado));
                         request.setAttribute("mostrarCerrar","En proceso".equals(estado));
 
-
                         view = request.getRequestDispatcher("/SerenazgoJSPS/detallesIncidencia-Serenazgo.jsp");
+                        request.getSession().setAttribute("incidenciaParaExportar", incidencia);
+
                         view.forward(request, response);
                     } else {
                         response.sendRedirect("error.jsp"); // Página de error en caso de que no se encuentre la incidencia

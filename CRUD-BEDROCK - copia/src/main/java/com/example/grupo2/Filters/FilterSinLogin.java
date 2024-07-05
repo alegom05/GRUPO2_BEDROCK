@@ -28,7 +28,7 @@ public class FilterSinLogin implements Filter {
             if("VE".equals(usuario.getRol())){
                 resp.sendRedirect(req.getContextPath()+"/VecinoIndexServlet");
             }else if("CO".equals(usuario.getRol())){
-                resp.sendRedirect(req.getContextPath()+"/CoordinadoraIndexServlet");
+                resp.sendRedirect(req.getContextPath()+"/CoordinadorasJSPS/PaginaPrincipal.jsp");
             }else if("SE".equals(usuario.getRol())){
                 resp.sendRedirect(req.getContextPath()+"/SerenazgoIndexServlet");
             }else{
