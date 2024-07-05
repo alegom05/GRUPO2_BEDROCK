@@ -46,7 +46,7 @@ public class CoordisRolServlet extends HttpServlet {
                 //String idCoordi= request.getParameter("idUsuario");
                 ArrayList<Evento> listaEventos = eventoDao.listarEventosParaCoordi();
                 request.setAttribute("listaEventos",listaEventos);
-                view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventos.jsp");
+                view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosOld.jsp");
                 view.forward(request,response);
                 break;
             case "listarve":
@@ -98,8 +98,9 @@ public class CoordisRolServlet extends HttpServlet {
             case "calendario":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/Calendario.jsp");
                 break;
+            //Solo este está funcional, relacionado con la pestaña Historial de Eventos
             case "historialEventos":
-                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/HistorialDeEventos.jsp");
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaEventos.jsp");
                 break;
             case "listarVecinos":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/VecinoSanmi.jsp");
