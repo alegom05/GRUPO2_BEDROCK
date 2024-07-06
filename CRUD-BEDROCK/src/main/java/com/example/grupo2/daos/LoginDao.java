@@ -73,7 +73,7 @@ public class LoginDao {
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
-            
+
             try (ResultSet rs = pstmt.executeQuery();) {
                 if (rs.next()) {
                     int employeeId = rs.getInt(5);
