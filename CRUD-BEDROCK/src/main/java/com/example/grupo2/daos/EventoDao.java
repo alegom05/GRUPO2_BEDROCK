@@ -57,8 +57,6 @@ public class EventoDao {
     }
 
 
-
-
     //Metodo para listar eventos de coordi
     public static ArrayList<Evento> listarEventosCoordi(String id){
         try{

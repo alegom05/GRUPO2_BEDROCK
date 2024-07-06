@@ -24,9 +24,9 @@ public class UsuarioDao extends daoBase {
 
         String sql = "select u.idUsuario, concat(u.nombre, ' ', u.apellido) as NombreCompleto, u.dni , u.telefono, u.correo, u.clave, u.direccion, u.urbanizacion, u.turnoSerenazgo, u.tipo, r.nombre, u.horaInicio, u.horaFin, u.fecha_nacimiento\n" +
                 "from usuario u\n" +
-                "left join roles r on u.idRoles = r.idRoles\n" +
-                "left join incidencia i on u.idUsuario = i.idUsuario\n" +
-                "where u.idRoles='VE';";
+                "inner join roles r on u.idRoles = r.idRoles\n" +
+                "where u.idRoles='VE'\n" +
+                "order by u.nombre DESC;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
              PreparedStatement pstmt = conn.prepareStatement(sql);

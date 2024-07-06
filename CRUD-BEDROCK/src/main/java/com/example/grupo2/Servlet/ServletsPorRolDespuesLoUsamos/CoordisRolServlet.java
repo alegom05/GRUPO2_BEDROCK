@@ -1,4 +1,4 @@
-package com.example.grupo2.Servlet;
+package com.example.grupo2.Servlet.ServletsPorRolDespuesLoUsamos;
 
 import com.example.grupo2.Beans.Evento;
 import com.example.grupo2.Beans.Incidencia;
@@ -16,6 +16,10 @@ import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 @WebServlet(name = "Coordis", value = "/Coordis")
@@ -42,24 +46,19 @@ public class CoordisRolServlet extends HttpServlet {
                 view.forward(request,response);
                 break;
 
-            case "listarev":
-                //String idCoordi= request.getParameter("idUsuario");
-                ArrayList<Evento> listaEventos = eventoDao.listarEventosParaCoordi();
-                request.setAttribute("listaEventos",listaEventos);
-                view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosOld.jsp");
-                view.forward(request,response);
-                break;
+            //Pestaña Lista de vecinos ***
             case "listarve":
                 ArrayList<Usuario> listaUsuario = usuarioDao.listarUsuarios();
                 request.setAttribute("lista",listaUsuario);
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinoSanmi.jsp");
                 view.forward(request,response);
                 break;
+            //Pestaña Reportar incidencia ***
             case "formCrearInci":
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidenciaVerisonPRUEBA.jsp");
                 view.forward(request, response);
                 break;
-            //Lista de incidencias -> Listar Coordis
+            //Pestaña Lista de incidencias -> Listar Coordis ***
             case "listaCoordi":
                 String idCoordi = request.getParameter("idUsuario");
                 ArrayList<Incidencia> listaIncidenciasCoordi = incidenciaDao.listarIncidenciasDeUnUsuario(idCoordi);
@@ -82,7 +81,7 @@ public class CoordisRolServlet extends HttpServlet {
                     //response.sendRedirect("error.jsp");
                 }
                 break;
-            //JSPS
+            //JSPS, solo dos funcionan
             case "paginaPrincipal":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaPrincipal.jsp");
                 break;
@@ -95,15 +94,18 @@ public class CoordisRolServlet extends HttpServlet {
             case "listarIncidencias":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 break;
+            //Pestaña Mira tu calendario ***
             case "calendario":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/Calendario.jsp");
                 break;
-            //Solo este está funcional, relacionado con la pestaña Historial de Eventos
+            //Pestaña Historial de Eventos ***
             case "historialEventos":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaEventos.jsp");
                 break;
-            case "listarVecinos":
-                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/VecinoSanmi.jsp");
+            //Crear evento -> vista
+            case "crearev":
+                RequestDispatcher view2 = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
+                view2.forward(request, response);
                 break;
         }
 
@@ -161,7 +163,23 @@ public class CoordisRolServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/Coordis?action=listain&idUsuario" + idUsuario);
 
                 break;
-
+            case "agregarev":
+                Evento evento = new Evento();
+                EventoDao eventoDao = new EventoDao();
+                evento.setNombre(request.getParameter("nombre"));
+                evento.setDescripcion(request.getParameter("descripcion"));
+                evento.setMateriales(request.getParameter("materiales"));
+                evento.setLugar(request.getParameter("lugar2"));
+                evento.setNombreProfesor(request.getParameter("nombreProfesor"));
+                evento.setVacantes(Integer.parseInt(request.getParameter("vacantes")));
+                evento.setFechaInicial(Date.valueOf(request.getParameter("fechaInicial")));
+                evento.setFechaFinal(Date.valueOf(request.getParameter("fechaFinal")));
+                evento.setHora(Time.valueOf(request.getParameter("hora")));
+                evento.setFrecuencia(Integer.parseInt(request.getParameter("frecuencia")));
+                /*evento.setFoto(request.getParameter("foto2"));*/
+                eventoDao.crearEvento(evento);
+                response.sendRedirect(request.getContextPath() + "/Coordis");
+            }
 
 
 

@@ -72,7 +72,7 @@
 
             
             <div class="col d-flex justify-content-end">
-                <a href="CrearEvento.html" class="btn btn-primary"><h7>Crear evento</h7></a>
+                <a href="${pageContext.request.contextPath}/Coordis?a=crearev" class="btn btn-primary"><h7>Crear evento</h7></a>
             </div>
 
         </div>
@@ -81,7 +81,7 @@
             <div class="col-md-4">
                 <a href="${pageContext.request.contextPath}/EventosDetallado1.html" class="card-link">
                     <div class="card shadow">
-                        <img src="${pageContext.request.contextPath}/imagenes_eventos/deporte/evento1.jpg" alt="Evento 1" class="card-img-top w-100">
+                        <img src="./imagenes_eventos/deporte/evento1.jpg" alt="Evento 1" class="card-img-top w-100">
                         <div class="card-body">
                             <h5 class="card-title">Maraton de San Miguel</h5>
                             <p class="card-text">30/08/2024</p>
@@ -93,7 +93,7 @@
             <div class="col-md-4 custom-cartanz-2">
                 <a href="./EventosDetallado2.html" class="card-link">
                     <div class="card shadow">
-                        <img src="${pageContext.request.contextPath}/imagenes_eventos/deporte/evento2.jpg" alt="Evento 2" class="card-img-top w-100">
+                        <img src="./imagenes_eventos/deporte/evento2.jpg" alt="Evento 2" class="card-img-top w-100">
                         <div class="card-body">
                             <h5 class="card-title">Torneo de futbol juvenil</h5>
                             <p class="card-text">25/08/2024</p>
@@ -104,7 +104,7 @@
             <div class="col-md-4 custom-cartanz-2">
                 <a href="./EventosDetallado3.html" class="card-link">
                     <div class="card shadow">
-                        <img src="${pageContext.request.contextPath}/imagenes_eventos/deporte/evento3.jpg" alt="Evento 3" class="card-img-top w-100">
+                        <img src="./imagenes_eventos/deporte/evento3.jpg" alt="Evento 3" class="card-img-top w-100">
                         <div class="card-body">
                             <h5 class="card-title">Carrera de ciclismo</h5>
                             <p class="card-text">15/08/2024</p>
@@ -115,7 +115,7 @@
             <div class="col-md-4 mt-4 custom-cartanz-2">
                 <a href="./EventosDetallado4.html" class="card-link">
                     <div class="card shadow">
-                        <img src="${pageContext.request.contextPath}/imagenes_eventos/deporte/evento4.jpg" alt="Evento 4" class="card-img-top w-100">
+                        <img src="./imagenes_eventos/deporte/evento4.jpg" alt="Evento 4" class="card-img-top w-100">
                         <div class="card-body">
                             <h5 class="card-title">Torneo Raqueta Dorada</h5>
                             <p class="card-text">03/08/2024</p>
