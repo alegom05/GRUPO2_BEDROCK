@@ -81,7 +81,7 @@ public class CoordisRolServlet extends HttpServlet {
                     //response.sendRedirect("error.jsp");
                 }
                 break;
-            //JSPS, solo dos funcionan
+            //Pestaña Página Principal ***
             case "paginaPrincipal":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaPrincipal.jsp");
                 break;
@@ -121,7 +121,7 @@ public class CoordisRolServlet extends HttpServlet {
         RequestDispatcher view;
 
         switch (action) {
-
+            //Crear Incidencia
             case "crearInci":
                 String nombreIncidencia = request.getParameter("nombreIncidencia");
                 String lugar = request.getParameter("lugarIncidencia");
@@ -163,6 +163,7 @@ public class CoordisRolServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/Coordis?action=listain&idUsuario" + idUsuario);
 
                 break;
+            //Crear Evento
             case "agregarev":
                 Evento evento = new Evento();
                 EventoDao eventoDao = new EventoDao();
@@ -179,7 +180,7 @@ public class CoordisRolServlet extends HttpServlet {
                 /*evento.setFoto(request.getParameter("foto2"));*/
                 eventoDao.crearEvento(evento);
                 response.sendRedirect(request.getContextPath() + "/Coordis");
-            }
+
 
 
 

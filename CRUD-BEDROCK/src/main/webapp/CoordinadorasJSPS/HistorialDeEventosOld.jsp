@@ -46,7 +46,6 @@
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
             </li>
-
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Coordis?a=formCrearInci" class="nav-link">Reportar Incidencia</a>
             </li>
@@ -57,7 +56,7 @@
                 <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?a=historialEventos" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>

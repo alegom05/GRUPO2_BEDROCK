@@ -34,23 +34,22 @@
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordisIndexServlet" class="nav-link">Municipalidad</a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="ReportarIncidencia.html" class="nav-link">Reportar Incidencia</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                    <a href="<%=request.getContextPath()%>/Coordis?a=formCrearInci" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordisCalendarioServlet" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                </li>
+                <li class="nav-item">
+                    <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?a=historialEventos" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="VecinoSanmi.jsp" class="nav-link">Lista de Vecinos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
                 </li>
             </ul>
         </nav>             
