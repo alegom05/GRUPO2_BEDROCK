@@ -424,6 +424,31 @@ public class UsuarioDao extends daoBase {
         return usuario;
     }
 
+    public Usuario validarUsuarioPasswordHashed(String username, String password) {
+
+        Usuario usuario = null;
+
+        String sql = "SELECT * FROM credenciales WHERE email = ? AND password_hashed = SHA2(?, 256);";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+                if (rs.next()) {
+                    int employeeId = rs.getInt(1);
+                    usuario = this.listarPorId(employeeId);
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return usuario;
+    }
+
 
 }
 

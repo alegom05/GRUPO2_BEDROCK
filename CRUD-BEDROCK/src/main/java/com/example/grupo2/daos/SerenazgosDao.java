@@ -239,7 +239,7 @@ public class SerenazgosDao {
                 String currentRole = rs.getString("idRoles");
                 String newRole = null;
 
-                if ("US".equals(currentRole)) {
+                if (currentRole == null) {
                     newRole = "VE";
                 } else if ("VE".equals(currentRole)) {
                     newRole = "CO";
