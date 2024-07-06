@@ -51,4 +51,41 @@ public class LoginDao {
         return usuario;
     }
 
+    //Para usar contraseña hasheada
+    public Usuario validarHash(String username, String password) {
+
+        Usuario usuario = null;
+        UsuarioDao usuarioDao = new UsuarioDao();
+
+        String user = "root";
+        String pass = "root";
+        String url = "jdbc:mysql://localhost:3306/basededatos3";
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "SELECT * FROM credenciales WHERE correo = ? AND claveHash = SHA2(?, 256);";
+
+        try (Connection conn = DriverManager.getConnection(url, user, pass);
+             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+            pstmt.setString(1, username);
+            pstmt.setString(2, password);
+            
+            try (ResultSet rs = pstmt.executeQuery();) {
+                if (rs.next()) {
+                    int employeeId = rs.getInt(5);
+                    usuario = usuarioDao.listarPorId(employeeId);
+                }
+            }
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return usuario;
+    }
+
 }

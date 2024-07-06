@@ -46,7 +46,7 @@ public class LoginServlet extends HttpServlet {
         String pass = request.getParameter("password1");
         System.out.println(correo);
         System.out.println(pass);
-        Usuario usuario = loginDao.validar(correo, pass);
+        Usuario usuario = loginDao.validarHash(correo, pass);
         HttpSession session = request.getSession();
 
         if(usuario !=null){
