@@ -2,24 +2,15 @@ package com.example.grupo2.daos;
 import com.example.grupo2.Beans.Usuario;
 import java.sql.*;
 
-public class LoginDao {
+public class LoginDao extends daoBase{
     private static String user = "root";
     private static String pass = "root";
     private static String url = "jdbc:mysql://localhost:3306/basededatos3";
     public Usuario validar(String correo,String clave){
         Usuario usuario = null;
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
         String sql = "SELECT * FROM usuario WHERE correo =? and clave =?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1,correo);
@@ -57,19 +48,9 @@ public class LoginDao {
         Usuario usuario = null;
         UsuarioDao usuarioDao = new UsuarioDao();
 
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
         String sql = "SELECT * FROM credenciales WHERE correo = ? AND claveHash = SHA2(?, 256);";
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
