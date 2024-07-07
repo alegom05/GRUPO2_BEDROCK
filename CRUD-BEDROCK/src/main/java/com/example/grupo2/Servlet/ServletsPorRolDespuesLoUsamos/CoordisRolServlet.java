@@ -104,7 +104,7 @@ public class CoordisRolServlet extends HttpServlet {
                 int idint4 = Integer.parseInt(id4);
                 if (incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id4)) != null) {
                     Evento evento = eventoDao.obtenerEventoPorId(id4);
-                    request.setAttribute("incidencia", evento);
+                    request.setAttribute("evento", evento);
                     RequestDispatcher view1 = request.getRequestDispatcher("/CoordinadorasJSPS/detallesEvento.jsp");
                     view1.forward(request, response);
                 }else {

@@ -180,7 +180,7 @@
     <script>
         function detallesEvento(id) {
             // Redireccionar a otra página HTML
-            window.location.href = '<%=request.getContextPath()%>/Coordis?action=detallarParaCoordi&id=' + id;
+            window.location.href = '<%=request.getContextPath()%>/Coordis?action=detallarev&id=' + id;
         }
     </script>
 </div>

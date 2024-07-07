@@ -57,7 +57,6 @@ public class EventoDao {
     }
 
 
-    //Metodo para listar eventos de coordi
     public static ArrayList<Evento> listarEventosCoordi(String id){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -99,6 +98,7 @@ public class EventoDao {
         return listaEventos;
     }
 
+    //Este se usa para Coordis
     public static ArrayList<Evento> listarEventosCoordi2() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");

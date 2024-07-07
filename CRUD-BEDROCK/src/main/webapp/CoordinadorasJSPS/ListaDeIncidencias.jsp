@@ -39,7 +39,6 @@
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
             </li>
-
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
             </li>

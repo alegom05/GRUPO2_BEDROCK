@@ -177,7 +177,12 @@ public class SerenazgosDao {
         ArrayList<Solicitudes> listaSolicitudes = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, user, pass);
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT s.idsolicitudes, u.nombre, u.apellido, u.dni, u.correo, u.direccion, s.roles_idRoles FROM solicitudes s JOIN usuario u ON s.usuario_idUsuario = u.idUsuario WHERE s.estadosolicitud IS NULL;")){
+             ResultSet rs = stmt.executeQuery("SELECT s.idsolicitudes, u.nombre, u.apellido, u.dni, u.correo, u.direccion, s.roles_idRoles \n" +
+                     "FROM solicitudes s \n" +
+                     "JOIN usuario u \n" +
+                     "ON s.usuario_idUsuario = u.idUsuario \n" +
+                     "WHERE s.estadosolicitud=0;")){
+            
             while (rs.next()){
 
                 Solicitudes solicitud = new Solicitudes();
