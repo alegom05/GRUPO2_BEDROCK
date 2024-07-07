@@ -1,13 +1,12 @@
 
 <%@ page import="java.util.ArrayList" %>
-
 <%@ page import="com.example.grupo2.Beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 
 
 <%
-    ArrayList<Evento> evento = (ArrayList<Evento>) request.getAttribute("listaEventos");
+    ArrayList<Evento> listaEventos = (ArrayList<Evento>) request.getAttribute("listaEventos");
 
 %>
 
@@ -74,7 +73,7 @@
 
             <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;" placeholder="Buscar...">
             <div class="col d-flex justify-content-end">
-                <a href="<%=request.getContextPath()%>/EventoServlet?action=formCrear" class="btn btn-primary"><h7>Crear evento</h7></a>
+                <a href="<%=request.getContextPath()%>/Coordis?a=crearev" class="btn btn-primary"><h7>Crear evento</h7></a>
             </div>
         </div>
         <br>
@@ -93,7 +92,7 @@
                 </thead>
 
                 <tbody>
-                <% for (Evento eventos: evento){%>
+                <% for (Evento eventos: listaEventos){%>
                 <tr>
                     <td><%=eventos.getNombre()%></td>
                     <td><%=eventos.getNombreProfesor()%></td>
@@ -181,7 +180,7 @@
     <script>
         function detallesEvento(id) {
             // Redireccionar a otra página HTML
-            window.location.href = '<%=request.getContextPath()%>/EventoServlet?action=detallarParaCoordi&id=' + id;
+            window.location.href = '<%=request.getContextPath()%>/Coordis?action=detallarParaCoordi&id=' + id;
         }
     </script>
 </div>

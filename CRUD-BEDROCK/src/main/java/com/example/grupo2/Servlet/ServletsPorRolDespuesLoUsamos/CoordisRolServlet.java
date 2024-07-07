@@ -37,14 +37,6 @@ public class CoordisRolServlet extends HttpServlet {
         RequestDispatcher view;
 
         switch (action) {
-            case "listarin":
-                String id = request.getParameter("idUsuario");
-                ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidenciasDeUnUsuario(id);
-                request.setAttribute("lista",listaIncidencias);
-
-                view =request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
-                view.forward(request,response);
-                break;
 
             //Pestaña Lista de vecinos ***
             case "listarve":
@@ -85,9 +77,6 @@ public class CoordisRolServlet extends HttpServlet {
             case "paginaPrincipal":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaPrincipal.jsp");
                 break;
-            case "Eventos":
-                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaEventos.jsp");
-                break;
             case "reportarIncidencia":
                 response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/ReportarIncidencia.jsp");
                 break;
@@ -100,12 +89,28 @@ public class CoordisRolServlet extends HttpServlet {
                 break;
             //Pestaña Historial de Eventos ***
             case "historialEventos":
-                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaEventos.jsp");
+                ArrayList<Evento> listaEventos = eventoDao.listarEventosCoordi2();
+                request.setAttribute("listaEventos", listaEventos);
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
+                view.forward(request, response);
                 break;
-            //Crear evento -> vista
+            //Vista Crear evento
             case "crearev":
                 RequestDispatcher view2 = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
                 view2.forward(request, response);
+                break;
+            case "detallarev":
+                String id4 = request.getParameter("id");
+                int idint4 = Integer.parseInt(id4);
+                if (incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id4)) != null) {
+                    Evento evento = eventoDao.obtenerEventoPorId(id4);
+                    request.setAttribute("incidencia", evento);
+                    RequestDispatcher view1 = request.getRequestDispatcher("/CoordinadorasJSPS/detallesEvento.jsp");
+                    view1.forward(request, response);
+                }else {
+                    System.out.println("Incidencia no encontrada para el ID: " + id4); // Log de incidencia no encontrada
+                    //response.sendRedirect("error.jsp");
+                }
                 break;
         }
 

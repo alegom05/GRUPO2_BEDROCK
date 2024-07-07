@@ -6,10 +6,7 @@ import com.example.grupo2.Beans.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ProfesoresDao {
-    private static String user = "root";
-    private static String pass = "root";
-    private static String url = "jdbc:mysql://localhost:3306/basededatos3";
+public class ProfesoresDao extends daoBase{
 
     public ArrayList<Profesores> obtenerProfesores(){
         try{
@@ -18,7 +15,7 @@ public class ProfesoresDao {
             e.printStackTrace();
         }
         ArrayList<Profesores> listaProfesores = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT nombre, apellido, curso, idProfesor FROM basededatos3.profesor")){
             while (rs.next()){
@@ -37,14 +34,10 @@ public class ProfesoresDao {
     }
 
     public void crearProfesores(String nombre, String apellido, String curso){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
         String sql = "INSERT INTO `basededatos3`.`profesor` (`nombre`, `apellido`, `curso`) VALUES (?, ?, ?)";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, nombre);
@@ -59,15 +52,10 @@ public class ProfesoresDao {
         }
     }
     public void eliminarProfesor(String id) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         String sql = "DELETE FROM profesor WHERE idProfesor = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, id);
@@ -79,15 +67,10 @@ public class ProfesoresDao {
     }
     public Profesores buscarPorIdProf(int id) {
         Profesores profesor = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         String sql = "SELECT * FROM profesor where idProfesor = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setInt(1, id);
@@ -110,15 +93,9 @@ public class ProfesoresDao {
     }
     public void actualizar(Profesores serenazgo) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
         String sql = "UPDATE profesor SET curso=? where idProfesor=?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, serenazgo.getCurso());

@@ -41,11 +41,11 @@ public class EventoDao {
             while (rs.next()){
                 Evento evento = new Evento();
                 evento.setIdEvento(rs.getInt("idEvento"));
-                evento.setNombre(rs.getString("nombre"));
+                evento.setNombre(rs.getString("nombre"));//1
                 evento.setNombreProfesor(rs.getString("nombreProfesor"));
                 evento.setLugar(rs.getString("lugar"));
-                evento.setFechaInicial(rs.getDate("fechaInicial"));
-                evento.setEstadoEvento(rs.getString("estadoEvento"));
+                evento.setFechaInicial(rs.getDate("fechaInicial"));//3
+                evento.setEstadoEvento(rs.getString("estadoEvento"));//2
                 listaEventos.add(evento);
 
             }
@@ -95,6 +95,46 @@ public class EventoDao {
         }catch(SQLException e){
             throw new RuntimeException(e);
         }
+        System.out.println(listaEventos);
+        return listaEventos;
+    }
+
+    public static ArrayList<Evento> listarEventosCoordi2() {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Evento> listaEventos = new ArrayList<>();
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT e.nombre, p.nombre, e.lugar, e.fechaInicial, e.lugar, e.estadoEvento " +
+                "FROM evento e " +
+                "JOIN profesor p ON e.idProfesor = p.idProfesor";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Evento evento = new Evento();
+                    evento.setNombre(rs.getString(1));
+                    evento.setNombreProfesor(rs.getString(2));
+                    evento.setLugar(rs.getString(3));
+                    evento.setFechaInicial(rs.getDate(4));
+                    evento.setEstadoEvento(rs.getString(5));
+
+                    listaEventos.add(evento);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         System.out.println(listaEventos);
         return listaEventos;
     }

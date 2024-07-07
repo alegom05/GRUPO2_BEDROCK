@@ -183,7 +183,7 @@
             </div>
              <div class="mt-4 text-center">
                  <button type="submit" class="btn btn-primary" >Crear</button>
-                 <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="btn btn-secondary">Volver</a>
+                 <a href="${pageContext.request.contextPath}/Coordis?a=historialEventos" class="btn btn-secondary">Volver</a>
              </div>
         </form>
     </div>

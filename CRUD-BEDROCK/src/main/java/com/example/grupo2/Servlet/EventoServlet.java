@@ -38,7 +38,7 @@ public class EventoServlet extends HttpServlet {
                 ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
                 request.setAttribute("listaEventos",listaEventos2);
 
-                view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosOld.jsp");
+                view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
                 view.forward(request,response);
 
                 break;
@@ -144,7 +144,7 @@ public class EventoServlet extends HttpServlet {
                     response.sendRedirect("error.jsp");
                 }
 
-                view = request.getRequestDispatcher("/HistorialDeEventosOld.jsp");
+                view = request.getRequestDispatcher("/HistorialDeEventosNew.jsp");
                 view.forward(request, response);
                 break;
             case "inscribirse_evento":
