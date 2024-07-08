@@ -241,7 +241,7 @@ INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('V0', 'PreVecin
 INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
 ('Christopher','Terrones Peña','32364579','912345678','cterrones@gmail.com','123456','Calle 123','Urbanización ABC',NULL,NULL,'AD','08:00:00','16:00:00','1987-11-15'),
 ('Beto','García Fernández','64856789','923456789','bgarcia@gmail.com','123456','Av. Principal','Urbanización XYZ',NULL,'Cultura','CO','20:00:00','04:00:00','1990-02-22'),
-('Nikol','Montes Esteban','34567890','934567890','a20203644@pucp.edu.pe','123456','Calle 456','Urbanización DEF',NULL,'Deporte','CO','08:00:00','16:00:00','1993-03-18'),
+('Nikol','Montes Esteban','34567890','934567890','nikolvale27@gmail.com','123456','Calle 456','Urbanización DEF',NULL,'Deporte','CO','08:00:00','16:00:00','1993-03-18'),
 ('Isaac','Huamaní Sulca','49078901','945678901','ihuamani@gmail.com','123456','Av. Secundaria','Urbanización GHI',NULL,'Deporte','CO','20:00:00','04:00:00','1991-05-09'),
 ('Elena','Hernández Gómez','50789012','956789012','ehernandez@gmail.com','123456','Calle 789','Urbanización JKL',NULL,'Cultura','CO','08:00:00','16:00:00','1992-07-22'),
 ('Dorian','Felix Naula','33890123','967890123','dfelix@gmail.com','123456','Av. Alternativa',NULL,'Noche','A pie','SE','20:00:00','04:00:00','1988-10-30'),
