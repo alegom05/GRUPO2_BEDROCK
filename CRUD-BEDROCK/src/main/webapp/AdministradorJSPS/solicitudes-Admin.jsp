@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.grupo2.Beans.Solicitudes" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean type="java.util.ArrayList<com.example.grupo2.Beans.Solicitudes>" scope="request" id="solicitudes"/>
+<jsp:useBean id="solicitudes" scope="request" type="java.util.ArrayList<com.example.grupo2.Beans.Solicitudes>" />
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -108,7 +108,7 @@
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="<%=request.getContextPath()%>/Solicitudes?a=aprobar&id=<%=solicitudes1.getIdsolicitud() %>">Aprobar</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="mostrarModalAprobacion('<%= solicitudes1.getIdsolicitud() %>', '<%= solicitudes1.getCorreo() %>')">Aprobar</a></li>
                         <li><a onclick="setSerenazgoId('<%= solicitudes1.getIdsolicitud() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
                     </ul>
                 </div>
@@ -190,40 +190,56 @@
     </script>
 </div>
 
-<div class="modal fade" id="confirmationModal" tabindex="-1" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+<div class="modal fade" id="aprobarSolicitudModal" tabindex="-1" aria-labelledby="aprobarSolicitudModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="confirmationModalLabel">Solicitud Aprobada</h5>
+                <h5 class="modal-title" id="aprobarSolicitudModalLabel">Aprobar Solicitud</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Solicitud aprobada, se envía un correo al usuario.
+                ¿Está seguro que desea aprobar esta solicitud? Se enviará un correo al usuario con la información de acceso.
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="confirmarAprobacion">Aprobar</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    function aprobarSolicitud(id, correo) {
-        $.ajax({
-            url: '<%=request.getContextPath()%>/Solicitudes?a=aprobar',
-            type: 'POST',
-            data: { id: id, correo: correo },
-            success: function(response) {
-                $('#confirmationModal').modal('show');
-                setTimeout(function() {
-                    window.location.reload();
-                }, 3000);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error al aprobar la solicitud:', error);
-            }
-        });
+    let idSolicitudActual;
+    let correoSolicitudActual;
+
+    function mostrarModalAprobacion(id, correo) {
+        idSolicitudActual = id;
+        correoSolicitudActual = correo;
+        $('#aprobarSolicitudModal').modal('show');
     }
+
+    $(document).ready(function() {
+        $('#confirmarAprobacion').click(function() {
+            $.ajax({
+                url: '<%=request.getContextPath()%>/Solicitudes',
+                type: 'POST',
+                data: {
+                    a: 'aprobar',
+                    id: idSolicitudActual,
+                    correo: correoSolicitudActual
+                },
+                success: function(response) {
+                    $('#aprobarSolicitudModal').modal('hide');
+                    // Muestra un mensaje de éxito o recarga la página
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error al aprobar la solicitud:', error);
+                    // Muestra un mensaje de error
+                }
+            });
+        });
+    });
 </script>
 
 </body>
