@@ -182,7 +182,7 @@ public class SerenazgosDao {
                      "JOIN usuario u \n" +
                      "ON s.usuario_idUsuario = u.idUsuario \n" +
                      "WHERE s.estadosolicitud=0;")){
-            
+
             while (rs.next()){
 
                 Solicitudes solicitud = new Solicitudes();
