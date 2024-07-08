@@ -230,12 +230,12 @@
                 },
                 success: function(response) {
                     $('#aprobarSolicitudModal').modal('hide');
-                    // Muestra un mensaje de éxito o recarga la página
-                    location.reload();
+                    // Redirigir a la página de solicitudes
+                    window.location.href = '<%=request.getContextPath()%>/Solicitudes';
                 },
                 error: function(xhr, status, error) {
                     console.error('Error al aprobar la solicitud:', error);
-                    // Muestra un mensaje de error
+                    alert('Hubo un error al aprobar la solicitud. Por favor, inténtelo de nuevo.');
                 }
             });
         });

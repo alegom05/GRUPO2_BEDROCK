@@ -56,8 +56,8 @@ public class SolicitudesServlet extends HttpServlet {
                 serenazgosDao.aprobarSolicitud(id);
                 enviarCorreo(correo);
                 response.setStatus(HttpServletResponse.SC_OK);
-                response.sendRedirect(request.getContextPath() + "/AdministradorJSPS/solicitudes-Admin.jsp");
-            }
+                // No redirigimos aquí, la redirección se maneja en el cliente
+                }
             case "rechazar" -> {
                 int id = Integer.parseInt(request.getParameter("id"));
                 serenazgosDao.rechazarSolicitud(id);
