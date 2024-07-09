@@ -42,7 +42,7 @@
                                                 <a class="btn btn-link" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">¿Olvidaste tu contraseña?</a>
                                             </div>
                                             <div class="text-center pt-4 mb-2 pb-1">
-                                                ¿No tienes una cuenta? <a href="<%=request.getContextPath()%>/RegistroUsuarioServlet">Regístrate</a>
+                                                ¿No tienes una cuenta? <a href="<%=request.getContextPath()%>/RegistroUsuarioServlet?action=creacionform">Regístrate</a>
                                             </div>
                                         </form>
                                         <%if (session.getAttribute("indicador").equals("error")){%>

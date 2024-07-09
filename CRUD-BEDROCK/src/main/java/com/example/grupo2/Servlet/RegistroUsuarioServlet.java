@@ -1,6 +1,7 @@
 package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.Usuario;
+import com.example.grupo2.daos.IncidenciaDao;
 import com.example.grupo2.daos.UsuarioDao;
 
 import java.sql.SQLException;
@@ -13,7 +14,6 @@ import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -23,14 +23,29 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 
 @WebServlet(name = "RegistroUsuarioServlet", urlPatterns = {"/register", "/RegistroUsuarioServlet"})
-public class RegistroUsuarioServlet {
+public class RegistroUsuarioServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Aquí puedes redirigir a la página de registro si se accede directamente al servlet sin datos de registro
-        response.sendRedirect(request.getContextPath() + "/RegistroUsuarios.jsp");
+        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
+        UsuarioDao usuariodao = new UsuarioDao();
+        RequestDispatcher view;
+
+        switch (action) {
+            //para que el usuario se registre
+            case "creacionform":
+                view = request.getRequestDispatcher("/RegistroUsuarios.jsp");
+                view.forward(request, response);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                break;
+        }
+
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher requestDispatcher;
+        RequestDispatcher view;
+        request.setCharacterEncoding("UTF-8");
         // Recoger los datos del formulario
         String name = request.getParameter("nombre");
         String apellidos = request.getParameter("apellidos");
@@ -52,17 +67,35 @@ public class RegistroUsuarioServlet {
         // Guardar el usuario en la base de datos
         UsuarioDao usuarioDAO = new UsuarioDao();
         try {
-            usuarioDAO.saveUsuario(usuario);
-            // Enviar el correo de confirmación
+            if (usuarioDAO.existeUsuario(email)) {
+                // Si el usuario ya existe, redirigir a una página de error o mostrar un mensaje de error
+                request.setAttribute("errorMessage", "El usuario ya existe.");
+                view = request.getRequestDispatcher("RegistroUsuarios.jsp");
+                view.forward(request, response);
+            } else {
+                usuarioDAO.saveUsuario(usuario);
+                // Enviar correo de confirmación
+                sendWelcomeEmail(name, email);
+                // Redirigir a la página de éxito o a la página principal
+                view = request.getRequestDispatcher("/pagPrincipalSinLogin.jsp");
+                view.forward(request, response);
+            }
+
+            /*usuarioDAO.saveUsuario(usuario);
+
+            // Enviar correo de confirmación
             sendWelcomeEmail(name, email);
-            // Redirigir al formulario de registro para completar más datos
-            response.sendRedirect(request.getContextPath() + "/ResgitroUsuarios.jsp");
+
+            / Redirigir a la página de éxito o a la página principal
+            view = request.getRequestDispatcher("ResgitroUsuarios.jsp");
+            view.forward(request, response);*/
+
         } catch (SQLException e) {
             e.printStackTrace();
             response.getWriter().println("Error al registrar el usuario.");
             request.setAttribute("errorMessage", "Error al registrar el usuario.");
-            requestDispatcher = request.getRequestDispatcher("error.jsp");
-            requestDispatcher.forward(request, response);
+            view = request.getRequestDispatcher("error.jsp");
+            view.forward(request, response);
             return;
         }
 

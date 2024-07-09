@@ -425,38 +425,61 @@ public class UsuarioDao extends daoBase {
     }
 
     public void saveUsuario(Usuario usuario) throws SQLException {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-
+        /*Connection conn =null;
+        PreparedStatement = null;*/
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String user = "root";
+        String pass = "root";
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String user = "root";
-        String pass = "root";
 
-        try {
-            conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = DriverManager.getConnection(url, user, pass)){
+
             String sql = "INSERT INTO usuario (nombre, apellido, dni,direccion, urbanizacion, correo , role_id) VALUES (?,?, ?,?, ?,?, ?)";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, usuario.getNombre());
-            pstmt.setString(2,usuario.getApellido());
-            pstmt.setString(3, usuario.getDni());
-            pstmt.setString(4, usuario.getDireccion());
-            pstmt.setString(5, usuario.getUrbanizacion());
-            pstmt.setString(6, usuario.getCorreo());
-            pstmt.setString(7, usuario.getRol());
-            pstmt.executeUpdate();
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)){
+                    pstmt.setString(1, usuario.getNombre());
+                    pstmt.setString(2, usuario.getApellido());
+                    pstmt.setString(3, usuario.getDni());
+                    pstmt.setString(4, usuario.getDireccion());
+                    pstmt.setString(5, usuario.getUrbanizacion());
+                    pstmt.setString(6, usuario.getCorreo());
+                    pstmt.setString(7, usuario.getRol());
+                    pstmt.executeUpdate();
+            }
         }  catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
+        } /*finally {
             if (pstmt != null) pstmt.close();
             if (conn != null) conn.close();
-        }
+        }*/
     }
+    public boolean existeUsuario(String email) throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
 
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password)){
+            String query = "SELECT COUNT(*) FROM usuarios WHERE correo = ?";
+            try (PreparedStatement stmt = conn.prepareStatement(query)) {
+                stmt.setString(1, email);
+                try (ResultSet rs = stmt.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) > 0;
+                    }
+                }
+            }
+        }
+        return false;
+    }
 
 
 }
