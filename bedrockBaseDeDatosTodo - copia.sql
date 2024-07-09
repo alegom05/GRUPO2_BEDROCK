@@ -35,7 +35,9 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   INDEX `fk_usuario_roles1_idx` (`idRoles` ASC) VISIBLE,
   CONSTRAINT `fk_usuario_roles1`
     FOREIGN KEY (`idRoles`)
-    REFERENCES `basededatos3`.`roles` (`idRoles`))
+    REFERENCES `basededatos3`.`roles` (`idRoles`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
@@ -77,12 +79,9 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
   INDEX `fk_credenciales_usuario1_idx` (`idUsuario` ASC) VISIBLE,
   CONSTRAINT `fk_credenciales_usuario1`
     FOREIGN KEY (`idUsuario`)
-    REFERENCES `basededatos3`.`usuario` (`idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `basededatos3`.`usuario` (`idUsuario`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
 
 -- -----------------------------------------------------
 -- Table `basededatos3`.`profesor`

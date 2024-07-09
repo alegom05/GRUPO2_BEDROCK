@@ -56,7 +56,7 @@ public class SolicitudesServlet extends HttpServlet {
                 serenazgosDao.aprobarSolicitud(id);
                 enviarCorreo(correo);
                 response.setStatus(HttpServletResponse.SC_OK);
-                // No redirigimos aquí, la redirección se maneja en el cliente
+                // La redirección se maneja en el cliente
                 }
             case "rechazar" -> {
                 int id = Integer.parseInt(request.getParameter("id"));
