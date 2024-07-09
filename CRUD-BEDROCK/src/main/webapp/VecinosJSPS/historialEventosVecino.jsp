@@ -64,7 +64,7 @@
 
         <div class="mt-4" style="">
             <!-- Contenido con imagen centrada -->
-            <h2 style="text-align: center;">Eventos Realizados Este Mes</h2>
+            <h2 style="text-align: center;">Historial de eventos inscritos</h2>
             <div class="container mt-4">
 
                 <div style="display: flex; justify-content: space-between;">
