@@ -19,6 +19,7 @@ public class UsuarioServlet extends HttpServlet {
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher;
         String action = request.getParameter("action") == null ? "listar" : request.getParameter("action");
         UsuarioDao usuarioDao = new UsuarioDao();
         RequestDispatcher view;
@@ -54,6 +55,23 @@ public class UsuarioServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp");
                 view.forward(request, response);
                 break;
+
+            //Para que la coordi vea info de usuarios
+            case "detallar":
+                String idVeci= request.getParameter("id");
+
+                if(usuarioDao.buscarPorId(Integer.parseInt(idVeci)) != null){
+                    Usuario vecino = usuarioDao.buscarPorId(Integer.parseInt(idVeci));
+                    if(vecino !=null){
+                        request.setAttribute("vecino", vecino);
+                        requestDispatcher  = request.getRequestDispatcher("/CoordinadorasJSPS/detallesVecino.jsp");
+                        requestDispatcher.forward(request, response);
+                    }else{
+                        response.sendRedirect("error.jsp");
+                    }
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
         }
 
     }
