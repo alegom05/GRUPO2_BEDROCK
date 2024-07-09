@@ -438,7 +438,7 @@ public class UsuarioDao extends daoBase {
 
         try (Connection conn = DriverManager.getConnection(url, user, pass)){
 
-            String sql = "INSERT INTO usuario (nombre, apellido, dni,direccion, urbanizacion, correo , role_id) VALUES (?,?, ?,?, ?,?, ?)";
+            String sql = "INSERT INTO usuario (nombre, apellido, dni,direccion, urbanizacion, correo , idRoles) VALUES (?,?, ?,?, ?,?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)){
                     pstmt.setString(1, usuario.getNombre());
                     pstmt.setString(2, usuario.getApellido());
@@ -456,7 +456,7 @@ public class UsuarioDao extends daoBase {
             if (conn != null) conn.close();
         }*/
     }
-    public boolean existeUsuario(String email) throws SQLException {
+    /*public boolean existeUsuario(String email) throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e){
@@ -469,9 +469,9 @@ public class UsuarioDao extends daoBase {
 
         try (Connection conn = DriverManager.getConnection(url, username, password)){
             String query = "SELECT COUNT(*) FROM usuarios WHERE correo = ?";
-            try (PreparedStatement stmt = conn.prepareStatement(query)) {
-                stmt.setString(1, email);
-                try (ResultSet rs = stmt.executeQuery()) {
+            try (PreparedStatement pstmt = conn.prepareStatement(query)) {
+                pstmt.setString(1, email);
+                try (ResultSet rs = pstmt.executeQuery()) {
                     if (rs.next()) {
                         return rs.getInt(1) > 0;
                     }
@@ -479,8 +479,40 @@ public class UsuarioDao extends daoBase {
             }
         }
         return false;
-    }
+    }*/
+    public static int esUsuarioPorCorreo(String correo) {
+        int Es_un_usuario = 0;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT CASE " +
+                "WHEN EXISTS ( " +
+                "    SELECT 1 " +
+                "    FROM basededatos3.usuario " +
+                "    WHERE correo = ? " +
+                ") THEN 1 " +
+                "ELSE 0 " +
+                "END AS usuario_existe;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, correo);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                Es_un_usuario = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return Es_un_usuario;
+    }
 
 }
 

@@ -12,4 +12,14 @@
         <servlet-name>RegistroUsuarioServlet</servlet-name>
         <url-pattern>/RegistroUsuarioServlet</url-pattern>
     </servlet-mapping>
+    <!--<servlet>
+        <servlet-name>MenuSinLoginServlet</servlet-name>
+        <servlet-class>com.example.grupo2.Servlet.MenuSinLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MenuSinLoginServlet</servlet-name>
+        <url-pattern>/MenuSinLoginServlet</url-pattern>
+    </servlet-mapping>-->
+
 </web-app>
+

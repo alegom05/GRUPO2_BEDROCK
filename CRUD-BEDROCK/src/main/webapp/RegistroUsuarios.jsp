@@ -29,7 +29,7 @@
                                 <div class="text-center">
                                     <h4 class="mt-1 mb-5 pb-1">Bienvenido a Juntos Por San Miguel!</h4>
                                 </div>
-                                <form method="POST" action="<%=request.getContextPath()%>/RegistroUsuarioServlet" id="registerForm"class="needs-validation" novalidate>
+                                <form method="POST" action="<%=request.getContextPath()%>/RegistroUsuarioServlet?action=envioregistro" id="registerForm"class="needs-validation" novalidate>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="nombre">Nombre: </label>
                                         <input type="text" id="nombre" class="form-control" placeholder="Ej: Tomas" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo letras y espacios" required>
@@ -80,16 +80,15 @@
     </div>
 </section>
 <script>
+
     (() => {
         'use strict'
         const forms = document.querySelectorAll('.needs-validation')
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', event => {
-                event.preventDefault();
                 if (!form.checkValidity()) {
+                    event.preventDefault();
                     event.stopPropagation();
-                } else {
-                    window.location.href = 'logIN.html';
                 }
                 form.classList.add('was-validated');
             }, false);

@@ -1,7 +1,7 @@
 package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.Usuario;
-import com.example.grupo2.daos.IncidenciaDao;
+
 import com.example.grupo2.daos.UsuarioDao;
 
 import java.sql.SQLException;
@@ -37,6 +37,10 @@ public class RegistroUsuarioServlet extends HttpServlet {
                 view = request.getRequestDispatcher("/RegistroUsuarios.jsp");
                 view.forward(request, response);
                 break;
+            case "reiniciar":
+                view = request.getRequestDispatcher("/pagPrincipalSinLogin.jsp");
+                view.forward(request, response);
+                break;
             default:
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 break;
@@ -46,63 +50,72 @@ public class RegistroUsuarioServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher view;
         request.setCharacterEncoding("UTF-8");
-        // Recoger los datos del formulario
-        String name = request.getParameter("nombre");
-        String apellidos = request.getParameter("apellidos");
-        String dni = request.getParameter("dni");
-        String direccion = request.getParameter("direccion");
-        String urbanizacion = request.getParameter("urbanizacion");
-        String email = request.getParameter("email");
+        String action = request.getParameter("action") == null ? "listar" : request.getParameter("action");
+        UsuarioDao usuariodao = new UsuarioDao();
+        switch (action) {
+            case "envioregistro":
+                // Recoger los datos del formulario
+                String name = request.getParameter("nombre");
+                String apellidos = request.getParameter("apellidos");
+                String dni = request.getParameter("dni");
+                String direccion = request.getParameter("direccion");
+                String urbanizacion = request.getParameter("urbanizacion");
+                String email = request.getParameter("email");
+                if (email == null || email.isEmpty()) {
+                    request.setAttribute("errorMessage", "El correo no puede estar vacío.");
+                    view = request.getRequestDispatcher("/RegistroUsuarios.jsp");
+                    view.forward(request, response);
+                    return;
+                }
 
-        // Crear el objeto Usuario y establecer el rol de prevecino (suponiendo que el rol de prevecino tiene el ID PV)
-        Usuario usuario = new Usuario();
-        usuario.setNombre(name);
-        usuario.setApellido(apellidos);
-        usuario.setDni(dni);
-        usuario.setDireccion(direccion);
-        usuario.setUrbanizacion(urbanizacion);
-        usuario.setCorreo(email);
-        usuario.setRol("PV"); // ID del rol de prevecino
+                // Crear el objeto Usuario y establecer el rol de prevecino (suponiendo que el rol de prevecino tiene el ID PV)
+                Usuario usuario = new Usuario();
+                usuario.setNombre(name);
+                usuario.setApellido(apellidos);
+                usuario.setDni(dni);
+                usuario.setDireccion(direccion);
+                usuario.setUrbanizacion(urbanizacion);
+                usuario.setCorreo(email);
+                usuario.setRol("PV"); // ID del rol de prevecino
 
-        // Guardar el usuario en la base de datos
-        UsuarioDao usuarioDAO = new UsuarioDao();
-        try {
-            if (usuarioDAO.existeUsuario(email)) {
-                // Si el usuario ya existe, redirigir a una página de error o mostrar un mensaje de error
-                request.setAttribute("errorMessage", "El usuario ya existe.");
-                view = request.getRequestDispatcher("RegistroUsuarios.jsp");
-                view.forward(request, response);
-            } else {
-                usuarioDAO.saveUsuario(usuario);
-                // Enviar correo de confirmación
-                sendWelcomeEmail(name, email);
-                // Redirigir a la página de éxito o a la página principal
-                view = request.getRequestDispatcher("/pagPrincipalSinLogin.jsp");
-                view.forward(request, response);
-            }
 
-            /*usuarioDAO.saveUsuario(usuario);
+                try {
+                    if (usuariodao.esUsuarioPorCorreo(email)==1){
+                        // Si el usuario ya existe, redirigir a una página de error o mostrar un mensaje de error
+                        request.setAttribute("errorMessage", "El usuario ya existe.");
+                        view = request.getRequestDispatcher("/RegistroUsuarios.jsp");
+                        view.forward(request, response);
+                    } else {
+                        usuariodao.saveUsuario(usuario);
+                        // Enviar correo de confirmación
+                        sendWelcomeEmail(name, email);
+                        // Redirigir a la página de éxito o a la página principal
+                        //response.sendRedirect(request.getContextPath() + "/pagPrincipalSinLogin.jsp");
+                        view = request.getRequestDispatcher("/pagPrincipalSinLogin.jsp");
+                        view.forward(request, response);
+                        //response.sendRedirect(request.getContextPath() + "/MenuSinLoginServlet");
+                    }
 
-            // Enviar correo de confirmación
-            sendWelcomeEmail(name, email);
-
-            / Redirigir a la página de éxito o a la página principal
-            view = request.getRequestDispatcher("ResgitroUsuarios.jsp");
-            view.forward(request, response);*/
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.getWriter().println("Error al registrar el usuario.");
-            request.setAttribute("errorMessage", "Error al registrar el usuario.");
-            view = request.getRequestDispatcher("error.jsp");
-            view.forward(request, response);
-            return;
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    /*response.getWriter().println("Error al registrar el usuario.");
+                    request.setAttribute("errorMessage", "Error al registrar el usuario.");
+                    view = request.getRequestDispatcher("error.jsp");
+                    view.forward(request, response);*/
+                    request.setAttribute("errorMessage", "Error al registrar el usuario.");
+                    view = request.getRequestDispatcher("/error.jsp");
+                    view.forward(request, response);
+                    return;
+                }
+                // Responder al cliente
+                //response.setContentType("text/html");
+                //response.getWriter().println("Registro exitoso. Un correo ha sido enviado a " + email);
+                break;
+            default:
+                response.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                break;
         }
 
-
-        // Responder al cliente
-        response.setContentType("text/html");
-        response.getWriter().println("Registro exitoso. Un correo ha sido enviado a " + email);
     }
     private void sendWelcomeEmail(String name, String email) {
         String host = "smtp.gmail.com";
