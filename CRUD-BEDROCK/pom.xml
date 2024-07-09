@@ -57,6 +57,12 @@
             <version>3.3.1</version>
             <optional>true</optional>
         </dependency>
+        <!--esto sirve para usar el api de correos JavaMail, por ahora se usara 'com.sun.mail'-->
+        <!--<dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>javax.mail-api</artifactId>
+            <version>1.6.2</version>
+        </dependency>-->
     </dependencies>
 
     <build>

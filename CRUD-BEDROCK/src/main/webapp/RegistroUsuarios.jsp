@@ -5,6 +5,7 @@
   Time: 9:40 PM
   To change this template use File | Settings | File Templates.
 --%>
+<jsp:useBean id="indicador" scope="session" type="java.lang.String" class="java.lang.String"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <!DOCTYPE html>
@@ -14,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./index2.css" rel="stylesheet">
+    <link href="./styleLogIN.css" rel="stylesheet">
 </head>
 <body style="background-color: #eee;">
 <section class="h-100 gradient-form">
@@ -28,7 +29,7 @@
                                 <div class="text-center">
                                     <h4 class="mt-1 mb-5 pb-1">Bienvenido a Juntos Por San Miguel!</h4>
                                 </div>
-                                <form class="needs-validation" novalidate>
+                                <form method="POST" action="<%=request.getContextPath()%>/RegistroUsuarioServlet" id="registerForm"class="needs-validation" novalidate>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="nombre">Nombre: </label>
                                         <input type="text" id="nombre" class="form-control" placeholder="Ej: Tomas" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo letras y espacios" required>
@@ -45,8 +46,13 @@
                                         <div class="invalid-feedback">Por favor ingresa tu DNI.</div>
                                     </div>
                                     <div class="form-outline mb-4">
+                                        <label class="form-label" for="direccion">Direccion: </label>
+                                        <input type="text" id="direccion" class="form-control" placeholder="Ej: Av... #XXXX" required>
+                                        <div class="invalid-feedback">Por favor ingresa tu direccion.</div>
+                                    </div>
+                                    <div class="form-outline mb-4">
                                         <label class="form-label" for="urbanizacion">Urbanización: </label>
-                                        <input type="text" id="urbanizacion" class="form-control" placeholder="Ej: Av... #XXXX" required>
+                                        <input type="text" id="urbanizacion" class="form-control" placeholder="Ej: Miramar,XXX" required>
                                         <div class="invalid-feedback">Por favor ingresa tu urbanización.</div>
                                     </div>
                                     <div class="form-outline mb-4">
