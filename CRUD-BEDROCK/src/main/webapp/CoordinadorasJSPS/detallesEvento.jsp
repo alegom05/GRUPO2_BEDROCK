@@ -43,22 +43,23 @@
         <nav class="letra_botones_encabezado">
             <ul class="nav">
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
+                    <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="nav-link">Historial De Eventos</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
-                </li>
-                <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
                 </li>
             </ul>
         </nav>
@@ -205,7 +206,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <form method="POST" action="<%= request.getContextPath() %>/EventoServlet?action=eventoEnCurso">
+                            <form method="POST" action="<%= request.getContextPath() %>/Coordis?action=eventoEnCurso">
                                 <div>
                                     <input type="hidden" name="idEvento" value="<%=evento.getIdEvento()%>">
                                 </div>
@@ -269,7 +270,7 @@
 
 
             <a href="" class="btn btn-primary" >Ver lista de participantes</a>
-            <a href="${pageContext.request.contextPath}/Coordis?a=listarev" class="btn btn-primary ">Cancelar</a>
+            <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="btn btn-primary ">Cancelar</a>
         </div>
     </div>
 
@@ -374,7 +375,7 @@
 
                 // Realizar la solicitud de eliminación con la imagen
                 $.ajax({
-                    url: '<%=request.getContextPath()%>/EventoServlet',
+                    url: '<%=request.getContextPath()%>/Coordis?action=listaEventos',
                     action: 'publicarFotosAsistencia',
                     type: 'POST',
                     data: formData,

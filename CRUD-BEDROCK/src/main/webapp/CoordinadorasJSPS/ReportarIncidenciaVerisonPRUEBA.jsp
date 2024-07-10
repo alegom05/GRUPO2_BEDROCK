@@ -39,23 +39,23 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
+                <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
             </li>
 
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/Incidencias?action=formCrear2" class="nav-link">Reportar Incidencia</a>
+                <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Incidencias?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/EventoServlet" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
             </li>
         </ul>
     </nav>
@@ -66,7 +66,7 @@
 <div class="contenedor-v2">
     <div class="contenedor"><h2 class="labelFormulario contenedor mt-3">Formulario de Incidencia</h2></div>
     <div class="contenedor mt-3 mb-1 ms-4">
-        <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=crear2" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+        <form method="post" action="<%=request.getContextPath()%>/Coordis?action=reportarIncidencia" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
             <div class="col">
                 <div class="row">
                     <div class="mb-3">

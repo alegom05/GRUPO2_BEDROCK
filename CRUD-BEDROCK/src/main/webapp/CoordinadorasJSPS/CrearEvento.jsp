@@ -32,22 +32,23 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
+                <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/Coordis?a=formCrearInci" class="nav-link">Reportar Incidencia</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=historialEventos" class="nav-link">Historial De Eventos</a>
-            </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
             </li>
         </ul>
     </nav>
@@ -57,7 +58,7 @@
         <div class="contenedor mt-4 text-center">
             <h1>Crear Evento</h1>
         </div>
-         <form method="post" action="<%=request.getContextPath()%>/EventoServlet?action=crear" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+         <form method="post" action="<%=request.getContextPath()%>/Coordis?action=crearEvento" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
             <div class="col-md-6 mb-3">
                 <div class="contenedor mt-4 text-center">
 
@@ -183,7 +184,7 @@
             </div>
              <div class="mt-4 text-center">
                  <button type="submit" class="btn btn-primary" >Crear</button>
-                 <a href="${pageContext.request.contextPath}/Coordis?a=historialEventos" class="btn btn-secondary">Volver</a>
+                 <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="btn btn-secondary">Volver</a>
              </div>
         </form>
     </div>
@@ -237,7 +238,7 @@
     // Lógica del modal de confirmación
     document.getElementById('confirmButton').addEventListener('click', function () {
         // Aquí se puede redirigir a la página deseada después de confirmar
-        window.location.href = "${pageContext.request.contextPath}/Coordis?a=listarev";
+        window.location.href = "${pageContext.request.contextPath}/Coordis?action=listaEventos";
     });
 
     // Lógica de carga de imagen

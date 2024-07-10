@@ -43,22 +43,23 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=paginaPrincipal" class="nav-link">Municipalidad</a>
+                <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/Coordis?a=formCrearInci" class="nav-link">Reportar Incidencia</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=calendario" class="nav-link">Mira Tu Calendario!</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=historialEventos" class="nav-link">Historial De Eventos</a>
-            </li>
-            <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?a=listarve" class="nav-link">Lista de Vecinos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
             </li>
         </ul>
     </nav>
@@ -73,7 +74,7 @@
 
             <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;" placeholder="Buscar...">
             <div class="col d-flex justify-content-end">
-                <a href="<%=request.getContextPath()%>/Coordis?a=crearev" class="btn btn-primary"><h7>Crear evento</h7></a>
+                <a href="<%=request.getContextPath()%>/Coordis?action=formCrearEventos" class="btn btn-primary"><h7>Crear evento</h7></a>
             </div>
         </div>
         <br>
@@ -180,7 +181,7 @@
     <script>
         function detallesEvento(id) {
             // Redireccionar a otra página HTML
-            window.location.href = '<%=request.getContextPath()%>/Coordis?action=detallarev&id=' + id;
+            window.location.href = '<%=request.getContextPath()%>/Coordis?action=detallarParaCoordi&id=' + id;
         }
     </script>
 </div>
