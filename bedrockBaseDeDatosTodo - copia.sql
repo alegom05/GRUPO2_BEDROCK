@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `dni` VARCHAR(8) NULL DEFAULT NULL,
   `telefono` CHAR(9) NULL DEFAULT NULL,
   `correo` VARCHAR(45) NOT NULL,
-  `clave` VARCHAR(45) NOT NULL,
+  `clave` VARCHAR(45) NULL DEFAULT NULL,
   `direccion` VARCHAR(45) NULL DEFAULT NULL,
   `urbanizacion` VARCHAR(45) NULL DEFAULT NULL,
   `turnoSerenazgo` VARCHAR(45) NULL DEFAULT NULL,
