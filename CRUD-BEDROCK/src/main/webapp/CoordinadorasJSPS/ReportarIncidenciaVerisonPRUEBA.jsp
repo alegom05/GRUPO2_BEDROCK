@@ -18,6 +18,7 @@
     <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
     <title>Formulario de Incidencia</title>
 </head>
+
 <body >
 <div class="ParteSuperior" style="overflow-x: hidden">
     <div class="row">
@@ -59,6 +60,9 @@
         </ul>
     </nav>
 </div>
+
+
+
 <div class="contenedor-v2">
     <div class="contenedor"><h2 class="labelFormulario contenedor mt-3">Formulario de Incidencia</h2></div>
     <div class="contenedor mt-3 mb-1 ms-4">

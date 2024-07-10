@@ -61,12 +61,12 @@ public class RegistroUsuarioServlet extends HttpServlet {
                 String direccion = request.getParameter("direccion");
                 String urbanizacion = request.getParameter("urbanizacion");
                 String email = request.getParameter("email");
-                /*if (email == null || email.isEmpty()) {
+                if (email == null || email.isEmpty()) {
                     request.setAttribute("errorMessage", "El correo no puede estar vacío.");
                     view = request.getRequestDispatcher("/RegistroUsuarios.jsp");
                     view.forward(request, response);
                     return;
-                }*/
+                }
 
                 // Crear el objeto Usuario y establecer el rol de prevecino (suponiendo que el rol de prevecino tiene el ID PV)
                 Usuario usuario = new Usuario();
