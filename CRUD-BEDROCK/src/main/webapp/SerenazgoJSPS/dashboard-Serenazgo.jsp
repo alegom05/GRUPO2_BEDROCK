@@ -37,6 +37,7 @@
             color: white; /* O el color que desees */
             font-size: 24px;
         }
+        }
     </style>
     <style>
         * {
@@ -225,7 +226,7 @@
                                     loading="lazy"
                                     allowfullscreen
                                     referrerpolicy="no-referrer-when-downgrade"
-                                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBeaG7U9fjKWVt0tHJmHV5dX8LXI9F9ypY&q=Space+Needle,Seattle+WA">
+                                    src="https://www.openstreetmap.org/export/embed.html?bbox=-122.35422,47.61829,-122.34727,47.62163&layer=mapnik">
                             </iframe>
                         </div>
                     </div>
