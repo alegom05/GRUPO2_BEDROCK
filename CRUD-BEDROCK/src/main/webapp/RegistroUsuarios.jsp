@@ -29,35 +29,35 @@
                                 <div class="text-center">
                                     <h4 class="mt-1 mb-5 pb-1">Bienvenido a Juntos Por San Miguel!</h4>
                                 </div>
-                                <form method="POST" action="<%=request.getContextPath()%>/RegistroUsuarioServlet?action=envioregistro" id="registerForm"class="needs-validation" novalidate>
+                                <form method="post" action="<%=request.getContextPath()%>/RegistroUsuarioServlet?action=envioregistro" id="registerForm"class="needs-validation" novalidate>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="nombre">Nombre: </label>
-                                        <input type="text" id="nombre" class="form-control" placeholder="Ej: Tomas" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo letras y espacios" required>
+                                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ej: Tomas" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo letras y espacios" required>
                                         <div class="invalid-feedback">Por favor ingresa tu nombre.</div>
                                     </div>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="apellidos">Apellidos: </label>
-                                        <input type="text" id="apellidos" class="form-control" placeholder="Ej: Ramirez Torres" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo letras y espacios" required>
+                                        <input type="text" id="apellidos" name="apellidos" class="form-control" placeholder="Ej: Ramirez Torres" pattern="[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+" title="Solo letras y espacios" required>
                                         <div class="invalid-feedback">Por favor ingresa tus apellidos.</div>
                                     </div>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="dni">DNI: </label>
-                                        <input type="text" id="dni" class="form-control" placeholder="Ej: 72324506" pattern="[0-9]+" title="Solo números" required>
+                                        <input type="text" id="dni" name="dni" class="form-control" placeholder="Ej: 72324506" pattern="[0-9]+" title="Solo números" required>
                                         <div class="invalid-feedback">Por favor ingresa tu DNI.</div>
                                     </div>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="direccion">Direccion: </label>
-                                        <input type="text" id="direccion" class="form-control" placeholder="Ej: Av... #XXXX" required>
+                                        <input type="text" id="direccion" name="direccion" class="form-control" placeholder="Ej: Av... #XXXX" required>
                                         <div class="invalid-feedback">Por favor ingresa tu direccion.</div>
                                     </div>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="urbanizacion">Urbanización: </label>
-                                        <input type="text" id="urbanizacion" class="form-control" placeholder="Ej: Miramar,XXX" required>
+                                        <input type="text" id="urbanizacion" name="urbanizacion" class="form-control" placeholder="Ej: Miramar,XXX" required>
                                         <div class="invalid-feedback">Por favor ingresa tu urbanización.</div>
                                     </div>
                                     <div class="form-outline mb-4">
                                         <label class="form-label" for="email">Correo electrónico (Gmail)</label>
-                                        <input type="email" id="email" class="form-control" placeholder="example@gmail.com" required>
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="example@gmail.com" required>
                                         <div class="invalid-feedback">Por favor ingresa un correo electrónico válido.</div>
                                     </div>
                                     <div class="text-center pt-1 mb-5 pb-1">

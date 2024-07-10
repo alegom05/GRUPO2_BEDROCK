@@ -423,7 +423,7 @@ public class UsuarioDao extends daoBase {
 
         return usuario;
     }
-
+    //usado para crear un usuario que luego se volver[a vecino
     public void saveUsuario(Usuario usuario) throws SQLException {
         /*Connection conn =null;
         PreparedStatement = null;*/
@@ -438,7 +438,7 @@ public class UsuarioDao extends daoBase {
 
         try (Connection conn = DriverManager.getConnection(url, user, pass)){
 
-            String sql = "INSERT INTO usuario (nombre, apellido, dni,direccion, urbanizacion, correo , idRoles) VALUES (?,?, ?,?, ?,?, ?)";
+            String sql = "INSERT INTO usuario (nombre, apellido, dni,direccion, urbanizacion, correo, horaInicio, horaFin) VALUES (?,?, ?,?, ?,?, '00:00:00','00:00:00')";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)){
                     pstmt.setString(1, usuario.getNombre());
                     pstmt.setString(2, usuario.getApellido());
@@ -446,7 +446,6 @@ public class UsuarioDao extends daoBase {
                     pstmt.setString(4, usuario.getDireccion());
                     pstmt.setString(5, usuario.getUrbanizacion());
                     pstmt.setString(6, usuario.getCorreo());
-                    pstmt.setString(7, usuario.getRol());
                     pstmt.executeUpdate();
             }
         }  catch (SQLException e) {
@@ -480,6 +479,7 @@ public class UsuarioDao extends daoBase {
         }
         return false;
     }*/
+    //para verificar la existencia de un usuario buscando a traves del correo
     public static int esUsuarioPorCorreo(String correo) {
         int Es_un_usuario = 0;
         try {

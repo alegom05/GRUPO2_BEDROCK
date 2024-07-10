@@ -48,10 +48,10 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
     }
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        RequestDispatcher view;
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action") == null ? "listar" : request.getParameter("action");
         UsuarioDao usuariodao = new UsuarioDao();
+        RequestDispatcher view;
         switch (action) {
             case "envioregistro":
                 // Recoger los datos del formulario
@@ -61,12 +61,12 @@ public class RegistroUsuarioServlet extends HttpServlet {
                 String direccion = request.getParameter("direccion");
                 String urbanizacion = request.getParameter("urbanizacion");
                 String email = request.getParameter("email");
-                if (email == null || email.isEmpty()) {
+                /*if (email == null || email.isEmpty()) {
                     request.setAttribute("errorMessage", "El correo no puede estar vacío.");
                     view = request.getRequestDispatcher("/RegistroUsuarios.jsp");
                     view.forward(request, response);
                     return;
-                }
+                }*/
 
                 // Crear el objeto Usuario y establecer el rol de prevecino (suponiendo que el rol de prevecino tiene el ID PV)
                 Usuario usuario = new Usuario();
@@ -76,22 +76,26 @@ public class RegistroUsuarioServlet extends HttpServlet {
                 usuario.setDireccion(direccion);
                 usuario.setUrbanizacion(urbanizacion);
                 usuario.setCorreo(email);
-                usuario.setRol("PV"); // ID del rol de prevecino
+
 
 
                 try {
-                    if (usuariodao.esUsuarioPorCorreo(email)==1){
-                        // Si el usuario ya existe, redirigir a una página de error o mostrar un mensaje de error
+                    if (usuariodao.esUsuarioPorCorreo(email)==1){ // Si el usuario ya existe, redirigir a una página de error o mostrar un mensaje de error
                         request.setAttribute("errorMessage", "El usuario ya existe.");
                         view = request.getRequestDispatcher("/RegistroUsuarios.jsp");
                         view.forward(request, response);
                     } else {
                         usuariodao.saveUsuario(usuario);
                         // Enviar correo de confirmación
-                        sendWelcomeEmail(name, email);
+                        boolean emailSent = sendWelcomeEmail(name, email);
                         // Redirigir a la página de éxito o a la página principal
                         //response.sendRedirect(request.getContextPath() + "/pagPrincipalSinLogin.jsp");
-                        view = request.getRequestDispatcher("/pagPrincipalSinLogin.jsp");
+                        if (emailSent) {
+                            view = request.getRequestDispatcher("/pagPrincipalSinLogin.jsp");
+                        } else {
+                            request.setAttribute("errorMessage", "Error al enviar el correo de confirmación.");
+                            view = request.getRequestDispatcher("/error.jsp");
+                        }
                         view.forward(request, response);
                         //response.sendRedirect(request.getContextPath() + "/MenuSinLoginServlet");
                     }
@@ -117,20 +121,17 @@ public class RegistroUsuarioServlet extends HttpServlet {
         }
 
     }
-    private void sendWelcomeEmail(String name, String email) {
+    private boolean sendWelcomeEmail(String name, String email) {
         String host = "smtp.gmail.com";
-        final String user = "asanmiguel2024@gmail.com"; // Correo del administrador de registros
-        final String password = "vofcewndaxskxlfz";  // Contrasena del correo
-//'final' es para que el valor de las variables no pueda cambiarse en ninguna parte del codigo
+        final String user = "asanmiguel2024@gmail.com";
+        final String password = "vofcewndaxskxlfz";
 
-        // Configuración de propiedades para la conexión SMTP
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", host);
         props.put("mail.smtp.port", "587");
 
-        // Obtener la sesión de correo
         Session session = Session.getInstance(props, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(user, password);
@@ -138,19 +139,18 @@ public class RegistroUsuarioServlet extends HttpServlet {
         });
 
         try {
-            // Componer el mensaje
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             message.setSubject("Bienvenido a la página web");
             message.setText("Señor " + name + ", pronto le estaremos notificando su aceptación a la página web.");
 
-            // Enviar el mensaje
             Transport.send(message);
-
             System.out.println("Correo enviado exitosamente...");
+            return true;
         } catch (MessagingException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
