@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `dni` VARCHAR(8) NULL DEFAULT NULL,
   `telefono` CHAR(9) NULL DEFAULT NULL,
   `correo` VARCHAR(45) NOT NULL,
-  `clave` VARCHAR(45) NOT NULL,
+  `clave` VARCHAR(45) NULL DEFAULT NULL,
   `direccion` VARCHAR(45) NULL DEFAULT NULL,
   `urbanizacion` VARCHAR(45) NULL DEFAULT NULL,
   `turnoSerenazgo` VARCHAR(45) NULL DEFAULT NULL,
@@ -35,26 +35,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   INDEX `fk_usuario_roles1_idx` (`idRoles` ASC) VISIBLE,
   CONSTRAINT `fk_usuario_roles1`
     FOREIGN KEY (`idRoles`)
-    REFERENCES `basededatos3`.`roles` (`idRoles`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `basededatos3`.`credenciales`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
-  `idcredenciales` INT NOT NULL AUTO_INCREMENT,
-  `correo` VARCHAR(45) NULL DEFAULT NULL,
-  `clave` VARCHAR(45) NULL DEFAULT NULL,
-  `claveHash` VARCHAR(64) NULL DEFAULT NULL,
-  `idUsuario` INT NOT NULL,
-  PRIMARY KEY (`idcredenciales`),
-  INDEX `fk_credenciales_usuario1_idx` (`idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_credenciales_usuario1`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `basededatos3`.`usuario` (`idUsuario`)
+    REFERENCES `basededatos3`.`roles` (`idRoles`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -84,6 +65,22 @@ DEFAULT CHARACTER SET = utf8;
 
 ALTER TABLE `basededatos3`.`solicitudes`
 MODIFY `roles_idRoles` VARCHAR(20) NULL DEFAULT NULL;
+
+-- -----------------------------------------------------
+-- Table `basededatos3`.`credenciales`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
+  `idcredenciales` INT NOT NULL,
+  `correo` VARCHAR(45) NULL DEFAULT NULL,
+  `claveHash` VARCHAR(64) NULL DEFAULT NULL,
+  `idUsuario` INT NOT NULL,
+  PRIMARY KEY (`idcredenciales`),
+  INDEX `fk_credenciales_usuario1_idx` (`idUsuario` ASC) VISIBLE,
+  CONSTRAINT `fk_credenciales_usuario1`
+    FOREIGN KEY (`idUsuario`)
+    REFERENCES `basededatos3`.`usuario` (`idUsuario`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
 -- Table `basededatos3`.`profesor`
@@ -379,11 +376,10 @@ INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asist
 -- credenciales
 
 -- Insertar datos en credenciales
-INSERT INTO credenciales (idCredenciales, correo, clave, claveHash, idUsuario)
+INSERT INTO credenciales (idCredenciales, correo, claveHash, idUsuario)
 SELECT 
     idUsuario as idCredenciales,
     correo,
-    clave,
     SHA2(clave, 256) as claveHash,
     idUsuario
 FROM usuario;
