@@ -48,16 +48,16 @@ public class LoginDao extends daoBase{
         Usuario usuario = null;
         UsuarioDao usuarioDao = new UsuarioDao();
 
-        String sql = "SELECT * FROM credenciales WHERE correo = ? AND claveHash = SHA2(?, 256);";
+        String sql = "SELECT * FROM credenciales\n" +
+                "WHERE correo = ? AND claveHash = SHA2((SELECT clave FROM usuario WHERE idusuario = credenciales.idusuario), 256);";
 
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);) {
             pstmt.setString(1, username);
-            pstmt.setString(2, password);
 
             try (ResultSet rs = pstmt.executeQuery();) {
                 if (rs.next()) {
-                    int employeeId = rs.getInt(5);
+                    int employeeId = rs.getInt(4);
                     usuario = usuarioDao.listarPorId(employeeId);
                 }
             }
