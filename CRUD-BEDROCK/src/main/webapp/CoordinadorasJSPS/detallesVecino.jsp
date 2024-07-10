@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.example.grupo2.Beans.Usuario" %><%--
   Created by IntelliJ IDEA.
   User: Isaac
   Date: 9/07/2024
@@ -6,8 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-<jsp:useBean id="vecino" scope="request" type="com.example.grupo2.Beans.Usuario"/>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    Usuario vecino = (Usuario) request.getAttribute("vecino");
+%>
 <html>
 <head>
     <meta charset="UTF-8">

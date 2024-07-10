@@ -81,6 +81,7 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
                         <th>DNI</th>
                         <th>Nombres y apellidos</th>
                         <th>Correo electronico</th>
+                        <th>Ver </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -89,6 +90,15 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
                     <td><%=usuario.getDni()%> </td>
                     <td><%=usuario.getNombre()%></td>
                     <td><%=usuario.getCorreo()%></td>
+                    <%--<td>
+                        <a href="${pageContext.request.contextPath}/Usuario?action=detallar&idUsuario=<%=usuario.getId()%>">
+                            <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Descripción de la imagen" class="mi-imagen">
+                        </a>
+                    </td>--%>
+                    <td><button id="lupaICON" class="btn btn-secondary" onclick="detalleVecino(<%= usuario.getId()%>)">
+                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
+                    </button></td>
+
                     <%--<td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
                     <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                 </button> </td>
@@ -191,6 +201,11 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
         });
     </script>
     <script>
+        function detalleVecino(id) {
+            // Redireccionar a otra página HTML
+            window.location.href = '<%=request.getContextPath()%>/UsuarioServlet?action=detallar&id=' + id;
+        }
+
         // Función para registrar el reporte
         document.getElementById('registrarReporte').addEventListener('click', function() {
             // Obtener los valores de los campos
@@ -221,5 +236,6 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
             }
         });
     </script>
+
 </body>
 </html>
