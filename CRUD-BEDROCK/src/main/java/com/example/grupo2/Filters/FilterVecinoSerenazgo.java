@@ -9,7 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(filterName = "FilterComun", urlPatterns = {"/SerenazgoIndexServlet", "/VecinoIndexServlet", "/IncidenciaServlet", "/Incidencias", "/imagenIncidencia", "/imageneEvento", "/EventoServlet", "/Usuario"})
-public class FilterAdminSerenazgo implements Filter {
+public class FilterVecinoSerenazgo implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
