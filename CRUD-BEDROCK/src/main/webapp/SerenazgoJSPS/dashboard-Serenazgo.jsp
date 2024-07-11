@@ -1,4 +1,5 @@
-<%@ page import="com.example.grupo2.Beans.CantidadIncidencias" %><%--
+<%@ page import="com.example.grupo2.Beans.CantidadIncidencias" %>
+<%@ page import="com.example.grupo2.Beans.Incidencia" %><%--
   Created by IntelliJ IDEA.
   User: doria
   Date: 9/06/2024
@@ -227,6 +228,11 @@
                                     allowfullscreen
                                     referrerpolicy="no-referrer-when-downgrade"
                                     src="https://www.openstreetmap.org/export/embed.html?bbox=-122.35422,47.61829,-122.34727,47.62163&layer=mapnik">
+                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3FK1tQpOyxUYzE74Sxp0q7Gk9jUVchhU&libraries=places"></script>
+                                    <%--var map = new google.maps.Map(document.getElementById('map-container'), {
+                                    center: {lat: -33.8688, lng: 151.2093},
+                                    zoom: 13,
+                                    mapTypeId: 'roadmap'--%>
                             </iframe>
                         </div>
                     </div>
@@ -426,7 +432,24 @@
     });
 </script>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
+<div id="map" style="height: 400px;"></div>
+
+<script>
+    var map = L.map('map').setView([-12.0789, -77.0828], 13); // Coordenadas de San Miguel, Lima
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+    <%--
+    <% for(Incidencia incidencia : listaIncidencias) { %>
+    L.marker([<%= incidencia.getLatitud() %>, <%= incidencia.getLongitud() %>])
+        .addTo(map)
+        .bindPopup("<%= incidencia.getDescripcion() %>");
+    <% } %>--%>OP
+</script>
 
 </body>
 

@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `horaInicio` TIME NOT NULL,
   `horaFin` TIME NOT NULL,
   `fecha_nacimiento` DATE NULL DEFAULT NULL,
+  `rolSolicitado` VARCHAR(45) NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
   UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) VISIBLE,
@@ -67,18 +68,20 @@ ALTER TABLE `basededatos3`.`solicitudes`
 MODIFY `roles_idRoles` VARCHAR(20) NULL DEFAULT NULL;
 
 -- -----------------------------------------------------
--- Table `basededatos3`.`credenciales`
+-- Table basededatos3.credenciales
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
-  `idcredenciales` INT NOT NULL,
-  `correo` VARCHAR(45) NULL DEFAULT NULL,
-  `claveHash` VARCHAR(64) NULL DEFAULT NULL,
-  `idUsuario` INT NOT NULL,
-  PRIMARY KEY (`idcredenciales`),
-  INDEX `fk_credenciales_usuario1_idx` (`idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_credenciales_usuario1`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `basededatos3`.`usuario` (`idUsuario`))
+CREATE TABLE IF NOT EXISTS basededatos3.credenciales (
+  idcredenciales INT NOT NULL,
+  correo VARCHAR(45) NULL DEFAULT NULL,
+  claveHash VARCHAR(64) NULL DEFAULT NULL,
+  idUsuario INT NOT NULL,
+  PRIMARY KEY (idcredenciales),
+  INDEX fk_credenciales_usuario1_idx (idUsuario ASC) VISIBLE,
+  CONSTRAINT fk_credenciales_usuario1
+    FOREIGN KEY (idUsuario)
+    REFERENCES basededatos3.usuario (idUsuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
