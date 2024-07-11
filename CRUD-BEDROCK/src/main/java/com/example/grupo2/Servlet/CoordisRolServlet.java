@@ -334,18 +334,27 @@ public class CoordisRolServlet extends HttpServlet {
             //Este case servirá para que coordi confirme que asistió al evento (por ahora solo podemos subir una foto,
             //se debe arreglar base de datos para solucionar eso)
             case "publicarFotosAsistencia":
-                Part filePart2 = request.getPart("imagenAsistencia"); // Obtén la parte del archivo
+                Part filePart2 = request.getPart("foto"); // Obtén la parte del archivo
                 InputStream foto2 = null;
                 if (filePart2 != null && filePart2.getSize() > 0) {
                     foto2 = filePart2.getInputStream(); // Lee el contenido del archivo como un InputStream
                 }
-                String idEventoAsistencia = request.getParameter("idEvento");
-                System.out.println(idEventoAsistencia);
+                String idEventoAsistencia = request.getParameter("id");
+                System.out.println("Id de evento:" + idEventoAsistencia);
+                System.out.println("Codigo de foto supongo:" + foto2);
+
                 Evento evento2 = new Evento();
-                evento2.setFoto(foto2);
+                evento2.setFotoAsistenciaEvento(foto2);
                 evento2.setIdEvento(Integer.parseInt(idEventoAsistencia));
+
+                System.out.println("Id de evento ya seteado:" + evento2.getIdEvento());
+                System.out.println("Codigo de foto supongo, ya seteado:" + evento2.getFotoAsistenciaEvento());
+
                 eventoDao.publicarFotosAsistencia(evento2);
-                response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+                eventoDao.editarEstadoEventoCuliminado(String.valueOf(evento2.getIdEvento()));
+
+                System.out.println("Se envia a evento dao?");
+                response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
 
                 break;
 
@@ -390,7 +399,7 @@ public class CoordisRolServlet extends HttpServlet {
                 String idEvento = request.getParameter("idEvento");
                 if (idEvento != null) {
                     eventoDao.editarEstadoEventoEnCurso(idEvento);
-                    response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
                 }else{
                     response.sendRedirect("error.jsp");
                 }
@@ -399,10 +408,10 @@ public class CoordisRolServlet extends HttpServlet {
             //Case que servirá para culminar el evento que ha creado la coordinadora, cambiará su parámetro de estado "En curso"
             // a un estado "Culminado"
             case "eventoCulminado":
-                String idEvento2 = request.getParameter("idEvento");
+                String idEvento2 = request.getParameter("id");
                 if (idEvento2 != null) {
-                    eventoDao.editarEstadoEventoEnCurso(idEvento2);
-                    response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+                    eventoDao.editarEstadoEventoCuliminado(idEvento2);
+                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
                 }else{
                     response.sendRedirect("error.jsp");
                 }

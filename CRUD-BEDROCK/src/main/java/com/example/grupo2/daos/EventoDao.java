@@ -668,13 +668,13 @@ public class EventoDao {
                         "VALUES (?,?)";
 
                 try(PreparedStatement pstmt = conn.prepareStatement(sql)){
-                    if (evento.getFoto() != null) {
+                    if (evento.getFotoAsistenciaEvento() != null) {
                         pstmt.setBlob(1, evento.getFotoAsistenciaEvento());
                     } else {
                         pstmt.setNull(1, Types.BLOB);
                     }
                     pstmt.setInt(2, evento.getIdEvento());
-
+                    pstmt.executeUpdate();
                 }
             }
 
