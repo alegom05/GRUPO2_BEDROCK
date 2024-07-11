@@ -97,13 +97,29 @@ public class EventoServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "evento_detallados":
-                String id_ev = request.getParameter("id");
-                if (id_ev == null || id_ev.isEmpty()) {
-                    id_ev = "default_value"; // Valor por defecto si 'id' está vacío
+                String id_ev = request.getParameter("ideven");
+                String id_usu = request.getParameter("idusu");
+
+                UsuarioDao usuarioDao = new UsuarioDao();
+                if (id_ev != null && !id_ev.isEmpty() && id_usu != null && !id_usu.isEmpty()){
+                    int idUsuario2 = Integer.parseInt(id_usu);
+                    int idEvento = Integer.parseInt(id_ev);
+                    int veri_usu = usuarioDao.esUsuario(idUsuario2);
+                    int veri_even = usuarioDao.esEvento(idEvento);
+                    if (veri_usu!=0 && veri_even!=0) {
+                        int veri_inscripcion = usuarioDao.EstaInscrito(idEvento,idUsuario2);
+                        if (veri_inscripcion==1){
+                            HttpSession currentSession = request.getSession();
+                            currentSession.setAttribute("estaRegistrado", 1);
+                        }else{
+                            HttpSession currentSession = request.getSession();
+                            currentSession.setAttribute("estaRegistrado", 0);
+                        }
+                    }
+                    response.sendRedirect(request.getContextPath() + "/VecinosJSPS/EventosDetallado.jsp?id=" + id_ev);
                 }
-                request.setAttribute("id", id_ev);
-                response.sendRedirect(request.getContextPath() + "/VecinosJSPS/EventosDetallado.jsp?id=" + id_ev);
                 break;
+
             case "listarEventoFiltrado":
                 int pageSize = 6;
                 String filtro = request.getParameter("filtro"); // Obtener filtro
@@ -148,33 +164,10 @@ public class EventoServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
             case "inscribirse_evento":
-                UsuarioDao usuarioDao = new UsuarioDao();
-                String idStrUsu = request.getParameter("idUsu");
-                String idStrEvento = request.getParameter("idEven");
-                if (idStrEvento != null && !idStrEvento.isEmpty() && idStrUsu != null && !idStrUsu.isEmpty()){
-                    int idUsuario2 = Integer.parseInt(idStrUsu);
-                    int idEvento = Integer.parseInt(idStrEvento);
-                    int veri_usu = usuarioDao.esUsuario(idUsuario2);
-                    int veri_even = usuarioDao.esEvento(idEvento);
-                    if (veri_usu!=0 && veri_even!=0) {
-                        request.setAttribute("IDusuario", idUsuario2);
-                        request.setAttribute("IDevento", idEvento);
-                        int veri_inscripcion = usuarioDao.EstaInscrito(idEvento,idUsuario2);
-                        if (veri_inscripcion==0){
-                            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/inscribirse-Vecino.jsp");
-                            requestDispatcher.forward(request, response);
-                        }else{
-                            HttpSession currentSession = request.getSession();
-                            currentSession.setAttribute("estaRegistrado", 1);
-                            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/EventoServlet?action=listarEventoFiltrado");
-                            requestDispatcher.forward(request, response);
-                        }
-                    } else {
-                        response.sendRedirect(request.getContextPath() + "/EventoServlet");
-                    }
-                }
+                RequestDispatcher requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/inscribirse-Vecino.jsp");
+                requestDispatcher.forward(request, response);
+                break;
         }
-
     }
 
     @Override
