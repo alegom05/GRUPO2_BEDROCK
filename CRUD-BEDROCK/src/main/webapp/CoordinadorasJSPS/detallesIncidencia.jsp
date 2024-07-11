@@ -64,29 +64,46 @@
         </ul>
     </nav>
 </div>
+
 <div id="container-evento-det" style="max-width: 80%; margin: 0 auto; margin-top: 70px;">
     <div class="row mt-3">
-        <div class="contenedor mt-4 text-center">
-            <h2>Detalles de incidencia</h2>
+        <div class="col-md-6 mb-3">
+            <div class="contenedor mt-4 text-center" style="max-width: 600px; margin: 0 auto; font-family:Cambria ,Garamond;">
+                <% if (incidencia != null) { %>
+                <h1><%= incidencia.getNombreIncidencia() %></h1>
+            </div>
+            <div class="col-md-6 mb-3 ">
+                <div class="contenedor mt-4" >
+                    <img src="<%= request.getContextPath()%>/imagenIncidencia?id=<%= incidencia.getIdIncidencia()%>" alt="Incidencia" id="imagen_detallada" class="img-fluid mx-auto">
+                </div>
+            </div>
         </div>
         <div class="col-md-6 d-flex align-items-center">
-            <% if (incidencia != null) { %>
-            <p>ID: <%= incidencia.getIdIncidencia() %></p>
-            <h4><%= incidencia.getNombreIncidencia() %></h4>
-            <div class="card-body">
-                <p><strong>Tipo de Incidencia:</strong> <%= incidencia.getTipoIncidencia() %></p>
-                <p><strong>Fecha:</strong> <%= incidencia.getFechaIncidencia() %></p>
-                <p><strong>Lugar:</strong> <%= incidencia.getLugar() %></p>
-                <p><strong>Descripción:</strong> <%= incidencia.getDescripcion() %></p>
-                <p><strong>Estado:</strong> <%= incidencia.getEstadoIncidencia() %></p>
-            </div>
-            <% } else { %>
-            <p>Error: Incidencia no encontrada.</p>
-            <% } %>
-        </div>
-    </div>
-    <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="btn btn-secondary mt-4">Volver a la lista de incidencias</a>
+            <div >
+                <div class="mt-5">
+                    <div  class="elemento_texto_evento ajustar">
+                        <h4><strong>Descripción:</strong> <%= incidencia.getDescripcion() %></h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4><strong>Lugar:</strong> <%= incidencia.getLugar() %></h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4><strong>Fecha:</strong> <%= incidencia.getFechaIncidencia() %></h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4><strong>Tipo de Incidencia:</strong> <%= incidencia.getTipoIncidencia() %></h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4><strong>Estado:</strong> <%= incidencia.getEstadoIncidencia() %></h4>
+                    </div>
+                </div>
+                <% } else { %>
+                <p>Error: Incidencia no encontrada.</p>
+                <% } %>
 
+            </div>
+        </div>
+        <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="btn btn-secondary mt-4">Volver a la lista de incidencias</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -110,3 +127,68 @@
     }
 %>
 -->
+
+
+<!--<div class="" id="container-evento-det">
+    <div class="row mt-4 mx-auto" style="width: 100%; height: 100%;">
+        <div class="col-md-6 mb-3 ">
+            <div class="contenedor mt-4 text-center">
+                <h1> Fútbol juvenil</h1>
+            </div>
+            <div class="contenedor mt-4">
+                <img src="./imagenes_eventos/deporte/evento2.jpg" alt="Evento" id="imagen_detallada" class="img-fluid mx-auto">
+            </div>
+        </div>
+
+        <div class="col-md-6 d-flex align-items-center">
+            <div>
+                <div class="mt-10" >
+                    <div class="elemento_texto_evento">
+                        <h4>Lugar: Complejo deportivo Julio Melendez</h4>
+
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4>Fecha: 01/10/2025</h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4>Hora: 9:00 AM</h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4>Coordinador: Roberto Rodriguez Argumedo</h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4>Número de Vacantes Totales: 30</h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4>Requisitos: Ninguno</h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4>Descripción:</h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <h4>Un día de futbol para jovenes menores de 16 años.</h4>
+                        <h4>Ven y aprende esta emocionante experiencia </h4>
+                    </div>
+                    <div class="elemento_texto_evento">
+                        <a href="VecinosInscritos.html"><h4>Ver vecinos inscritos</h4></a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>-->
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
