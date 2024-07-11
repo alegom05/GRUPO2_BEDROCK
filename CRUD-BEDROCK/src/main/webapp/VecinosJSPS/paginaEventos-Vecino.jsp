@@ -26,7 +26,7 @@
     <link href="${pageContext.request.contextPath}/VecinosJSPS/style-Vecino.css" rel="stylesheet">
 </head>
 <body>
-<div class="ParteSuperior">
+<div class="ParteSuperior" style="overflow-x: hidden">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
             <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
@@ -67,7 +67,7 @@
     </nav>
 </div>
 
-<div class="contenedor imagen-container mt-4">
+<div class="contenedor imagen-container mt-4" style="overflow-x: hidden">
     <div class="row mt-4">
         <div class="col">
             <div class="dropdown">
@@ -127,7 +127,7 @@
             for (Evento evento : listaeventos) {
         %>
         <div class="col-md-4 custom-cartanz-2">
-            <a href="${pageContext.request.contextPath}/EventoServlet?action=evento_detallados&id=<%= evento.getIdEvento() %>" class="card-link">                <div class="card shadow">
+            <a href="${pageContext.request.contextPath}/EventoServlet?action=evento_detallados&ideven=<%= evento.getIdEvento() %>&idusu=<%=usuarioSesion.getId()%>" class="card-link">                <div class="card shadow">
                     <img src="<%= request.getContextPath() %>/imagenEvento?id=<%= evento.getIdEvento() %>" alt="Imagen del evento" class="card-img-top w-100">
                     <div class="card-body">
                         <h5 class="card-title"><%= evento.getNombre() %></h5>
@@ -139,23 +139,6 @@
         <%
             }
         %>
-    </div>
-    <!-- Modal Ya inscrito -->
-    <div class="modal fade" id="registroModal" tabindex="-1" aria-labelledby="registroModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registroModalLabel">Aviso</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    Ya estás registrado en este evento.
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Aceptar</button>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- Modal de inscripción exitosa -->
     <div class="modal fade" id="inscripcionModal" tabindex="-1" aria-labelledby="inscripcionModalLabel" aria-hidden="true">
@@ -182,18 +165,6 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Mostrar el modal si el atributo estaRegistrado es 1
-    <%
-        if (currentSession.getAttribute("estaRegistrado") != null && (int) currentSession.getAttribute("estaRegistrado") == 1) {
-    %>
-    var myModal = new bootstrap.Modal(document.getElementById('registroModal'), {
-        keyboard: false
-    });
-    myModal.show();
-    <%
-        currentSession.removeAttribute("estaRegistrado");
-    }
-    %>
     // Mostrar el modal si la inscripción fue exitosa
     <%
         if (currentSession.getAttribute("inscripcionExitosa") != null && (int) currentSession.getAttribute("inscripcionExitosa") == 1) {
