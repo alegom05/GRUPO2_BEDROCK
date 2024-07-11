@@ -8,6 +8,7 @@ import com.example.grupo2.daos.IncidenciaDao;
 import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,6 +24,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+
+@MultipartConfig
 @WebServlet(name = "Coordis", value = "/Coordis")
 public class CoordisRolServlet extends HttpServlet {
     @Override
@@ -110,14 +113,14 @@ public class CoordisRolServlet extends HttpServlet {
                 break;
 
             //Este case será para el listado de incidencias de coordinadora
-            case "listaIncidencias":
+            /*case "listaIncidencias":
 
                 ArrayList<Incidencia> listaIncidencias2 = IncidenciaDao.listarIncidencias();
                 request.setAttribute("lista2", listaIncidencias2);
 
                 RequestDispatcher view2 = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view2.forward(request, response);
-                break;
+                break;*/
 
             case "detallarIncidencia":
                 String id3 = request.getParameter("id");
@@ -422,15 +425,15 @@ public class CoordisRolServlet extends HttpServlet {
 
                 String tipoIncidencia2 = request.getParameter("tipo");
                 System.out.println(tipoIncidencia2);
-                int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
-
                 System.out.println(nombreIncidencia2);
                 System.out.println(lugar2);
                 System.out.println(referencia2);
                 System.out.println(descripcionIncidencia2);
                 System.out.println(phoneNumber2);
                 System.out.println(ambulancia2);
-                System.out.println(tipoIncidencia2);
+                int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
+
+
                 System.out.println(idUsuario2);
 
                 Incidencia nuevaIncidencia2 = new Incidencia();

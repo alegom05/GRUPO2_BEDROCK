@@ -320,7 +320,7 @@
                         '<%=incidenciasPorMes.getSeptiemIncidencias()%>',
                         '<%=incidenciasPorMes.getOctopusIncidencias()%>',
                         '<%=incidenciasPorMes.getNovemIncidencias()%>',
-                        '<%=incidenciasPorMes.getDezemIncidencias()%>'
+                        '<%=incidenciasPorMes.getDezemIncidencias() %>'
                     ]
                 }]
             },
