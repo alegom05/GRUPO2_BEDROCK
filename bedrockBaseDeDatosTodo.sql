@@ -47,7 +47,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `basededatos3`.`solicitudes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `basededatos3`.`solicitudes` (
-  `idsolicitudes` INT NOT NULL,
+  `idsolicitudes` INT NOT NULL AUTO_INCREMENT,
   `estadosolicitud` TINYINT NULL DEFAULT NULL,
   `fechasolicitud` DATE NULL DEFAULT NULL,
   `usuario_idUsuario` INT NOT NULL,
@@ -387,15 +387,15 @@ SELECT
     idUsuario
 FROM usuario;
 
-INSERT INTO `basededatos3`.`solicitudes` (`idsolicitudes`, `estadosolicitud`, `fechasolicitud`, `usuario_idUsuario`, `roles_idRoles`)
+INSERT INTO `basededatos3`.`solicitudes` (`estadosolicitud`, `fechasolicitud`, `usuario_idUsuario`, `roles_idRoles`)
 VALUES 
-(1, 0, '2024-06-01', 1, NULL),
-(2, 0, '2024-06-02', 2, NULL),
-(3, 0, '2024-06-03', 3, NULL),
-(4, 0, '2024-06-04', 4, NULL),
-(5, 0, '2024-06-05', 5, NULL),
-(6, 0, '2024-06-06', 6, NULL),
-(7, 0, '2024-06-07', 7, NULL),
-(8, 0, '2024-06-08', 8, NULL),
-(9, 0, '2024-06-09', 9, NULL),
-(10, 0, '2024-06-10', 10, NULL);
+(0, '2024-06-01', 1, NULL),
+(0, '2024-06-02', 2, NULL),
+(0, '2024-06-03', 3, NULL),
+(0, '2024-06-04', 4, NULL),
+(0, '2024-06-05', 5, NULL),
+(0, '2024-06-06', 6, NULL),
+(0, '2024-06-07', 7, NULL),
+(0, '2024-06-08', 8, NULL),
+(0, '2024-06-09', 9, NULL),
+(0, '2024-06-10', 10, NULL);
