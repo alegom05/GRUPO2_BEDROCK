@@ -64,15 +64,17 @@
         </ul>
     </nav>
 </div>
-
+<div class="contenedor mt-4 text-center">
+    <h2>Detalles de incidencia</h2>
+</div>
 <div id="container-evento-det" style="max-width: 80%; margin: 0 auto; margin-top: 70px;">
     <div class="row mt-3">
-        <div class="col-md-6 mb-3">
+
+        <div class="col-md-6 mb-3 text-center">
             <div class="contenedor mt-4 text-center" style="max-width: 600px; margin: 0 auto; font-family:Cambria ,Garamond;">
                 <% if (incidencia != null) { %>
                 <h1><%= incidencia.getNombreIncidencia() %></h1>
-            </div>
-            <div class="col-md-6 mb-3 ">
+
                 <div class="contenedor mt-4" >
                     <img src="<%= request.getContextPath()%>/imagenIncidencia?id=<%= incidencia.getIdIncidencia()%>" alt="Incidencia" id="imagen_detallada" class="img-fluid mx-auto">
                 </div>

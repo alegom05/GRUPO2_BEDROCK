@@ -27,7 +27,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "reiniciar" : request.getParameter("action");
         UsuarioDao usuariodao = new UsuarioDao();
         RequestDispatcher view;
 
