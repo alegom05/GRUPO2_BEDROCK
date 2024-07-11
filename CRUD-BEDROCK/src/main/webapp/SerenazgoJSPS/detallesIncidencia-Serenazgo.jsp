@@ -48,7 +48,7 @@
     <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
@@ -129,7 +129,7 @@
 
 <div class="botonesGroup">
 
-    <button type="button" class="btn gradient-custom-3" id="btnExportar" onclick="exportarPDF()">Exportar</button>
+    <button type="button" class="btn gradient-custom-3" style="margin-top: 20px" id="btnExportar" onclick="exportarPDF()">Exportar</button>
 
     <% if (mostrarEvaluar) { %>
     <!--<a href="${pageContext.request.contextPath}/SerenazgoJSPS/evaluarIncidencias-Serenazgo.jsp" type="button" class="btn gradient-custom-3" id="btnRedireccional">Evaluar incidencia</a>-->
@@ -145,21 +145,23 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=evaluar" class="row align-items-start mb-3" style="text-align: left; margin-left: 10px; margin-right: 10px">
+                <form id="incidenciaForm" method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=evaluar" class="row align-items-start mb-3 needs-validation" novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
                     <div class="modal-body">
                         <div class="mb-3">
-
-                            <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label" >Criticidad:</label>
-                            <select class="form-select" id="criticidad" name="criticidad" aria-label="Default select example">
-                                <option selected>Seleccione la criticidad</option>
+                            <label for="criticidad" class="form-label">Criticidad:</label>
+                            <select class="form-select" id="criticidad" name="criticidad" required>
+                                <option value="" selected>Seleccione la criticidad</option>
                                 <option value="Bajo">Bajo</option>
                                 <option value="Medio">Medio</option>
                                 <option value="Alto">Alto</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Es necesario seleccionar la criticidad.
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <%--@declare id="requiere"--%><label for="requiere" class="form-label">Se necesita:</label>
+                            <label for="requiere" class="form-label">Se necesita:</label>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" id="requiereBomberos" name="requiereBomberos" value="true">
                                 <label class="form-check-label" for="requiereBomberos">Bomberos</label>
@@ -172,28 +174,35 @@
                                 <input class="form-check-input" type="checkbox" id="requiereAmbulancia" name="requiereAmbulancia" value="true">
                                 <label class="form-check-label" for="requiereAmbulancia">Ambulancia</label>
                             </div>
+                            <div class="invalid-feedback">
+                                Es necesario seleccionar al menos un requerimiento.
+                            </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="personalRefuerzo" class="form-label">Personal de serenazgo de refuerzo:</label>
-                            <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" aria-label="Default select example">
+                            <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" required>
                                 <option value="" selected>Seleccione el personal de refuerzo</option>
                                 <option value="A pie">A pie</option>
                                 <option value="Bicicleta">Bicicleta</option>
                                 <option value="Canino">Canino</option>
                                 <option value="Vehículo">Vehículo</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Es necesario seleccionar el personal de refuerzo.
+                            </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="descripcionSolucion" class="form-label">Descripción de solución:</label>
-                            <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" placeholder="Máximo 130 caracteres" style="height: 100px"></textarea>
+                            <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" placeholder="Máximo 130 caracteres" style="height: 100px" required></textarea>
+                            <div class="invalid-feedback">
+                                Es necesario ingresar una descripción de solución.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <input type="hidden" name="id" value="<%=incidencia.getIdIncidencia()%>">
                         </div>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn gradient-custom-3">Guardar</button>
@@ -365,6 +374,63 @@
             textarea.style.display = 'none';
             textarea.offsetHeight; // Trigger a reflow
             textarea.style.display = '';
+        }
+    });
+</script>
+<script>
+    document.getElementById('incidenciaForm').addEventListener('submit', function(event) {
+        var form = this;
+        var isValid = true;
+
+        // Validar criticidad
+        var criticidad = document.getElementById('criticidad');
+        if (criticidad.value === '') {
+            criticidad.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            criticidad.classList.remove('is-invalid');
+        }
+
+        /*// Validar al menos un checkbox
+        var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        var checkboxChecked = false;
+        checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+                checkboxChecked = true;
+            }
+        });
+        if (!checkboxChecked) {
+            checkboxes.forEach(function(checkbox) {
+                checkbox.classList.add('is-invalid');
+            });
+            isValid = false;
+        } else {
+            checkboxes.forEach(function(checkbox) {
+                checkbox.classList.remove('is-invalid');
+            });
+        }*/
+
+        // Validar personal de refuerzo
+        var personalRefuerzo = document.getElementById('personalRefuerzo');
+        if (personalRefuerzo.value === '') {
+            personalRefuerzo.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            personalRefuerzo.classList.remove('is-invalid');
+        }
+
+        // Validar descripción de solución
+        var descripcionSolucion = document.getElementById('descripcionSolucion');
+        if (descripcionSolucion.value.trim() === '') {
+            descripcionSolucion.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            descripcionSolucion.classList.remove('is-invalid');
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+            event.stopPropagation();
         }
     });
 </script>

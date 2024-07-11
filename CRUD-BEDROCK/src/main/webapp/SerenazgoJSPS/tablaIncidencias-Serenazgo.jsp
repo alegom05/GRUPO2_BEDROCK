@@ -44,7 +44,7 @@
     <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
@@ -63,30 +63,37 @@
 
 <div class="container mt-4">
 
-    <div style="display: flex; gap: 40px; align-items: flex-start; margin-top: 40px;">
-        <div id="search-container" class="mb-3" ></div> <!-- Contenedor para el campo de búsqueda -->
+    <div class="container mt-4">
+        <div class="row g-3 align-items-start">
+            <div class="col-12 col-md-3 mb-3" id="search-container"></div> <!-- Contenedor para el campo de búsqueda -->
 
-        <select id="filtroEstado" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
-            <option value="">Filtrar por estado </option>
-            <option value="nueva">Nuevas</option>
-            <option value="en proceso">En proceso</option>
-            <option value="cerrado">Cerrado</option>
-            <option value="falsa alarma">Falsa alarma</option>
-        </select>
+            <div class="col-12 col-md-3">
+                <select id="filtroEstado" class="form-select">
+                    <option value="">Filtrar por estado</option>
+                    <option value="nueva">Nuevas</option>
+                    <option value="en proceso">En proceso</option>
+                    <option value="cerrado">Cerrado</option>
+                    <option value="falsa alarma">Falsa alarma</option>
+                </select>
+            </div>
 
+            <div class="col-12 col-md-3">
+                <select id="filtroTipo" class="form-select">
+                    <option value="">Filtrar por tipo</option>
+                    <option value="accidente">Accidente</option>
+                    <option value="alteración de orden público">Alteración del orden público</option>
+                    <option value="emergencia médica">Emergencia médica</option>
+                    <option value="robo agravado">Robo agravado</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
 
-        <select id="filtroTipo" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
-            <option value="">Filtrar por tipo</option>
-            <option value="accidente">Accidente</option>
-            <option value="alteración de orden público">Alteración del orden público</option>
-            <option value="emergencia médica">Emergencia médica</option>
-            <option value="robo agravado">Robo agravado</option>
-            <option value="otro">Otro</option>
-        </select>
-
-
-        <button id="limpiarFiltros" class="btn gradient-custom-5">Limpiar Filtros</button>
+            <div class="col-12 col-md-3">
+                <button id="limpiarFiltros" class="btn btn-primary w-100">Limpiar Filtros</button>
+            </div>
+        </div>
     </div>
+
     <br>
     <div class="table-responsive">
         <table id="miTabla" class="display table-responsive">

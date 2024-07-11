@@ -1,5 +1,6 @@
 <%@ page import="com.example.grupo2.Beans.CantidadIncidencias" %>
-<%@ page import="com.example.grupo2.Beans.Incidencia" %><%--
+<%@ page import="com.example.grupo2.Beans.Incidencia" %>
+<%@ page import="com.example.grupo2.Beans.IncidenciasPorMes" %><%--
   Created by IntelliJ IDEA.
   User: doria
   Date: 9/06/2024
@@ -10,6 +11,7 @@
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 
 <% CantidadIncidencias cantidadIncidencias = (CantidadIncidencias) request.getAttribute("cantidad"); %>
+<% IncidenciasPorMes incidenciasPorMes = (IncidenciasPorMes) request.getAttribute("porMes"); %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -64,7 +66,7 @@
     <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
@@ -294,31 +296,31 @@
     document.addEventListener("DOMContentLoaded", function() {
         var ctx = document.getElementById("chartjs-dashboard-line").getContext("2d");
         var gradient = ctx.createLinearGradient(0, 0, 0, 225);
-        gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
-        gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
-        // Line chart
+        gradient.addColorStop(0, "rgba(54, 162, 235, 0.8)");
+        gradient.addColorStop(1, "rgba(54, 162, 235, 0.6)");
+        // Bar chart
         new Chart(document.getElementById("chartjs-dashboard-line"), {
-            type: "line",
+            type: "bar",
             data: {
-                labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                labels: ["En", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: "Sales ($)",
+                    label: "Incidencias reportadas",
                     fill: true,
                     backgroundColor: gradient,
                     borderColor: window.theme.primary,
                     data: [
-                        11,
-                        22,
-                        34,
-                        41,
-                        56,
-                        68,
-                        75,
-                        89,
-                        92,
-                        95,
-                        97,
-                        100
+                        '<%=incidenciasPorMes.getEneroIncidencias()%>',
+                        '<%=incidenciasPorMes.getFebreroIncidencias()%>',
+                        '<%=incidenciasPorMes.getMarzoIncidencias()%>',
+                        '<%=incidenciasPorMes.getAbrilIncidencias()%>',
+                        '<%=incidenciasPorMes.getMayoIncidencias()%>',
+                        '<%=incidenciasPorMes.getJunioIncidencias()%>',
+                        '<%=incidenciasPorMes.getJulioIncidencias()%>',
+                        '<%=incidenciasPorMes.getAugustIncidencias()%>',
+                        '<%=incidenciasPorMes.getSeptiemIncidencias()%>',
+                        '<%=incidenciasPorMes.getOctopusIncidencias()%>',
+                        '<%=incidenciasPorMes.getNovemIncidencias()%>',
+                        '<%=incidenciasPorMes.getDezemIncidencias()%>'
                     ]
                 }]
             },

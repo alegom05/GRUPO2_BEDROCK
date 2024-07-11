@@ -3,11 +3,13 @@ package com.example.grupo2.daos;
 
 import com.example.grupo2.Beans.CantidadIncidencias;
 import com.example.grupo2.Beans.Incidencia;
+import com.example.grupo2.Beans.IncidenciasPorMes;
+import com.example.grupo2.Beans.Usuario;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.sql.*;
-public class IncidenciaDao {
+public class IncidenciaDao extends daoBase {
 
     public static ArrayList<Incidencia> listarIncidencias() {
 
@@ -353,6 +355,55 @@ public class IncidenciaDao {
         }
         System.out.println(listaIncidenciasUnUsuario);
         return listaIncidenciasUnUsuario;
+    }
+
+    public IncidenciasPorMes hallarIncidenciasPorMes() {
+
+        IncidenciasPorMes incidenciasPorMes = null;
+        String sql = "SELECT\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 1 THEN 1 ELSE 0 END) AS Enero,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 2 THEN 1 ELSE 0 END) AS Febrero,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 3 THEN 1 ELSE 0 END) AS Marzo,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 4 THEN 1 ELSE 0 END) AS Abril,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 5 THEN 1 ELSE 0 END) AS Mayo,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 6 THEN 1 ELSE 0 END) AS Junio,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 7 THEN 1 ELSE 0 END) AS Julio,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 8 THEN 1 ELSE 0 END) AS Agosto,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 9 THEN 1 ELSE 0 END) AS Septiembre,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 10 THEN 1 ELSE 0 END) AS Octubre,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 11 THEN 1 ELSE 0 END) AS Noviembre,\n" +
+                "    SUM(CASE WHEN MONTH(fecha) = 12 THEN 1 ELSE 0 END) AS Diciembre\n" +
+                "FROM \n" +
+                "    incidencia\n" +
+                "WHERE \n" +
+                "    YEAR(fecha) = 2024;";
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            try (ResultSet rs = pstmt.executeQuery();) {
+
+                if (rs.next()) {
+                    incidenciasPorMes = new IncidenciasPorMes();
+                   incidenciasPorMes.setEneroIncidencias(rs.getInt(1));
+                   incidenciasPorMes.setFebreroIncidencias(rs.getInt(2));
+                   incidenciasPorMes.setMarzoIncidencias(rs.getInt(3));
+                   incidenciasPorMes.setAbrilIncidencias(rs.getInt(4));
+                   incidenciasPorMes.setMayoIncidencias(rs.getInt(5));
+                   incidenciasPorMes.setJunioIncidencias(rs.getInt(6));
+                   incidenciasPorMes.setJulioIncidencias(rs.getInt(7));
+                   incidenciasPorMes.setAugustIncidencias(rs.getInt(8));
+                   incidenciasPorMes.setSeptiemIncidencias(rs.getInt(9));
+                   incidenciasPorMes.setOctopusIncidencias(rs.getInt(10));
+                   incidenciasPorMes.setNovemIncidencias(rs.getInt(11));
+                   incidenciasPorMes.setDezemIncidencias(rs.getInt(12));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return incidenciasPorMes;
     }
 
 
