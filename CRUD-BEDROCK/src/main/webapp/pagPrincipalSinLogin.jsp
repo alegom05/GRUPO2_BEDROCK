@@ -28,7 +28,7 @@
                         <img src="./logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                     </a>
                     <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"></h2>
-                    <a href="<%=request.getContextPath()%>/LoginServlet" style="color: white;">
+                    <a href="<%=request.getContextPath()%>/LoginServlet" style="color: white;margin-right: 10px;">
                         Iniciar sesion
                     </a>
                 </div>
@@ -36,7 +36,7 @@
             <nav class="letra_botones_encabezado">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="paginaPrincipal-Vecino.jsp" class="nav-link">Municipalidad</a>
+                        <a href="pagPrincipalSinLogin.jsp" class="nav-link">Municipalidad</a>
                     </li>
                     <li class="nav-item">
                         <!--<a href="paginaEventos-Vecino.jsp" class="nav-link">Eventos</a>-->
@@ -74,8 +74,8 @@
                         Sólo tendrá acceso si se encuentra registrado en la página, por favor regístrese.
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                        <a href="<%=request.getContextPath()%>/RegistroUsuariosServlet?action=creacionform" class="btn btn-primary">Registrarse</a>
+                        <button type="button" class=" btn-secondary btn-modal-reg btn" data-bs-dismiss="modal">Cerrar</button>
+                        <a href="<%=request.getContextPath()%>/RegistroUsuarioServlet?action=creacionform" class="btn btn-primary">Registrarse</a>
                     </div>
                 </div>
             </div>

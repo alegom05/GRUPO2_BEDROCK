@@ -4,6 +4,12 @@
     margin-right: 8%;
     margin-top: 5%;
 }
+.usuario-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
 
 .texto_titulos{
     font-family: "Kelab", sans-serif;
