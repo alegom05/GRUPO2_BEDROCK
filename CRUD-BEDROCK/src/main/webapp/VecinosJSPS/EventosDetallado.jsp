@@ -125,7 +125,6 @@
                 </div>
                 <%
                     Integer estaRegistrado = (Integer) currentSession.getAttribute("estaRegistrado");
-                    System.out.println("Valor de estaRegistrado: " + estaRegistrado);
                 %>
                 <div class="elemento_texto_evento d-flex mt-1">
                     <% if (estaRegistrado != null && estaRegistrado == 1) { %>
