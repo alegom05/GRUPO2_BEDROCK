@@ -17,11 +17,11 @@
             <div class="row">
                 <div class="col-md-3 d-flex justify-content-start align-items-center">
                     <img src="${pageContext.request.contextPath}/assets/logos/logo_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-                    <h4 style="margin-top: 10px;" >¡Juntos Por<br>San Miguel!</h4>
+                    <h4 style="margin-top: 10px;" >Juntos Por<br>San Miguel!</h4>
                 </div>
                 <div class="col-md-9 d-flex align-items-center justify-content-end">
                     <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>">
-                        <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+                        <img src="${pageContext.request.contextPath}/assets/logos/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                     </a>
                     <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
                     <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">

@@ -31,11 +31,11 @@
 
     </head>
     <body style="height: 100vh; margin: 0;">
-        <div class="ParteSuperior" style="overflow-x: hidden">
+        <div class="ParteSuperior">
             <div class="row">
                 <div class="col-md-3 d-flex justify-content-start align-items-center">
                     <img src="${pageContext.request.contextPath}/logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-                    <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
+                    <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
                 </div>
                 <div class="col-md-9 d-flex align-items-center justify-content-end">
                     <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>">
@@ -71,7 +71,7 @@
             </nav>
         </div>
 
-        <div class="container w-100" style="overflow-x: hidden">
+        <div class="container w-100">
             <div class="container theme-showcase w-100">
                 <h1></h1>
                 <div id="holder" class="row w-100" ></div>

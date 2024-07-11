@@ -10,10 +10,6 @@
     Evento evento = eventoDao.obtenerEventoPorId(eventId);
 %>
 
-<%
-    HttpSession currentSession = request.getSession();
-%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -125,14 +121,9 @@
                 </div>
                 <%
                     Integer estaRegistrado = (Integer) currentSession.getAttribute("estaRegistrado");
-                    System.out.println("Valor de estaRegistrado: " + estaRegistrado);
                 %>
                 <div class="elemento_texto_evento d-flex mt-1">
-                    <% if (estaRegistrado != null && estaRegistrado == 1) { %>
-                    <button class="btn btn-mas-grande" disabled>Ya Inscrito</button>
-                    <% } else { %>
-                    <a href="<%= request.getContextPath() %>/EventoServlet?action=inscribirse_evento&id=<%= evento.getIdEvento() %>" class="btn btn-mas-grande"><h7>Inscribirse</h7></a>
-                    <% } %>
+                    <a href="<%= request.getContextPath() %>/EventoServlet?action=inscribirse_evento&idUsu=<%=usuarioSesion.getId()%>&idEven=<%=evento.getIdEvento()%>" class="btn btn-mas-grande"><h7>Inscribirse</h7></a>
                 </div>
             </div>
         </div>

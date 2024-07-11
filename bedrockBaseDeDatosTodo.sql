@@ -186,24 +186,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`tipo` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
--- -----------------------------------------------------
--- Table `basededatos3`.`Aconpanantes`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `basededatos3`.`Aconpanantes` (
-  `idAconpanantes` INT NOT NULL AUTO_INCREMENT,
-  `NombreAconpanantes` VARCHAR(45) NOT NULL,
-  `ApellidoAconpanantes` VARCHAR(45) NOT NULL,
-  `DniAconpanantes` VARCHAR(8) NOT NULL,
-  `evento_has_usuario_idEvento` INT NOT NULL,
-  `evento_has_usuario_idUsuario` INT NOT NULL,
-  PRIMARY KEY (`idAconpanantes`, `evento_has_usuario_idEvento`, `evento_has_usuario_idUsuario`),
-  INDEX `fk_Aconpanantes_evento_has_usuario1_idx` (`evento_has_usuario_idEvento` ASC, `evento_has_usuario_idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_Aconpanantes_evento_has_usuario1`
-    FOREIGN KEY (`evento_has_usuario_idEvento` , `evento_has_usuario_idUsuario`)
-    REFERENCES `basededatos3`.`evento_has_usuario` (`idEvento` , `idUsuario`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+
 -- -----------------------------------------------------
 -- Table `basededatos3`.`incidencia`
 -- -----------------------------------------------------
