@@ -16,7 +16,7 @@ import java.io.OutputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
-@WebServlet(name = "ImaggenIncidenciaServlet",value="/imagenIncidencia")
+@WebServlet(name = "ImagenIncidenciaServlet",value="/imagenIncidencia")
 public class ImagenIncidenciaServlet extends HttpServlet {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/basededatos3?serverTimezone=America/Lima";
     private static final String DB_USER = "root";

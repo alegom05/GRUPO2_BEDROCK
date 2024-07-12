@@ -36,7 +36,7 @@
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br>Rol: <%=usuarioSesion.getRol()%></h2>
             <a href="logIN.html">
-                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+                <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
     </div>
@@ -45,7 +45,6 @@
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
             </li>
-
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
@@ -76,7 +75,7 @@
                 <h1><%= incidencia.getNombreIncidencia() %></h1>
 
                 <div class="contenedor mt-4" >
-                    <img src="<%= request.getContextPath()%>/imagenIncidencia?id=<%= incidencia.getIdIncidencia()%>" alt="Incidencia" id="imagen_detallada" class="img-fluid mx-auto">
+                    <img src="<%= request.getContextPath()%>/imagenIncidenciaMostrar?id=<%= incidencia.getIdIncidencia() %>" alt="Incidencia" id="imagen_detallada" class="img-fluid mx-auto">
                 </div>
             </div>
         </div>
@@ -106,6 +105,7 @@
             </div>
         </div>
         <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="btn btn-secondary mt-4">Volver a la lista de incidencias</a>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
