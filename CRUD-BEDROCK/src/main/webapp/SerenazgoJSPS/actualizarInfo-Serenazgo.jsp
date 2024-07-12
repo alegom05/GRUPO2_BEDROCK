@@ -127,7 +127,7 @@
             <div class="mb-3" >
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="*************" aria-describedby="button-addon2"  disabled>
-                    <a href="cambiarContra-Serenazgo.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg"></a>
+                    <a href="${pageContext.request.contextPath}/error.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg"></a>
                 </div>
 
             </div>

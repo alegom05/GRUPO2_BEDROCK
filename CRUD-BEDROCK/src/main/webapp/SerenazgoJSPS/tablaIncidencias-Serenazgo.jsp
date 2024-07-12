@@ -153,7 +153,7 @@
                             </div>
                             <form class="row align-items-start mb-3">
                                 <div class="mb-3">
-                                    <label for="message-text" class="form-label">Descripción:</label>
+                                    <label for="descripcionEliminar" class="form-label">Descripción:</label>
                                     <textarea class="form-control" id="descripcionEliminar" style="height: 100px;"></textarea>
                                 </div>
                             </form>

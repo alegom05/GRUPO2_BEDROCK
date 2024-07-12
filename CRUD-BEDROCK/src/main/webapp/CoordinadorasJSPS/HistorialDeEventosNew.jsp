@@ -78,8 +78,8 @@
             </div>
         </div>
         <br>
-        <div class="tabla-container">
-            <table id="miTabla" class="display">
+        <div class="table-responsive">
+            <table id="miTabla" class="display table-responsive">
                 <thead>
                 <tr>
                     <th>Nombre</th>
