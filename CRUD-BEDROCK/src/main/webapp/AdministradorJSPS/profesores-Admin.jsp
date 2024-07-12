@@ -110,7 +110,7 @@
                             <i class="fas fa-ellipsis-v"></i>
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a href="<%=request.getContextPath()%>/Profesores?a=editar&id=<%=profesor1.getId() %>" class="dropdown-item">Editar</a></li>
+                            <li><a href="#" onclick="editarProfesor('<%=profesor1.getId()%>')" class="dropdown-item">Editar</a></li>
                             <li><a onclick="setProfesorId('<%= profesor1.getId() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a></li>
                         </ul>
                     </div>
@@ -195,6 +195,22 @@
             document.getElementById('profesorIdToDelete').value = id;
         }
     </script>
+        <script>
+            function editarProfesor(id) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '<%=request.getContextPath()%>/Profesores?a=editar';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'id';
+                input.value = id;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        </script>
 </div>
 </body>
 </html>
