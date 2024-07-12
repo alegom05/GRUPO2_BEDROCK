@@ -26,7 +26,7 @@
                         String tipoUsuario = usuarioSesion.getTipo();
                         String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
                     %>
-                    <h2 style="margin-right: 40px; text-align: right;">
+                    <h2 style=" text-align: right;">
                         <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><br><%=rol%>
                     </h2>
                 </div>
