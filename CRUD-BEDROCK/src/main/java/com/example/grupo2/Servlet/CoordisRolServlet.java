@@ -177,6 +177,7 @@ public class CoordisRolServlet extends HttpServlet {
                 request.setAttribute("vecinoInscrito",listaVecinosInscritos);
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinosInscritos.jsp");
                 view.forward(request,response);
+                break;
             //Pestaña Reportar incidencia ***
             /*case "formCrearInci":
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidenciaVerisonPRUEBA.jsp");

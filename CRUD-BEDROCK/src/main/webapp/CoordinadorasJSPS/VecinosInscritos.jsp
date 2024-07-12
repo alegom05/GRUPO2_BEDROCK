@@ -78,8 +78,7 @@
                 <thead>
                 <tr>
                     <th>DNI</th>
-                    <th>Nombres </th>
-                    <th>Apellidos</th>
+                    <th>Nombres y apellidos</th>
                     <th>Correo electronico</th>
                     <th>Ver</th>
                     <th>Reportar</th>
@@ -91,7 +90,6 @@
                 <tr>
                     <td><%= vecino.getDni() %></td>
                     <td><%= vecino.getNombre() %></td>
-                    <td><%= vecino.getApellido() %></td>
                     <td><%= vecino.getCorreo() %></td>
                     <td><button id="lupaICON" class="btn btn-secondary" onclick="detalleVecino(<%= vecino.getId()%>)">
                         <img src="${pageContext.request.contextPath}assets/icons/lupa.svg" alt="Ver">
