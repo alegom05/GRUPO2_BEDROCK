@@ -116,7 +116,7 @@
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a href="<%=request.getContextPath()%>/Serenazgos?a=editar&id=<%=serenazgo1.getId() %>" class="dropdown-item">Editar</a></li>
+                        <li><a href="#" onclick="editarSerenazgo('<%=serenazgo1.getId()%>')" class="dropdown-item">Editar</a></li>
                         <li><a onclick="setSerenazgoId('<%= serenazgo1.getId() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">Eliminar</a></li>
                     </ul>
                 </div>
@@ -204,6 +204,22 @@
         }
         function setSerenazgoId(id) {
             document.getElementById('serenazgoIdToDelete').value = id;
+        }
+    </script>
+    <script>
+        function editarSerenazgo(id) {
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '<%=request.getContextPath()%>/Serenazgos?a=editar';
+
+            var input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'id';
+            input.value = id;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
         }
     </script>
 </div>

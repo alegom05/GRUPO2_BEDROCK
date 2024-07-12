@@ -269,7 +269,7 @@
 
 
 
-            <a href="" class="btn btn-primary" >Ver lista de participantes</a>
+            <a href="${pageContext.request.contextPath}/Coordis?action=listarInscritos&idEvento=<%= evento.getIdEvento() %>" class="btn btn-primary" >Ver lista de participantes</a>
             <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="btn btn-primary ">Cancelar</a>
         </div>
     </div>

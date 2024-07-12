@@ -12,16 +12,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juntos Por San Miguel</title>
+
+    <link href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.min.css" rel="stylesheet">
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
-
 </head>
 <body>
 <div class="ParteSuperior container-fluid">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
+            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail">
             <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
@@ -33,14 +38,12 @@
                 <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
-
     </div>
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
             </li>
-
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
@@ -67,7 +70,7 @@
         </div>
         <br>
         <div class="table-responsive">
-            <table id="miTabla" class="display table-responsive">
+            <table id="miTabla" class="table table-striped table-bordered">
                 <thead>
                 <tr>
                     <th>DNI</th>
@@ -84,10 +87,9 @@
                     <td><%= vecino.getDni() %></td>
                     <td><%= vecino.getNombre() %></td>
                     <td><%= vecino.getCorreo() %></td>
-                    <td><button id="lupaICON" class="btn btn-secondary" onclick="detalleVecino(<%= vecino.getId()%>)">
-                        <img src="${pageContext.request.contextPath}assets/icons/lupa.svg" alt="Ver">
+                    <td><button id="lupaICON" class="btn btn-secondary" onclick="detalleVecino(<%= vecino.getId() %>)">
+                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Ver">
                     </button></td>
-
                     <td>
                         <a href="" data-bs-toggle="modal" data-bs-target="#modalReporte">
                             <img src="<%= request.getContextPath() %>/CoordinadorasJSPS/Iconos/report.png" alt="Descripción de la imagen" class="mi-imagen">
@@ -103,7 +105,6 @@
                 </tbody>
             </table>
         </div>
-
         <div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -121,7 +122,6 @@
                 </div>
             </div>
         </div>
-
         <div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="modalReporteLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -146,11 +146,7 @@
         </div>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
 <script>
     $(document).ready(function() {
         var table = $('#miTabla').DataTable({
