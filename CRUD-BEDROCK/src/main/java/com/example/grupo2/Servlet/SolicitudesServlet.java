@@ -36,7 +36,7 @@ public class SolicitudesServlet extends HttpServlet {
                 System.out.println("SolicitudesServlet: doGet iniciado");
                 int idsolicitud = Integer.parseInt(request.getParameter("id"));
                 serenazgosDao.aprobarSolicitud(idsolicitud);
-                response.sendRedirect(request.getContextPath() + "/AdministradorJSPS/solicitudes-Admin.jsp");
+                response.sendRedirect(request.getContextPath() + "/Solicitudes");
 
             }
         }
@@ -54,7 +54,7 @@ public class SolicitudesServlet extends HttpServlet {
                 String correo = request.getParameter("correo");
                 System.out.println("Aprobando solicitud para ID: " + id + ", Correo: " + correo);
                 serenazgosDao.aprobarSolicitud(id);
-                enviarCorreo(correo);
+                new Thread(() -> enviarCorreo(correo)).start();
                 response.setStatus(HttpServletResponse.SC_OK);
                 // La redirección se maneja en el cliente
                 }

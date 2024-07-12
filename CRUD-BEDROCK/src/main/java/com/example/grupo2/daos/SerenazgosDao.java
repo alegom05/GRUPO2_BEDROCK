@@ -6,21 +6,13 @@ import com.example.grupo2.Beans.Usuario;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class SerenazgosDao {
-    private static String user = "root";
-    private static String pass = "root";
-    private static String url = "jdbc:mysql://localhost:3306/basededatos3";
-
+public class SerenazgosDao extends daoBase {
     public ArrayList<Usuario> obtenerSerenazgos(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
+        String sql = "SELECT nombre, apellido, dni, turnoSerenazgo, tipo, idUsuario, correo FROM basededatos3.usuario WHERE idRoles = 'SE'";
         ArrayList<Usuario> listaSerenazgos = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = this.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT nombre, apellido, dni, turnoSerenazgo, tipo, idUsuario, correo FROM basededatos3.usuario WHERE idRoles = 'SE'")){
+             ResultSet rs = stmt.executeQuery(sql)){
             while (rs.next()){
                 Usuario serenazgo = new Usuario();
                 serenazgo.setNombre(rs.getString(1));
@@ -39,14 +31,10 @@ public class SerenazgosDao {
         return listaSerenazgos;
     }
     public void crearSerenazgos(String nombre, String apellido, String dni, String fecha_nacimiento, String numtelefono, String direccion, String tipo, String TurnoSerenazgo, String correo, String contrasenia){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
         String sql = "INSERT INTO `basededatos3`.`usuario` (`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `direccion`, `tipo`, `turnoSerenazgo`, `correo`, `clave`, `idRoles`, `horaInicio`, `horaFin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'SE', '00:00:00', '00:00:01')";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, nombre);
@@ -68,15 +56,10 @@ public class SerenazgosDao {
     }
     public Usuario buscarPorId(int id) {
         Usuario serenazgo = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         String sql = "SELECT * FROM usuario where idUsuario = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setInt(1, id);
@@ -106,15 +89,9 @@ public class SerenazgosDao {
     }
     public void actualizar(Usuario serenazgo) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
         String sql = "UPDATE usuario SET telefono=?, direccion=?, tipo=?, turnoSerenazgo=?, correo=? where idUsuario=?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, serenazgo.getNumtelefono());
@@ -131,15 +108,10 @@ public class SerenazgosDao {
 
     }
     public void eliminarSerenazgo(int id) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         String sql = "DELETE FROM usuario WHERE idUsuario = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setInt(1, id);
@@ -150,14 +122,10 @@ public class SerenazgosDao {
         }
     }
     public void actualizarContrasenia(int id, String nuevaContrasenia) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+
         String sql = "UPDATE usuario SET clave = ? WHERE idUsuario = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevaContrasenia);
@@ -169,19 +137,15 @@ public class SerenazgosDao {
         }
     }
     public ArrayList<Solicitudes> obtenerSolicitudes(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
+
         ArrayList<Solicitudes> listaSolicitudes = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(url, user, pass);
+        try (Connection conn = this.getConnection();
              Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT s.idsolicitudes, u.nombre, u.apellido, u.dni, u.correo, u.direccion, s.roles_idRoles\n" +
-                     "FROM solicitudes s\n" +
-                     "JOIN usuario u\n" +
-                     "ON s.usuario_idUsuario = u.idUsuario\n" +
-                     "WHERE s.estadosolicitud is NULL;")){
+             ResultSet rs = stmt.executeQuery("SELECT s.idsolicitudes, u.nombre, u.apellido, u.dni, u.correo, u.direccion, s.roles_idRoles \n" +
+                     "FROM solicitudes s \n" +
+                     "JOIN usuario u \n" +
+                     "ON s.usuario_idUsuario = u.idUsuario \n" +
+                     "WHERE s.estadosolicitud is null;")){
 
             while (rs.next()){
 
@@ -201,15 +165,10 @@ public class SerenazgosDao {
         return listaSolicitudes;
     }
     public void rechazarSolicitud(int id) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         String sql = "UPDATE solicitudes SET estadosolicitud = ? WHERE idsolicitudes = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setInt(1, 0);
@@ -221,56 +180,36 @@ public class SerenazgosDao {
         }
     }
     public void aprobarSolicitud(int idSolicitud) {
-        Connection connection = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+        String selectSql = "SELECT u.idRoles FROM solicitudes s JOIN usuario u ON s.usuario_idUsuario = u.idUsuario WHERE s.idsolicitudes = ?";
+        String updateSql = "UPDATE usuario u JOIN solicitudes s ON u.idUsuario = s.usuario_idUsuario SET u.idRoles = ?, s.estadosolicitud = ? WHERE s.idsolicitudes = ?";
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+        try (Connection conn = this.getConnection();
+             PreparedStatement selectStmt = conn.prepareStatement(selectSql);
+             PreparedStatement updateStmt = conn.prepareStatement(updateSql)) {
 
-            String url = "jdbc:mysql://localhost:3306/basededatos3"; // Reemplaza con la URL de tu base de datos
-            String user = "root"; // Reemplaza con tu nombre de usuario de la base de datos
-            String pass = "root"; // Reemplaza con tu contraseña de la base de datos
+            selectStmt.setInt(1, idSolicitud);
 
-            connection = DriverManager.getConnection(url, user, pass);
+            try (ResultSet rs = selectStmt.executeQuery()) {
+                if (rs.next()) {
+                    String currentRole = rs.getString("idRoles");
+                    String newRole = null;
 
-            // Consultar el rol actual del usuario asociado a la solicitud
-            String selectSql = "SELECT u.idRoles FROM solicitudes s JOIN usuario u ON s.usuario_idUsuario = u.idUsuario WHERE s.idsolicitudes = ?";
-            pstmt = connection.prepareStatement(selectSql);
-            pstmt.setInt(1, idSolicitud);
-            rs = pstmt.executeQuery();
+                    if (currentRole == null) {
+                        newRole = "VE";
+                    } else if ("VE".equals(currentRole)) {
+                        newRole = "CO";
+                    }
 
-            if (rs.next()) {
-                String currentRole = rs.getString("idRoles");
-                String newRole = null;
-
-                if (currentRole == null) {
-                    newRole = "VE";
-                } else if ("VE".equals(currentRole)) {
-                    newRole = "CO";
-                }
-
-                if (newRole != null) {
-                    // Actualizar el rol del usuario y el estado de la solicitud
-                    String updateSql = "UPDATE usuario u JOIN solicitudes s ON u.idUsuario = s.usuario_idUsuario SET u.idRoles = ?, s.estadosolicitud = ? WHERE s.idsolicitudes = ?";
-                    pstmt = connection.prepareStatement(updateSql);
-                    pstmt.setString(1, newRole);
-                    pstmt.setInt(2, 1);
-                    pstmt.setInt(3, idSolicitud);
-                    pstmt.executeUpdate();
+                    if (newRole != null) {
+                        updateStmt.setString(1, newRole);
+                        updateStmt.setInt(2, 1);
+                        updateStmt.setInt(3, idSolicitud);
+                        updateStmt.executeUpdate();
+                    }
                 }
             }
-
-        } catch (ClassNotFoundException | SQLException e) {
+        } catch (SQLException e) {
             throw new RuntimeException(e);
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (pstmt != null) pstmt.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 

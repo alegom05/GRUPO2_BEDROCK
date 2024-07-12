@@ -9,13 +9,9 @@ import java.util.ArrayList;
 public class ProfesoresDao extends daoBase{
 
     public ArrayList<Profesores> obtenerProfesores(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
+
         ArrayList<Profesores> listaProfesores = new ArrayList<>();
-        try (Connection conn = getConnection();
+        try (Connection conn = this.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT nombre, apellido, curso, idProfesor FROM basededatos3.profesor")){
             while (rs.next()){
@@ -37,7 +33,7 @@ public class ProfesoresDao extends daoBase{
 
         String sql = "INSERT INTO `basededatos3`.`profesor` (`nombre`, `apellido`, `curso`) VALUES (?, ?, ?)";
 
-        try (Connection connection = getConnection();
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, nombre);
