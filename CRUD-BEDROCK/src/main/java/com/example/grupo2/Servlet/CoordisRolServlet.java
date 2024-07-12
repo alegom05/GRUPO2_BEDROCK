@@ -324,14 +324,14 @@ public class CoordisRolServlet extends HttpServlet {
                     request.setAttribute("errorMessage", "Formato de hora inválido: debe ser HH:mm.");
                     request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
                 }
-                List<Profesores> listprofesores = profesoresDao.listandoProfesores();
+                /*List<Profesores> listprofesores = profesoresDao.listandoProfesores();
                 System.out.println("Número de profesores: " + listprofesores.size());
                 for (Profesores profesor : listprofesores) {
                     System.out.println(profesor.getNombre());
-                }
-                request.setAttribute("profesores", listprofesores);
+                }*/
+                /*request.setAttribute("profesores", listprofesores);
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
-                view.forward(request, response);
+                view.forward(request, response);*/
                 System.out.println(evento1.getNombre());
                 System.out.println(evento1.getDescripcion());
                 System.out.println(evento1.getLugar());
@@ -343,8 +343,6 @@ public class CoordisRolServlet extends HttpServlet {
                 System.out.println(evento1.getMateriales());
                 System.out.println(evento1.getFrecuencia());
                 System.out.println(evento1.getTipo());
-
-
 
                 break;
             //Este case servirá para que coordi confirme que asistió al evento (por ahora solo podemos subir una foto,
