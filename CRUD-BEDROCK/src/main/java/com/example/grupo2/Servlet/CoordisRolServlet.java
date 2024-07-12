@@ -54,6 +54,10 @@ public class CoordisRolServlet extends HttpServlet {
             case "formCrearEventos":
 
                 List<Profesores> listprofesores = profesoresDao.listandoProfesores();
+                System.out.println("Número de profesores: " + listprofesores.size());
+                for (Profesores profesor : listprofesores) {
+                    System.out.println(profesor.getNombre() + " " + profesor.getApellido());
+                }
                 request.setAttribute("profesores", listprofesores);
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
                 view.forward(request, response);
@@ -242,6 +246,7 @@ public class CoordisRolServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "listar" : request.getParameter("action");
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
+        ProfesoresDao profesoresDao = new ProfesoresDao();
         RequestDispatcher view;
 
         switch (action) {
@@ -251,7 +256,7 @@ public class CoordisRolServlet extends HttpServlet {
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 String lugar = request.getParameter("lugar");
-                String encargado = request.getParameter("profesor");
+                String encargado = request.getParameter("profesorId");
                 String vacantes = request.getParameter("vacantes");
                 String fechaInicio = request.getParameter("fechaInicio");
                 String fechaFin = request.getParameter("fechaFin");
@@ -301,7 +306,7 @@ public class CoordisRolServlet extends HttpServlet {
                     evento1.setFrecuencia(Integer.parseInt(frecuencia));
                     evento1.setTipo(tipoEvento);
                     evento1.setFoto(foto);
-                    evento1.setIdProfesor(4);
+                    evento1.setIdProfesor(Integer.parseInt(encargado));
 
                     eventoDao.crearEvento(evento1);
                     response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
@@ -319,6 +324,14 @@ public class CoordisRolServlet extends HttpServlet {
                     request.setAttribute("errorMessage", "Formato de hora inválido: debe ser HH:mm.");
                     request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
                 }
+                List<Profesores> listprofesores = profesoresDao.listandoProfesores();
+                System.out.println("Número de profesores: " + listprofesores.size());
+                for (Profesores profesor : listprofesores) {
+                    System.out.println(profesor.getNombre());
+                }
+                request.setAttribute("profesores", listprofesores);
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
+                view.forward(request, response);
                 System.out.println(evento1.getNombre());
                 System.out.println(evento1.getDescripcion());
                 System.out.println(evento1.getLugar());
@@ -330,6 +343,7 @@ public class CoordisRolServlet extends HttpServlet {
                 System.out.println(evento1.getMateriales());
                 System.out.println(evento1.getFrecuencia());
                 System.out.println(evento1.getTipo());
+
 
 
                 break;

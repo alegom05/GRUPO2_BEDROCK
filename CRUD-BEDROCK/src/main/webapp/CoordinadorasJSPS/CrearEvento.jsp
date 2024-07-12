@@ -4,6 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.grupo2.Beans.Profesores" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -102,7 +103,7 @@
                                 <label for="profesor" class="form-label">Seleccione un Encargado:</label>
                                 <select name="profesorId" id="profesor" class="form-select">
                                     <%
-                                        List<Profesores> listaProfesores = (List<Profesores>) request.getAttribute("listProfesores");
+                                        List<Profesores> listaProfesores = (List<Profesores>) request.getAttribute("profesores");
                                         if (listaProfesores != null && !listaProfesores.isEmpty()) {
                                     %>
                                     <option value="0"> Ningún profesor </option>
@@ -117,6 +118,7 @@
                                     <option value="">No hay profesores disponibles</option>
                                     <% } %>
                                 </select>
+
                             </div>
                             <div class="col-md-auto">
                                 <div class="mb-2">
