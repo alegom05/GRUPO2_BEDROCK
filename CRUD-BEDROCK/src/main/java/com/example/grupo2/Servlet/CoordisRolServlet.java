@@ -3,6 +3,7 @@ package com.example.grupo2.Servlet;
 import com.example.grupo2.Beans.*;
 import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.IncidenciaDao;
+import com.example.grupo2.daos.ProfesoresDao;
 import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -21,6 +22,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @MultipartConfig
@@ -35,6 +37,7 @@ public class CoordisRolServlet extends HttpServlet {
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
         UsuarioDao usuarioDao = new UsuarioDao();
+        ProfesoresDao profesoresDao = new ProfesoresDao();
         RequestDispatcher view;
 
         switch (action) {
@@ -49,6 +52,13 @@ public class CoordisRolServlet extends HttpServlet {
 
             //Case para crear eventos de coordinadoras
             case "formCrearEventos":
+
+                List<Profesores> listprofesores = profesoresDao.listandoProfesores();
+                System.out.println("Número de profesores: " + listprofesores.size());
+                for (Profesores profesor : listprofesores) {
+                    System.out.println(profesor.getNombre() + " " + profesor.getApellido());
+                }
+                request.setAttribute("profesores", listprofesores);
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
                 view.forward(request, response);
                 break;
@@ -157,6 +167,17 @@ public class CoordisRolServlet extends HttpServlet {
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinoSanmi.jsp");
                 view.forward(request,response);
                 break;
+
+
+            //
+            //Pestaña lista de vecinos inscritos ***
+            case "listarInscritos":
+                String idEvento= request.getParameter("idEvento");
+                ArrayList<Usuario> listaVecinosInscritos = usuarioDao.listarVecinoPorEvento(idEvento);
+                request.setAttribute("vecinoInscrito",listaVecinosInscritos);
+                view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinosInscritos.jsp");
+                view.forward(request,response);
+                break;
             //Pestaña Reportar incidencia ***
             /*case "formCrearInci":
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidenciaVerisonPRUEBA.jsp");
@@ -236,6 +257,7 @@ public class CoordisRolServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "listar" : request.getParameter("action");
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
+        ProfesoresDao profesoresDao = new ProfesoresDao();
         RequestDispatcher view;
 
         switch (action) {
@@ -245,7 +267,7 @@ public class CoordisRolServlet extends HttpServlet {
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 String lugar = request.getParameter("lugar");
-                String encargado = request.getParameter("profesor");
+                String encargado = request.getParameter("profesorId");
                 String vacantes = request.getParameter("vacantes");
                 String fechaInicio = request.getParameter("fechaInicio");
                 String fechaFin = request.getParameter("fechaFin");
@@ -295,7 +317,7 @@ public class CoordisRolServlet extends HttpServlet {
                     evento1.setFrecuencia(Integer.parseInt(frecuencia));
                     evento1.setTipo(tipoEvento);
                     evento1.setFoto(foto);
-                    evento1.setIdProfesor(4);
+                    evento1.setIdProfesor(Integer.parseInt(encargado));
 
                     eventoDao.crearEvento(evento1);
                     response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
@@ -313,6 +335,14 @@ public class CoordisRolServlet extends HttpServlet {
                     request.setAttribute("errorMessage", "Formato de hora inválido: debe ser HH:mm.");
                     request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
                 }
+                /*List<Profesores> listprofesores = profesoresDao.listandoProfesores();
+                System.out.println("Número de profesores: " + listprofesores.size());
+                for (Profesores profesor : listprofesores) {
+                    System.out.println(profesor.getNombre());
+                }*/
+                /*request.setAttribute("profesores", listprofesores);
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
+                view.forward(request, response);*/
                 System.out.println(evento1.getNombre());
                 System.out.println(evento1.getDescripcion());
                 System.out.println(evento1.getLugar());
@@ -324,7 +354,6 @@ public class CoordisRolServlet extends HttpServlet {
                 System.out.println(evento1.getMateriales());
                 System.out.println(evento1.getFrecuencia());
                 System.out.println(evento1.getTipo());
-
 
                 break;
             //Este case servirá para que coordi confirme que asistió al evento (por ahora solo podemos subir una foto,

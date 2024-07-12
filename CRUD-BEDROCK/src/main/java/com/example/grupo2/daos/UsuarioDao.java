@@ -58,6 +58,54 @@ public class UsuarioDao extends daoBase {
         return listaUsuarios;
     }
 
+    public static ArrayList<Usuario> listarVecinoPorEvento(String idEvento) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Usuario> listaVecinos = new ArrayList<>();
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "select u.dni, concat(u.nombre,' ',u.apellido) as NombreCompleto, u.correo " +
+                "from evento_has_usuario ehu " +
+                "inner join evento e on ehu.idEvento = e.idEvento " +
+                "inner join usuario u on ehu.idUsuario = u.idUsuario " +
+                "where ehu.idEvento = ?;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, Integer.parseInt(idEvento)); // Aquí se debe asignar el parámetro antes de ejecutar la consulta
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Usuario usuario = new Usuario();
+
+                    usuario.setDni(rs.getString(1));
+                    usuario.setNombre(rs.getString(2));
+                    usuario.setCorreo(rs.getString(3));
+
+                    listaVecinos.add(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(listaVecinos);
+        return listaVecinos;
+    }
+
+
+
+
+
+
     public static int esUsuario(int IdUsuario) {
         int Es_un_usuario=0;
         try {

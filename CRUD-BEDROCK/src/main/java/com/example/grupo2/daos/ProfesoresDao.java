@@ -5,6 +5,7 @@ import com.example.grupo2.Beans.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProfesoresDao extends daoBase{
 
@@ -102,5 +103,28 @@ public class ProfesoresDao extends daoBase{
             throw new RuntimeException(e);
         }
 
+    }
+    //se implementa para el combobox de crear evento en coordis
+    public List<Profesores> listandoProfesores() {
+        List<Profesores> listaProfesores = new ArrayList<>();
+        String sql = "SELECT nombre, apellido, curso, idProfesor FROM basededatos3.profesor";
+
+        try (Connection conn = getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql);
+             ResultSet rs = preparedStatement.executeQuery()) {
+
+
+            while (rs.next()) {
+                Profesores profesor = new Profesores();
+                profesor.setNombre(rs.getString("nombre"));
+                profesor.setApellido(rs.getString("apellido"));
+                profesor.setCurso(rs.getString("curso"));
+                profesor.setId(rs.getInt("idProfesor"));
+                listaProfesores.add(profesor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaProfesores;
     }
 }

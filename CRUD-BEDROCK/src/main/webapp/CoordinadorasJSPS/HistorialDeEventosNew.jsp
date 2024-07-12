@@ -104,8 +104,8 @@
                     <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesEvento(<%= eventos.getIdEvento() %>)">
                         <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                     </button> </td>
-                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" ><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
-
+                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal"  onclick="establecerIdParaEliminar(<%= eventos.getIdEvento() %>)">
+                        <img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -124,12 +124,15 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Estás seguro de que deseas realizar esta acción?
+                    ¿Está seguro que desea eliminar este evento?
+                    <input type="hidden" id="eventoIdParaEliminar">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Confirmar</button>
+                    <button type="button" class="btn btn-primary" onclick="confirmarEliminacion()">Confirmar</button>
+                    <!--button type="button" class="btn btn-danger" onclick="confirmarEliminacion()">Eliminar</button-->
                 </div>
+
             </div>
         </div>
     </div>
@@ -182,6 +185,16 @@
         function detallesEvento(id) {
             // Redireccionar a otra página HTML
             window.location.href = '<%=request.getContextPath()%>/Coordis?action=detallarParaCoordi&id=' + id;
+        }
+    </script>
+    <script>
+        function establecerIdParaEliminar(idEvento) {
+            document.getElementById('eventoIdParaEliminar').value = idEvento;
+        }
+
+        function confirmarEliminacion() {
+            const idEvento = document.getElementById('eventoIdParaEliminar').value;
+            window.location.href = '<%= request.getContextPath() %>/Coordis?action=deleteEventos&id=' + idEvento;
         }
     </script>
 </div>

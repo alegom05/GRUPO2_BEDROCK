@@ -27,7 +27,7 @@
                         String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
                     %>
                     <h2 style=" text-align: right;">
-                        <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><br><%=rol%>
+                        <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
                     </h2>
                 </div>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">

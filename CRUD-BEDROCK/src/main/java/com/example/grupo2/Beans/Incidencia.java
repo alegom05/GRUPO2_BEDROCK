@@ -28,6 +28,7 @@ public class Incidencia {
     private int idUsuario;
     private double latitud;
     private double longitud;
+    private String foto;
     public int getIdIncidencia() {
         return idIncidencia;
     }
@@ -218,5 +219,13 @@ public class Incidencia {
 
     public void setLongitud(double longitud) {
         this.longitud = longitud;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }
