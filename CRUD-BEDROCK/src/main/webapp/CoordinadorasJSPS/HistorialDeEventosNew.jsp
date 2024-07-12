@@ -70,7 +70,7 @@
     <h2 style="text-align: center;">Eventos Realizados Este Mes</h2>
     <div class="container mt-4">
 
-        <div style=" display: flex; justify-content: space-between;">
+        <div style="display: flex; justify-content: space-between;">
 
             <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;" placeholder="Buscar...">
             <div class="col d-flex justify-content-end">
