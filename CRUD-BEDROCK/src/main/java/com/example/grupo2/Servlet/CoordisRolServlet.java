@@ -88,7 +88,7 @@ public class CoordisRolServlet extends HttpServlet {
 
                     }
                 }
-                response.sendRedirect(request.getContextPath()+"/EventoServlet");
+                response.sendRedirect(request.getContextPath()+"/Coordis?action=listaEventos");
                 break;
 
             //Este caso servirá para cuando la coordinadora desea revisar los detalles de alguno de sus eventos creados

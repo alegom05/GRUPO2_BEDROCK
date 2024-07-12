@@ -26,9 +26,9 @@
                         String tipoUsuario = usuarioSesion.getTipo();
                         String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
                     %>
-                    <h2 style=" text-align: right;">
+                    <h3 style=" text-align: right;">
                         <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
-                    </h2>
+                    </h3>
                 </div>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                     <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">

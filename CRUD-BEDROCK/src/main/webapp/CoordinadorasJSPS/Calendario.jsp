@@ -35,7 +35,16 @@
               <a href="DetallesUsuario.html">
                   <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
               </a>
-              <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br></h2>
+              <!--<h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">%=usuarioSesion.getNombre()%> %=usuarioSesion.getApellido()%><br></h2>-->
+              <div class="usuario-info">
+                  <%
+                      String tipoUsuario = usuarioSesion.getTipo();
+                      String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
+                  %>
+                  <h3 style=" text-align: right;">
+                      <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
+                  </h3>
+              </div>
               <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                   <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
               </a>
