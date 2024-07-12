@@ -406,13 +406,13 @@ FROM usuario;
 
 INSERT INTO `basededatos3`.`solicitudes` (`estadosolicitud`, `fechasolicitud`, `usuario_idUsuario`, `roles_idRoles`)
 VALUES 
-(0, '2024-06-01', 1, NULL),
-(0, '2024-06-02', 2, NULL),
-(0, '2024-06-03', 3, NULL),
-(0, '2024-06-04', 4, NULL),
-(0, '2024-06-05', 5, NULL),
-(0, '2024-06-06', 6, NULL),
-(0, '2024-06-07', 7, NULL),
-(0, '2024-06-08', 8, NULL),
-(0, '2024-06-09', 9, NULL),
-(0, '2024-06-10', 10, NULL);
+(NULL, '2024-06-01', 1, NULL),
+(NULL, '2024-06-02', 2, NULL),
+(NULL, '2024-06-03', 3, NULL),
+(NULL, '2024-06-04', 4, NULL),
+(NULL, '2024-06-05', 5, NULL),
+(NULL, '2024-06-06', 6, NULL),
+(NULL, '2024-06-07', 7, NULL),
+(NULL, '2024-06-08', 8, NULL),
+(NULL, '2024-06-09', 9, NULL),
+(NULL, '2024-06-10', 10, NULL);
