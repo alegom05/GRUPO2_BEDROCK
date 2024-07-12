@@ -147,11 +147,11 @@
                             <div class="col">
                                 <label for="frecuencia">Frecuencia</label>
                                 <select class="form-control" id="frecuencia" name="frecuencia" required>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="1">1 vez por semana</option>
+                                    <option value="2">2 veces por semana</option>
+                                    <option value="3">3 veces por semana</option>
+                                    <option value="4">4 veces por semana</option>
+                                    <option value="5">5 veces por semana</option>
                                 </select>
                                 <div class="invalid-feedback">Es necesario seleccionar la frecuencia del evento.</div>
                             </div>
