@@ -44,9 +44,6 @@ public class UsuarioServlet extends HttpServlet {
 
                 view = request.getRequestDispatcher("/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp");
                 view.forward(request, response);
-
-
-
                 break;
 
             //Este caso será utilizado para actulizar el número de teléfono del serenazgo auqnue eso se realizará exactamente

@@ -1,8 +1,6 @@
 package com.example.grupo2.Servlet;
 
-import com.example.grupo2.Beans.Evento;
-import com.example.grupo2.Beans.Incidencia;
-import com.example.grupo2.Beans.Usuario;
+import com.example.grupo2.Beans.*;
 import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.IncidenciaDao;
 import com.example.grupo2.daos.UsuarioDao;
@@ -40,8 +38,6 @@ public class CoordisRolServlet extends HttpServlet {
         RequestDispatcher view;
 
         switch (action) {
-
-
             //Este case será para el listado de eventos de coordinadora
             case "listaEventos":
                 ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
