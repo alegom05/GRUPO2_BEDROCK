@@ -105,9 +105,8 @@ public class SerenazgoRolServlet extends HttpServlet {
                 } else {
                     response.sendRedirect("error.jsp");
                 }
-
-                view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
-                view.forward(request, response);
+                /*view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
+                view.forward(request, response);*/
                 break;
         }
 
@@ -121,46 +120,57 @@ public class SerenazgoRolServlet extends HttpServlet {
         RequestDispatcher view;
 
         switch (action) {
-            //Algo parecido a esto
-            case "crear":
-                String nombreIncidencia = request.getParameter("nombreIncidencia");
-                String lugar = request.getParameter("lugarIncidencia");
-                String referencia = request.getParameter("referencia");
-                String descripcionIncidencia = request.getParameter("descripcion");
-                String phoneNumber = request.getParameter("contacto");
-                boolean ambulancia = Boolean.parseBoolean(request.getParameter("ambulancia"));
-
-                Part filePart = request.getPart("imagen"); // Obtén la parte del archivo
-                InputStream foto = null;
-                if (filePart != null && filePart.getSize() > 0) {
-                    foto = filePart.getInputStream(); // Lee el contenido del archivo como un InputStream
+            case "borrar":
+                String id = request.getParameter("id");
+                String descripcion = request.getParameter("descripcion");
+                if (id != null && descripcion != null) {
+                    incidenciaDao.borrarIncidencia(id, descripcion);
                 }
+                //response.sendRedirect(request.getContextPath() + "/Sereno?action=lista");
 
-                String tipoIncidencia = request.getParameter("tipo");
-                System.out.println(tipoIncidencia);
-                int idUsuario = Integer.parseInt(request.getParameter("idUsuario"));
+                break;
+            case "falsaAlarma":
+                String idIncidencia = request.getParameter("idIncidencia");
+                if (idIncidencia != null) {
+                    incidenciaDao.editarEstadoFalsaAlarma(idIncidencia);
+                    //response.sendRedirect(request.getContextPath() + "/Sereno?action=lista");
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+                break;
 
-                Incidencia nuevaIncidencia = new Incidencia();
+            case "incidenciaCerrada":
+                String idIncidencia2 = request.getParameter("idIncidencia");
+                if (idIncidencia2 != null) {
+                    incidenciaDao.editarEstadoCerrado(idIncidencia2);
+                    //response.sendRedirect(request.getContextPath() + "/Sereno?action=lista");
+                }else{
+                    response.sendRedirect("error.jsp");
+                }
+                break;
+            //Vista Evaluar Incidencia
+            case "evaluar":
+                String criticidad = request.getParameter("criticidad");
+                boolean requiereBomberos = Boolean.parseBoolean(request.getParameter("requiereBomberos"));
+                boolean requierePolicia = Boolean.parseBoolean(request.getParameter("requierePolicia"));
+                boolean requiereAmbulancia = Boolean.parseBoolean(request.getParameter("requiereAmbulancia"));
+                String personalRefuerzo = request.getParameter("personalRefuerzo");
+                String descripcionSolucion = request.getParameter("descripcionSolucion");
+                String idIncidenciaEvaluacion = request.getParameter("id");
 
-                nuevaIncidencia.setNombreIncidencia(nombreIncidencia);
-                nuevaIncidencia.setLugar(lugar);
-                nuevaIncidencia.setReferencia(referencia);
-                nuevaIncidencia.setDescripcion(descripcionIncidencia);
-                nuevaIncidencia.setContacto(phoneNumber);
-                nuevaIncidencia.setRequiereAmbulancia(ambulancia);
-                nuevaIncidencia.setFotoIncidencia(foto);
-                nuevaIncidencia.setIdTipoIncidencia(tipoIncidencia);
-                nuevaIncidencia.setIdUsuario(idUsuario);
+                Incidencia incidencia = new Incidencia();
 
-                incidenciaDao.crearIncidencia(nuevaIncidencia);
-                System.out.println(nuevaIncidencia.getNombreIncidencia());
-                System.out.println(nuevaIncidencia.getLugar());
-                System.out.println(nuevaIncidencia.getReferencia());
-                System.out.println(nuevaIncidencia.getDescripcion());
-                System.out.println(nuevaIncidencia.getContacto());
-                System.out.println(nuevaIncidencia.getIdTipoIncidencia());
-                System.out.println(nuevaIncidencia.getIdUsuario());
-                /*response.sendRedirect(request.getContextPath() + "/IncidenciaServlet?action=lista3&idUsuario=" + idUsuario);*/
+                incidencia.setCriticidad(criticidad);
+                incidencia.setRequiereBomberos(requiereBomberos);
+                incidencia.setRequierePolicia(requierePolicia);
+                incidencia.setRequiereAmbulancia(requiereAmbulancia);
+                incidencia.setPersonalRefuerzo(personalRefuerzo);
+                incidencia.setDescripcionSolucion(descripcionSolucion);
+                incidencia.setIdIncidencia(Integer.parseInt(idIncidenciaEvaluacion));
+
+
+                incidenciaDao.evaluarIncidencias(incidencia);
+                //response.sendRedirect(request.getContextPath() + "/Sereno");
 
                 break;
 
