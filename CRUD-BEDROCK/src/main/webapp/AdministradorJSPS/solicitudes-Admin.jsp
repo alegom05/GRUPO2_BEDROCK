@@ -96,7 +96,7 @@
             <td>
                 <% if ("VE".equals(solicitudes1.getRol())) { %>
                 Coordinadora
-                <% } else if ("US".equals(solicitudes1.getRol())) { %>
+                <% } else if (solicitudes1.getRol() == null) { %>
                 Vecino
                 <% } else { %>
                 <%=solicitudes1.getRol()%>

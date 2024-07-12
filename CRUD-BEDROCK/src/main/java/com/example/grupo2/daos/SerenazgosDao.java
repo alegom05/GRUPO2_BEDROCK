@@ -181,7 +181,7 @@ public class SerenazgosDao {
                      "FROM solicitudes s \n" +
                      "JOIN usuario u \n" +
                      "ON s.usuario_idUsuario = u.idUsuario \n" +
-                     "WHERE s.estadosolicitud=0;")){
+                     "WHERE s.estadosolicitud is null;")){
 
             while (rs.next()){
 
