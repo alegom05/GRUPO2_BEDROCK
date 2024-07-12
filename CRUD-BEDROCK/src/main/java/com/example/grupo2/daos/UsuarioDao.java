@@ -514,5 +514,39 @@ public class UsuarioDao extends daoBase {
         return Es_un_usuario;
     }
 
+    /*METODOS AÑADIDOS POR ADRIAN*/
+    public void crearSolicitudCoordi(int idUsuario){
+        Date fechaActual = new Date(System.currentTimeMillis());
+        String fa= String.valueOf(fechaActual);
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "INSERT INTO `basededatos3`.`solicitudes` (`estadoSolicitud`,`fechasolicitud`,`usuario_idUsuario`,`roles_idRoles`) VALUES (?,?,?,?)";
+
+        int estado=0;
+        String rol="CO";
+        System.out.print("en proceso");
+
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+            pstmt.setInt(1,estado);
+            pstmt.setDate(2,fechaActual);
+            pstmt.setInt(3,idUsuario);
+            pstmt.setString(4,rol);
+            pstmt.executeUpdate();
+            System.out.print(fa);
+            System.out.print("solicitud enviada");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
 
