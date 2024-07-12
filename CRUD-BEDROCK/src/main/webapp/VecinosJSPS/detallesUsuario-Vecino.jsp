@@ -85,7 +85,7 @@
                     <div>
                         <input type="hidden" name="id" class="form-control" value="<%=usuarioSesion.getId()%>">
                     </div>
-                    <div class="col">
+                    <div class="col me-4">
                         <div>
                             <label for="urbanizacionInput" class="form-label" style="margin-top: 10px;">Urbanización</label>
                             <div class="input-group">
@@ -99,9 +99,9 @@
                             <label for="disabledTextInput" class="form-label" style="margin-top: 10px;">Contraseña</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="************" aria-describedby="button-addon2" disabled>
-                                <a href="cambiarContra-Vecino.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2">
+                                <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#passwordModal">
                                     <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg" width="20" height="20">
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -127,12 +127,98 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary mt-3" type="submit">Guardar Cambios</button>
+                    <div class="row">
+                        <div class="col text-center">
+                            <button class="btn btn-primary mt-3" type="submit">Guardar Cambios</button>
+                            <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#solicitudModal">
+                                Solicitud de coordinadora
+                            </button>
+
+                        </div>
+                    </div>
                 </form>
                 <div id="successMessage" class="text-success text-center mt-2" style="display: none; margin-right: 10px;"></div>
             </div>
         </div>
+        <!-- Modal de solicitud de coordinadora -->
+        <div class="modal fade" id="solicitudModal" tabindex="-1" aria-labelledby="solicitudModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="solicitudModalLabel">Confirmación de Solicitud</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form  method="POST" action="<%=request.getContextPath()%>/VecinoIndexServlet?action=enviarSolicitud&id=<%=usuarioSesion.getId()%>">
+                            <div class="modal-body">
+                                <p>Su solicitud será enviada al administrador de la página. ¿Está seguro que desea continuar?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Modal para el cambio de contraseña-->
+        <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="passwordModalLabel">Cambiar Contraseña</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="changePasswordForm" method="POST" action="<%=request.getContextPath()%>/VecinoIndexServlet?action=cambiarContraVeci&id=<%=usuarioSesion.getId()%>">
+                            <div class="mb-3">
+                                <label for="oldPassword" class="form-label">Contraseña antigua</label>
+                                <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="newPassword" class="form-label">Nueva Contraseña</label>
+                                <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="confirmNewPassword" class="form-label">Confirmar Nueva Contraseña</label>
+                                <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <script>
+            document.getElementById('changePasswordForm').onsubmit = function(event) {
+                var oldPassword = document.getElementById('oldPassword').value;
+                var newPassword = document.getElementById('newPassword').value;
+                var confirmNewPassword = document.getElementById('confirmNewPassword').value;
+
+                // Validar que la nueva contraseña no sea la misma que la actual
+                if (oldPassword === newPassword) {
+                    alert('La nueva contraseña no puede ser la misma que la actual.');
+                    event.preventDefault(); // Prevenir el envío del formulario
+                    return false;
+                }
+
+                // Validar que la nueva contraseña coincida con la confirmación
+                if (newPassword !== confirmNewPassword) {
+                    alert('La confirmación de la nueva contraseña no coincide.');
+                    event.preventDefault(); // Prevenir el envío del formulario
+                    return false;
+                }
+
+                return true; // Permitir el envío del formulario
+            };
+        </script>
         <script>
             function enableField(fieldId) {
                 document.getElementById(fieldId).disabled = false;
