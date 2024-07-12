@@ -35,7 +35,7 @@ public class SerenazgosDao extends daoBase {
         String sql = "INSERT INTO `basededatos3`.`usuario` (`nombre`, `apellido`, `dni`, `fecha_nacimiento`, `telefono`, `direccion`, `tipo`, `turnoSerenazgo`, `correo`, `clave`, `idRoles`, `horaInicio`, `horaFin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'SE', '00:00:00', '00:00:01')";
 
         try (Connection connection = this.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, nombre);
             pstmt.setString(2, apellido);
@@ -60,11 +60,11 @@ public class SerenazgosDao extends daoBase {
         String sql = "SELECT * FROM usuario where idUsuario = ?";
 
         try (Connection connection = this.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
 
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
 
                 if (rs.next()) {
                     serenazgo = new Usuario();
@@ -92,7 +92,7 @@ public class SerenazgosDao extends daoBase {
         String sql = "UPDATE usuario SET telefono=?, direccion=?, tipo=?, turnoSerenazgo=?, correo=? where idUsuario=?";
 
         try (Connection connection = this.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, serenazgo.getNumtelefono());
             pstmt.setString(2, serenazgo.getDireccion());
@@ -112,7 +112,7 @@ public class SerenazgosDao extends daoBase {
         String sql = "DELETE FROM usuario WHERE idUsuario = ?";
 
         try (Connection connection = this.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
             pstmt.executeUpdate();
@@ -139,13 +139,14 @@ public class SerenazgosDao extends daoBase {
     public ArrayList<Solicitudes> obtenerSolicitudes(){
 
         ArrayList<Solicitudes> listaSolicitudes = new ArrayList<>();
+        String sql = "SELECT s.idsolicitudes, u.nombre, u.apellido, u.dni, u.correo, u.direccion, s.roles_idRoles \n" +
+                "FROM solicitudes s \n" +
+                "JOIN usuario u \n" +
+                "ON s.usuario_idUsuario = u.idUsuario \n" +
+                "WHERE s.estadosolicitud is null;";
         try (Connection conn = this.getConnection();
-             Statement stmt = conn.createStatement();
-             ResultSet rs = stmt.executeQuery("SELECT s.idsolicitudes, u.nombre, u.apellido, u.dni, u.correo, u.direccion, s.roles_idRoles \n" +
-                     "FROM solicitudes s \n" +
-                     "JOIN usuario u \n" +
-                     "ON s.usuario_idUsuario = u.idUsuario \n" +
-                     "WHERE s.estadosolicitud is null;")){
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery(sql)){
 
             while (rs.next()){
 
@@ -169,7 +170,7 @@ public class SerenazgosDao extends daoBase {
         String sql = "UPDATE solicitudes SET estadosolicitud = ? WHERE idsolicitudes = ?";
 
         try (Connection connection = this.getConnection();
-             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setInt(1, 0);
             pstmt.setInt(2, id);
