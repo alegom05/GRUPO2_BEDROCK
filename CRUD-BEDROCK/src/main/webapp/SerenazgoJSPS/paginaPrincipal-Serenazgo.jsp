@@ -65,7 +65,7 @@
         <h2 class="heading-4" style="font-family: 'Roboto Thin', sans-serif">Bienvenido personal de Serenazgo</h2>
     </div>
 
-    <a id="searchAll2" href="tablaIncidencias-Serenazgo.jsp" class="btn">
+    <a id="searchAll2" href="${pageContext.request.contextPath}/IncidenciaServlet" class="btn">
         <span class="display-6 text-light">¿Buscas las incidencia?</span>
         <p class="display-11 text-light text-left ml-1"> Te ayudamos
             <i focusable="false" data-fa-i2svg="">
