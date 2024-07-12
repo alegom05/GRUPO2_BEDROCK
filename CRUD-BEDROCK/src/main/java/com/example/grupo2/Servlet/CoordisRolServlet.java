@@ -3,6 +3,7 @@ package com.example.grupo2.Servlet;
 import com.example.grupo2.Beans.*;
 import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.IncidenciaDao;
+import com.example.grupo2.daos.ProfesoresDao;
 import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -21,6 +22,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @MultipartConfig
@@ -35,6 +37,7 @@ public class CoordisRolServlet extends HttpServlet {
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
         UsuarioDao usuarioDao = new UsuarioDao();
+        ProfesoresDao profesoresDao = new ProfesoresDao();
         RequestDispatcher view;
 
         switch (action) {
@@ -49,6 +52,9 @@ public class CoordisRolServlet extends HttpServlet {
 
             //Case para crear eventos de coordinadoras
             case "formCrearEventos":
+
+                List<Profesores> listprofesores = profesoresDao.listandoProfesores();
+                request.setAttribute("profesores", listprofesores);
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
                 view.forward(request, response);
                 break;
