@@ -3,6 +3,7 @@ package com.example.grupo2.daos;
 
 import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.Beans.Usuario;
+import com.example.grupo2.Beans.Historial;
 
 import java.util.ArrayList;
 import java.sql.*;
@@ -57,6 +58,54 @@ public class UsuarioDao extends daoBase {
         System.out.println(listaUsuarios);
         return listaUsuarios;
     }
+
+    public static ArrayList<Usuario> listarVecinoPorEvento(String idEvento) {
+
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Usuario> listaVecinos = new ArrayList<>();
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "select u.dni, concat(u.nombre,' ',u.apellido) as NombreCompleto, u.correo " +
+                "from evento_has_usuario ehu " +
+                "inner join evento e on ehu.idEvento = e.idEvento " +
+                "inner join usuario u on ehu.idUsuario = u.idUsuario " +
+                "where ehu.idEvento = ?;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, Integer.parseInt(idEvento)); // Aquí se debe asignar el parámetro antes de ejecutar la consulta
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Usuario usuario = new Usuario();
+
+                    usuario.setDni(rs.getString(1));
+                    usuario.setNombre(rs.getString(2));
+                    usuario.setCorreo(rs.getString(3));
+
+                    listaVecinos.add(usuario);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(listaVecinos);
+        return listaVecinos;
+    }
+
+
+
+
+
 
     public static int esUsuario(int IdUsuario) {
         int Es_un_usuario=0;
@@ -513,6 +562,102 @@ public class UsuarioDao extends daoBase {
         }
         return Es_un_usuario;
     }
+
+    /*METODOS AÑADIDOS POR ADRIAN*/
+    public void crearSolicitudCoordi(int idUsuario){
+        Date fechaActual = new Date(System.currentTimeMillis());
+        String fa= String.valueOf(fechaActual);
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "INSERT INTO `basededatos3`.`solicitudes` (`estadoSolicitud`,`fechasolicitud`,`usuario_idUsuario`,`roles_idRoles`) VALUES (?,?,?,?)";
+
+        int estado=0;
+        String rol="CO";
+        System.out.print("en proceso");
+
+        try (Connection connection = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+            pstmt.setInt(1,estado);
+            pstmt.setDate(2,fechaActual);
+            pstmt.setInt(3,idUsuario);
+            pstmt.setString(4,rol);
+            pstmt.executeUpdate();
+            System.out.print(fa);
+            System.out.print("solicitud enviada");
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    //Metodos Coordi
+    public void reportarVecino(Usuario usuario){
+        try {
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+                String sql = "UPDATE evento_has_usuario\n" +
+                        "SET\n" +
+                        "descripcion = ?,\n" +
+                        "WHERE idUsuario = ?;";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                    pstmt.setString(1,usuario.getMotivoReporte());
+                    pstmt.setInt(2,usuario.getId());
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Historial> historialUsuario2(String id){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Historial> historialUsuario = new ArrayList<>();
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "select e.fechaInicial, e.nombre, e.lugar,ehu.descripcion \n" +
+                "from evento_has_usuario ehu\n" +
+                "join evento e on ehu.idEvento=e.idEvento\n"+
+                "where idUsuario=?;";
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, Integer.parseInt(id));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Historial historial = new Historial();
+                historial.setFechaInicial(rs.getDate(1));
+                historial.setNombre(rs.getString(2));
+                historial.setLugar(rs.getString(3));
+                historial.setDescripcion(rs.getString(4));
+
+                historialUsuario.add(historial);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(historialUsuario);
+        return historialUsuario;
+    }
+
 
 }
 

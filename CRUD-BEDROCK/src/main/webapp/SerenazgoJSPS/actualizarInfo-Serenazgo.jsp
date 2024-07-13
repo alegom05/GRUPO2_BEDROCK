@@ -48,13 +48,13 @@
                 <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
+                <a href="<%=request.getContextPath()%>/Sereno?action=estadisticalizarIncidencias" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=listaIncidencias" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
@@ -62,7 +62,7 @@
 
 <div class="container">
     <h4 class="labelFormulario">Actualizar información</h4>
-    <form class="row align-items-start" method="post" action="<%=request.getContextPath()%>/Usuario?action=actualizarSe">
+    <form class="row align-items-start" method="post" action="<%=request.getContextPath()%>/Sereno?action=actualizarSe">
         <div class="mb-3">
             <input type="hidden" class="form-control" name="serenazgoId" value="<%=usuarioSesion.getId()%>">
         </div>
@@ -71,14 +71,14 @@
 
                 <div class="mb-3">
 
-                    <label for="disabledTextInput" class="form-label">Nombre</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= usuario.getNombre()%>">
+                    <label for="disabledTextInput1" class="form-label">Nombre</label>
+                    <input type="text" id="disabledTextInput1" class="form-control" placeholder="<%= usuario.getNombre()%>">
 
-                    <label for="disabledTextInput" class="form-label">Fecha de nacimiento</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuario.getFechaNacimiento()%>">
+                    <label for="disabledTextInput2" class="form-label">Fecha de nacimiento</label>
+                    <input type="text" id="disabledTextInput2" class="form-control" placeholder="<%=usuario.getFechaNacimiento()%>">
 
-                    <label for="disabledTextInput" class="form-label">Tipo</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuario.getTipo()%>">
+                    <label for="disabledTextInput3" class="form-label">Tipo</label>
+                    <input type="text" id="disabledTextInput3" class="form-control" placeholder="<%=usuario.getTipo()%>">
 
                 </div>
             </fieldset>
@@ -93,11 +93,11 @@
 
         <div class="col">
             <fieldset disabled>
-                <label for="disabledTextInput" class="form-label">Apellido</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuario.getApellido()%>">
+                <label for="disabledTextInput4" class="form-label">Apellido</label>
+                <input type="text" id="disabledTextInput4" class="form-control" placeholder="<%=usuario.getApellido()%>">
 
-                <label for="disabledTextInput" class="form-label">Dirección</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuario.getDireccion()%>">
+                <label for="disabledTextInput5" class="form-label">Dirección</label>
+                <input type="text" id="disabledTextInput5" class="form-control" placeholder="<%=usuario.getDireccion()%>">
 
 
             </fieldset>
@@ -115,19 +115,19 @@
         </div>
         <div class="col">
             <fieldset disabled>
-                <label for="disabledTextInput" class="form-label">DNI</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuario.getDni()%>">
+                <label for="disabledTextInput6" class="form-label">DNI</label>
+                <input type="text" id="disabledTextInput6" class="form-control" placeholder="<%=usuario.getDni()%>">
 
-                <label for="disabledTextInput" class="form-label">Turno</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=usuario.getTurnoSerenazgo()%>">
+                <label for="disabledTextInput7" class="form-label">Turno</label>
+                <input type="text" id="disabledTextInput7" class="form-control" placeholder="<%=usuario.getTurnoSerenazgo()%>">
 
-                <label for="disabledTextInput" class="form-label">Contraseña</label>
+                <label  class="form-label">Contraseña</label>
 
             </fieldset>
             <div class="mb-3" >
                 <div class="input-group mb-3">
                     <input type="text" class="form-control" placeholder="*************" aria-describedby="button-addon2"  disabled>
-                    <a href="cambiarContra-Serenazgo.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg"></a>
+                    <a href="${pageContext.request.contextPath}/error.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg"></a>
                 </div>
 
             </div>

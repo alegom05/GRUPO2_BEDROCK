@@ -23,6 +23,11 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/VecinosJSPS/CalendarioEventos.css" />
         <link rel="stylesheet" href="${pageContext.request.contextPath}/VecinosJSPS/style-Vecino.css" />
         <title>Calendario</title>
+        <style>
+            html, body {
+                overflow-x: hidden; /* Desactiva el desplazamiento horizontal */
+            }
+        </style>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <script
                 src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -31,11 +36,11 @@
 
     </head>
     <body style="height: 100vh; margin: 0;">
-        <div class="ParteSuperior" style="overflow-x: hidden">
+        <div class="ParteSuperior">
             <div class="row">
                 <div class="col-md-3 d-flex justify-content-start align-items-center">
                     <img src="${pageContext.request.contextPath}/logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-                    <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
+                    <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
                 </div>
                 <div class="col-md-9 d-flex align-items-center justify-content-end">
                     <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>">
@@ -71,7 +76,7 @@
             </nav>
         </div>
 
-        <div class="container w-100" style="overflow-x: hidden">
+        <div class="container w-100">
             <div class="container theme-showcase w-100">
                 <h1></h1>
                 <div id="holder" class="row w-100" ></div>
@@ -103,7 +108,7 @@
                 }
 
                 }}
-                <table class="calendar-table table table-condensed table-tight w-100">
+                <table class="calendar-table table table-condensed table-tight w-90">
                   <thead>
                     <tr>
                       <td colspan="7" style="text-align: center">
@@ -323,7 +328,10 @@
                             time = data.start.toTimeString();
                             if (time && data.end) { time = time + ' - ' + data.end.toTimeString(); }
                             $t.data('popover',true);
-                            $t.popover({content: '<p><a href="${pageContext.request.contextPath}/VecinoIndexServlet"><strong class="text-white">'+time+'</strong></a> </p>'+data.text, html: true, placement: 'auto left'}).popover('toggle');
+                            $t.popover({
+                                content: '<p><a href="'+'${pageContext.request.contextPath}/EventoServlet?action=evento_detalladosCalendario&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> </p>'+data.text,
+                                html: true,
+                                placement: 'auto left'}).popover('toggle');
                             return false;
                         });
                         function dayAddEvent(index, event) {
@@ -341,9 +349,8 @@
                                 dateint = options.date.toDateInt(),
                                 endint = end.toDateInt();
                             if (startint > dateint || endint < dateint) { return; }
-
                             if (!!time) {
-                                $event.html('<a href="${pageContext.request.contextPath}/VecinoIndexServlet"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
+                                $event.html('<a href="'+'${pageContext.request.contextPath}/EventoServlet?action=evento_detalladosCalendario&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
                             }
                             $event.toggleClass('begin', startint === dateint);
                             $event.toggleClass('end', endint === dateint);
@@ -370,9 +377,11 @@
                                 i;
 
                             $event.toggleClass('all-day', !!event.allDay);
+
                             if (!!time) {
-                                $event.html('<a href="${pageContext.request.contextPath}/VecinoIndexServlet"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
+                                $event.html('<a href="'+'${pageContext.request.contextPath}/EventoServlet?action=evento_detalladosCalendario&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
                             }
+
                             if (!event.end) {
                                 $event.addClass('begin end');
                                 $('.' + event.start.toDateCssClass()).append($event);
@@ -399,6 +408,7 @@
                                 day = $('.' + dateclass);
                             }
                         }
+
                         function yearAddEvents(events, year) {
                             var counts = [0,0,0,0,0,0,0,0,0,0,0,0];
                             $.each(events, function (i, v) {
@@ -484,7 +494,8 @@
                     start: new Date(<%= dateParts[0] %>, <%= dateParts[1] %>, <%= dateParts[2] %>, <%= timeParts[0] %>, <%= timeParts[1] %>),
                     end: null, // Opcional: fecha y hora de finalización
                     allDay: false, // Opcional: indicador booleano para eventos que duran todo el día
-                    text: "" // Descripción adicional del evento
+                    text: "",// Descripción adicional del evento
+                    id: "<%=evento.getIdEvento()%>" // Agregar el ID del evento
                 });
                 <% } %>
 
@@ -503,5 +514,3 @@
 
     </body>
 </html>
-
-

@@ -17,6 +17,7 @@ ArrayList<Usuario> listaUsuarios = (ArrayList<Usuario>) request.getAttribute("li
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
     <title>Vecinos de San Miguel</title>
+
 </head>
 <body>
 <div class="ParteSuperior container-fluid">

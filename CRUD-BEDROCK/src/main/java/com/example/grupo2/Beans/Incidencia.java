@@ -26,8 +26,9 @@ public class Incidencia {
     private String criticidad;
     private String personalRefuerzo;
     private int idUsuario;
-
-
+    private double latitud;
+    private double longitud;
+    private String foto;
     public int getIdIncidencia() {
         return idIncidencia;
     }
@@ -202,5 +203,29 @@ public class Incidencia {
 
     public void setFotoIncidencia(InputStream fotoIncidencia) {
         this.fotoIncidencia = fotoIncidencia;
+    }
+
+    public double getLatitud() {
+        return latitud;
+    }
+
+    public void setLatitud(double latitud) {
+        this.latitud = latitud;
+    }
+
+    public double getLongitud() {
+        return longitud;
+    }
+
+    public void setLongitud(double longitud) {
+        this.longitud = longitud;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 }

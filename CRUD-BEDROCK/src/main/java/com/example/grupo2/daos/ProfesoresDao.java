@@ -5,17 +5,14 @@ import com.example.grupo2.Beans.Usuario;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ProfesoresDao extends daoBase{
 
     public ArrayList<Profesores> obtenerProfesores(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            e.printStackTrace();
-        }
+
         ArrayList<Profesores> listaProfesores = new ArrayList<>();
-        try (Connection conn = getConnection();
+        try (Connection conn = this.getConnection();
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery("SELECT nombre, apellido, curso, idProfesor FROM basededatos3.profesor")){
             while (rs.next()){
@@ -37,7 +34,7 @@ public class ProfesoresDao extends daoBase{
 
         String sql = "INSERT INTO `basededatos3`.`profesor` (`nombre`, `apellido`, `curso`) VALUES (?, ?, ?)";
 
-        try (Connection connection = getConnection();
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, nombre);
@@ -106,5 +103,28 @@ public class ProfesoresDao extends daoBase{
             throw new RuntimeException(e);
         }
 
+    }
+    //se implementa para el combobox de crear evento en coordis
+    public List<Profesores> listandoProfesores() {
+        List<Profesores> listaProfesores = new ArrayList<>();
+        String sql = "SELECT nombre, apellido, curso, idProfesor FROM basededatos3.profesor";
+
+        try (Connection conn = getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(sql);
+             ResultSet rs = preparedStatement.executeQuery()) {
+
+
+            while (rs.next()) {
+                Profesores profesor = new Profesores();
+                profesor.setNombre(rs.getString("nombre"));
+                profesor.setApellido(rs.getString("apellido"));
+                profesor.setCurso(rs.getString("curso"));
+                profesor.setId(rs.getInt("idProfesor"));
+                listaProfesores.add(profesor);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return listaProfesores;
     }
 }

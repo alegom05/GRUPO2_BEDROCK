@@ -133,6 +133,15 @@ public class EventoServlet extends HttpServlet {
                 }
                 break;
 
+            case "evento_detalladosCalendario":
+                String id_ev1 = request.getParameter("id");
+                if (id_ev1 == null || id_ev1.isEmpty()) {
+                    id_ev1 = "default_value"; // Valor por defecto si 'id' está vacío
+                }
+                request.setAttribute("id", id_ev1);
+                response.sendRedirect(request.getContextPath() + "/VecinosJSPS/EventosDetallado.jsp?id=" + id_ev1);
+                break;
+
             case "listarEventoFiltrado":
                 int pageSize = 6;
                 String filtro = request.getParameter("filtro"); // Obtener filtro

@@ -59,6 +59,31 @@ public class VecinoIndexServlet extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 String clave = request.getParameter("clave");
             }
+            case "cambiarContraVeci" -> {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String oldPassword = request.getParameter("oldPassword");
+                String newPassword = request.getParameter("newPassword");
+                System.out.println("el servelt");
+                // Verificar que la contraseña antigua sea correcta
+                Usuario vecino = userDao.buscarPorId(id);
+                if (vecino != null && vecino.getClave().equals(oldPassword)) {
+                    // Actualizar la contraseña
+                    userDao.actualizarContrasenia(id, newPassword);
+                    System.out.println("contraseña cambiada");
+                    response.sendRedirect(request.getContextPath() + "/VecinoIndexServlet?a=editar&id=" + id);
+                }else {
+                // Redirigir con un mensaje de error
+                request.setAttribute("error", "La contraseña antigua es incorrecta.");
+                request.getRequestDispatcher("/ruta/del/formulario").forward(request, response);
+                }
+            }
+            case "enviarSolicitud" -> {
+                int id1 = Integer.parseInt(request.getParameter("id"));
+                userDao.crearSolicitudCoordi(id1);
+                System.out.println("procesando solicitud");
+                response.sendRedirect(request.getContextPath() + "/VecinoIndexServlet?a=editar&id=" + id1);
+
+            }
 
         }
     }

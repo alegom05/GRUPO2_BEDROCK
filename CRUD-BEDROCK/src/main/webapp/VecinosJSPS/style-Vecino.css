@@ -4,7 +4,12 @@
     margin-right: 8%;
     margin-top: 5%;
 }
-
+.btn-modal-reg{
+    backgroung: rgb(164, 167, 171);
+    border: none;
+    font-size: 1.2rem; /* Tamaño del texto */
+    color: white;
+}
 
 .custom-cartanz {
     background-color: #f5f3f3;

@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `dni` VARCHAR(8) NULL DEFAULT NULL,
   `telefono` CHAR(9) NULL DEFAULT NULL,
   `correo` VARCHAR(45) NOT NULL,
-  `clave` VARCHAR(45) NOT NULL,
+  `clave` VARCHAR(45) NULL DEFAULT NULL,
   `direccion` VARCHAR(45) NULL DEFAULT NULL,
   `urbanizacion` VARCHAR(45) NULL DEFAULT NULL,
   `turnoSerenazgo` VARCHAR(45) NULL DEFAULT NULL,
@@ -29,32 +29,14 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `horaInicio` TIME NOT NULL,
   `horaFin` TIME NOT NULL,
   `fecha_nacimiento` DATE NULL DEFAULT NULL,
+  `rolSolicitado` VARCHAR(45) NULL,
   PRIMARY KEY (`idUsuario`),
   UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
   UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) VISIBLE,
   INDEX `fk_usuario_roles1_idx` (`idRoles` ASC) VISIBLE,
   CONSTRAINT `fk_usuario_roles1`
     FOREIGN KEY (`idRoles`)
-    REFERENCES `basededatos3`.`roles` (`idRoles`))
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `basededatos3`.`credenciales`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `basededatos3`.`credenciales` (
-  `idcredenciales` INT NOT NULL AUTO_INCREMENT,
-  `correo` VARCHAR(45) NULL DEFAULT NULL,
-  `clave` VARCHAR(45) NULL DEFAULT NULL,
-  `claveHash` VARCHAR(64) NULL DEFAULT NULL,
-  `idUsuario` INT NOT NULL,
-  PRIMARY KEY (`idcredenciales`),
-  INDEX `fk_credenciales_usuario1_idx` (`idUsuario` ASC) VISIBLE,
-  CONSTRAINT `fk_credenciales_usuario1`
-    FOREIGN KEY (`idUsuario`)
-    REFERENCES `basededatos3`.`usuario` (`idUsuario`)
+    REFERENCES `basededatos3`.`roles` (`idRoles`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -65,7 +47,7 @@ DEFAULT CHARACTER SET = utf8;
 -- Table `basededatos3`.`solicitudes`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `basededatos3`.`solicitudes` (
-  `idsolicitudes` INT NOT NULL,
+  `idsolicitudes` INT NOT NULL AUTO_INCREMENT,
   `estadosolicitud` TINYINT NULL DEFAULT NULL,
   `fechasolicitud` DATE NULL DEFAULT NULL,
   `usuario_idUsuario` INT NOT NULL,
@@ -84,6 +66,24 @@ DEFAULT CHARACTER SET = utf8;
 
 ALTER TABLE `basededatos3`.`solicitudes`
 MODIFY `roles_idRoles` VARCHAR(20) NULL DEFAULT NULL;
+
+-- -----------------------------------------------------
+-- Table basededatos3.credenciales
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS basededatos3.credenciales (
+  idcredenciales INT NOT NULL,
+  correo VARCHAR(45) NULL DEFAULT NULL,
+  claveHash VARCHAR(64) NULL DEFAULT NULL,
+  idUsuario INT NOT NULL,
+  PRIMARY KEY (idcredenciales),
+  INDEX fk_credenciales_usuario1_idx (idUsuario ASC) VISIBLE,
+  CONSTRAINT fk_credenciales_usuario1
+    FOREIGN KEY (idUsuario)
+    REFERENCES basededatos3.usuario (idUsuario)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 -- -----------------------------------------------------
 -- Table `basededatos3`.`profesor`
@@ -186,7 +186,24 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`tipo` (
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
-
+-- -----------------------------------------------------
+-- Table `basededatos3`.`Aconpanantes`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `basededatos3`.`Aconpanantes` (
+  `idAconpanantes` INT NOT NULL AUTO_INCREMENT,
+  `NombreAconpanantes` VARCHAR(45) NOT NULL,
+  `ApellidoAconpanantes` VARCHAR(45) NOT NULL,
+  `DniAconpanantes` VARCHAR(8) NOT NULL,
+  `evento_has_usuario_idEvento` INT NOT NULL,
+  `evento_has_usuario_idUsuario` INT NOT NULL,
+  PRIMARY KEY (`idAconpanantes`, `evento_has_usuario_idEvento`, `evento_has_usuario_idUsuario`),
+  INDEX `fk_Aconpanantes_evento_has_usuario1_idx` (`evento_has_usuario_idEvento` ASC, `evento_has_usuario_idUsuario` ASC) VISIBLE,
+  CONSTRAINT `fk_Aconpanantes_evento_has_usuario1`
+    FOREIGN KEY (`evento_has_usuario_idEvento` , `evento_has_usuario_idUsuario`)
+    REFERENCES `basededatos3`.`evento_has_usuario` (`idEvento` , `idUsuario`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `basededatos3`.`incidencia`
 -- -----------------------------------------------------
@@ -243,11 +260,11 @@ INSERT INTO `basededatos3`.`roles` (`idRoles`, `nombre`) VALUES ('V0', 'PreVecin
 INSERT INTO usuario (nombre, apellido, dni, telefono, correo, clave, direccion, urbanizacion, turnoSerenazgo, tipo, idRoles, horaInicio, horaFin, fecha_nacimiento) VALUES
 ('Christopher','Terrones Peña','32364579','912345678','cterrones@gmail.com','123456','Calle 123','Urbanización ABC',NULL,NULL,'AD','08:00:00','16:00:00','1987-11-15'),
 ('Beto','García Fernández','64856789','923456789','bgarcia@gmail.com','123456','Av. Principal','Urbanización XYZ',NULL,'Cultura','CO','20:00:00','04:00:00','1990-02-22'),
-('Nikol','Montes Esteban','34567890','934567890','nikolvale27@gmail.com','123456','Calle 456','Urbanización DEF',NULL,'Deporte','CO','08:00:00','16:00:00','1993-03-18'),
+('Nikol','Montes Esteban','34567890','934567890','nmontes@gmail.com','123456','Calle 456','Urbanización DEF',NULL,'Deporte','CO','08:00:00','16:00:00','1993-03-18'),
 ('Isaac','Huamaní Sulca','49078901','945678901','ihuamani@gmail.com','123456','Av. Secundaria','Urbanización GHI',NULL,'Deporte','CO','20:00:00','04:00:00','1991-05-09'),
 ('Elena','Hernández Gómez','50789012','956789012','ehernandez@gmail.com','123456','Calle 789','Urbanización JKL',NULL,'Cultura','CO','08:00:00','16:00:00','1992-07-22'),
 ('Dorian','Felix Naula','33890123','967890123','dfelix@gmail.com','123456','Av. Alternativa',NULL,'Noche','A pie','SE','20:00:00','04:00:00','1988-10-30'),
-('Alejandro','Gómez Mostacero','78901234','978901234','agomezm@pucp.edu.pe','123456','Calle 403',NULL,'Mañana','A pie','SE','08:00:00','16:00:00','1989-12-14'),
+('Alejandro','Gómez Mostacero','78901234','978901234','carlosjn.gmos@gmail.com','123456','Calle 403',NULL,'Mañana','A pie','SE','08:00:00','16:00:00','1989-12-14'),
 ('Hugo','Díaz Fernández','89012345','989012345','hdiaz@gmail.com','123456','Av. Principal',NULL,'Noche','En bicicleta','SE','20:00:00','04:00:00','1995-06-19'),
 ('Isabel','Fernández Martínez','90123456','990123456','ifernandez@gmail.com','123456','Calle 222',NULL,'Mañana','Con canino','SE','08:00:00','16:00:00','1994-08-24'),
 ('Estefany','Fuentes Gutierrez','01234567','901234567','efuentes@gmail.com','123456','Av. Secundaria',NULL,'Noche','En bicicleta','SE','20:00:00','04:00:00','1993-01-17'),
@@ -379,24 +396,23 @@ INSERT INTO `basededatos3`.`evento_has_usuario` (`idEvento`, `idUsuario`, `asist
 -- credenciales
 
 -- Insertar datos en credenciales
-INSERT INTO credenciales (idCredenciales, correo, clave, claveHash, idUsuario)
+INSERT INTO credenciales (idCredenciales, correo, claveHash, idUsuario)
 SELECT 
     idUsuario as idCredenciales,
     correo,
-    clave,
     SHA2(clave, 256) as claveHash,
     idUsuario
 FROM usuario;
 
-INSERT INTO `basededatos3`.`solicitudes` (`idsolicitudes`, `estadosolicitud`, `fechasolicitud`, `usuario_idUsuario`, `roles_idRoles`)
+INSERT INTO `basededatos3`.`solicitudes` (`estadosolicitud`, `fechasolicitud`, `usuario_idUsuario`, `roles_idRoles`)
 VALUES 
-(1, 0, '2024-06-01', 1, NULL),
-(2, 0, '2024-06-02', 2, NULL),
-(3, 0, '2024-06-03', 3, NULL),
-(4, 0, '2024-06-04', 4, NULL),
-(5, 0, '2024-06-05', 5, NULL),
-(6, 0, '2024-06-06', 6, NULL),
-(7, 0, '2024-06-07', 7, NULL),
-(8, 0, '2024-06-08', 8, NULL),
-(9, 0, '2024-06-09', 9, NULL),
-(10, 0, '2024-06-10', 10, NULL);
+(NULL, '2024-06-01', 1, NULL),
+(NULL, '2024-06-02', 2, NULL),
+(NULL, '2024-06-03', 3, NULL),
+(NULL, '2024-06-04', 4, NULL),
+(NULL, '2024-06-05', 5, NULL),
+(NULL, '2024-06-06', 6, NULL),
+(NULL, '2024-06-07', 7, NULL),
+(NULL, '2024-06-08', 8, NULL),
+(NULL, '2024-06-09', 9, NULL),
+(NULL, '2024-06-10', 10, NULL);

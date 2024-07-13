@@ -44,18 +44,17 @@
     <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
+                <a href="<%=request.getContextPath()%>/Sereno?action=estadisticalizarIncidencias" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="IncidenciaServlet" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=listaIncidencias" class="nav-link">Incidencias</a>
             </li>
-
         </ul>
     </nav>
 </div>
@@ -63,30 +62,37 @@
 
 <div class="container mt-4">
 
-    <div style="display: flex; gap: 40px; align-items: flex-start; margin-top: 40px;">
-        <div id="search-container" class="mb-3" ></div> <!-- Contenedor para el campo de búsqueda -->
+    <div class="container mt-4">
+        <div class="row g-3 align-items-start">
+            <div class="col-12 col-md-3 mb-3" id="search-container"></div> <!-- Contenedor para el campo de búsqueda -->
 
-        <select id="filtroEstado" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
-            <option value="">Filtrar por estado </option>
-            <option value="nueva">Nuevas</option>
-            <option value="en proceso">En proceso</option>
-            <option value="cerrado">Cerrado</option>
-            <option value="falsa alarma">Falsa alarma</option>
-        </select>
+            <div class="col-12 col-md-3">
+                <select id="filtroEstado" class="form-select">
+                    <option value="">Filtrar por estado</option>
+                    <option value="nueva">Nuevas</option>
+                    <option value="en proceso">En proceso</option>
+                    <option value="cerrado">Cerrado</option>
+                    <option value="falsa alarma">Falsa alarma</option>
+                </select>
+            </div>
 
+            <div class="col-12 col-md-3">
+                <select id="filtroTipo" class="form-select">
+                    <option value="">Filtrar por tipo</option>
+                    <option value="accidente">Accidente</option>
+                    <option value="alteración de orden público">Alteración del orden público</option>
+                    <option value="emergencia médica">Emergencia médica</option>
+                    <option value="robo agravado">Robo agravado</option>
+                    <option value="otro">Otro</option>
+                </select>
+            </div>
 
-        <select id="filtroTipo" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none;" >
-            <option value="">Filtrar por tipo</option>
-            <option value="accidente">Accidente</option>
-            <option value="alteración de orden público">Alteración del orden público</option>
-            <option value="emergencia médica">Emergencia médica</option>
-            <option value="robo agravado">Robo agravado</option>
-            <option value="otro">Otro</option>
-        </select>
-
-
-        <button id="limpiarFiltros" class="btn gradient-custom-5">Limpiar Filtros</button>
+            <div class="col-12 col-md-3">
+                <button id="limpiarFiltros" class="btn btn-primary w-100">Limpiar Filtros</button>
+            </div>
+        </div>
     </div>
+
     <br>
     <div class="table-responsive">
         <table id="miTabla" class="display table-responsive">
@@ -128,7 +134,6 @@
                 <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%= incidencia.getIdIncidencia() %>)">
                     <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                 </button> </td>
-                <!--<td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="eliminarIncidencia(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>-->
                 <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#eliminarIncidenciaModal" onclick="mostrarModalEliminar(<%= incidencia.getIdIncidencia()%>)"><img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
             </tr>
             <% } %>
@@ -146,7 +151,7 @@
                             </div>
                             <form class="row align-items-start mb-3">
                                 <div class="mb-3">
-                                    <label for="message-text" class="form-label">Descripción:</label>
+                                    <label for="descripcionEliminar" class="form-label">Descripción:</label>
                                     <textarea class="form-control" id="descripcionEliminar" style="height: 100px;"></textarea>
                                 </div>
                             </form>
@@ -241,13 +246,9 @@
 <script>
     function detallesIncidencia(id) {
         // Redireccionar a otra página HTML
-        window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=detallar&id=' + id;
+        window.location.href = '<%=request.getContextPath()%>/Sereno?action=detallarIncidencia&id=' + id;
     }
 
-    function detallesIncidencia1() {
-        // Redireccionar a otra página HTML
-        window.location.href = 'detallesIncidenciasProcesadas.html';
-    }
     function mostrarModalEliminar(id) {
         incidenciaIdParaEliminar = id;
         $('#eliminarIncidenciaModal').modal('show');
@@ -272,7 +273,7 @@
         var descripcion = $('#descripcionEliminar').val();
         if (incidenciaIdParaEliminar != null) {
             // Realizar la solicitud de eliminación con la descripción
-            $.post('<%=request.getContextPath()%>/IncidenciaServlet', {
+            $.post('<%=request.getContextPath()%>/Sereno', {
                 action: 'borrar',
                 id: incidenciaIdParaEliminar,
                 descripcion: descripcion

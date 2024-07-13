@@ -9,6 +9,8 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/CoordinadorasJSPS/PaginaPrincipal.jsp" value="file://$PROJECT_DIR$/src/main/webapp/CoordinadorasJSPS" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/CoordinadorasJSPS/ReportarIncidencia.jsp" value="file://$PROJECT_DIR$/src/main/webapp/CoordinadorasJSPS" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/CoordinadorasJSPS/VecinoSanmi.jsp" value="file://$PROJECT_DIR$/src/main/webapp/CoordinadorasJSPS" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/CoordinadorasJSPS/detallesIncidencia.jsp" value="file://$PROJECT_DIR$/src/main/webapp/CoordinadorasJSPS" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/SerenazgoJSPS/detallesIncidencia-Serenazgo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/SerenazgoJSPS" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/SerenazgoJSPS" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/VecinosJSPS/Calendario.jsp" value="file://$PROJECT_DIR$/src/main/webapp/VecinosJSPS" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/VecinosJSPS/detallesUsuario-Vecino.jsp" value="file://$PROJECT_DIR$/src/main/webapp/VecinosJSPS" />

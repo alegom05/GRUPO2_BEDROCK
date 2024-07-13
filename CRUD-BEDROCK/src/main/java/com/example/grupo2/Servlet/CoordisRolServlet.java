@@ -1,13 +1,13 @@
 package com.example.grupo2.Servlet;
 
-import com.example.grupo2.Beans.Evento;
-import com.example.grupo2.Beans.Incidencia;
-import com.example.grupo2.Beans.Usuario;
+import com.example.grupo2.Beans.*;
 import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.IncidenciaDao;
+import com.example.grupo2.daos.ProfesoresDao;
 import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,13 +16,15 @@ import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.io.OutputStream;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
+
+@MultipartConfig
 @WebServlet(name = "Coordis", value = "/Coordis")
 public class CoordisRolServlet extends HttpServlet {
     @Override
@@ -34,11 +36,10 @@ public class CoordisRolServlet extends HttpServlet {
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
         UsuarioDao usuarioDao = new UsuarioDao();
+        ProfesoresDao profesoresDao = new ProfesoresDao();
         RequestDispatcher view;
 
         switch (action) {
-
-
             //Este case será para el listado de eventos de coordinadora
             case "listaEventos":
                 ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
@@ -50,6 +51,13 @@ public class CoordisRolServlet extends HttpServlet {
 
             //Case para crear eventos de coordinadoras
             case "formCrearEventos":
+
+                List<Profesores> listprofesores = profesoresDao.listandoProfesores();
+                System.out.println("Número de profesores: " + listprofesores.size());
+                for (Profesores profesor : listprofesores) {
+                    System.out.println(profesor.getNombre() + " " + profesor.getApellido());
+                }
+                request.setAttribute("profesores", listprofesores);
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
                 view.forward(request, response);
                 break;
@@ -110,14 +118,14 @@ public class CoordisRolServlet extends HttpServlet {
                 break;
 
             //Este case será para el listado de incidencias de coordinadora
-            case "listaIncidencias":
+            /*case "listaIncidencias":
 
                 ArrayList<Incidencia> listaIncidencias2 = IncidenciaDao.listarIncidencias();
                 request.setAttribute("lista2", listaIncidencias2);
 
                 RequestDispatcher view2 = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
                 view2.forward(request, response);
-                break;
+                break;*/
 
             case "detallarIncidencia":
                 String id3 = request.getParameter("id");
@@ -157,6 +165,64 @@ public class CoordisRolServlet extends HttpServlet {
                 request.setAttribute("lista",listaUsuario);
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinoSanmi.jsp");
                 view.forward(request,response);
+                break;
+
+
+            //
+            //Pestaña lista de vecinos inscritos ***
+            case "listarInscritos":
+                String idEvento= request.getParameter("idEvento");
+                ArrayList<Usuario> listaVecinosInscritos = usuarioDao.listarVecinoPorEvento(idEvento);
+                request.setAttribute("vecinoInscrito",listaVecinosInscritos);
+                view =request.getRequestDispatcher("/CoordinadorasJSPS/VecinosInscritos.jsp");
+                view.forward(request,response);
+                break;
+
+
+            case "verFotoIncidencia":
+                String incidenciaId = request.getParameter("id");
+                Connection conn = null;
+                PreparedStatement stmt = null;
+                ResultSet rs = null;
+                String DB_URL = "jdbc:mysql://localhost:3306/basededatos3?serverTimezone=America/Lima";
+                String DB_USER = "root";
+                String DB_PASSWORD = "root";
+
+                try {
+                    // Registrar el driver de MySQL
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+
+                    // Obtener la conexión a la base de datos
+                    conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+                    // Consulta para obtener la imagen del evento
+                    String sql = "SELECT foto FROM incidencia WHERE idIncidenciaReportada = ?";
+                    stmt = conn.prepareStatement(sql);
+                    stmt.setString(1, incidenciaId);
+                    rs = stmt.executeQuery();
+
+                    if (rs.next()) {
+                        Blob blob = rs.getBlob("foto");
+                        if (blob != null) {
+                            byte[] bytes = blob.getBytes(1, (int) blob.length());
+
+                            response.setContentType("image/jpeg"); // Ajusta el tipo de contenido según el tipo de imagen
+                            OutputStream os = response.getOutputStream();
+                            os.write(bytes);
+                            os.flush();
+                        }
+                    } else {
+                        response.sendError(HttpServletResponse.SC_NOT_FOUND); // Imagen no encontrada
+                    }
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new ServletException("Error accediendo a la base de datos", e);
+                } finally {
+                    // Cerrar la conexión
+                    if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+                    if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+                    if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+                }
+
                 break;
             //Pestaña Reportar incidencia ***
             /*case "formCrearInci":
@@ -237,6 +303,7 @@ public class CoordisRolServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "listar" : request.getParameter("action");
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
+        ProfesoresDao profesoresDao = new ProfesoresDao();
         RequestDispatcher view;
 
         switch (action) {
@@ -246,7 +313,7 @@ public class CoordisRolServlet extends HttpServlet {
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 String lugar = request.getParameter("lugar");
-                String encargado = request.getParameter("profesor");
+                String encargado = request.getParameter("profesorId");
                 String vacantes = request.getParameter("vacantes");
                 String fechaInicio = request.getParameter("fechaInicio");
                 String fechaFin = request.getParameter("fechaFin");
@@ -296,7 +363,7 @@ public class CoordisRolServlet extends HttpServlet {
                     evento1.setFrecuencia(Integer.parseInt(frecuencia));
                     evento1.setTipo(tipoEvento);
                     evento1.setFoto(foto);
-                    evento1.setIdProfesor(4);
+                    evento1.setIdProfesor(Integer.parseInt(encargado));
 
                     eventoDao.crearEvento(evento1);
                     response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
@@ -314,6 +381,14 @@ public class CoordisRolServlet extends HttpServlet {
                     request.setAttribute("errorMessage", "Formato de hora inválido: debe ser HH:mm.");
                     request.getRequestDispatcher("/errorPage.jsp").forward(request, response);
                 }
+                /*List<Profesores> listprofesores = profesoresDao.listandoProfesores();
+                System.out.println("Número de profesores: " + listprofesores.size());
+                for (Profesores profesor : listprofesores) {
+                    System.out.println(profesor.getNombre());
+                }*/
+                /*request.setAttribute("profesores", listprofesores);
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
+                view.forward(request, response);*/
                 System.out.println(evento1.getNombre());
                 System.out.println(evento1.getDescripcion());
                 System.out.println(evento1.getLugar());
@@ -326,23 +401,31 @@ public class CoordisRolServlet extends HttpServlet {
                 System.out.println(evento1.getFrecuencia());
                 System.out.println(evento1.getTipo());
 
-
                 break;
             //Este case servirá para que coordi confirme que asistió al evento (por ahora solo podemos subir una foto,
             //se debe arreglar base de datos para solucionar eso)
             case "publicarFotosAsistencia":
-                Part filePart2 = request.getPart("imagenAsistencia"); // Obtén la parte del archivo
+                Part filePart2 = request.getPart("foto"); // Obtén la parte del archivo
                 InputStream foto2 = null;
                 if (filePart2 != null && filePart2.getSize() > 0) {
                     foto2 = filePart2.getInputStream(); // Lee el contenido del archivo como un InputStream
                 }
-                String idEventoAsistencia = request.getParameter("idEvento");
-                System.out.println(idEventoAsistencia);
+                String idEventoAsistencia = request.getParameter("id");
+                System.out.println("Id de evento:" + idEventoAsistencia);
+                System.out.println("Codigo de foto supongo:" + foto2);
+
                 Evento evento2 = new Evento();
-                evento2.setFoto(foto2);
+                evento2.setFotoAsistenciaEvento(foto2);
                 evento2.setIdEvento(Integer.parseInt(idEventoAsistencia));
+
+                System.out.println("Id de evento ya seteado:" + evento2.getIdEvento());
+                System.out.println("Codigo de foto supongo, ya seteado:" + evento2.getFotoAsistenciaEvento());
+
                 eventoDao.publicarFotosAsistencia(evento2);
-                response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+                eventoDao.editarEstadoEventoCuliminado(String.valueOf(evento2.getIdEvento()));
+
+                System.out.println("Se envia a evento dao?");
+                response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
 
                 break;
 
@@ -387,7 +470,7 @@ public class CoordisRolServlet extends HttpServlet {
                 String idEvento = request.getParameter("idEvento");
                 if (idEvento != null) {
                     eventoDao.editarEstadoEventoEnCurso(idEvento);
-                    response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
                 }else{
                     response.sendRedirect("error.jsp");
                 }
@@ -396,10 +479,10 @@ public class CoordisRolServlet extends HttpServlet {
             //Case que servirá para culminar el evento que ha creado la coordinadora, cambiará su parámetro de estado "En curso"
             // a un estado "Culminado"
             case "eventoCulminado":
-                String idEvento2 = request.getParameter("idEvento");
+                String idEvento2 = request.getParameter("id");
                 if (idEvento2 != null) {
-                    eventoDao.editarEstadoEventoEnCurso(idEvento2);
-                    response.sendRedirect(request.getContextPath() + "/EventoServlet?action=lista");
+                    eventoDao.editarEstadoEventoCuliminado(idEvento2);
+                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
                 }else{
                     response.sendRedirect("error.jsp");
                 }
@@ -422,15 +505,15 @@ public class CoordisRolServlet extends HttpServlet {
 
                 String tipoIncidencia2 = request.getParameter("tipo");
                 System.out.println(tipoIncidencia2);
-                int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
-
                 System.out.println(nombreIncidencia2);
                 System.out.println(lugar2);
                 System.out.println(referencia2);
                 System.out.println(descripcionIncidencia2);
                 System.out.println(phoneNumber2);
                 System.out.println(ambulancia2);
-                System.out.println(tipoIncidencia2);
+                int idUsuario2 = Integer.parseInt(request.getParameter("idUsuario"));
+
+
                 System.out.println(idUsuario2);
 
                 Incidencia nuevaIncidencia2 = new Incidencia();

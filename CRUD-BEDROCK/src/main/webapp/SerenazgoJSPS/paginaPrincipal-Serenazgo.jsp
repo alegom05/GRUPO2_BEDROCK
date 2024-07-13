@@ -41,21 +41,19 @@
         </div>
     </div>
     <nav class="letra_botones_encabezado" style="font-family: 'Lato',sans-serif">
-        <ul class="nav" >
+        <ul class="nav">
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard </a>
+                <a href="<%=request.getContextPath()%>/Sereno?action=estadisticalizarIncidencias" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
-
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=listaIncidencias" class="nav-link">Incidencias</a>
             </li>
-
         </ul>
     </nav>
 </div>
@@ -65,7 +63,7 @@
         <h2 class="heading-4" style="font-family: 'Roboto Thin', sans-serif">Bienvenido personal de Serenazgo</h2>
     </div>
 
-    <a id="searchAll2" href="tablaIncidencias-Serenazgo.jsp" class="btn">
+    <a id="searchAll2" href="${pageContext.request.contextPath}/Sereno?action=listaIncidencias" class="btn">
         <span class="display-6 text-light">¿Buscas las incidencia?</span>
         <p class="display-11 text-light text-left ml-1"> Te ayudamos
             <i focusable="false" data-fa-i2svg="">
@@ -159,32 +157,5 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-<!--<script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Selecciona el carousel
-            var carousel = document.getElementById('carouselExample');
-
-            // Crea un intervalo para cambiar de slide cada 5 segundos
-            var carouselInterval = setInterval(function() {
-                var activeIndex = document.querySelector('.carousel-item.active').getAttribute('data-bs-slide-to');
-                var nextIndex = (parseInt(activeIndex) + 1) % carousel.querySelectorAll('.carousel-item').length;
-                carousel.querySelector(`[data-bs-slide-to="${nextIndex}"]`).click();
-            }, 3000);
-
-            // Detiene el intervalo cuando el mouse entra al carousel
-            carousel.addEventListener('mouseenter', function() {
-                clearInterval(carouselInterval);
-            });
-
-            // Restablece el intervalo cuando el mouse sale del carousel
-            carousel.addEventListener('mouseleave', function() {
-                carouselInterval = setInterval(function() {
-                    var activeIndex = document.querySelector('.carousel-item.active').getAttribute('data-bs-slide-to');
-                    var nextIndex = (parseInt(activeIndex) + 1) % carousel.querySelectorAll('.carousel-item').length;
-                    carousel.querySelector(`[data-bs-slide-to="${nextIndex}"]`).click();
-                }, 3000);
-            });
-        });
-    </script>-->
 </body>
 </html>

@@ -1,27 +1,23 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.grupo2.Beans.Incidencia" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.grupo2.Beans.Usuario" %><%--
-  Created by IntelliJ IDEA.
-  User: Isaac
-  Date: 26/06/2024
-  Time: 14:49
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.example.grupo2.Beans.Usuario" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <%
     ArrayList<Usuario> listaVecinos = (ArrayList<Usuario>) request.getAttribute("vecinoInscrito");
+    //Usuario vecino1 = (Usuario) request.getAttribute("vecino1");
 %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juntos Por San Miguel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
     <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
+    <title>Vecinos de San Miguel</title>
 
 </head>
 <body>
@@ -78,8 +74,7 @@
                 <thead>
                 <tr>
                     <th>DNI</th>
-                    <th>Nombres </th>
-                    <th>Apellidos</th>
+                    <th>Nombres y apellidos</th>
                     <th>Correo electronico</th>
                     <th>Ver</th>
                     <th>Reportar</th>
@@ -91,10 +86,9 @@
                 <tr>
                     <td><%= vecino.getDni() %></td>
                     <td><%= vecino.getNombre() %></td>
-                    <td><%= vecino.getApellido() %></td>
                     <td><%= vecino.getCorreo() %></td>
                     <td><button id="lupaICON" class="btn btn-secondary" onclick="detalleVecino(<%= vecino.getId()%>)">
-                        <img src="${pageContext.request.contextPath}assets/icons/lupa.svg" alt="Ver">
+                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                     </button></td>
 
                     <td>
@@ -138,18 +132,24 @@
                         <h4 class="modal-title" id="modalReporteLabel">Reportar al vecino</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <div class="mb-3">
-                            <label for="motivoReporte" class="form-label">Motivo:</label>
-                            <textarea class="form-control" id="motivoReporte" rows="3" placeholder="Ingrese el motivo"></textarea>
-                            <div id="errorMotivo" class="text-danger mt-2" style="display: none;">Es necesario llenar este campo para poder guardar.</div>
-                            <div id="successMessage" class="text-success mt-2" style="display: none;">Reporte registrado con éxito.</div>
+                    <form id="reporteVecino" method="post" action="<%=request.getContextPath()%>/UsuarioServlet?action=reportar"  novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="motivoReporte" class="form-label">Motivo:</label>
+                                <textarea class="form-control" id="motivoReporte" name ="motivoReporte" rows="3" placeholder="Ingrese el motivo"></textarea>
+                                <div id="errorMotivo" class="text-danger mt-2" style="display: none;">Es necesario llenar este campo para poder guardar.</div>
+                                <div id="successMessage" class="text-success mt-2" style="display: none;">Reporte registrado con éxito.</div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" id="registrarReporte">Registrar</button>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    </div>
+                        <%--<div class="mb-3">
+                            <input type="hidden" name="idVecino" value="<%=vecino1.getId()%>">
+                        </div>--%>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary" id="registrarReporte">Registrar</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -157,6 +157,9 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 <script>
     $(document).ready(function() {
         var table = $('#miTabla').DataTable({
@@ -224,7 +227,7 @@
 <script>
     function detalleVecino(id) {
         // Redireccionar a otra página HTML
-        window.location.href = '<%=request.getContextPath()%>/Usuario?action=detallar&id=' + id;
+        window.location.href = '<%=request.getContextPath()%>/UsuarioServlet?action=detallar&id=' + id;
     }
 </script>
 </body>

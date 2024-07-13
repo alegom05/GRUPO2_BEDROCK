@@ -61,7 +61,9 @@ public class ProfesorServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/Profesores");
             }
             case "actualizar" -> {
+                int id = (int) request.getSession().getAttribute("profesorId");
                 Profesores serenazgo = leerParametrosRequest(request);
+                serenazgo.setId(id);
                 profesoresDao.actualizar(serenazgo);
                 response.sendRedirect(request.getContextPath() + "/Profesores");
             }
@@ -70,14 +72,23 @@ public class ProfesorServlet extends HttpServlet {
                 profesoresDao.eliminarProfesor(id);
                 response.sendRedirect(request.getContextPath() + "/Profesores");
             }
+            case "editar" -> {
+                int id = Integer.parseInt(request.getParameter("id"));
+                Profesores prof = profesoresDao.buscarPorIdProf(id);
+                if (prof != null) {
+                    request.setAttribute("profesores", prof);
+                    request.getSession().setAttribute("profesorId", id);
+                    RequestDispatcher requestDispatcher = request.getRequestDispatcher("/AdministradorJSPS/editarProfesor-Admin.jsp");
+                    requestDispatcher.forward(request, response);
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/Profesores");
+                }
+            }
         }
     }
     public Profesores leerParametrosRequest(HttpServletRequest request) {
-        String id = request.getParameter("id");
         String curso = request.getParameter("curso");
-
         Profesores prof = new Profesores();
-        prof.setId(Integer.parseInt(id));
         prof.setCurso(curso);
 
 

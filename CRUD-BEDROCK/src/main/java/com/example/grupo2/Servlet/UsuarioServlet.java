@@ -1,5 +1,6 @@
 package com.example.grupo2.Servlet;
 
+import com.example.grupo2.Beans.Historial;
 import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.Beans.Usuario;
 import com.example.grupo2.daos.IncidenciaDao;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 @WebServlet(name = "UsuarioServlet", value = {"/Usuario","/UsuarioServlet"})
 public class UsuarioServlet extends HttpServlet {
@@ -44,9 +46,6 @@ public class UsuarioServlet extends HttpServlet {
 
                 view = request.getRequestDispatcher("/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp");
                 view.forward(request, response);
-
-
-
                 break;
 
             //Este caso será utilizado para actulizar el número de teléfono del serenazgo auqnue eso se realizará exactamente
@@ -59,6 +58,8 @@ public class UsuarioServlet extends HttpServlet {
             //Para que la coordi vea info de usuarios
             case "detallar":
                 String idVeci= request.getParameter("id");
+                ArrayList<Historial> historialVecino= usuarioDao.historialUsuario2(idVeci);
+                request.setAttribute("historialVecino",historialVecino );
 
                 if(usuarioDao.buscarPorId(Integer.parseInt(idVeci)) != null){
                     Usuario vecino = usuarioDao.buscarPorId(Integer.parseInt(idVeci));
@@ -72,6 +73,12 @@ public class UsuarioServlet extends HttpServlet {
                 }else{
                     response.sendRedirect("error.jsp");
                 }
+            break;
+
+
+
+
+
         }
 
     }
@@ -91,6 +98,18 @@ public class UsuarioServlet extends HttpServlet {
 
                 usuarioDao.actualizarCelular(usuario);
                 response.sendRedirect(request.getContextPath() + "/Usuario?action=actualizarS&id=" + serenazgoId) ;
+
+                break;
+
+            //Para que la coordi reporte al vecino- historial de comportamiento
+            case "reportar":
+                String motivoReporte= request.getParameter("motivoReporte");
+                String idUsuario= request.getParameter("idVecino");
+                Usuario vecino = new Usuario();
+                vecino.setId(Integer.parseInt(idUsuario));
+                vecino.setMotivoReporte(motivoReporte);
+                usuarioDao.reportarVecino(vecino);
+                response.sendRedirect(request.getContextPath() + "/UsuarioServlet");
 
                 break;
 

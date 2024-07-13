@@ -2,6 +2,7 @@ package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.CantidadIncidencias;
 import com.example.grupo2.Beans.Incidencia;
+import com.example.grupo2.Beans.IncidenciasPorMes;
 import com.example.grupo2.daos.IncidenciaDao;
 import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
@@ -157,9 +158,15 @@ public class IncidenciaServlet extends HttpServlet {
 
             case "estadisticalizar":
                 CantidadIncidencias cantidadIncidencias = incidenciaDao.hallarCantidadIncidencias();
+                IncidenciasPorMes incidenciasPorMes = incidenciaDao.hallarIncidenciasPorMes();
+                ArrayList<Incidencia> listaIncidencias5 = incidenciaDao.listarIncidencias(); // Añade esta línea
+
                 request.setAttribute("cantidad", cantidadIncidencias);
+                request.setAttribute("porMes", incidenciasPorMes);
+                request.setAttribute("listaIncidencias", listaIncidencias5);
 
                 view = request.getRequestDispatcher("/SerenazgoJSPS/dashboard-Serenazgo.jsp");
+
                 view.forward(request, response);
                 break;
 

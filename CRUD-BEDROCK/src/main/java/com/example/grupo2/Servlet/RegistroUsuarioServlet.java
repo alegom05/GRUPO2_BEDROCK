@@ -2,6 +2,7 @@ package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.Usuario;
 
+import com.example.grupo2.daos.ResgistroDao;
 import com.example.grupo2.daos.UsuarioDao;
 
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
+        String action = request.getParameter("action") == null ? "reiniciar" : request.getParameter("action");
         UsuarioDao usuariodao = new UsuarioDao();
         RequestDispatcher view;
 
@@ -51,6 +52,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action") == null ? "listar" : request.getParameter("action");
         UsuarioDao usuariodao = new UsuarioDao();
+        ResgistroDao registrodao = new ResgistroDao();
         RequestDispatcher view;
         switch (action) {
             case "envioregistro":
@@ -61,6 +63,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
                 String direccion = request.getParameter("direccion");
                 String urbanizacion = request.getParameter("urbanizacion");
                 String email = request.getParameter("email");
+
                 if (email == null || email.isEmpty()) {
                     request.setAttribute("errorMessage", "El correo no puede estar vacío.");
                     view = request.getRequestDispatcher("/RegistroUsuarios.jsp");
@@ -79,6 +82,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
 
 
 
+
                 try {
                     if (usuariodao.esUsuarioPorCorreo(email)==1){ // Si el usuario ya existe, redirigir a una página de error o mostrar un mensaje de error
                         request.setAttribute("errorMessage", "El usuario ya existe.");
@@ -91,6 +95,8 @@ public class RegistroUsuarioServlet extends HttpServlet {
                         // Redirigir a la página de éxito o a la página principal
                         //response.sendRedirect(request.getContextPath() + "/pagPrincipalSinLogin.jsp");
                         if (emailSent) {
+                            String idUsuario = registrodao.obtenerIdUsuario(dni);
+                            registrodao.crearSolicitudVecino(idUsuario);
                             view = request.getRequestDispatcher("/pagPrincipalSinLogin.jsp");
                         } else {
                             request.setAttribute("errorMessage", "Error al enviar el correo de confirmación.");

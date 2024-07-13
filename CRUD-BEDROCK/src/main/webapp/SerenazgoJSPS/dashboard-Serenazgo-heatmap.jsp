@@ -1,6 +1,7 @@
 <%@ page import="com.example.grupo2.Beans.CantidadIncidencias" %>
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
-<%@ page import="com.example.grupo2.Beans.IncidenciasPorMes" %><%--
+<%@ page import="com.example.grupo2.Beans.IncidenciasPorMes" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: doria
   Date: 9/06/2024
@@ -69,14 +70,15 @@
                 <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/Sereno?action=estadisticalizarIncidencias" class="nav-link"> Dashboard</a>
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Sereno?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Sereno?action=listaIncidencias" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
             </li>
+
         </ul>
     </nav>
 </div>
@@ -404,6 +406,8 @@
     });
 </script>
 
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         // Pie chart
@@ -435,22 +439,75 @@
 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 
-<div id="map" style="height: 400px;"></div>
-
+<%--Leyenda mapa de calor--%>
+<div id="map" style="height: 500px;"></div>
+<div id="legend" style="position: absolute; top: 10px; right: 10px; background: white; padding: 10px;">
+    <h4>Leyenda</h4>
+    <div><span style="background-color: green; width: 20px; height: 20px; display: inline-block;"></span> Pocas incidencias</div>
+    <div><span style="background-color: yellow; width: 20px; height: 20px; display: inline-block;"></span> Incidencias regulares</div>
+    <div><span style="background-color: red; width: 20px; height: 20px; display: inline-block;"></span> Muchas incidencias</div>
+</div>
+<%--Script mapa de calor--%>
 <script>
-    var map = L.map('map').setView([-12.0789, -77.0828], 13); // Coordenadas de San Miguel, Lima
+    <%-- Definimos las coordenadas de San Miguel como variables de JSP --%>
+    <%
+    double sanMiguelLat = -12.0789;
+    double sanMiguelLng = -77.0828;
+    %>
+
+    // Coordenadas de San Miguel, Lima, Perú
+    var sanMiguelLat = <%= sanMiguelLat %>;
+    var sanMiguelLng = <%= sanMiguelLng %>;
+
+    var map = L.map('map').setView([sanMiguelLat, sanMiguelLng], 14);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
-    <%--
-    <% for(Incidencia incidencia : listaIncidencias) { %>
-    L.marker([<%= incidencia.getLatitud() %>, <%= incidencia.getLongitud() %>])
-        .addTo(map)
-        .bindPopup("<%= incidencia.getDescripcion() %>");
-    <% } %>--%>OP
+
+    var heatData = [];
+    <%
+    ArrayList<Incidencia> listaIncidencias = (ArrayList<Incidencia>) request.getAttribute("listaIncidencias");
+    if (listaIncidencias != null) {
+        for(Incidencia incidencia : listaIncidencias) {
+            // Pequeña variación para que no todas las incidencias estén exactamente en el mismo punto
+            double latVariation = (Math.random() - 0.5) * 0.01;
+            double lngVariation = (Math.random() - 0.5) * 0.01;
+    %>
+    var lat = <%= sanMiguelLat + latVariation %>;
+    var lng = <%= sanMiguelLng + lngVariation %>;
+    heatData.push([lat, lng, 1]); // El tercer parámetro es la intensidad, por ahora lo dejamos en 1
+    <%
+        }
+    }
+    %>
+
+    var heat = L.heatLayer(heatData, {
+        radius: 25,
+        blur: 15,
+        maxZoom: 17,
+        gradient: {0.4: 'green', 0.65: 'yellow', 1: 'red'}
+    }).addTo(map);
+
+    // Añadir la leyenda al mapa
+    var legend = L.control({position: 'topright'});
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.get('legend');
+        L.DomEvent.disableClickPropagation(div);
+        return div;
+    };
+    legend.addTo(map);
 </script>
+</body>
+</html>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.heat/0.2.0/leaflet-heat.js"></script>
+
+
 
 </body>
 

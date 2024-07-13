@@ -17,6 +17,7 @@ public class Usuario {
     private String TurnoSerenazgo;
     private String tipo;
     private String rol;
+    private String motivoReporte;
     private Time horaInicio;
     private Time horaFin;
     private Date fechaNacimiento;
@@ -155,5 +156,13 @@ public class Usuario {
 
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getMotivoReporte() {
+        return motivoReporte;
+    }
+
+    public void setMotivoReporte(String motivoReporte) {
+        this.motivoReporte = motivoReporte;
     }
 }

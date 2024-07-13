@@ -1,4 +1,4 @@
-<%@ page import="com.example.grupo2.Beans.Incidencia" %><%--
+ <%@ page import="com.example.grupo2.Beans.Incidencia" %><%--
   Created by IntelliJ IDEA.
   User: doria
   Date: 29/05/2024

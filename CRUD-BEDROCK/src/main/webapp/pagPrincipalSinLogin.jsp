@@ -28,7 +28,7 @@
                         <img src="./logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                     </a>
                     <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"></h2>
-                    <a href="<%=request.getContextPath()%>/LoginServlet" style="color: white;">
+                    <a href="<%=request.getContextPath()%>/LoginServlet" style="color: white;margin-right: 10px;">
                         Iniciar sesion
                     </a>
                 </div>
@@ -36,25 +36,49 @@
             <nav class="letra_botones_encabezado">
                 <ul class="nav">
                     <li class="nav-item">
-                        <a href="paginaPrincipal-Vecino.jsp" class="nav-link">Municipalidad</a>
+                        <a href="pagPrincipalSinLogin.jsp" class="nav-link">Municipalidad</a>
                     </li>
                     <li class="nav-item">
-                        <a href="paginaEventos-Vecino.jsp" class="nav-link">Eventos</a>
+                        <!--<a href="paginaEventos-Vecino.jsp" class="nav-link">Eventos</a>-->
+                        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#accessModal">Eventos</a>
                     </li>
                     <li class="nav-item">
-                        <a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>
+                        <!--<a href="ReportarIncidencia.jsp" class="nav-link">Reportar Incidencia</a>-->
+                        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#accessModal">Reportar Incidencia</a>
                     </li>
                     <li class="nav-item">
-                        <a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>
+                        <!--<a href="ListaDeIncidencias.jsp" class="nav-link">Lista de Incidencias</a>-->
+                        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#accessModal">Lista de Incidencias</a>
                     </li>
                     <li class="nav-item">
-                        <a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>
+                        <!--<a href="Calendario.jsp" class="nav-link">Mira Tu Calendario!</a>-->
+                        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#accessModal">Mira Tu Calendario</a>
                     </li>
                     <li class="nav-item">
-                        <a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>
+                        <!--<a href="HistorialDeEventos.jsp" class="nav-link">Historial De Eventos</a>-->
+                        <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#accessModal">Historial De Eventos</a>
                     </li>
                 </ul>
             </nav>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="accessModal" tabindex="-1" aria-labelledby="accessModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="accessModalLabel">Acceso Restringido</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Sólo tendrá acceso si se encuentra registrado en la página, por favor regístrese.
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class=" btn-secondary btn-modal-reg btn" data-bs-dismiss="modal">Cerrar</button>
+                        <a href="<%=request.getContextPath()%>/RegistroUsuarioServlet?action=creacionform" class="btn btn-primary">Registrarse</a>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="contenedor mt-4">

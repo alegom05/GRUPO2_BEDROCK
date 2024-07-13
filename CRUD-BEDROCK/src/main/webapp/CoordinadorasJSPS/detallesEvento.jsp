@@ -34,7 +34,7 @@
                 <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
-                <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">Gina Jimenez Villavicencio<br>Coordinadora de deporte </h2>
+                <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> </h2>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                     <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
@@ -261,7 +261,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-danger" onclick="culminarEventoDefinitivamente()">Culminar</button>
+                            <button type="submit" class="btn btn-danger" onclick="culminarEventoDefinitivamente()">Culminar</button>
                         </div>
                     </div>
                 </div>
@@ -269,7 +269,7 @@
 
 
 
-            <a href="" class="btn btn-primary" >Ver lista de participantes</a>
+            <a href="${pageContext.request.contextPath}/Coordis?action=listarInscritos&idEvento=<%= evento.getIdEvento() %>" class="btn btn-primary" >Ver lista de participantes</a>
             <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="btn btn-primary ">Cancelar</a>
         </div>
     </div>
@@ -290,7 +290,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="nuevaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <!--<div class="modal fade" id="nuevaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -333,9 +333,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>-->
+
+
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
     <script>
 
@@ -367,6 +371,9 @@
             var foto = document.getElementById('imagenAsistencia');
             var idDeEvento = eventoIdParaCulminar; // Supongo que idDeEvento es el mismo que eventoIdParaCulminar
 
+            console.log('ID del evento:', idDeEvento);
+            console.log('Archivos seleccionados:', foto.files.length);
+
             if (idDeEvento != null && foto.files.length > 0) {
                 var formData = new FormData();
                 formData.append('action', 'culminar');
@@ -375,44 +382,50 @@
 
                 // Realizar la solicitud de eliminación con la imagen
                 $.ajax({
-                    url: '<%=request.getContextPath()%>/Coordis?action=listaEventos',
-                    action: 'publicarFotosAsistencia',
+                    url: '<%=request.getContextPath()%>/Coordis?action=publicarFotosAsistencia',
                     type: 'POST',
                     data: formData,
                     processData: false, // No procesar los datos
                     contentType: false, // No establecer el tipo de contenido
                     success: function(response) {
                         // Recargar la página para actualizar la tabla
-                        location.reload();
+                        console.log('Solicitud completada con éxito');
+                        window.location.href = '<%=request.getContextPath()%>/Coordis?action=listaEventos';
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('Error en la solicitud:', textStatus, errorThrown);
                     }
                 });
+            } else {
+                console.error('ID de evento o foto no válido.');
             }
         }
-        function soloLetras(event) {
+
+        /*function soloLetras(event) {
             var inputValue = event.key;
             if (!/^[a-zA-Z\s]*$/.test(inputValue)) {
                 event.preventDefault();
             }
-        }
-        function soloNumeros(event) {
+        }*/
+        /*function soloNumeros(event) {
             var inputValue = event.key;
             var dniValue = document.getElementById('dni').value;
             if (!/^\d$/.test(inputValue) || dniValue.length >= 8) {
                 event.preventDefault();
             }
-        }
+        }*/
 
-        document.getElementById('nombre').addEventListener('keypress', soloLetras);
-        document.getElementById('dni').addEventListener('keypress', soloNumeros);
+        /*document.getElementById('nombre').addEventListener('keypress', soloLetras);
+        document.getElementById('dni').addEventListener('keypress', soloNumeros);*/
 
-        function abrirModal() {
+        /*function abrirModal() {
             var modal = new bootstrap.Modal(document.getElementById('nuevaModal'));
             modal.show();
-        }
+        }*/
 
-        document.getElementById('abrirNuevaModal').addEventListener('click', abrirModal);
+        //document.getElementById('abrirNuevaModal').addEventListener('click', abrirModal);
 
-        document.getElementById('registrarPersona').addEventListener('click', function() {
+        /*document.getElementById('registrarPersona').addEventListener('click', function() {
             var nombre = document.getElementById('nombre').value;
             var dni = document.getElementById('dni').value;
 
@@ -437,24 +450,22 @@
                 document.getElementById('registroExitosoModal').setAttribute('aria-hidden', 'false');
                 document.getElementById('registroExitosoModal').setAttribute('style', 'display: block');
             }
-        });
+        });*/
 
-        document.getElementById('registrarOtraPersona').addEventListener('click', function() {
+        /*document.getElementById('registrarOtraPersona').addEventListener('click', function() {
             document.getElementById('nombre').value = ''; // Limpiar el campo nombre
             document.getElementById('dni').value = '';    // Limpiar el campo DNI
             modal.show();
-        });
+        });*/
 
-        document.getElementById('cerrarRegistroExitoso').addEventListener('click', function() {
+        /*document.getElementById('cerrarRegistroExitoso').addEventListener('click', function() {
             document.getElementById('registroExitosoModal').classList.remove('show');
             document.getElementById('registroExitosoModal').setAttribute('aria-hidden', 'true');
             document.getElementById('registroExitosoModal').setAttribute('style', 'display: none');
             document.body.classList.remove('modal-open');
             document.body.setAttribute('style', '');
-        });
+        });*/
 
     </script>
-
-</div>
 </body>
 </html>

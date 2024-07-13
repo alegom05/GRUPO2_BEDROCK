@@ -6,6 +6,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="invalid1" scope="session" type="java.lang.String" class="java.lang.String"/>
+<jsp:useBean id="invalid2" scope="session" type="java.lang.String" class="java.lang.String"/>
+<jsp:useBean id="indicador2" scope="session" type="java.lang.String" class="java.lang.String"/>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -56,6 +59,12 @@
     <form class="needs-validation" style="width: 100%; margin-left: 0%; margin-top: 3%;" action="<%=request.getContextPath()%>/Serenazgos?a=agregar" method="POST" novalidate>
       <div class="container">
         <h2>Nuevo Serenazgo</h2>
+        <%if (session.getAttribute("invalid1").equals("error")){%>
+        <div class="text-danger nb-2">
+          El DNI ya existe en el sistema.
+        </div>
+        <%session.removeAttribute("invalid1");%>
+        <%}%>
         <div class="container" style="margin-top: 3%; ">
           <div class="row">
             <div class="col">

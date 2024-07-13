@@ -1,7 +1,10 @@
 <%@ page import="com.example.grupo2.Beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <% Evento evento = (Evento) request.getAttribute("evento");%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.grupo2.Beans.Profesores" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,9 +97,28 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <label for="profesor">Encargado</label>
+                                <!--<label for="profesor">Encargado</label>
                                 <input type="text" class="form-control" id="profesor" name="profesor"  required>
-                                <div class="invalid-feedback">Es necesario poner el encargado del evento.</div>
+                                <div class="invalid-feedback">Es necesario poner el encargado del evento.</div>-->
+                                <label for="profesor" class="form-label">Seleccione un Encargado:</label>
+                                <select name="profesorId" id="profesor" class="form-select">
+                                    <%
+                                        List<Profesores> listaProfesores = (List<Profesores>) request.getAttribute("profesores");
+                                        if (listaProfesores != null && !listaProfesores.isEmpty()) {
+                                    %>
+                                    <option value="0"> Ningún profesor </option>
+                                    <%
+                                        for (Profesores profesor : listaProfesores) {
+                                    %>
+                                    <option value="<%= profesor.getId() %>"><%= profesor.getNombre() %> <%= profesor.getApellido() %></option>
+                                    <%
+                                        }
+                                    } else {
+                                    %>
+                                    <option value="">No hay profesores disponibles</option>
+                                    <% } %>
+                                </select>
+
                             </div>
                             <div class="col-md-auto">
                                 <div class="mb-2">
@@ -127,11 +149,11 @@
                             <div class="col">
                                 <label for="frecuencia">Frecuencia</label>
                                 <select class="form-control" id="frecuencia" name="frecuencia" required>
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
+                                    <option value="1">1 vez por semana</option>
+                                    <option value="2">2 veces por semana</option>
+                                    <option value="3">3 veces por semana</option>
+                                    <option value="4">4 veces por semana</option>
+                                    <option value="5">5 veces por semana</option>
                                 </select>
                                 <div class="invalid-feedback">Es necesario seleccionar la frecuencia del evento.</div>
                             </div>

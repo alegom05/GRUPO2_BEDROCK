@@ -48,16 +48,16 @@
     <nav class="letra_botones_encabezado" style="font-family: Roboto,serif">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/SerenazgoJSPS/paginaPrincipal-Serenazgo.jsp" class="nav-link">Página principal</a>
+                <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
+                <a href="<%=request.getContextPath()%>/Sereno?action=estadisticalizarIncidencias" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=listaIncidencias" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
@@ -78,13 +78,13 @@
                     <textarea class="form-control" placeholder="<%= incidencia.getDescripcion() %>" id="floatingTextarea2" style="height: 125px" disabled></textarea>
 
                     <label for="disabledTextInput" class="form-label">Lugar</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getLugar()%>">
+                    <input type="text" id="disabledTextInput1" class="form-control" placeholder="<%= incidencia.getLugar()%>">
 
                     <label for="disabledTextInput" class="form-label">Referencia</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getReferencia()%>">
+                    <input type="text" id="disabledTextInput2" class="form-control" placeholder="<%= incidencia.getReferencia()%>">
 
                     <label for="disabledTextInput" class="form-label">Tipo de incidencia</label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getTipoIncidencia()%>">
+                    <input type="text" id="disabledTextInput3" class="form-control" placeholder="<%= incidencia.getTipoIncidencia()%>">
 
 
 
@@ -97,7 +97,7 @@
             <fieldset disabled>
 
                 <label for="disabledTextInput" class="form-label">Contacto</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getContacto()%>">
+                <input type="text" id="disa" class="form-control" placeholder="<%= incidencia.getContacto()%>">
 
                 <label for="disabledTextInput" class="form-label">Requiere Ambulancia</label>
 
@@ -112,11 +112,11 @@
                 </div>
 
                 <label for="disabledTextInput" class="form-label">Usuario que reportó</label>
-                <input type="text" id="disabledTextInput" class="form-control" placeholder="<%= incidencia.getUsuario()%>">
+                <input type="text" id="des" class="form-control" placeholder="<%= incidencia.getUsuario()%>">
             </fieldset>
             <br>
             <figure class="figure">
-                <img src="<%= request.getContextPath() %>/imagenIncidencia?id=<%= incidencia.getIdIncidencia() %>" class="figure-img img-fluid rounded" alt="..." style="height: 250px">
+                <img src="<%= request.getContextPath() %>/Sereno?action=verFotoIncidencia&id=<%= incidencia.getIdIncidencia() %>" class="figure-img img-fluid rounded" alt="Imagen de la incidencia" style="height: 250px">
                 <figcaption class="figure-caption">Foto tomada por usuario.</figcaption>
             </figure>
 
@@ -129,7 +129,7 @@
 
 <div class="botonesGroup">
 
-    <button type="button" class="btn gradient-custom-3" id="btnExportar" onclick="exportarPDF()">Exportar</button>
+    <button type="button" class="btn gradient-custom-3" style="margin-top: 20px" id="btnExportar" onclick="exportarPDF()">Exportar</button>
 
     <% if (mostrarEvaluar) { %>
     <!--<a href="${pageContext.request.contextPath}/SerenazgoJSPS/evaluarIncidencias-Serenazgo.jsp" type="button" class="btn gradient-custom-3" id="btnRedireccional">Evaluar incidencia</a>-->
@@ -141,25 +141,27 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="evaluacionIncidencia">Evaluación de incidencia</h1>
+                    <h1 class="modal-title fs-5" id="evaluacionIncidenciah1">Evaluación de incidencia</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=evaluar" class="row align-items-start mb-3" style="text-align: left; margin-left: 10px; margin-right: 10px">
+                <form id="incidenciaForm" method="post" action="<%=request.getContextPath()%>/Sereno?action=evaluar" class="row align-items-start mb-3 needs-validation" novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
                     <div class="modal-body">
                         <div class="mb-3">
-
-                            <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label" >Criticidad:</label>
-                            <select class="form-select" id="criticidad" name="criticidad" aria-label="Default select example">
-                                <option selected>Seleccione la criticidad</option>
+                            <label for="criticidad" class="form-label">Criticidad:</label>
+                            <select class="form-select" id="criticidad" name="criticidad" required>
+                                <option value="" selected>Seleccione la criticidad</option>
                                 <option value="Bajo">Bajo</option>
                                 <option value="Medio">Medio</option>
                                 <option value="Alto">Alto</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Es necesario seleccionar la criticidad.
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <%--@declare id="requiere"--%><label for="requiere" class="form-label">Se necesita:</label>
+                            <label for="requiere" class="form-label">Se necesita:</label>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="checkbox" id="requiereBomberos" name="requiereBomberos" value="true">
                                 <label class="form-check-label" for="requiereBomberos">Bomberos</label>
@@ -172,28 +174,35 @@
                                 <input class="form-check-input" type="checkbox" id="requiereAmbulancia" name="requiereAmbulancia" value="true">
                                 <label class="form-check-label" for="requiereAmbulancia">Ambulancia</label>
                             </div>
+                            <div class="invalid-feedback">
+                                Es necesario seleccionar al menos un requerimiento.
+                            </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="personalRefuerzo" class="form-label">Personal de serenazgo de refuerzo:</label>
-                            <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" aria-label="Default select example">
+                            <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" required>
                                 <option value="" selected>Seleccione el personal de refuerzo</option>
                                 <option value="A pie">A pie</option>
                                 <option value="Bicicleta">Bicicleta</option>
                                 <option value="Canino">Canino</option>
                                 <option value="Vehículo">Vehículo</option>
                             </select>
+                            <div class="invalid-feedback">
+                                Es necesario seleccionar el personal de refuerzo.
+                            </div>
                         </div>
 
                         <div class="mb-3">
                             <label for="descripcionSolucion" class="form-label">Descripción de solución:</label>
-                            <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" placeholder="Máximo 130 caracteres" style="height: 100px"></textarea>
+                            <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" placeholder="Máximo 130 caracteres" style="height: 100px" required></textarea>
+                            <div class="invalid-feedback">
+                                Es necesario ingresar una descripción de solución.
+                            </div>
                         </div>
                         <div class="mb-3">
                             <input type="hidden" name="id" value="<%=incidencia.getIdIncidencia()%>">
                         </div>
-
-
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn gradient-custom-3">Guardar</button>
@@ -225,7 +234,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="evaluacionIncidencia">Evaluación de incidencia</h1>
+                    <h1 class="modal-title fs-5" id="evaluacionIncidenciah11">Evaluación de incidencia</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -234,7 +243,7 @@
                         <div class="mb-3">
                             <fieldset disabled>
                                 <%--@declare id="enabledtextinput"--%><label for="enabledTextInput" class="form-label" >Criticidad:</label>
-                                <select class="form-select" id="criticidad" name="criticidad" aria-label="Default select example">
+                                <select class="form-select" id="criticidadVer" name="criticidad" aria-label="Default select example">
                                     <option selected>Seleccione la criticidad</option>
                                     <option value="Bajo"<%= "Bajo".equalsIgnoreCase(incidencia.getCriticidad()) ? "selected" : "" %>>Bajo</option>
                                     <option value="Medio"<%= "Medio".equals(incidencia.getCriticidad()) ? "selected" : "" %>>Medio</option>
@@ -247,17 +256,17 @@
                             <fieldset disabled>
                                 <%--@declare id="requiere"--%><label for="requiere" class="form-label">Se necesita:</label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="requiereBomberos" name="requiereBomberos" value="true"
+                                    <input class="form-check-input" type="checkbox" id="requiereBomberosVer" name="requiereBomberos" value="true"
                                     <%= incidencia.isRequiereBomberos() ? "checked" : ""%>>
                                     <label class="form-check-label" for="requiereBomberos">Bomberos</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="requierePolicia" name="requierePolicia" value="true"
+                                    <input class="form-check-input" type="checkbox" id="requierePoliciaVer" name="requierePolicia" value="true"
                                     <%= incidencia.isRequierePolicia() ? "checked" : ""%>>
                                     <label class="form-check-label" for="requierePolicia">Comisaría</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="requiereAmbulancia" name="requiereAmbulancia" value="true"
+                                    <input class="form-check-input" type="checkbox" id="requiereAmbulanciaVer" name="requiereAmbulancia" value="true"
                                     <%= incidencia.isRequiereAmbulancia() ? "checked" : ""%>>
                                     <label class="form-check-label" for="requiereAmbulancia">Ambulancia</label>
                                 </div>
@@ -267,7 +276,7 @@
                         <div class="mb-3">
                             <fieldset disabled >
                                 <label for="personalRefuerzo" class="form-label">Personal de serenazgo de refuerzo:</label>
-                                <select class="form-select" id="personalRefuerzo" name="personalRefuerzo" aria-label="Default select example">
+                                <select class="form-select" id="personalRefuerzoVer" name="personalRefuerzo" aria-label="Default select example">
                                     <option value="" selected>Seleccione el personal de refuerzo</option>
                                     <option value="A pie" <%= "A pie".equalsIgnoreCase(incidencia.getPersonalRefuerzo()) ? "selected" : ""%>>A pie</option>
                                     <option value="Bicicleta" <%= "Bicicleta".equalsIgnoreCase(incidencia.getPersonalRefuerzo()) ? "selected" : ""%>>Bicicleta</option>
@@ -279,8 +288,8 @@
 
                         <div class="mb-3">
                             <fieldset disabled>
-                                <label for="descripcionSolucion" class="form-label">Descripción de solución:</label>
-                                <textarea class="form-control" id="descripcionSolucion" name="descripcionSolucion" style="height: 100px;"><%= incidencia.getDescripcionSolucion() %></textarea>
+                                <label for="descripcionSolucionVer" class="form-label">Descripción de solución:</label>
+                                <textarea class="form-control" id="descripcionSolucionVer" name="descripcionSolucion" style="height: 100px;"><%= incidencia.getDescripcionSolucion() %></textarea>
                             </fieldset>
                         </div>
 
@@ -304,7 +313,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="cerrarIncidencia">Cerrar incidencia</h1>
+                    <h1 class="modal-title fs-5" id="cerrarIncidenciah1">Cerrar incidencia</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -312,7 +321,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="<%= request.getContextPath() %>/IncidenciaServlet?action=incidenciaCerrada">
+                    <form method="POST" action="<%= request.getContextPath() %>/Sereno?action=incidenciaCerrada">
                         <div>
                             <input type="hidden" name="idIncidencia" value="<%=incidencia.getIdIncidencia()%>">
                         </div>
@@ -341,7 +350,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="<%= request.getContextPath() %>/IncidenciaServlet?action=falsaAlarma">
+                    <form method="POST" action="<%= request.getContextPath() %>/Sereno?action=falsaAlarma">
                         <div>
                             <input type="hidden" name="idIncidencia" value="<%=incidencia.getIdIncidencia()%>">
                         </div>
@@ -366,6 +375,69 @@
             textarea.offsetHeight; // Trigger a reflow
             textarea.style.display = '';
         }
+    });
+</script>
+<script>
+    document.getElementById('incidenciaForm').addEventListener('submit', function(event) {
+        var form = this;
+        var isValid = true;
+
+        // Validar criticidad
+        var criticidad = document.getElementById('criticidad');
+        if (criticidad.value === '') {
+            criticidad.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            criticidad.classList.remove('is-invalid');
+        }
+
+        // Validar personal de refuerzo
+        var personalRefuerzo = document.getElementById('personalRefuerzo');
+        if (personalRefuerzo.value === '') {
+            personalRefuerzo.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            personalRefuerzo.classList.remove('is-invalid');
+        }
+
+        // Validar descripción de solución
+        var descripcionSolucion = document.getElementById('descripcionSolucion');
+        if (descripcionSolucion.value.trim() === '') {
+            descripcionSolucion.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            descripcionSolucion.classList.remove('is-invalid');
+
+        }
+
+        if (!isValid) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+    });
+</script>
+
+<script>
+    // Espera a que el documento esté completamente cargado
+    document.addEventListener('DOMContentLoaded', function () {
+        // Selecciona el modal por su ID
+        const modalElement = document.getElementById('evaluacionIncidencia');
+
+        // Agrega un listener para el evento hidden.bs.modal
+        modalElement.addEventListener('hidden.bs.modal', function () {
+            // Selecciona el formulario dentro del modal
+            const form = document.getElementById('incidenciaForm');
+            // Restablece el formulario
+            form.reset();
+
+            // Remueve la clase 'is-invalid' de todos los campos del formulario
+            const invalidFields = form.querySelectorAll('.is-invalid');
+            invalidFields.forEach(function (field) {
+                field.classList.remove('is-invalid');
+            });
+
+
+        });
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

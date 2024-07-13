@@ -96,7 +96,7 @@
             <td>
                 <% if ("VE".equals(solicitudes1.getRol())) { %>
                 Coordinadora
-                <% } else if ("US".equals(solicitudes1.getRol())) { %>
+                <% } else if (solicitudes1.getRol() == null) { %>
                 Vecino
                 <% } else { %>
                 <%=solicitudes1.getRol()%>
@@ -109,7 +109,7 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                         <li><a class="dropdown-item" href="#" onclick="mostrarModalAprobacion('<%= solicitudes1.getIdsolicitud() %>', '<%= solicitudes1.getCorreo() %>')">Aprobar</a></li>
-                        <li><a onclick="setSerenazgoId('<%= solicitudes1.getIdsolicitud() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Eliminar</a></li>
+                        <li><a onclick="setSerenazgoId('<%= solicitudes1.getIdsolicitud() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Rechazar</a></li>
                     </ul>
                 </div>
             </td>
