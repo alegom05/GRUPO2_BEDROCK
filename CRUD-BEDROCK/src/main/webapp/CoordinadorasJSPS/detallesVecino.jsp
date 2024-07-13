@@ -1,4 +1,5 @@
-<%@ page import="com.example.grupo2.Beans.Usuario" %><%--
+<%@ page import="com.example.grupo2.Beans.Usuario" %>
+<%@ page import="com.example.grupo2.Beans.Historial" %><%--
   Created by IntelliJ IDEA.
   User: Isaac
   Date: 9/07/2024
@@ -10,6 +11,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     Usuario vecino = (Usuario) request.getAttribute("vecino");
+    ArrayList<Historial> historialVecino = (ArrayList<Historial>) request.getAttribute("historialVecino");
 %>
 <html>
 <head>
@@ -118,29 +120,14 @@
             </tr>
             </thead>
             <tbody>
+            <% for (Historial historial : historialVecino) { %>
             <tr>
-                <td>13/05/23</td>
-                <td>Juegos Infatiles Mayo 2023</td>
-                <td>Faltar el respeto a los organizadores del evento</td>
+                <td><%= historial.getFechaInicial() %></td>
+                <td><%= historial.getNombre() %></td>
+                <td><%= historial.getDescripcion() %></td>
 
             </tr>
-            <tr>
-                <td>13/04/23</td>
-
-                <td>Inauguracion Loza Deportiva "Antonio Raymondi"</td>
-                <td>Ensuciar las pistas y veredas</td>
-
-            </tr>
-            <tr>
-                <td>13/04/23</td>
-
-                <td>Inauguracion Loza Deportiva "Simon Bolivar"</td>
-                <td>Faltar el respeto a los organizadores del evento</td>
-
-
-            </tr>
-
-
+            <% } %>
 
             </tbody>
         </table>

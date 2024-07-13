@@ -3,6 +3,7 @@ package com.example.grupo2.daos;
 
 import com.example.grupo2.Beans.Incidencia;
 import com.example.grupo2.Beans.Usuario;
+import com.example.grupo2.Beans.Historial;
 
 import java.util.ArrayList;
 import java.sql.*;
@@ -595,6 +596,67 @@ public class UsuarioDao extends daoBase {
             throw new RuntimeException(e);
         }
     }
+
+    //Metodos Coordi
+    public void reportarVecino(Usuario usuario){
+        try {
+            String user = "root";
+            String pass = "root";
+            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
+
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+                String sql = "UPDATE evento_has_usuario\n" +
+                        "SET\n" +
+                        "descripcion = ?,\n" +
+                        "WHERE idUsuario = ?;";
+                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+                    pstmt.setString(1,usuario.getMotivoReporte());
+                    pstmt.setInt(2,usuario.getId());
+                    pstmt.executeUpdate();
+                }
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static ArrayList<Historial> historialUsuario2(String id){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
+        }
+
+        ArrayList<Historial> historialUsuario = new ArrayList<>();
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "select e.fechaInicial, e.nombre, ehu.descripcion\n" +
+                "from evento_has_usuario ehu\n" +
+                "join evento e on ehu.idEvento=e.idEvento\n"+
+                "where idUsuario=?;";
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, Integer.parseInt(id));
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Historial historial = new Historial();
+                historial.setFechaInicial(rs.getDate(1));
+                historial.setNombre(rs.getString(2));
+                historial.setDescripcion(rs.getString(3));
+
+                historialUsuario.add(historial);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(historialUsuario);
+        return historialUsuario;
+    }
+
 
 }
 
