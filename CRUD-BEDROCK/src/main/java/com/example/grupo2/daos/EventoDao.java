@@ -56,6 +56,94 @@ public class EventoDao {
         return listaEventos;
     }
 
+    public static void disminuirVacantes(String eventoId, int numAcompanantes) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "UPDATE evento SET vacantes = vacantes - ? WHERE idEvento = ? AND vacantes > 0;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            int totalVacantes = 1 + numAcompanantes; // Disminuir al menos una vacante, más los acompañantes
+            pstmt.setInt(1, totalVacantes);
+            pstmt.setInt(2, Integer.parseInt(eventoId));
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static int noHayVacantes(String eventoId) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT vacantes FROM evento WHERE idEvento = ?";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, Integer.parseInt(eventoId));
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int vacantes = rs.getInt("vacantes");
+                if (vacantes == 0) {
+                    return 1; // No hay vacantes
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0; // Hay vacantes disponibles
+    }
+
+    public static int eventoPasado(String eventoId) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT CASE \n" +
+                "    WHEN fechaFinal < CURDATE() THEN 1 \n" +
+                "    ELSE 0 \n" +
+                "END AS evento_pasado \n" +
+                "FROM evento \n" +
+                "WHERE idEvento = ?;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, Integer.parseInt(eventoId));
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int pasado = rs.getInt("evento_pasado");
+                if (pasado == 1) {
+                    return 1; // Ya pasó el evento
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0; // Evento vigente
+    }
 
     public static ArrayList<Evento> listarEventosCoordi(String id){
         try{
@@ -253,16 +341,22 @@ public class EventoDao {
             switch (filtro) {
                 case "Cultural":
                 case "Deportivo":
-                    sql += " WHERE tipo = ?";
+                    sql += " WHERE tipo = ? ORDER BY CASE WHEN fechaInicial >= CURDATE() THEN 0 ELSE 1 END, fechaInicial DESC";
                     break;
-                case "Populares":
-                    sql += " ORDER BY vacantes ASC";
+                case "Vigentes":
+                    sql += " WHERE fechaInicial >= CURDATE()";
+                    break;
+                case "Pasados":
+                    sql += " WHERE fechaInicial <= CURDATE()";
+                    break;
+                case "Popular":
+                    sql += " ORDER BY CASE WHEN fechaInicial >= CURDATE() THEN 0 ELSE 1 END, vacantes ASC";
                     break;
                 default:
                     break;
             }
         } else {
-            sql += " ORDER BY fechaInicial DESC";
+            sql += " ORDER BY CASE WHEN fechaInicial >= CURDATE() THEN 0 ELSE 1 END, fechaInicial DESC";
         }
 
         sql += " LIMIT ?, ?;";
@@ -280,6 +374,10 @@ public class EventoDao {
                         break;
                     case "Populares":
                         break; // No hay parámetros adicionales para "Populares"
+                    case "Vigentes":
+                        break; // No hay parámetros adicionales para "Vigentes"
+                    case "Pasados":
+                        break; // No hay parámetros adicionales para "Pasados"
                     default:
                         break;
                 }

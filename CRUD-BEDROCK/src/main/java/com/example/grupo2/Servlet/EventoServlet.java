@@ -99,7 +99,7 @@ public class EventoServlet extends HttpServlet {
             case "evento_detallados":
                 String id_ev = request.getParameter("ideven");
                 String id_usu = request.getParameter("idusu");
-
+                EventoDao eventoDaoola2 = new EventoDao();
                 UsuarioDao usuarioDao = new UsuarioDao();
                 if (id_ev != null && !id_ev.isEmpty() && id_usu != null && !id_usu.isEmpty()){
                     int idUsuario2 = Integer.parseInt(id_usu);
@@ -107,13 +107,26 @@ public class EventoServlet extends HttpServlet {
                     int veri_usu = usuarioDao.esUsuario(idUsuario2);
                     int veri_even = usuarioDao.esEvento(idEvento);
                     if (veri_usu!=0 && veri_even!=0) {
+                        int no_hay_vacantes = eventoDaoola2.noHayVacantes(id_ev);
+                        int el_evento_ya_paso = eventoDaoola2.eventoPasado(id_ev);
                         int veri_inscripcion = usuarioDao.EstaInscrito(idEvento,idUsuario2);
-                        if (veri_inscripcion==1){
+
+                        if (el_evento_ya_paso==1){
                             HttpSession currentSession = request.getSession();
-                            currentSession.setAttribute("estaRegistrado", 1);
+                            currentSession.setAttribute("EventoYaPaso", 1);
                         }else{
                             HttpSession currentSession = request.getSession();
-                            currentSession.setAttribute("estaRegistrado", 0);
+                            currentSession.setAttribute("EventoYaPaso", 0);
+                            if (no_hay_vacantes==1){
+                                currentSession.setAttribute("noHayVacantes", 1);
+                            }else{
+                                currentSession.setAttribute("noHayVacantes", 0);
+                                if (veri_inscripcion==1){
+                                    currentSession.setAttribute("estaRegistrado", 1);
+                                }else{
+                                    currentSession.setAttribute("estaRegistrado", 0);
+                                }
+                            }
                         }
                     }
                     response.sendRedirect(request.getContextPath() + "/VecinosJSPS/EventosDetallado.jsp?id=" + id_ev);
@@ -321,6 +334,7 @@ public class EventoServlet extends HttpServlet {
                 break;
             case "inscribirse":
                 UsuarioDao usuarioDao = new UsuarioDao();
+                EventoDao eventoDaoola = new EventoDao();
                 String idStrUsu = request.getParameter("IDusuario");
                 String idStrEvento = request.getParameter("IDevento");
                 Usuario acompanante= new Usuario();
@@ -347,6 +361,9 @@ public class EventoServlet extends HttpServlet {
                             numAcompanantes=i;
                         }
                     }
+                    //Disminuir en 1 la cantidad de vacantes y dependiendo de los acompañantes
+                    eventoDaoola.disminuirVacantes(idStrEvento, numAcompanantes);
+
                     // Almacenar atributos en la sesión
                     HttpSession currentSession = request.getSession();
                     currentSession.setAttribute("inscripcionExitosa", 1);
