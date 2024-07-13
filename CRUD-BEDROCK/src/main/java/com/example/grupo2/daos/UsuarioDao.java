@@ -488,7 +488,7 @@ public class UsuarioDao extends daoBase {
     }
 
     //Metodos Coordi
-    /*public void reportarVecino(Usuario usuario){
+    public void reportarVecino(Usuario usuario){
         try {
 
             try (Connection conn = this.getConnection();) {
@@ -503,10 +503,10 @@ public class UsuarioDao extends daoBase {
                     pstmt.executeUpdate();
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-    }*/
+    }
 
     public ArrayList<Historial> historialUsuario2(String id){
 

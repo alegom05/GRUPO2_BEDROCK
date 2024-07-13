@@ -57,15 +57,7 @@ public class IncidenciaDao extends daoBase {
 
     public Incidencia obtenerIncidenciaPorId(int id) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
         Incidencia incidencia = null;
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
-        String username = "root";
-        String password = "root";
 
         String sql = "select i.idIncidenciaReportada, i.nombre, i.descripcion, i.lugar, i.referencia, t.nombre as tipo, i.contacto, i.requiereAmbulancia,i.requiereBomberos,i.requierePolicia, concat(u.nombre, ' ', u.apellido) as usuario, i.foto, i.estadoIncidencia,DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.criticidad, i.personalRefuerzo,i.descripcionSolucion\n" +
                 "                           from incidencia i \n" +
@@ -73,7 +65,7 @@ public class IncidenciaDao extends daoBase {
                 "                             join tipo t on i.idtipo = t.idtipo \n" +
                 "                             where i.idIncidenciaReportada = ?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
@@ -115,12 +107,8 @@ public class IncidenciaDao extends daoBase {
 
     public void borrarIncidencia(String id, String descripcionEliminacion) {
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+            try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE incidencia \n" +
                         "SET isDeleted = 1, descripcionEliminacion = ?\n" +
                         "WHERE idIncidenciaReportada = ?;";
@@ -130,19 +118,14 @@ public class IncidenciaDao extends daoBase {
                     pstmt.executeUpdate();
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void crearIncidencia(Incidencia incidencia) {
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://localhost:3306/basededatos3";
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+            try (Connection conn = this.getConnection()) {
                 String sql = "INSERT INTO incidencia (nombre, descripcion, lugar, referencia, contacto, requiereAmbulancia, foto, idUsuario, estadoIncidencia, idtipo, isDeleted) " +
                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'Nueva', ?, 0)";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -166,61 +149,47 @@ public class IncidenciaDao extends daoBase {
                     pstmt.executeUpdate();
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void editarEstadoFalsaAlarma(String id) {
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://127.0.0.1:3306/basedeDatos3";
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+            try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE incidencia SET estadoIncidencia = 'Falsa alarma' WHERE idIncidenciaReportada = ?;";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, Integer.parseInt(id));
                     pstmt.executeUpdate();
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void editarEstadoCerrado(String id) {
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://127.0.0.1:3306/basedeDatos3";
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+            try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE incidencia SET estadoIncidencia = 'Cerrado' WHERE idIncidenciaReportada = ?;";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, Integer.parseInt(id));
                     pstmt.executeUpdate();
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public CantidadIncidencias hallarCantidadIncidencias (){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-        CantidadIncidencias cantidadIncidencias = null;
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
-        String username = "root";
-        String password = "root";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        CantidadIncidencias cantidadIncidencias = null;
+
+
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement("SELECT\n" +
                      "    SUM(CASE WHEN estadoIncidencia = 'nueva' THEN 1 ELSE 0 END) AS nuevas,\n" +
                      "    SUM(CASE WHEN estadoIncidencia = 'en proceso' THEN 1 ELSE 0 END) AS en_proceso,\n" +
@@ -249,12 +218,7 @@ public class IncidenciaDao extends daoBase {
 
     public void evaluarIncidencias(Incidencia incidencia){
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+            try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE incidencia\n" +
                         "SET\n" +
                         "criticidad = ?,\n" +
@@ -276,28 +240,20 @@ public class IncidenciaDao extends daoBase {
                     pstmt.executeUpdate();
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public Incidencia verEvaluacion(int id) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
         Incidencia incidencia = null;
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
-        String username = "root";
-        String password = "root";
 
         String sql = "SELECT  criticidad, requiereBomberos, requierePolicia, requiereAmbulancia, personalRefuerzo, descripcionSolucion, estadoIncidencia\n" +
                 "FROM incidencia\n" +
                 "WHERE idIncidenciaReportada = ?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, id);
@@ -319,26 +275,16 @@ public class IncidenciaDao extends daoBase {
         return incidencia;
     }
 
-    public static ArrayList<Incidencia> listarIncidenciasDeUnUsuario(String id) {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public  ArrayList<Incidencia> listarIncidenciasDeUnUsuario(String id) {
 
         ArrayList<Incidencia> listaIncidenciasUnUsuario = new ArrayList<>();
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "select i.idIncidenciaReportada,i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.lugar\n" +
                 "                                          from incidencia i\n" +
                 "                                          join tipo t on i.idtipo = t.idtipo\n" +
                 "                                         where i.isDeleted = 0 and idUsuario=?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(id));
             ResultSet rs = pstmt.executeQuery();
