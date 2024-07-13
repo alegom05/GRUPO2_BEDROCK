@@ -8,11 +8,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @WebServlet(name = "Serenazgos", value = "/Serenazgos")
 public class SerenazgoServlet extends HttpServlet {
@@ -58,6 +60,7 @@ public class SerenazgoServlet extends HttpServlet {
 
         String action = request.getParameter("a") == null ? "listar" : request.getParameter("a");
         SerenazgosDao serenazgosDao = new SerenazgosDao();
+        HttpSession session = request.getSession();
 
         switch (action) {
             case "agregar" -> {
@@ -71,8 +74,27 @@ public class SerenazgoServlet extends HttpServlet {
                 String turnoSerenazgo = request.getParameter("turno");
                 String correo_pucp = request.getParameter("correo");
                 String contrasenia = request.getParameter("contrasenia");
+
+
+                ArrayList<Usuario> listaUsuarios = serenazgosDao.obtenerUsuarios();
+                int i=0;
+                int j=0;
+                if (serenazgosDao.existeDni(dni)) {
+                    session.setAttribute("invalid1","error");
+                    request.setAttribute("nombre", nombre);
+                    request.setAttribute("apellido", apellido);
+                    request.setAttribute("nacimiento", nacimiento);
+                    request.setAttribute("telefono", numtelefono);
+                    request.setAttribute("tipo", tipo);
+                    request.setAttribute("turno", turnoSerenazgo);
+                    request.setAttribute("correo", correo_pucp);
+                    request.setAttribute("contrasenia", contrasenia);
+                    RequestDispatcher view =request.getRequestDispatcher("/Serenazgos?a=formCrear");
+                    view.forward(request,response);
+                }else{
                     serenazgosDao.crearSerenazgos(nombre, apellido, dni, nacimiento, numtelefono, direccion, tipo, turnoSerenazgo, correo_pucp, contrasenia);
                     response.sendRedirect(request.getContextPath() + "/Serenazgos");
+                }
             }
             case "actualizar" -> {
                 int id = (int) request.getSession().getAttribute("serenazgoId");
@@ -118,6 +140,10 @@ public class SerenazgoServlet extends HttpServlet {
                 } else {
                     response.sendRedirect(request.getContextPath() + "/Serenazgos");
                 }
+            }
+            case "formCrear" -> {
+                RequestDispatcher view = request.getRequestDispatcher("/AdministradorJSPS/nuevoSerenazgo-Admin.jsp");
+                view.forward(request, response);
             }
 
 

@@ -213,6 +213,44 @@ public class SerenazgosDao extends daoBase {
             throw new RuntimeException(e);
         }
     }
+    public ArrayList<Usuario> obtenerUsuarios(){
+        String sql = "SELECT nombre, apellido, dni, turnoSerenazgo, tipo, idUsuario, correo FROM basededatos3.usuario";
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+        try (Connection conn = this.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()){
+                Usuario serenazgo = new Usuario();
+                serenazgo.setNombre(rs.getString(1));
+                serenazgo.setApellido(rs.getString(2));
+                serenazgo.setDni(rs.getString(3));
+                serenazgo.setTurnoSerenazgo(rs.getString(4));
+                serenazgo.setTipo(rs.getString(5));
+                serenazgo.setId(rs.getInt(6));
+                serenazgo.setCorreo(rs.getString(7));
+                listaUsuarios.add(serenazgo);
+                System.out.println(serenazgo);
+            }
+        }catch (SQLException e) {
+            System.out.println("No se pudo realizar la busqueda");
+        }
+        return listaUsuarios;
+    }
+    public boolean existeDni(String dni) {
+        boolean exists = false;
+        try (Connection connection = this.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT COUNT(*) FROM usuario WHERE dni = ?")) {
+            preparedStatement.setString(1, dni);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next() && resultSet.getInt(1) > 0) {
+                    exists = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(); // Manejo de la excepción
+        }
+        return exists;
+    }
 
 
 
