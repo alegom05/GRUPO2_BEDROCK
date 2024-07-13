@@ -80,9 +80,9 @@
                                 <div class="col-md-6 div-50 d-flex">
                                     <div>
                                         <h1 class="texto-con-imagen"><%= evento.getNombre() %></h1>
-                                        <h3 class="texto-con-imagen">Fecha y hora: <br> <%= evento.getFechaInicial() %> <%= evento.getHora() %> <br> Descripción: <br> <%= evento.getDescripcion() %></h3>
+                                        <h4 class="texto-con-imagen">Fecha: <br> <%= evento.getFechaInicial() %> <br> Hora: <br> <%= evento.getHora() %> <br> Lugar: <br> <%= evento.getLugar() %></h4>
                                         <div class="d-flex mt-4">
-                                            <a href="${pageContext.request.contextPath}/EventoServlet?action=evento_detallados&id=<%= evento.getIdEvento() %>" class="btn btn-primary"><h7>Más Información</h7></a>
+                                            <a href="${pageContext.request.contextPath}/VecinosJSPS/EventosDetallado.jsp?id=<%= evento.getIdEvento() %>" class="btn btn-primary"><h7>Más Información</h7></a>
                                         </div>
                                     </div>
                                 </div>
@@ -111,22 +111,12 @@
                 <div class="col-md-7 d-flex align-items-center contenedor">
                     <h2 class="texto_titulos">Municipalidad de San Miguel</h2>
                 </div>
-                <div class="contenedor mt-2 row align-items-center custom-cartanz">
+                <div class="contenedor mt-2 mb-4 row align-items-center custom-cartanz">
                     <div class="col-md-5 d-flex justify-content-center">
                         <img src="${pageContext.request.contextPath}/fotos_pag_princ-Vecino/fotomunicipalidad.jpg" alt="Imagen" class="img-muni">
                     </div>
                     <div class="col-md-7">
                         <h3 class="custom-h3">¡Bienvenidos a la página oficial de la Municipalidad de San Miguel! Somos el equipo encargado de brindarte seguridad y bienestar en tu comunidad. Nuestro compromiso es velar por tu tranquilidad y la de tu familia, gestionando servicios y programas que mejoren la calidad de vida en nuestro distrito. ¡Contáctanos para conocer más sobre cómo trabajamos juntos por un San Miguel seguro y próspero para todos!</h3>
-                    </div>
-                </div>
-                <div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="contenedor mt-4 d-flex align-items-center">
-                                <h4 class="align-self-center">Tuviste o viste algún inconveniente en el distrito?</h4>
-                                <a href="reportarIncidencia.html" class="btn btn-primary izquierda"><h7>Reporta Aquí!</h7></a>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

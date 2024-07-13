@@ -124,13 +124,16 @@
 
                 </div>
                 <%
+                    Integer enCurso = (Integer) currentSession.getAttribute("EventoEnCurso");
                     Integer estaRegistrado = (Integer) currentSession.getAttribute("estaRegistrado");
                     Integer noHayVacantes = (Integer) currentSession.getAttribute("noHayVacantes");
                     Integer eventoYaPaso = (Integer) currentSession.getAttribute("EventoYaPaso");
                 %>
 
                 <div class="elemento_texto_evento d-flex mt-1">
-                    <% if (eventoYaPaso != null && eventoYaPaso == 1) { %>
+                    <% if (enCurso != null && enCurso == 1) { %>
+                    <button class="btn" disabled>Evento En Curso</button>
+                    <% } else if(eventoYaPaso != null && eventoYaPaso == 1) { %>
                     <button class="btn" disabled>Evento Finalizado</button>
                     <% } else if (noHayVacantes != null && noHayVacantes == 1) { %>
                     <button class="btn" disabled>No Hay Vacantes</button>

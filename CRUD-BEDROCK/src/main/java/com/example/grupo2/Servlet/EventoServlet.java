@@ -110,24 +110,31 @@ public class EventoServlet extends HttpServlet {
                         int no_hay_vacantes = eventoDaoola2.noHayVacantes(id_ev);
                         int el_evento_ya_paso = eventoDaoola2.eventoPasado(id_ev);
                         int veri_inscripcion = usuarioDao.EstaInscrito(idEvento,idUsuario2);
+                        int evento_en_curso = eventoDaoola2.eventoEnCurso(id_ev);
 
-                        if (el_evento_ya_paso==1){
+                        if (evento_en_curso==1){
                             HttpSession currentSession = request.getSession();
-                            currentSession.setAttribute("EventoYaPaso", 1);
+                            currentSession.setAttribute("EventoEnCurso", 1);
                         }else{
                             HttpSession currentSession = request.getSession();
-                            currentSession.setAttribute("EventoYaPaso", 0);
-                            if (no_hay_vacantes==1){
-                                currentSession.setAttribute("noHayVacantes", 1);
+                            currentSession.setAttribute("EventoEnCurso", 0);
+                            if (el_evento_ya_paso==1){
+                                currentSession.setAttribute("EventoYaPaso", 1);
                             }else{
-                                currentSession.setAttribute("noHayVacantes", 0);
-                                if (veri_inscripcion==1){
-                                    currentSession.setAttribute("estaRegistrado", 1);
+                                currentSession.setAttribute("EventoYaPaso", 0);
+                                if (no_hay_vacantes==1){
+                                    currentSession.setAttribute("noHayVacantes", 1);
                                 }else{
-                                    currentSession.setAttribute("estaRegistrado", 0);
+                                    currentSession.setAttribute("noHayVacantes", 0);
+                                    if (veri_inscripcion==1){
+                                        currentSession.setAttribute("estaRegistrado", 1);
+                                    }else{
+                                        currentSession.setAttribute("estaRegistrado", 0);
+                                    }
                                 }
                             }
                         }
+
                     }
                     response.sendRedirect(request.getContextPath() + "/VecinosJSPS/EventosDetallado.jsp?id=" + id_ev);
                 }

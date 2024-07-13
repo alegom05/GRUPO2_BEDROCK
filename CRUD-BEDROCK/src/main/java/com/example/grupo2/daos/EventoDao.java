@@ -122,7 +122,7 @@ public class EventoDao {
         String password = "root";
 
         String sql = "SELECT CASE \n" +
-                "    WHEN fechaFinal < CURDATE() THEN 1 \n" +
+                "    WHEN fechaFinal < CURDATE() OR estadoEvento = 'Culminado' THEN 1 \n" +
                 "    ELSE 0 \n" +
                 "END AS evento_pasado \n" +
                 "FROM evento \n" +
@@ -143,6 +143,41 @@ public class EventoDao {
             throw new RuntimeException(e);
         }
         return 0; // Evento vigente
+    }
+
+    public static int eventoEnCurso(String eventoId) {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
+
+        String sql = "SELECT CASE \n" +
+                "    WHEN estadoEvento = 'En curso' THEN 1 \n" +
+                "    ELSE 0 \n" +
+                "END AS evento_en_curso \n" +
+                "FROM evento \n" +
+                "WHERE idEvento = ?;";
+
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, Integer.parseInt(eventoId));
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int enCurso = rs.getInt("evento_en_curso");
+                if (enCurso == 1) {
+                    return 1; // Evento en curso
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0; // Evento no está en curso
     }
 
     public static ArrayList<Evento> listarEventosCoordi(String id){
@@ -341,22 +376,43 @@ public class EventoDao {
             switch (filtro) {
                 case "Cultural":
                 case "Deportivo":
-                    sql += " WHERE tipo = ? ORDER BY CASE WHEN fechaInicial >= CURDATE() THEN 0 ELSE 1 END, fechaInicial DESC";
+                    sql += " WHERE tipo = ?\n" +
+                            "ORDER BY \n" +
+                            "  CASE WHEN estadoEvento = 'Pronto' THEN 0\n" +
+                            "       WHEN estadoEvento = 'En curso' THEN 1\n" +
+                            "       WHEN estadoEvento = 'Culminado' THEN 2\n" +
+                            "       ELSE 3\n" +
+                            "  END,\n" +
+                            "  CASE WHEN tipo = 'Cultural' THEN fechaInicial END DESC";
                     break;
                 case "Vigentes":
-                    sql += " WHERE fechaInicial >= CURDATE()";
+                    sql += " WHERE estadoEvento = 'Pronto'";
                     break;
                 case "Pasados":
-                    sql += " WHERE fechaInicial <= CURDATE()";
+                    sql += " WHERE fechaInicial <= CURDATE() OR estadoEvento = 'Culminado' OR estadoEvento = 'En curso'\n" +
+                            "ORDER BY \n" +
+                            "  CASE \n" +
+                            "    WHEN estadoEvento = 'En curso' THEN 0\n" +
+                            "    WHEN estadoEvento = 'Culminado' THEN 1\n" +
+                            "    WHEN fechaInicial <= CURDATE() THEN 2\n" +
+                            "    ELSE 3\n" +
+                            "  END,\n" +
+                            "  fechaInicial DESC";
                     break;
                 case "Popular":
-                    sql += " ORDER BY CASE WHEN fechaInicial >= CURDATE() THEN 0 ELSE 1 END, vacantes ASC";
+                    sql += " WHERE estadoEvento = 'Pronto' ORDER BY vacantes ASC";
                     break;
                 default:
                     break;
             }
         } else {
-            sql += " ORDER BY CASE WHEN fechaInicial >= CURDATE() THEN 0 ELSE 1 END, fechaInicial DESC";
+            sql += " ORDER BY \n" +
+                    "  CASE WHEN estadoEvento = 'Pronto' THEN 0\n" +
+                    "       WHEN estadoEvento = 'En curso' THEN 1\n" +
+                    "       WHEN estadoEvento = 'Culminado' THEN 2\n" +
+                    "       ELSE 3\n" +
+                    "  END,\n" +
+                    "  fechaInicial DESC";
         }
 
         sql += " LIMIT ?, ?;";
@@ -372,14 +428,7 @@ public class EventoDao {
                     case "Deportivo":
                         pstmt.setString(parameterIndex++, filtro);
                         break;
-                    case "Populares":
-                        break; // No hay parámetros adicionales para "Populares"
-                    case "Vigentes":
-                        break; // No hay parámetros adicionales para "Vigentes"
-                    case "Pasados":
-                        break; // No hay parámetros adicionales para "Pasados"
-                    default:
-                        break;
+                    // No se agregan parámetros adicionales para otros casos
                 }
             }
 
@@ -392,7 +441,6 @@ public class EventoDao {
                 Evento evento = new Evento();
                 evento.setIdEvento(rs.getInt(1));
                 evento.setNombre(rs.getString(2));
-
                 evento.setFechaInicial(rs.getDate(3));
                 evento.setFechaFinal(rs.getDate(4));
                 Blob fotoBlob = rs.getBlob(12);
@@ -420,8 +468,8 @@ public class EventoDao {
         return lista;
     }
 
-    public static ArrayList<Evento> listarEventos_populares() {
 
+    public static ArrayList<Evento> listarEventos_populares() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e){
@@ -430,9 +478,10 @@ public class EventoDao {
 
         ArrayList<Evento> lista = new ArrayList<>();
 
-        String sql = "SELECT idEvento, nombre, fechaInicial, hora, descripcion\n" +
+        String sql = "SELECT idEvento, nombre, fechaInicial, hora, descripcion, lugar\n" +
                 "FROM basededatos3.evento\n" +
-                "ORDER BY vacantes DESC\n" +
+                "WHERE estadoEvento = 'Pronto'\n" +
+                "ORDER BY vacantes ASC\n" +
                 "LIMIT 3;";
 
         try (Connection conn = DriverManager.getConnection(url, username, password);
@@ -446,6 +495,7 @@ public class EventoDao {
                 evento.setFechaInicial(rs.getDate(3));
                 evento.setHora(rs.getTime(4));
                 evento.setDescripcion(rs.getString(5));
+                evento.setLugar(rs.getString(6));
 
                 lista.add(evento);
             }
@@ -474,6 +524,13 @@ public class EventoDao {
                     break;
                 case "Deportivo":
                     sql += " where tipo=?";
+                    break;
+                case "Popular":
+                case "Vigentes":
+                    sql += " WHERE estadoEvento = 'Pronto'";
+                    break;
+                case "Pasados":
+                    sql += " WHERE fechaInicial <= CURDATE() OR estadoEvento = 'Culminado' OR estadoEvento = 'En curso'";
                     break;
                 default:
                     break;
