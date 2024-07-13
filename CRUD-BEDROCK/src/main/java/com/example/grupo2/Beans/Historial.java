@@ -10,6 +10,7 @@ public class Historial {
     private String descripcion;
     private Date fechaInicial;
     private String nombre;
+    private String lugar;
 
     public int getIdEvento() {
         return idEvento;
@@ -49,5 +50,13 @@ public class Historial {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public String getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(String lugar) {
+        this.lugar = lugar;
     }
 }

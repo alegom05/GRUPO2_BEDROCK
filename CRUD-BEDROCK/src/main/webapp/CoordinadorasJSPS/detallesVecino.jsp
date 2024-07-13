@@ -116,6 +116,7 @@
             <tr>
                 <th>Fecha</th>
                 <th>Evento</th>
+                <th>Lugar</th>
                 <th>Motivo</th>
 
             </tr>
@@ -125,6 +126,7 @@
             <tr>
                 <td><%= historial.getFechaInicial() %></td>
                 <td><%= historial.getNombre() %></td>
+                <td><%= historial.getLugar() %></td>
                 <td><%= historial.getDescripcion() %></td>
 
             </tr>

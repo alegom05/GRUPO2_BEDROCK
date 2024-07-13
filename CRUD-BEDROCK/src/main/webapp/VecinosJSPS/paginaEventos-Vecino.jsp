@@ -78,6 +78,8 @@
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&filtro=Deportivo">Eventos Deportivos</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&filtro=Cultural">Eventos Culturales</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&filtro=Popular">Eventos Más Populares</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&filtro=Vigentes">Eventos Disponibles</a>
+                    <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado&filtro=Pasados">Eventos Finalizados</a>
                     <a class="dropdown-item" href="<%=request.getContextPath()%>/EventoServlet?action=listarEventoFiltrado">Quitar Filtros</a>
                 </div>
             </div>

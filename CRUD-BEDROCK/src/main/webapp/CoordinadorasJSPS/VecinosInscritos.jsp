@@ -5,7 +5,7 @@
 
 <%
     ArrayList<Usuario> listaVecinos = (ArrayList<Usuario>) request.getAttribute("vecinoInscrito");
-    Usuario vecino1 = (Usuario) request.getAttribute("vecino1");
+    //Usuario vecino1 = (Usuario) request.getAttribute("vecino1");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -132,7 +132,7 @@
                         <h4 class="modal-title" id="modalReporteLabel">Reportar al vecino</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="reporteVecino" method="post" action="<%=request.getContextPath()%>/UsuarioServlet?action=reportar"  class="row align-items-start mb-3 needs-validation" novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
+                    <form id="reporteVecino" method="post" action="<%=request.getContextPath()%>/UsuarioServlet?action=reportar"  novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="motivoReporte" class="form-label">Motivo:</label>
@@ -141,9 +141,9 @@
                                 <div id="successMessage" class="text-success mt-2" style="display: none;">Reporte registrado con éxito.</div>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <%--<div class="mb-3">
                             <input type="hidden" name="idVecino" value="<%=vecino1.getId()%>">
-                        </div>
+                        </div>--%>
                         <div class="modal-footer">
                             <button type="submit" class="btn btn-primary" id="registrarReporte">Registrar</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
