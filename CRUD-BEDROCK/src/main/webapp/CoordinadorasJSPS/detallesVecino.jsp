@@ -1,5 +1,6 @@
 <%@ page import="com.example.grupo2.Beans.Usuario" %>
-<%@ page import="com.example.grupo2.Beans.Historial" %><%--
+<%@ page import="com.example.grupo2.Beans.Historial" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Isaac
   Date: 9/07/2024
@@ -115,6 +116,7 @@
             <tr>
                 <th>Fecha</th>
                 <th>Evento</th>
+                <th>Lugar</th>
                 <th>Motivo</th>
 
             </tr>
@@ -124,6 +126,7 @@
             <tr>
                 <td><%= historial.getFechaInicial() %></td>
                 <td><%= historial.getNombre() %></td>
+                <td><%= historial.getLugar() %></td>
                 <td><%= historial.getDescripcion() %></td>
 
             </tr>

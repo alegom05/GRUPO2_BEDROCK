@@ -634,7 +634,7 @@ public class UsuarioDao extends daoBase {
         String username = "root";
         String password = "root";
 
-        String sql = "select e.fechaInicial, e.nombre, ehu.descripcion\n" +
+        String sql = "select e.fechaInicial, e.nombre, e.lugar,ehu.descripcion \n" +
                 "from evento_has_usuario ehu\n" +
                 "join evento e on ehu.idEvento=e.idEvento\n"+
                 "where idUsuario=?;";
@@ -646,7 +646,8 @@ public class UsuarioDao extends daoBase {
                 Historial historial = new Historial();
                 historial.setFechaInicial(rs.getDate(1));
                 historial.setNombre(rs.getString(2));
-                historial.setDescripcion(rs.getString(3));
+                historial.setLugar(rs.getString(3));
+                historial.setDescripcion(rs.getString(4));
 
                 historialUsuario.add(historial);
             }
