@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
             if("VE".equals(usuario.getRol())){
                 response.sendRedirect(request.getContextPath()+"/VecinoIndexServlet");
             }else if("CO".equals(usuario.getRol())){
-                response.sendRedirect(request.getContextPath()+"/CoordinadorasJSPS/PaginaPrincipal.jsp");
+                response.sendRedirect(request.getContextPath()+"/CoordinadoraIndexServlet");
             }else if("SE".equals(usuario.getRol())){
                 response.sendRedirect(request.getContextPath()+"/SerenazgoIndexServlet");
             }else{

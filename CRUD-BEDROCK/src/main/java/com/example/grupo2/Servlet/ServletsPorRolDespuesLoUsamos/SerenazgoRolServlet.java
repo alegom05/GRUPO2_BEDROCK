@@ -37,13 +37,9 @@ public class SerenazgoRolServlet extends HttpServlet {
         RequestDispatcher view;
 
         switch (action) {
-            //Pestaña Página Principal ***
-            case "paginaPrincipal":
-                //response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/PaginaPrincipal.jsp");
-                break;
 
             //Pestaña Dashboard ***
-            case "estadisticalizar":
+            case "estadisticalizarIncidencias":
                 CantidadIncidencias cantidadIncidencias = incidenciaDao.hallarCantidadIncidencias();
                 IncidenciasPorMes incidenciasPorMes = incidenciaDao.hallarIncidenciasPorMes();
 
@@ -53,10 +49,11 @@ public class SerenazgoRolServlet extends HttpServlet {
                 /*view = request.getRequestDispatcher("/SerenazgoJSPS/dashboard-Serenazgo.jsp");
                 view.forward(request, response);*/
                 break;
-            //Pestaña Actualizar Información ***
+            //Con este caso listaremos los datos del serenazgo, para eso necesitaremos su id, sabemos que una vez dentro de la cuenta
+            //del respectivo rol obtenemos el id debido al login, entonces tendremos este dato en todas las vistas
             case "actualizarS":
                 String id = request.getParameter("id");
-                if (usuarioDao.listarPorId(Integer.parseInt(id)) != null) {
+                if(usuarioDao.listarPorId(Integer.parseInt(id)) != null){
                     Usuario usuario = usuarioDao.listarPorId(Integer.parseInt(id));
                     if (usuario != null) {
                         request.setAttribute("usuarioSerenazgo", usuario);
@@ -66,15 +63,23 @@ public class SerenazgoRolServlet extends HttpServlet {
                     } else {
                         response.sendRedirect("error.jsp"); // Página de error en caso de que no se encuentre la incidencia
                     }
-                } else {
+                }else{
                     response.sendRedirect("error.jsp");
                 }
 
                 view = request.getRequestDispatcher("/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp");
                 view.forward(request, response);
                 break;
+
+            //Este caso será utilizado para actulizar el número de teléfono del serenazgo auqnue eso se realizará exactamente
+            //en el doPost, en el doGet solo redigiremos a la página correspondiente para llevar a cabo nuestra tarea.
+            case "actualizarSe":
+                view = request.getRequestDispatcher("/SerenazgoJSPS/actualizarInfo-Serenazgo.jsp");
+                view.forward(request, response);
+                break;
+
             //Pestaña Incidencias***
-            case "lista":
+            case "listaIncidencias":
                 ArrayList<Incidencia> listaIncidencias = incidenciaDao.listarIncidencias();
                 request.setAttribute("lista", listaIncidencias);
 
@@ -82,7 +87,7 @@ public class SerenazgoRolServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
             //Vista Detallar Incidencia
-            case "detallar":
+            case "detallarIncidencia":
                 String id2 = request.getParameter("id");
                 if (incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id2)) != null) {
                     Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id2));
@@ -108,6 +113,8 @@ public class SerenazgoRolServlet extends HttpServlet {
                 /*view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
                 view.forward(request, response);*/
                 break;
+
+
         }
 
     }
@@ -117,6 +124,7 @@ public class SerenazgoRolServlet extends HttpServlet {
 
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         IncidenciaDao incidenciaDao = new IncidenciaDao();
+        UsuarioDao usuarioDao = new UsuarioDao();
         RequestDispatcher view;
 
         switch (action) {
@@ -126,14 +134,14 @@ public class SerenazgoRolServlet extends HttpServlet {
                 if (id != null && descripcion != null) {
                     incidenciaDao.borrarIncidencia(id, descripcion);
                 }
-                //response.sendRedirect(request.getContextPath() + "/Sereno?action=lista");
+                response.sendRedirect(request.getContextPath() + "/Sereno?action=listaIncidencias");
 
                 break;
             case "falsaAlarma":
                 String idIncidencia = request.getParameter("idIncidencia");
                 if (idIncidencia != null) {
                     incidenciaDao.editarEstadoFalsaAlarma(idIncidencia);
-                    //response.sendRedirect(request.getContextPath() + "/Sereno?action=lista");
+                    response.sendRedirect(request.getContextPath() + "/Sereno?action=listaIncidencias");
                 }else{
                     response.sendRedirect("error.jsp");
                 }
@@ -143,7 +151,7 @@ public class SerenazgoRolServlet extends HttpServlet {
                 String idIncidencia2 = request.getParameter("idIncidencia");
                 if (idIncidencia2 != null) {
                     incidenciaDao.editarEstadoCerrado(idIncidencia2);
-                    //response.sendRedirect(request.getContextPath() + "/Sereno?action=lista");
+                    response.sendRedirect(request.getContextPath() + "/Sereno?action=listaIncidencias");
                 }else{
                     response.sendRedirect("error.jsp");
                 }
@@ -170,10 +178,22 @@ public class SerenazgoRolServlet extends HttpServlet {
 
 
                 incidenciaDao.evaluarIncidencias(incidencia);
-                //response.sendRedirect(request.getContextPath() + "/Sereno");
+                response.sendRedirect(request.getContextPath() + "/Sereno?action=listaIncidencias");
 
                 break;
 
+            case "actualizarSe":
+                String serenazgoId = request.getParameter("serenazgoId");
+                String celular = request.getParameter("numTelefono");
+
+                Usuario usuario = new Usuario();
+                usuario.setId(Integer.parseInt(serenazgoId));
+                usuario.setNumtelefono(celular);
+
+                usuarioDao.actualizarCelular(usuario);
+                response.sendRedirect(request.getContextPath() + "/Usuario?action=actualizarS&id=" + serenazgoId) ;
+
+                break;
         }
     }
 }
