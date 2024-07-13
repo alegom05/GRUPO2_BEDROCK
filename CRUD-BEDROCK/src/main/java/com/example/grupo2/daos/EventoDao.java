@@ -7,35 +7,22 @@ import com.example.grupo2.Beans.Incidencia;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class EventoDao {
-
-    private static String username = "root";
-    private static String password = "root";
-    private static String url = "jdbc:mysql://localhost:3306/basededatos3";
+public class EventoDao extends daoBase{
 
     //Método que lista todos los eventos, por el momento no podemos listar para una sola coordinadora ya que hace
     //falta una conexión uno amuchos en la base de datos
     //Este listado se debería modificar una vez se tenga la relación uno a muchos en la tabla de datos,
     //lo único que cambiaría es agregar un "where idUsuario= " y estaría correcto
-    public static ArrayList<Evento> listarEventosParaCoordi(){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        }catch(ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Evento> listarEventosParaCoordi(){
 
         ArrayList<Evento> listaEventos = new ArrayList<>();
-
-        String url= "jdbc:mysql://localhost:3306/basededatos3?";
-        String username= "root";
-        String password= "root";
 
         String sql="SELECT e.*, p.nombre AS nombreProfesor\n" +
                 "                FROM evento e\n" +
                 "                INNER JOIN profesor p ON e.idProfesor = p.idProfesor;";
 
 
-        try(Connection conn= DriverManager.getConnection(url,username,password);
+        try(Connection conn= this.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
             ResultSet rs= pstmt.executeQuery();
             while (rs.next()){
@@ -56,20 +43,11 @@ public class EventoDao {
         return listaEventos;
     }
 
-    public static void disminuirVacantes(String eventoId, int numAcompanantes) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
+    public void disminuirVacantes(String eventoId, int numAcompanantes) {
 
         String sql = "UPDATE evento SET vacantes = vacantes - ? WHERE idEvento = ? AND vacantes > 0;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             int totalVacantes = 1 + numAcompanantes; // Disminuir al menos una vacante, más los acompañantes
             pstmt.setInt(1, totalVacantes);
@@ -80,20 +58,11 @@ public class EventoDao {
         }
     }
 
-    public static int noHayVacantes(String eventoId) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
+    public int noHayVacantes(String eventoId) {
 
         String sql = "SELECT vacantes FROM evento WHERE idEvento = ?";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(eventoId));
             ResultSet rs = pstmt.executeQuery();
@@ -110,16 +79,7 @@ public class EventoDao {
         return 0; // Hay vacantes disponibles
     }
 
-    public static int eventoPasado(String eventoId) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
+    public int eventoPasado(String eventoId) {
 
         String sql = "SELECT CASE \n" +
                 "    WHEN fechaFinal < CURDATE() OR estadoEvento = 'Culminado' THEN 1 \n" +
@@ -128,7 +88,7 @@ public class EventoDao {
                 "FROM evento \n" +
                 "WHERE idEvento = ?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(eventoId));
             ResultSet rs = pstmt.executeQuery();
@@ -145,16 +105,7 @@ public class EventoDao {
         return 0; // Evento vigente
     }
 
-    public static int eventoEnCurso(String eventoId) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
+    public int eventoEnCurso(String eventoId) {
 
         String sql = "SELECT CASE \n" +
                 "    WHEN estadoEvento = 'En curso' THEN 1 \n" +
@@ -163,7 +114,7 @@ public class EventoDao {
                 "FROM evento \n" +
                 "WHERE idEvento = ?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(eventoId));
             ResultSet rs = pstmt.executeQuery();
@@ -180,18 +131,9 @@ public class EventoDao {
         return 0; // Evento no está en curso
     }
 
-    public static ArrayList<Evento> listarEventosCoordi(String id){
-        try{
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        }catch(ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Evento> listarEventosCoordi(String id){
 
         ArrayList<Evento> listaEventos = new ArrayList<>();
-
-        String url= "jdbc:mysql://localhost:3306/basededatos3?";
-        String username= "root";
-        String password= "root";
 
         String sql="select e.nombre,p.nombre,e.lugar ,e.fechaInicial,e.lugar,e.estadoEvento\n"+
                 "from evento e\n"+
@@ -199,7 +141,7 @@ public class EventoDao {
                 "where idUsuario=?";
 
 
-        try(Connection conn= DriverManager.getConnection(url,username,password);
+        try(Connection conn= this.getConnection();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, Integer.parseInt(id));
             ResultSet rs= pstmt.executeQuery();
@@ -222,24 +164,15 @@ public class EventoDao {
     }
 
     //Este se usa para Coordis
-    public static ArrayList<Evento> listarEventosCoordi2() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Evento> listarEventosCoordi2() {
 
         ArrayList<Evento> listaEventos = new ArrayList<>();
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "SELECT e.nombre, p.nombre, e.lugar, e.fechaInicial, e.lugar, e.estadoEvento " +
                 "FROM evento e " +
                 "JOIN profesor p ON e.idProfesor = p.idProfesor";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             try (ResultSet rs = pstmt.executeQuery()) {
@@ -262,13 +195,7 @@ public class EventoDao {
         return listaEventos;
     }
 
-    public static ArrayList<Evento> listarEventos() {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Evento> listarEventos() {
 
         ArrayList<Evento> lista = new ArrayList<>();
 
@@ -279,7 +206,7 @@ public class EventoDao {
                 "left join fotosdeeventos f on e.idEvento = f.idEvento\n" +
                 "order by e.fechaInicial desc;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -313,19 +240,13 @@ public class EventoDao {
         System.out.println(lista);
         return lista;
     }
-    public static ArrayList<Evento> listarEventosCalendario() {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Evento> listarEventosCalendario() {
 
         ArrayList<Evento> lista = new ArrayList<>();
 
         String sql = "SELECT * FROM evento";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -360,13 +281,7 @@ public class EventoDao {
         return lista;
     }
 
-    public static ArrayList<Evento> listarEventos_limitado(int page, int pageSize, String filtro) {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Evento> listarEventos_limitado(int page, int pageSize, String filtro) {
 
         ArrayList<Evento> lista = new ArrayList<>();
 
@@ -417,7 +332,7 @@ public class EventoDao {
 
         sql += " LIMIT ?, ?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             int parameterIndex = 1;
@@ -469,12 +384,7 @@ public class EventoDao {
     }
 
 
-    public static ArrayList<Evento> listarEventos_populares() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Evento> listarEventos_populares() {
 
         ArrayList<Evento> lista = new ArrayList<>();
 
@@ -484,7 +394,7 @@ public class EventoDao {
                 "ORDER BY vacantes ASC\n" +
                 "LIMIT 3;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -507,12 +417,6 @@ public class EventoDao {
     }
 
     public int contarEventos(String filtro) {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
 
         int count = 0;
         String sql = "SELECT COUNT(*) FROM evento";
@@ -537,7 +441,7 @@ public class EventoDao {
             }
         }
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
 
             if (filtro != null && (filtro.equals("Cultural") || filtro.equals("Deportivo"))) {
@@ -559,21 +463,11 @@ public class EventoDao {
     public Evento obtenerEventoPorId(String id) {
         Evento evento = null;
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
-        String username = "root";
-        String password = "root";
-
         String sql = "SELECT e.*, p.nombre AS nombreProfesor\n" +
                 "FROM evento e\n" +
                 "INNER JOIN profesor p ON e.idProfesor = p.idProfesor where idEvento=?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, id);
@@ -610,19 +504,10 @@ public class EventoDao {
     }
 
     public void modificarEvento(Evento evento){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
-        String username = "root";
-        String password = "root";
 
         String sql= "update evento";
 
-        try(Connection connection = DriverManager.getConnection(url,username,password);
+        try(Connection connection = this.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(sql)){
 
             pstmt.setString(1,evento.getNombre());
@@ -644,13 +529,8 @@ public class EventoDao {
     public void crearEvento(Evento evento){
 
         try{
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://localhost:3306/basededatos3";
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            try (Connection conn= DriverManager.getConnection(url, user,pass)){
+            try (Connection conn= this.getConnection()){
                 String sql= "INSERT INTO evento (nombre,fechaInicial,fechaFinal,foto,materiales, lugar, hora, frecuencia,vacantes, descripcion, tipo,idProfesor,estadoEvento)"+
                         "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,'Pronto')";
 
@@ -675,7 +555,7 @@ public class EventoDao {
                 }
             }
 
-        }catch (SQLException | ClassNotFoundException e){
+        }catch (SQLException e){
             e.printStackTrace();
         }
         /*try {
@@ -705,19 +585,10 @@ public class EventoDao {
     }
 
     public void borrarEvento(String id) throws SQLException{
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
-        String user = "root";
-        String pass = "root";
 
         String sql = "DELETE FROM evento WHERE idEvento = ?";
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+        try (Connection conn = this.getConnection();) {
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 pstmt.setString(1, id);
                 pstmt.executeUpdate();
@@ -726,19 +597,9 @@ public class EventoDao {
 
     }
 
-    public static ArrayList<Evento> listarEventosporIdUsuario(String id) {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Evento> listarEventosporIdUsuario(String id) {
 
         ArrayList<Evento> listaEventosUsuario = new ArrayList<>();
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "SELECT e.idEvento, e.nombre, e.lugar,e.tipo,e.fechaInicial,e.hora\n" +
                 "FROM evento e\n" +
@@ -746,7 +607,7 @@ public class EventoDao {
                 "JOIN usuario u ON eu.idUsuario = u.idUsuario\n" +
                 "WHERE u.idUsuario = ?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(id));
             ResultSet rs = pstmt.executeQuery();
@@ -771,19 +632,14 @@ public class EventoDao {
     //Este dao permitirá iniciar un evento, debido a eso el query actualizará el estado del evento,
     public void editarEstadoEventoEnCurso(String id) {
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://127.0.0.1:3306/basedeDatos3";
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+            try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE evento SET estadoEvento = 'En curso' WHERE idEvento = ?;";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, Integer.parseInt(id));
                     pstmt.executeUpdate();
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -791,19 +647,14 @@ public class EventoDao {
     //Esta función permitirá la culminación de un evento, (lo usa coordi)
     public void editarEstadoEventoCuliminado(String id) {
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://127.0.0.1:3306/basedeDatos3";
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+            try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE evento SET estadoEvento = 'Culminado' WHERE idEvento = ?;";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                     pstmt.setInt(1, Integer.parseInt(id));
                     pstmt.executeUpdate();
                 }
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -812,13 +663,7 @@ public class EventoDao {
     public void publicarFotosAsistencia(Evento evento){
 
         try{
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://localhost:3306/basededatos3";
-
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            try (Connection conn= DriverManager.getConnection(url, user,pass)){
+            try (Connection conn= this.getConnection()){
                 String sql= "INSERT INTO fotosdeeventos (fotosDeEventos,idEvento)"+
                         "VALUES (?,?)";
 
@@ -833,7 +678,7 @@ public class EventoDao {
                 }
             }
 
-        }catch (SQLException | ClassNotFoundException e){
+        }catch (SQLException e){
             e.printStackTrace();
         }
 

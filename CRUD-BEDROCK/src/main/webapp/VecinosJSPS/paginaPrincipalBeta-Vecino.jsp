@@ -10,7 +10,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 <%
-    EventoDao eventosDAO = null;
+    EventoDao eventosDAO = new EventoDao();
     ArrayList<Evento> eventos_populares = eventosDAO.listarEventos_populares();
 %>
 <!DOCTYPE html>
