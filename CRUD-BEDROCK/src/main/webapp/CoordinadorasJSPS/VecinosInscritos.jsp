@@ -86,7 +86,7 @@
                     <td><%= vecino.getNombre() %></td>
                     <td><%= vecino.getCorreo() %></td>
                     <td><button id="lupaICON" class="btn btn-secondary" onclick="detalleVecino(<%= vecino.getId()%>)">
-                        <img src="${pageContext.request.contextPath}assets/icons/lupa.svg" alt="Ver">
+                        <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                     </button></td>
 
                     <td>
