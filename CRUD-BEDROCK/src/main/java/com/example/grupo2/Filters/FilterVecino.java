@@ -1,4 +1,4 @@
-/*package com.example.grupo2.Filters;
+package com.example.grupo2.Filters;
 
 import com.example.grupo2.Beans.Usuario;
 import jakarta.servlet.*;
@@ -8,9 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebFilter(filterName = "FilterVecino",urlPatterns = {"/VecinoIndexServlet","/IncidenciaServlet", "/imageneEvento","/EventoServlet"})
-
-
+@WebFilter(filterName = "FilterVecino",servletNames = {"VecinoIndexServlet","IncidenciaServlet", "ImagenEventoServlet","EventoServlet","ImagenIncidenciaServlet"})
 public class FilterVecino implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -37,4 +35,4 @@ public class FilterVecino implements Filter {
     public void destroy() {
         Filter.super.destroy();
     }
-}*/
+}

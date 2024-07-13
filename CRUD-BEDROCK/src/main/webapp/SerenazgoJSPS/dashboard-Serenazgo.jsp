@@ -40,7 +40,7 @@
             color: white; /* O el color que desees */
             font-size: 24px;
         }
-        }
+
     </style>
     <style>
         * {
@@ -69,15 +69,14 @@
                 <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
+                <a href="<%=request.getContextPath()%>/Sereno?action=estadisticalizarIncidencias" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=listaIncidencias" class="nav-link">Incidencias</a>
             </li>
-
         </ul>
     </nav>
 </div>

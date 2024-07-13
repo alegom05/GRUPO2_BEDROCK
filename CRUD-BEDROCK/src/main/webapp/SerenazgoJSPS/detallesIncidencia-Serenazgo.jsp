@@ -51,13 +51,13 @@
                 <a href="${pageContext.request.contextPath}/SerenazgoIndexServlet" class="nav-link">Página principal</a>
             </li>
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=estadisticalizar" class="nav-link"> Dashboard</a>
+                <a href="<%=request.getContextPath()%>/Sereno?action=estadisticalizarIncidencias" class="nav-link"> Dashboard</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Usuario?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=actualizarS&id=<%= usuarioSesion.getId() %>" class="nav-link">Actualizar información</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/IncidenciaServlet" class="nav-link">Incidencias</a>
+                <a href="${pageContext.request.contextPath}/Sereno?action=listaIncidencias" class="nav-link">Incidencias</a>
             </li>
         </ul>
     </nav>
@@ -116,7 +116,7 @@
             </fieldset>
             <br>
             <figure class="figure">
-                <img src="<%= request.getContextPath() %>/imagenIncidencia?id=<%= incidencia.getIdIncidencia() %>" class="figure-img img-fluid rounded" alt="..." style="height: 250px">
+                <img src="<%= request.getContextPath() %>/Sereno?action=verFotoIncidencia&id=<%= incidencia.getIdIncidencia() %>" class="figure-img img-fluid rounded" alt="Imagen de la incidencia" style="height: 250px">
                 <figcaption class="figure-caption">Foto tomada por usuario.</figcaption>
             </figure>
 
@@ -145,7 +145,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
-                <form id="incidenciaForm" method="post" action="<%=request.getContextPath()%>/IncidenciaServlet?action=evaluar" class="row align-items-start mb-3 needs-validation" novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
+                <form id="incidenciaForm" method="post" action="<%=request.getContextPath()%>/Sereno?action=evaluar" class="row align-items-start mb-3 needs-validation" novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="criticidad" class="form-label">Criticidad:</label>
@@ -288,7 +288,7 @@
 
                         <div class="mb-3">
                             <fieldset disabled>
-                                <label for="descripcionSolucion" class="form-label">Descripción de solución:</label>
+                                <label for="descripcionSolucionVer" class="form-label">Descripción de solución:</label>
                                 <textarea class="form-control" id="descripcionSolucionVer" name="descripcionSolucion" style="height: 100px;"><%= incidencia.getDescripcionSolucion() %></textarea>
                             </fieldset>
                         </div>
@@ -321,7 +321,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="<%= request.getContextPath() %>/IncidenciaServlet?action=incidenciaCerrada">
+                    <form method="POST" action="<%= request.getContextPath() %>/Sereno?action=incidenciaCerrada">
                         <div>
                             <input type="hidden" name="idIncidencia" value="<%=incidencia.getIdIncidencia()%>">
                         </div>
@@ -350,7 +350,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form method="POST" action="<%= request.getContextPath() %>/IncidenciaServlet?action=falsaAlarma">
+                    <form method="POST" action="<%= request.getContextPath() %>/Sereno?action=falsaAlarma">
                         <div>
                             <input type="hidden" name="idIncidencia" value="<%=incidencia.getIdIncidencia()%>">
                         </div>

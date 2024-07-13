@@ -15,9 +15,8 @@ import jakarta.servlet.http.Part;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Date;
-import java.sql.SQLException;
-import java.sql.Time;
+import java.io.OutputStream;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,8 +45,8 @@ public class SerenazgoRolServlet extends HttpServlet {
                 request.setAttribute("cantidad", cantidadIncidencias);
                 request.setAttribute("porMes", incidenciasPorMes);
 
-                /*view = request.getRequestDispatcher("/SerenazgoJSPS/dashboard-Serenazgo.jsp");
-                view.forward(request, response);*/
+                view = request.getRequestDispatcher("/SerenazgoJSPS/dashboard-Serenazgo.jsp");
+                view.forward(request, response);
                 break;
             //Con este caso listaremos los datos del serenazgo, para eso necesitaremos su id, sabemos que una vez dentro de la cuenta
             //del respectivo rol obtenemos el id debido al login, entonces tendremos este dato en todas las vistas
@@ -100,18 +99,64 @@ public class SerenazgoRolServlet extends HttpServlet {
                         request.setAttribute("mostrarFalsaAlarma", "Nueva".equals(estado) || "En proceso".equals(estado));
                         request.setAttribute("mostrarCerrar", "En proceso".equals(estado));
 
-                        /*view = request.getRequestDispatcher("/SerenazgoJSPS/detallesIncidencia-Serenazgo.jsp");
+                        view = request.getRequestDispatcher("/SerenazgoJSPS/detallesIncidencia-Serenazgo.jsp");
                         request.getSession().setAttribute("incidenciaParaExportar", incidencia);
 
-                        view.forward(request, response);*/
+                        view.forward(request, response);
                     } else {
                         response.sendRedirect("error.jsp"); // Página de error en caso de que no se encuentre la incidencia
                     }
                 } else {
                     response.sendRedirect("error.jsp");
                 }
-                /*view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
-                view.forward(request, response);*/
+                view = request.getRequestDispatcher("/SerenazgoJSPS/tablaIncidencias-Serenazgo.jsp");
+                view.forward(request, response);
+                break;
+
+            case "verFotoIncidencia":
+                String incidenciaId = request.getParameter("id");
+                Connection conn = null;
+                PreparedStatement stmt = null;
+                ResultSet rs = null;
+                String DB_URL = "jdbc:mysql://localhost:3306/basededatos3?serverTimezone=America/Lima";
+                String DB_USER = "root";
+                String DB_PASSWORD = "root";
+
+                try {
+                    // Registrar el driver de MySQL
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+
+                    // Obtener la conexión a la base de datos
+                    conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+
+                    // Consulta para obtener la imagen del evento
+                    String sql = "SELECT foto FROM incidencia WHERE idIncidenciaReportada = ?";
+                    stmt = conn.prepareStatement(sql);
+                    stmt.setString(1, incidenciaId);
+                    rs = stmt.executeQuery();
+
+                    if (rs.next()) {
+                        Blob blob = rs.getBlob("foto");
+                        if (blob != null) {
+                            byte[] bytes = blob.getBytes(1, (int) blob.length());
+
+                            response.setContentType("image/jpeg"); // Ajusta el tipo de contenido según el tipo de imagen
+                            OutputStream os = response.getOutputStream();
+                            os.write(bytes);
+                            os.flush();
+                        }
+                    } else {
+                        response.sendError(HttpServletResponse.SC_NOT_FOUND); // Imagen no encontrada
+                    }
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new ServletException("Error accediendo a la base de datos", e);
+                } finally {
+                    // Cerrar la conexión
+                    if (rs != null) try { rs.close(); } catch (SQLException e) { e.printStackTrace(); }
+                    if (stmt != null) try { stmt.close(); } catch (SQLException e) { e.printStackTrace(); }
+                    if (conn != null) try { conn.close(); } catch (SQLException e) { e.printStackTrace(); }
+                }
+
                 break;
 
 
