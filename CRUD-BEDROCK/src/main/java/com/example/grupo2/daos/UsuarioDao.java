@@ -9,19 +9,11 @@ import java.util.ArrayList;
 import java.sql.*;
 public class UsuarioDao extends daoBase {
 
-    public static ArrayList<Usuario> listarUsuarios() {
+    public ArrayList<Usuario> listarUsuarios() {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
 
         ArrayList<Usuario> listaUsuarios = new ArrayList<>();
 
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "select u.idUsuario, concat(u.nombre, ' ', u.apellido) as NombreCompleto, u.dni , u.telefono, u.correo, u.clave, u.direccion, u.urbanizacion, u.turnoSerenazgo, u.tipo, r.nombre, u.horaInicio, u.horaFin, u.fecha_nacimiento\n" +
                 "from usuario u\n" +
@@ -29,7 +21,7 @@ public class UsuarioDao extends daoBase {
                 "where u.idRoles='VE'\n" +
                 "order by u.nombre DESC;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -59,19 +51,9 @@ public class UsuarioDao extends daoBase {
         return listaUsuarios;
     }
 
-    public static ArrayList<Usuario> listarVecinoPorEvento(String idEvento) {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Usuario> listarVecinoPorEvento(String idEvento) {
 
         ArrayList<Usuario> listaVecinos = new ArrayList<>();
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "select u.dni, concat(u.nombre,' ',u.apellido) as NombreCompleto, u.correo " +
                 "from evento_has_usuario ehu " +
@@ -79,7 +61,7 @@ public class UsuarioDao extends daoBase {
                 "inner join usuario u on ehu.idUsuario = u.idUsuario " +
                 "where ehu.idEvento = ?;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, Integer.parseInt(idEvento)); // Aquí se debe asignar el parámetro antes de ejecutar la consulta
@@ -107,17 +89,8 @@ public class UsuarioDao extends daoBase {
 
 
 
-    public static int esUsuario(int IdUsuario) {
+    public int esUsuario(int IdUsuario) {
         int Es_un_usuario=0;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "        SELECT\n" +
                 "                CASE\n" +
@@ -129,7 +102,7 @@ public class UsuarioDao extends daoBase {
                 "        ELSE 0\n" +
                 "        END AS usuario_existe;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, IdUsuario);
             ResultSet rs = pstmt.executeQuery();
@@ -142,18 +115,8 @@ public class UsuarioDao extends daoBase {
         return Es_un_usuario;
     }
 
-    public static int esEvento(int IdEvento) {
+    public int esEvento(int IdEvento) {
         int Es_un_evento=0;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
-
         String sql = "SELECT \n" +
                 "    CASE \n" +
                 "        WHEN EXISTS (\n" +
@@ -164,7 +127,7 @@ public class UsuarioDao extends daoBase {
                 "        ELSE 0\n" +
                 "    END AS evento_existe;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, IdEvento);
             ResultSet rs = pstmt.executeQuery();
@@ -177,17 +140,8 @@ public class UsuarioDao extends daoBase {
         return Es_un_evento;
     }
 
-    public static int EstaInscrito(int IdEvento, int IdUsuario) {
+    public int EstaInscrito(int IdEvento, int IdUsuario) {
         int Esta_inscrito=0;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "SELECT \n" +
                 "    CASE \n" +
@@ -199,7 +153,7 @@ public class UsuarioDao extends daoBase {
                 "        ELSE 0 \n" +
                 "    END AS estaInscrito";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, IdUsuario);
             pstmt.setInt(2, IdEvento);
@@ -213,24 +167,15 @@ public class UsuarioDao extends daoBase {
         return Esta_inscrito;
     }
 
-    public static void inscribirEvento(int IdUsuario, int IdEvento){
+    public void inscribirEvento(int IdUsuario, int IdEvento){
         // Falta aplicar algunaas resstricciones como que no se pueda inscribir al mismo evento mas de una vez
         // Tambien lo de los acompañantes y sus tablas
         // Tambien paginas de redireccionamiento
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "INSERT INTO basededatos3.evento_has_usuario (idEvento, idUsuario)\n" +
                 "VALUES (?,?);";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, IdEvento);
             pstmt.setInt(2, IdUsuario);
@@ -240,21 +185,12 @@ public class UsuarioDao extends daoBase {
         }
     }
 
-    public static void inscribirConAconpanante(Usuario aconpanante, int IdUsuario, int IdEvento){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
+    public void inscribirConAconpanante(Usuario aconpanante, int IdUsuario, int IdEvento){
 
         String sql = "INSERT INTO basededatos3.aconpanantes (NombreAconpanantes, ApellidoAconpanantes, DniAconpanantes, evento_has_usuario_idEvento, evento_has_usuario_idUsuario)\n" +
                 "VALUES (?,?,?,?,?);\n";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, aconpanante.getNombre());
             pstmt.setString(2, aconpanante.getApellido());
@@ -330,18 +266,10 @@ public class UsuarioDao extends daoBase {
     }*/
     public Usuario buscarPorId(int id) {
         Usuario vecino = null;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String user = "root";
-        String pass = "root";
 
         String sql = "SELECT * FROM usuario where idUsuario = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setInt(1, id);
@@ -368,18 +296,9 @@ public class UsuarioDao extends daoBase {
     }
     public void actualizar(Usuario vecino) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String user = "root";
-        String pass = "root";
-
         String sql = "UPDATE usuario SET telefono=?, direccion=?, urbanizacion=? where idUsuario=?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, vecino.getNumtelefono());
@@ -394,17 +313,10 @@ public class UsuarioDao extends daoBase {
 
     }
     public void actualizarContrasenia(int id, String nuevaContrasenia) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String user = "root";
-        String pass = "root";
+
         String sql = "UPDATE usuario SET clave = ? WHERE idUsuario = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql)) {
 
             pstmt.setString(1, nuevaContrasenia);
@@ -476,16 +388,9 @@ public class UsuarioDao extends daoBase {
     public void saveUsuario(Usuario usuario) throws SQLException {
         /*Connection conn =null;
         PreparedStatement = null;*/
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String user = "root";
-        String pass = "root";
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
-        try (Connection conn = DriverManager.getConnection(url, user, pass)){
+
+        try (Connection conn = this.getConnection()){
 
             String sql = "INSERT INTO usuario (nombre, apellido, dni,direccion, urbanizacion, correo, horaInicio, horaFin) VALUES (?,?, ?,?, ?,?, '00:00:00','00:00:00')";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -529,17 +434,9 @@ public class UsuarioDao extends daoBase {
         return false;
     }*/
     //para verificar la existencia de un usuario buscando a traves del correo
-    public static int esUsuarioPorCorreo(String correo) {
+    public int esUsuarioPorCorreo(String correo) {
         int Es_un_usuario = 0;
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "SELECT CASE " +
                 "WHEN EXISTS ( " +
@@ -550,7 +447,7 @@ public class UsuarioDao extends daoBase {
                 "ELSE 0 " +
                 "END AS usuario_existe;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, correo);
             ResultSet rs = pstmt.executeQuery();
@@ -567,14 +464,7 @@ public class UsuarioDao extends daoBase {
     public void crearSolicitudCoordi(int idUsuario){
         Date fechaActual = new Date(System.currentTimeMillis());
         String fa= String.valueOf(fechaActual);
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
+
 
         String sql = "INSERT INTO `basededatos3`.`solicitudes` (`estadoSolicitud`,`fechasolicitud`,`usuario_idUsuario`,`roles_idRoles`) VALUES (?,?,?,?)";
 
@@ -582,7 +472,7 @@ public class UsuarioDao extends daoBase {
         String rol="CO";
         System.out.print("en proceso");
 
-        try (Connection connection = DriverManager.getConnection(url, username, password);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
             pstmt.setInt(1,estado);
             pstmt.setDate(2,fechaActual);
@@ -598,14 +488,10 @@ public class UsuarioDao extends daoBase {
     }
 
     //Metodos Coordi
-    public void reportarVecino(Usuario usuario){
+    /*public void reportarVecino(Usuario usuario){
         try {
-            String user = "root";
-            String pass = "root";
-            String url = "jdbc:mysql://localhost:3306/basedeDatos3";
 
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection conn = DriverManager.getConnection(url, user, pass);) {
+            try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE evento_has_usuario\n" +
                         "SET\n" +
                         "descripcion = ?,\n" +
@@ -620,25 +506,19 @@ public class UsuarioDao extends daoBase {
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-    public static ArrayList<Historial> historialUsuario2(String id){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Historial> historialUsuario2(String id){
+
 
         ArrayList<Historial> historialUsuario = new ArrayList<>();
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
+
 
         String sql = "select e.fechaInicial, e.nombre, e.lugar,ehu.descripcion \n" +
                 "from evento_has_usuario ehu\n" +
                 "join evento e on ehu.idEvento=e.idEvento\n"+
                 "where idUsuario=?;";
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(id));
             ResultSet rs = pstmt.executeQuery();

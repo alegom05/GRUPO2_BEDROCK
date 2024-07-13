@@ -10,7 +10,8 @@ public class daoBase {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            throw new RuntimeException(e);
         }
 
         String user = "root";

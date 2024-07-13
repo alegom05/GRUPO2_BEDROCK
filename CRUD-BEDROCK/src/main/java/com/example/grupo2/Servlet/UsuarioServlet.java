@@ -109,7 +109,7 @@ public class UsuarioServlet extends HttpServlet {
                 //vecino.setId(Integer.parseInt(idUsuario));
                 vecino.setMotivoReporte(motivoReporte);
                 usuarioDao.reportarVecino(vecino);
-                response.sendRedirect(request.getContextPath() + "/Coordis?action=listarve");
+                response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
 
                 break;
 
