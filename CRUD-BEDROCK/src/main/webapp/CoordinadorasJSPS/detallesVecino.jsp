@@ -1,5 +1,6 @@
 <%@ page import="com.example.grupo2.Beans.Usuario" %>
-<%@ page import="com.example.grupo2.Beans.Historial" %><%--
+<%@ page import="com.example.grupo2.Beans.Historial" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Isaac
   Date: 9/07/2024
