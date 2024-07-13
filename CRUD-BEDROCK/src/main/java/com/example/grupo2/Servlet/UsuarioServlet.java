@@ -104,12 +104,12 @@ public class UsuarioServlet extends HttpServlet {
             //Para que la coordi reporte al vecino- historial de comportamiento
             case "reportar":
                 String motivoReporte= request.getParameter("motivoReporte");
-                String idUsuario= request.getParameter("idVecino");
+                //String idUsuario= request.getParameter("idVecino");
                 Usuario vecino = new Usuario();
-                vecino.setId(Integer.parseInt(idUsuario));
+                //vecino.setId(Integer.parseInt(idUsuario));
                 vecino.setMotivoReporte(motivoReporte);
                 usuarioDao.reportarVecino(vecino);
-                response.sendRedirect(request.getContextPath() + "/UsuarioServlet");
+                response.sendRedirect(request.getContextPath() + "/Coordis?action=listarve");
 
                 break;
 
