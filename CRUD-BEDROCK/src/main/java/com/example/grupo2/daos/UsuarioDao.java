@@ -505,6 +505,7 @@ public class UsuarioDao extends daoBase {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
