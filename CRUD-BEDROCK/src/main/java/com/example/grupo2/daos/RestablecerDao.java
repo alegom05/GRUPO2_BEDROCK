@@ -8,45 +8,29 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class RestablecerDao {
+public class RestablecerDao extends daoBase{
 
-    private static String user = "root";
-    private static String pass = "root";
-    private static String url = "jdbc:mysql://localhost:3306/basededatos3";
 
     public int buscarCorreo(String correo) {
 
         int buscador = 0;
+        String sql = "SELECT correo FROM usuario WHERE correo = ?";
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
-        String user = "root";
-        String pass = "root";
-        String url = "jdbc:mysql://localhost:3306/basededatos3";
+            pstmt.setString(1, correo);
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (ResultSet rs = pstmt.executeQuery();) {
 
-            String sql = "SELECT correo FROM usuario WHERE correo = ?";
-
-            try (Connection connection = DriverManager.getConnection(url, user, pass);
-                 PreparedStatement pstmt = connection.prepareStatement(sql);) {
-
-                pstmt.setString(1, correo);
-
-                try (ResultSet rs = pstmt.executeQuery();) {
-
-                    if (rs.next()) {
-                        buscador= 1;
-                    }
-
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                if (rs.next()) {
+                    buscador= 1;
                 }
 
             } catch (SQLException e) {
-                e.printStackTrace();
+                throw new RuntimeException(e);
             }
 
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
@@ -55,15 +39,10 @@ public class RestablecerDao {
 
     public void cambiarcontra(String email, String contrasenha) {
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
-        }
 
         String sql = "UPDATE usuario SET clave = ? WHERE correo = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1, contrasenha);
