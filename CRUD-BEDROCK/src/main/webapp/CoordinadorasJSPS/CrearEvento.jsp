@@ -23,7 +23,8 @@
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <a href="DetallesUsuario.html">
+            <a href="<%=request.getContextPath()%>/CoordinadoraIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>">
+                <!--href="%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=%=usuarioSesion.getId()%>"-->
                 <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
             <div class="usuario-info">
