@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class daoBase {
 
-    private static final boolean USE_LOCALHOST = false; // Cambia a false para usar una IP específica
+    private static final boolean USE_LOCALHOST = true; // Cambia a false para usar una IP específica
     private static final String IP_ADDRESS = "34.74.45.145"; // Reemplaza con la IP específica
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
