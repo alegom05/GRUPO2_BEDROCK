@@ -91,16 +91,21 @@
                         <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                     </button></td>
 
+
+
                     <td>
                         <a href="" data-bs-toggle="modal" data-bs-target="#modalReporte">
                             <img src="<%= request.getContextPath() %>/CoordinadorasJSPS/Iconos/report.png" alt="Descripción de la imagen" class="mi-imagen">
                         </a>
                     </td>
-                    <td>
-                        <a href="" class="" data-bs-toggle="modal" data-bs-target="#modalEliminar" onclick="establecerIdParaEliminar(<%=vecino.getId() %>)">
+                    <%--<td>
+                        <a href="<%=request.getContextPath()%>/Coordis?action=deleteUsuario&idVecino=<%=vecino.getId()%>" class="" data-bs-toggle="modal" data-bs-target="#modalEliminar" >
                             <img src="<%= request.getContextPath() %>/CoordinadorasJSPS//Iconos/removeduser.png" alt="Descripción de la imagen" class="mi-imagen">
                         </a>
-                    </td>
+                    </td>--%>
+
+                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEliminar"  onclick="establecerIdParaEliminar(<%= vecino.getId() %>)">
+                        <img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -115,7 +120,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5>¿Estás seguro de eliminar al vecino del evento?</h5>
+                        ¿Estás seguro de eliminar al vecino del evento?
                         <input type="hidden" id="usuarioIdParaEliminar">
                     </div>
                     <div class="modal-footer">
@@ -237,7 +242,7 @@
 
     function confirmarEliminacion(){
         const idUsuario= document.getElementById('usuarioIdParaEliminar').value;
-        window.location.href= '<%=request.getContextPath()%>/Coordis?action=deleteUsuario&id' + idUsuario;
+        window.location.href= '<%=request.getContextPath()%>/Coordis?action=deleteUsuario&idVecino=' + idUsuario;
     }
 </script>
 </body>

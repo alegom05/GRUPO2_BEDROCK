@@ -55,7 +55,7 @@ public class UsuarioDao extends daoBase {
 
         ArrayList<Usuario> listaVecinos = new ArrayList<>();
 
-        String sql = "select u.dni, concat(u.nombre,' ',u.apellido) as NombreCompleto, u.correo " +
+        String sql = "select ehu.idUsuario, u.dni, concat(u.nombre,' ',u.apellido) as NombreCompleto, u.correo " +
                 "from evento_has_usuario ehu " +
                 "inner join evento e on ehu.idEvento = e.idEvento " +
                 "inner join usuario u on ehu.idUsuario = u.idUsuario " +
@@ -70,9 +70,10 @@ public class UsuarioDao extends daoBase {
                 while (rs.next()) {
                     Usuario usuario = new Usuario();
 
-                    usuario.setDni(rs.getString(1));
-                    usuario.setNombre(rs.getString(2));
-                    usuario.setCorreo(rs.getString(3));
+                    usuario.setId(rs.getInt(1));
+                    usuario.setDni(rs.getString(2));
+                    usuario.setNombre(rs.getString(3));
+                    usuario.setCorreo(rs.getString(4));
 
                     listaVecinos.add(usuario);
                 }

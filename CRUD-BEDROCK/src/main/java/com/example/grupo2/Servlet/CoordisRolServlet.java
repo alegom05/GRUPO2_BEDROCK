@@ -100,14 +100,14 @@ public class CoordisRolServlet extends HttpServlet {
                 break;
 
                 //
-            //Case eliminar usuario
+            //Case eliminar usuario de un evento
             case "deleteUsuario":
-                String idee= request.getParameter("idUsuario");
+                String idee= request.getParameter("idVecino");
                 Usuario vecino= usuarioDao.buscarPorId(Integer.parseInt(idee));
                 if(vecino!=null){
                     usuarioDao.borrarVecinoDeEvento(idee);
                 }
-                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/VecinosInscritos.jsp");
+                response.sendRedirect(request.getContextPath() + "/CoordinadoraIndexServlet");
                 break;
 
             //Case para elminar eventos
