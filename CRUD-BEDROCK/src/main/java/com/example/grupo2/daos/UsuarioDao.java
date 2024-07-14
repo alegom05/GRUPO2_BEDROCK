@@ -286,6 +286,7 @@ public class UsuarioDao extends daoBase {
                     vecino.setClave(rs.getString(7));
                     vecino.setDireccion(rs.getString(8));
                     vecino.setUrbanizacion(rs.getString(9));
+                    vecino.setTipo(rs.getString("tipo"));
                 }
             }
         } catch (SQLException e) {

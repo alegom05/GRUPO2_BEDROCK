@@ -20,21 +20,24 @@ public class CoordinadoraIndexServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "PagPrincipal" : request.getParameter("action");
         UsuarioDao userDao = new UsuarioDao();
         switch (action) {
-            case "PagPrincipal" -> {
+            case "PagPrincipal":
                 requestDispatcher = request.getRequestDispatcher("/CoordinadorasJSPS/PaginaPrincipal.jsp");
                 requestDispatcher.forward(request,response);
-            }
-            case "editar" -> {
+            break;
+
+            case "editar":
                 int id = Integer.parseInt(request.getParameter("id"));
                 Usuario user = userDao.buscarPorId(id);
                 if (user != null) {
+                    request.getSession().setAttribute("coordiId", id);
                     request.setAttribute("usuarioSesion", user);
                     requestDispatcher = request.getRequestDispatcher("/CoordinadorasJSPS/detalleDeUsuarioCoordi.jsp");
                     requestDispatcher.forward(request, response);
                 } else {
                     response.sendRedirect(request.getContextPath() + "/CoordinadoraIndexServlet");
                 }
-            }
+            break;
+
         }
 
     }
@@ -47,14 +50,16 @@ public class CoordinadoraIndexServlet extends HttpServlet {
         UsuarioDao userDao = new UsuarioDao();
         switch (action){
             case "actualizar":
+                int id = (int) request.getSession().getAttribute("coordiId");
                 Usuario user = leerParametrosRequest(request);
+                user.setId(id);
                 userDao.actualizar(user);
                 response.sendRedirect(request.getContextPath() + "/CoordinadoraIndexServlet");
                 break;
-            case "cambiarContrasena":
+            /*case "cambiarContrasena":
                 int id = Integer.parseInt(request.getParameter("id"));
                 String clave = request.getParameter("clave");
-                break;
+                break;*/
             case "cambiarContrasenaCoordi":
                 int id1 = Integer.parseInt(request.getParameter("id"));
                 String oldPassword = request.getParameter("oldPassword");
@@ -70,7 +75,7 @@ public class CoordinadoraIndexServlet extends HttpServlet {
                 }else {
                     // Redirigir con un mensaje de error
                     request.setAttribute("error", "La contraseña antigua es incorrecta.");
-                    request.getRequestDispatcher("/CoordinadorasJSPS/detalleDeUsuarioCoordi").forward(request, response);
+                    request.getRequestDispatcher("/CoordinadorasJSPS/detalleDeUsuarioCoordi.jsp").forward(request, response);
                 }
                 break;
 
