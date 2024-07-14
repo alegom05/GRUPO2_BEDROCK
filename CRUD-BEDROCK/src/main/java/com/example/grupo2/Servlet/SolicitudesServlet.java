@@ -51,10 +51,18 @@ public class SolicitudesServlet extends HttpServlet {
                 System.out.println("Iniciando proceso de aprobación...");
                 int id = Integer.parseInt(request.getParameter("id"));
                 String rol = request.getParameter("rol");
+                System.out.println(rol);
+                System.out.println(id);
                 String correoDestino = request.getParameter("correo");
                 System.out.println("Aprobando solicitud para ID: " + id + ", Correo: " + correoDestino);
                 serenazgosDao.aprobarSolicitud(id);
-
+                String contra;
+                int idUsuario;
+                if (rol == null) {
+                    idUsuario = serenazgosDao.buscarIdUsuario(id);
+                    contra = "123456";
+                    serenazgosDao.colocarClave(idUsuario,contra);
+                }
                 String mensaje;
                 System.out.println("rol"+rol);
                 if ("VE".equals(rol)) {
