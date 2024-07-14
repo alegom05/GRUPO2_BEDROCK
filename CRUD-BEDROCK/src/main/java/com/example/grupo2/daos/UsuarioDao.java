@@ -59,7 +59,7 @@ public class UsuarioDao extends daoBase {
                 "from evento_has_usuario ehu " +
                 "inner join evento e on ehu.idEvento = e.idEvento " +
                 "inner join usuario u on ehu.idUsuario = u.idUsuario " +
-                "where ehu.idEvento = ?;";
+                "where ehu.asistio= 1 and ehu.idEvento = ?;";
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -173,8 +173,8 @@ public class UsuarioDao extends daoBase {
         // Tambien lo de los acompañantes y sus tablas
         // Tambien paginas de redireccionamiento
 
-        String sql = "INSERT INTO basededatos3.evento_has_usuario (idEvento, idUsuario)\n" +
-                "VALUES (?,?);";
+        String sql = "INSERT INTO basededatos3.evento_has_usuario (idEvento, idUsuario,asistio)\n" +
+                "VALUES (?,?,1);";
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -496,6 +496,7 @@ public class UsuarioDao extends daoBase {
             try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE evento_has_usuario\n" +
                         "SET\n" +
+                        "cometioFalta = 1,\n" +
                         "descripcion = ?,\n" +
                         "WHERE idUsuario = ?;";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -520,7 +521,7 @@ public class UsuarioDao extends daoBase {
         String sql = "select e.fechaInicial, e.nombre, e.lugar,ehu.descripcion \n" +
                 "from evento_has_usuario ehu\n" +
                 "join evento e on ehu.idEvento=e.idEvento\n"+
-                "where idUsuario=?;";
+                "where ehu.cometioFalta=1 and idUsuario=?;";
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(id));

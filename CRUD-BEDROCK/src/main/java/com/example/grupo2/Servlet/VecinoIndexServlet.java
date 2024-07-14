@@ -48,6 +48,9 @@ public class VecinoIndexServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
         UsuarioDao userDao = new UsuarioDao();
 
+        //cambio para que no se vean las ips, si hay conflicto es culpa de adrian :c
+        doGet(request,response);
+
         switch (action) {
             case "actualizarDatos" -> {
                 Usuario vecino = leerParametrosRequest(request);

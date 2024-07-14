@@ -41,9 +41,11 @@ public class SerenazgoRolServlet extends HttpServlet {
             case "estadisticalizarIncidencias":
                 CantidadIncidencias cantidadIncidencias = incidenciaDao.hallarCantidadIncidencias();
                 IncidenciasPorMes incidenciasPorMes = incidenciaDao.hallarIncidenciasPorMes();
-
+                ArrayList<Incidencia> listaIncidencias2 = incidenciaDao.listarIncidencias();
                 request.setAttribute("cantidad", cantidadIncidencias);
                 request.setAttribute("porMes", incidenciasPorMes);
+                request.setAttribute("listaIncidencias", listaIncidencias2);
+
 
                 view = request.getRequestDispatcher("/SerenazgoJSPS/dashboard-Serenazgo.jsp");
                 view.forward(request, response);
