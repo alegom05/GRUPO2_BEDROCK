@@ -32,10 +32,19 @@
               <h4 class="main-logo-size" style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
           </div>
           <div class="col-md-9 d-flex align-items-center justify-content-end">
-              <a href="DetallesUsuario.html">
+              <a href="<%=request.getContextPath()%>/CoordinadoraIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>">
+                  <!--href="%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=%=usuarioSesion.getId()%>"-->
                   <img src="../logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
               </a>
-              <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br></h2>
+              <div class="usuario-info">
+                  <%
+                      String tipoUsuario = usuarioSesion.getTipo();
+                      String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
+                  %>
+                  <h3 style=" text-align: right;">
+                      <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
+                  </h3>
+              </div>
               <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                   <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
               </a>
@@ -57,7 +66,7 @@
                   <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
               </li>
               <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="nav-link">Historial De Eventos</a>
+                  <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="nav-link">Historial De Eventos</a>
               </li>
               <li class="nav-item">
                   <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
@@ -503,6 +512,7 @@
 
     
   </body>
+
 </html>
 
 

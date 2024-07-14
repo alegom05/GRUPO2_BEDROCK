@@ -3,14 +3,12 @@ import com.example.grupo2.Beans.Usuario;
 import java.sql.*;
 
 public class LoginDao extends daoBase{
-    private static String user = "root";
-    private static String pass = "root";
-    private static String url = "jdbc:mysql://localhost:3306/basededatos3";
+
     public Usuario validar(String correo,String clave){
         Usuario usuario = null;
         String sql = "SELECT * FROM usuario WHERE correo =? and clave =?";
 
-        try (Connection connection = getConnection();
+        try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
 
             pstmt.setString(1,correo);
