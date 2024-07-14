@@ -108,8 +108,8 @@
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#" onclick="mostrarModalAprobacion('<%= solicitudes1.getIdsolicitud() %>', '<%= solicitudes1.getCorreo() %>')">Aprobar</a></li>
-                        <li><a onclick="setSerenazgoId('<%= solicitudes1.getIdsolicitud() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" href="#">Rechazar</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="mostrarModalAprobacion('<%= solicitudes1.getIdsolicitud() %>', '<%= solicitudes1.getCorreo() %>', '<%= solicitudes1.getRol() %>')">Aprobar</a></li>
+                        <li><a onclick="setSerenazgoId('<%= solicitudes1.getIdsolicitud() %>', '<%= solicitudes1.getCorreo() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rechazarSolicitudModal" href="#">Rechazar</a></li>
                     </ul>
                 </div>
             </td>
@@ -117,26 +117,39 @@
             <%  }  %>
         </tbody>
     </table>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+
+
+    <div class="modal fade" id="rechazarSolicitudModal" tabindex="-1" aria-labelledby="rechazarSolicitudModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Advertencia</h5>
+                    <h5 class="modal-title" id="rechazarSolicitudModalLabel">Rechazar Solicitud</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    ¿Está seguro que desea realizar la acción indicada?
+                    <form id="formRechazar">
+                        <div class="mb-3">
+                            <label for="motivoRechazo" class="form-label">Motivo de Rechazo</label>
+                            <select id="motivoRechazo" class="form-select" required>
+                                <option value="">Seleccione una razón</option>
+                                <option value="Información incompleta">Información incompleta</option>
+                                <option value="No cumple con los requisitos">No cumple con los requisitos</option>
+                                <option value="Otro">Otro</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="idSolicitudRechazo" name="idSolicitudRechazo">
+                        <input type="hidden" id="correoSolicitudRechazo" name="correoSolicitudRechazo">
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <form action="<%=request.getContextPath()%>/Solicitudes?a=rechazar" method="post">
-                        <input type="hidden" name="id" id="serenazgoIdToDelete">
-                        <button type="submit" class="btn btn-primary">Sí</button>
-                    </form>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" id="confirmarRechazo">Rechazar</button>
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -182,12 +195,6 @@
             });
         });
     </script>
-    <script>
-
-        function setSerenazgoId(id) {
-            document.getElementById('serenazgoIdToDelete').value = id;
-        }
-    </script>
 </div>
 
 <div class="modal fade" id="aprobarSolicitudModal" tabindex="-1" aria-labelledby="aprobarSolicitudModalLabel" aria-hidden="true">
@@ -212,9 +219,10 @@
     let idSolicitudActual;
     let correoSolicitudActual;
 
-    function mostrarModalAprobacion(id, correo) {
+    function mostrarModalAprobacion(id, correo, rol) {
         idSolicitudActual = id;
         correoSolicitudActual = correo;
+        rolSolicitudActual = rol;
         $('#aprobarSolicitudModal').modal('show');
     }
 
@@ -226,7 +234,8 @@
                 data: {
                     a: 'aprobar',
                     id: idSolicitudActual,
-                    correo: correoSolicitudActual
+                    correo: correoSolicitudActual,
+                    rol: rolSolicitudActual
                 },
                 success: function(response) {
                     $('#aprobarSolicitudModal').modal('hide');
@@ -241,6 +250,49 @@
         });
     });
 </script>
+    <script>
+        let idSolicitudRechazoActual;
+        let correoSolicitudRechazoActual;
+
+        function setSerenazgoId(id, correo) {
+            document.getElementById('idSolicitudRechazo').value = id;
+            document.getElementById('correoSolicitudRechazo').value = correo;
+            $('#rechazarSolicitudModal').modal('show');
+        }
+
+        $(document).ready(function() {
+            $('#confirmarRechazo').click(function() {
+                const idSolicitud = $('#idSolicitudRechazo').val();
+                const correoSolicitud = $('#correoSolicitudRechazo').val();
+                const motivoRechazo = $('#motivoRechazo').val();
+
+                if (motivoRechazo) {
+                    $.ajax({
+                        url: '<%=request.getContextPath()%>/Solicitudes',
+                        type: 'POST',
+                        data: {
+                            a: 'rechazar',
+                            id: idSolicitud,
+                            correo: correoSolicitud,
+                            motivo: motivoRechazo
+                        },
+                        success: function(response) {
+                            $('#rechazarSolicitudModal').modal('hide');
+                            window.location.href = '<%=request.getContextPath()%>/Solicitudes';
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error al rechazar la solicitud:', error);
+                            alert('Hubo un error al rechazar la solicitud. Por favor, inténtelo de nuevo.');
+                        }
+                    });
+                } else {
+                    alert('Por favor, seleccione un motivo de rechazo.');
+                }
+            });
+        });
+    </script>
+
+
 
 </body>
 </html>

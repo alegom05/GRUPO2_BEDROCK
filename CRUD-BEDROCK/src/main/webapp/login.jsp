@@ -53,7 +53,8 @@
                                         <%session.removeAttribute("indicador");%>
                                         <%}%>
 
-                                        <form id="modalForm" class="needs-validation" novalidate>
+                                        <!-- Código existente del modal -->
+                                        <form  action="<%=request.getContextPath()%>/RestablecerClave?a=validar" method="post" id="modalForm" class="needs-validation" novalidate>
                                             <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
                                                 <div class="modal-dialog modal-dialog-centered">
                                                     <div class="modal-content">
@@ -64,7 +65,7 @@
                                                         <div class="modal-body">
                                                             <div class="form-outline mb-3">
                                                                 <label class="form-label" for="modalEmail">Escribe el correo asociado a tu cuenta</label>
-                                                                <input type="email" id="modalEmail" class="form-control" placeholder="example@gmail.com" required>
+                                                                <input type="email" name="modalEmail" id="modalEmail" class="form-control" placeholder="example@gmail.com" required>
                                                                 <div class="invalid-feedback">Por favor ingresa un correo electrónico válido.</div>
                                                             </div>
                                                             <div id="emailError" class="text-danger d-none">Por favor, completa este campo.</div>
@@ -78,6 +79,7 @@
                                                 </div>
                                             </div>
                                         </form>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6 d-flex align-items-center background-section">

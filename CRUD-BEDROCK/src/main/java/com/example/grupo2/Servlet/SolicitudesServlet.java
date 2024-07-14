@@ -50,23 +50,51 @@ public class SolicitudesServlet extends HttpServlet {
             case "aprobar" -> {
                 System.out.println("Iniciando proceso de aprobación...");
                 int id = Integer.parseInt(request.getParameter("id"));
-                String correo = request.getParameter("correo");
-                System.out.println("Aprobando solicitud para ID: " + id + ", Correo: " + correo);
+                String rol = request.getParameter("rol");
+                System.out.println(rol);
+                System.out.println(id);
+                String correoDestino = request.getParameter("correo");
+                System.out.println("Aprobando solicitud para ID: " + id + ", Correo: " + correoDestino);
                 serenazgosDao.aprobarSolicitud(id);
-                new Thread(() -> enviarCorreo(correo)).start();
+                String contra;
+                int idUsuario;
+                if (rol == null) {
+                    idUsuario = serenazgosDao.buscarIdUsuario(id);
+                    contra = "123456";
+                    serenazgosDao.colocarClave(idUsuario,contra);
+                }
+                String mensaje;
+                System.out.println("rol"+rol);
+                if ("VE".equals(rol)) {
+                    mensaje = "Su solicitud para ser Coordinadora de San Miguel ha sido aprobada.\nAtte.\nAdministración";
+                } else {
+                    mensaje = "Su solicitud para ser Vecino de San Miguel ha sido aprobada.Ingresa al sistema con tu correo y la contraseña por defecto \"123456\".\nAtte.\nAdministración";
+                }
+
+                String asunto = "Solicitud Aprobada";
+                new Thread(() -> enviarCorreo(correoDestino, asunto, mensaje)).start();
                 response.setStatus(HttpServletResponse.SC_OK);
                 // La redirección se maneja en el cliente
-                }
+            }
             case "rechazar" -> {
                 int id = Integer.parseInt(request.getParameter("id"));
+                String correo = request.getParameter("correo");
+                String motivo = request.getParameter("motivo");
+
                 serenazgosDao.rechazarSolicitud(id);
-                response.sendRedirect(request.getContextPath() + "/Solicitudes");
+
+                String mensaje = "Su solicitud ha sido rechazada por la siguiente razón: " + motivo + ".\nAtte.\nAdministración";
+                String asunto = "Solicitud Rechazada";
+                new Thread(() -> enviarCorreo(correo, asunto, mensaje)).start();
+
+                response.setStatus(HttpServletResponse.SC_OK);
+
             }
         }
     }
 
-    private void enviarCorreo(String correo) {
-        System.out.println("Iniciando proceso de envío de correo a: " + correo);
+    private void enviarCorreo(String destinatario, String asunto, String cuerpo) {
+        System.out.println("Iniciando proceso de envío de correo a: " + destinatario);
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
@@ -77,35 +105,37 @@ public class SolicitudesServlet extends HttpServlet {
         props.put("mail.debug", "true");
         props.put("mail.debug.auth", "true");
 
+        final String username = "asanmiguel2024@gmail.com"; // Reemplaza con tu correo de Gmail
+        final String password = "vofcewndaxskxlfz"; // Reemplaza con tu contraseña
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
         try {
-            System.out.println("Creando sesión de correo...");
-            Session session = Session.getInstance(props, new Authenticator() {
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication("asanmiguel2024@gmail.com", "vofcewndaxskxlfz");
-                }
-            });
-
-            System.out.println("Creando mensaje...");
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("asanmiguel2024@gmail.com"));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(correo));
-            message.setSubject("Solicitud Aprobada");
-            message.setText("Tu solicitud para ser Vecino de San Miguel ha sido aprobada.\n"
-                    + "Ingresa al sistema con tu correo y la contraseña por defecto \"123456\".\n"
-                    + "Atte.\nAdministración");
+            message.setFrom(new InternetAddress(username));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(destinatario));
+            message.setSubject(asunto);
+            message.setText(cuerpo);
 
-            System.out.println("Enviando mensaje...");
             Transport.send(message);
 
-            System.out.println("Correo enviado exitosamente a: " + correo);
+            System.out.println("Correo enviado exitosamente a " + destinatario);
         } catch (MessagingException e) {
             System.err.println("Error al enviar el correo: " + e.getMessage());
             e.printStackTrace();
-        } catch (Exception e) {
-            System.err.println("Error inesperado: " + e.getMessage());
-            e.printStackTrace();
+
         }
     }
+
+
+
+
+
 }
+
 
 

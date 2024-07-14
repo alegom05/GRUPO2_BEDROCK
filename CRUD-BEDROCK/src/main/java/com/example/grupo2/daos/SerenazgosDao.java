@@ -253,6 +253,42 @@ public class SerenazgosDao extends daoBase {
     }
 
 
+    public void colocarClave(int id, String contra) {
+        String sql = "UPDATE usuario SET clave = ? WHERE idUsuario = ?";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql);) {
+
+            pstmt.setString(1, contra);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public int buscarIdUsuario(int idSolicitud) {
+        int usuarioId = -1;
+        String sql = "SELECT usuario_idUsuario FROM solicitudes WHERE idsolicitudes = ?";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idSolicitud);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    usuarioId = rs.getInt("usuario_idUsuario");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return usuarioId;
+    }
+
+
 
 
 }

@@ -91,16 +91,21 @@
                         <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                     </button></td>
 
+
+
                     <td>
                         <a href="" data-bs-toggle="modal" data-bs-target="#modalReporte">
                             <img src="<%= request.getContextPath() %>/CoordinadorasJSPS/Iconos/report.png" alt="Descripción de la imagen" class="mi-imagen">
                         </a>
                     </td>
-                    <td>
-                        <a href="" class="" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+                    <%--<td>
+                        <a href="<%=request.getContextPath()%>/Coordis?action=deleteUsuario&idVecino=<%=vecino.getId()%>" class="" data-bs-toggle="modal" data-bs-target="#modalEliminar" >
                             <img src="<%= request.getContextPath() %>/CoordinadorasJSPS//Iconos/removeduser.png" alt="Descripción de la imagen" class="mi-imagen">
                         </a>
-                    </td>
+                    </td>--%>
+
+                    <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEliminar"  onclick="establecerIdParaEliminar(<%= vecino.getId() %>)">
+                        <img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>
                 </tr>
                 <% } %>
                 </tbody>
@@ -115,10 +120,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h5>¿Estás seguro de eliminar al vecino del evento?</h5>
+                        ¿Estás seguro de eliminar al vecino del evento?
+                        <input type="hidden" id="usuarioIdParaEliminar">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="confirmarEliminacion">Sí</button>
+                        <button type="button" class="btn btn-primary" onclick="confirmarEliminacion()">Sí</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     </div>
                 </div>
@@ -219,15 +225,24 @@
         }
     });
 
-    document.getElementById('confirmarEliminacion').addEventListener('click', function() {
+    document.getElementById('usuarioIdParaEliminar').addEventListener('click', function() {
         console.log('Vecino eliminado');
-        location.reload();
+       location.reload();
     });
 </script>
 <script>
     function detalleVecino(id) {
         // Redireccionar a otra página HTML
         window.location.href = '<%=request.getContextPath()%>/UsuarioServlet?action=detallar&id=' + id;
+    }
+
+    function establecerIdParaEliminar(idUsuario){
+        document.getElementById('usuarioIdParaEliminar').value = idUsuario;
+    }
+
+    function confirmarEliminacion(){
+        const idUsuario= document.getElementById('usuarioIdParaEliminar').value;
+        window.location.href= '<%=request.getContextPath()%>/Coordis?action=deleteUsuario&idVecino=' + idUsuario;
     }
 </script>
 </body>
