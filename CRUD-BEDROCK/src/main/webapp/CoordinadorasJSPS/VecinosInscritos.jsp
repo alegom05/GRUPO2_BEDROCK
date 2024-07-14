@@ -98,11 +98,7 @@
                             <img src="<%= request.getContextPath() %>/CoordinadorasJSPS/Iconos/report.png" alt="Descripción de la imagen" class="mi-imagen">
                         </a>
                     </td>
-                    <%--<td>
-                        <a href="<%=request.getContextPath()%>/Coordis?action=deleteUsuario&idVecino=<%=vecino.getId()%>" class="" data-bs-toggle="modal" data-bs-target="#modalEliminar" >
-                            <img src="<%= request.getContextPath() %>/CoordinadorasJSPS//Iconos/removeduser.png" alt="Descripción de la imagen" class="mi-imagen">
-                        </a>
-                    </td>--%>
+
 
                     <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEliminar"  onclick="establecerIdParaEliminar(<%= vecino.getId() %>)">
                         <img src="${pageContext.request.contextPath}/assets/icons/trash.svg" alt="Eliminar"></button></td>

@@ -19,7 +19,7 @@
                     <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
                 </div>
                 <div class="col-md-9 d-flex align-items-center justify-content-end">
-                    <a href="<%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>">
+                    <a href="javascript:void(0)" onclick="detallesUsuario('<%=usuarioSesion.getId()%>')">
                         <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
                     </a>
                     <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
@@ -40,13 +40,13 @@
                         <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear" class="nav-link">Reportar Incidencia</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=lista3&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                        <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/EventoServlet?action=calendario&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Mira Tu Calendario!</a>
+                        <a href="javascript:void(0)" onclick="verCalendario('<%=usuarioSesion.getId()%>')" class="nav-link">Mira Tu Calendario!</a>
                     </li>
                     <li class="nav-item">
-                        <a href="<%=request.getContextPath()%>/EventoServlet?action=listaEventosVecino&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Historial De Eventos</a>
+                        <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getId()%>')" class="nav-link">Historial De Eventos</a>
                     </li>
                 </ul>
             </nav>
@@ -85,14 +85,11 @@
                     <div>
                         <input type="hidden" name="id" class="form-control" value="<%=usuarioSesion.getId()%>">
                     </div>
-                    <div class="col me-4">
+                    <div class="col-md-4">
                         <div>
                             <label for="urbanizacionInput" class="form-label" style="margin-top: 10px;">Urbanización</label>
                             <div class="input-group">
                                 <input type="text" id="urbanizacionInput" class="form-control" name="urbanizacionInput" placeholder="<%=usuarioSesion.getUrbanizacion()%>" value="<%=usuarioSesion.getUrbanizacion()%>">
-                                <button class="btn btn-outline-secondary" type="button" onclick="enableField('urbanizacionInput')">
-                                    <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg" width="20" height="20">
-                                </button>
                             </div>
                         </div>
                         <div>
@@ -105,25 +102,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col me-4">
+                    <div class="col-md-4">
                         <div>
                             <label for="direccionInput" class="form-label" style="margin-top: 10px;">Dirección</label>
                             <div class="input-group">
                                 <input type="text" id="direccionInput" class="form-control" name="direccionInput" placeholder="<%=usuarioSesion.getDireccion()%>" value="<%=usuarioSesion.getDireccion()%>">
-                                <button class="btn btn-outline-secondary" type="button" onclick="enableField('direccionInput')">
-                                    <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg" width="20" height="20">
-                                </button>
                             </div>
                         </div>
                     </div>
-                    <div class="col me-4">
+                    <div class="col-md-4">
                         <div>
                             <label for="telefonoInput" class="form-label" style="margin-top: 10px;">Teléfono</label>
                             <div class="input-group">
                                 <input type="text" id="telefonoInput" class="form-control" name="telefonoInput" placeholder="<%=usuarioSesion.getNumtelefono()%>" value="<%=usuarioSesion.getNumtelefono()%>" oninput="validatePhoneInput(this)">
-                                <button class="btn btn-outline-secondary" type="button" onclick="enableField('telefonoInput')">
-                                    <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg" width="20" height="20">
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -249,6 +240,68 @@
                 setTimeout(() => {
                     successMessage.style.display = 'none';
                 }, 3000);
+            }
+        </script>
+        <script>
+            //listaincidencias//
+            function detallesUsuario(id) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '<%=request.getContextPath()%>/VecinoIndexServlet?action=editar';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'id';
+                input.value = id;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+            //listaincidencias//
+            function listaIncidencias(id) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '<%=request.getContextPath()%>/IncidenciaServlet?action=lista3';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'idUsuario';
+                input.value = id;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+            //vercalendario//
+            function verCalendario(id) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '<%=request.getContextPath()%>/EventoServlet?action=calendario';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'idUsuario';
+                input.value = id;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+            //historail eventos//
+            function historialEventos(id) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '<%=request.getContextPath()%>/EventoServlet?action=listaEventosVecino';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'idUsuario';
+                input.value = id;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
             }
         </script>
     </body>

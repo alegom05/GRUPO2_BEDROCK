@@ -180,6 +180,9 @@ public class IncidenciaServlet extends HttpServlet {
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         RequestDispatcher view;
 
+        //cambio para que no se vean las ips, si hay conflicto es culpa de vecinos :c
+        doGet(request,response);
+
         switch(action) {
             case "crear":
                 String nombreIncidencia = request.getParameter("nombreIncidencia");

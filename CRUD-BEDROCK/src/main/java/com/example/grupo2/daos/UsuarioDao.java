@@ -59,7 +59,7 @@ public class UsuarioDao extends daoBase {
                 "from evento_has_usuario ehu " +
                 "inner join evento e on ehu.idEvento = e.idEvento " +
                 "inner join usuario u on ehu.idUsuario = u.idUsuario " +
-                "where ehu.idEvento = ?;";
+                "where ehu.asistio= 1 and ehu.idEvento = ?;";
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -173,8 +173,8 @@ public class UsuarioDao extends daoBase {
         // Tambien lo de los acompañantes y sus tablas
         // Tambien paginas de redireccionamiento
 
-        String sql = "INSERT INTO basededatos3.evento_has_usuario (idEvento, idUsuario)\n" +
-                "VALUES (?,?);";
+        String sql = "INSERT INTO basededatos3.evento_has_usuario (idEvento, idUsuario,asistio)\n" +
+                "VALUES (?,?,1);";
 
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
