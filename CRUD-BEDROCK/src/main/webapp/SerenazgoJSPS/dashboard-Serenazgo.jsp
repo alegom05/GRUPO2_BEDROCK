@@ -1,6 +1,7 @@
 <%@ page import="com.example.grupo2.Beans.CantidadIncidencias" %>
 <%@ page import="com.example.grupo2.Beans.Incidencia" %>
-<%@ page import="com.example.grupo2.Beans.IncidenciasPorMes" %><%--
+<%@ page import="com.example.grupo2.Beans.IncidenciasPorMes" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: doria
   Date: 9/06/2024
@@ -12,6 +13,7 @@
 
 <% CantidadIncidencias cantidadIncidencias = (CantidadIncidencias) request.getAttribute("cantidad"); %>
 <% IncidenciasPorMes incidenciasPorMes = (IncidenciasPorMes) request.getAttribute("porMes"); %>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -436,7 +438,11 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-<div id="map" style="height: 400px;"></div>
+<div id="map" style="height: 400px; width: 100%;"></div>
+<%--Script del mapa--%>
+<%--<div id="map" style="height: 400px;"></div>--%>
+
+
 
 <script>
     var map = L.map('map').setView([-12.0789, -77.0828], 13); // Coordenadas de San Miguel, Lima
@@ -444,12 +450,39 @@
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© OpenStreetMap contributors'
     }).addTo(map);
-    <%--
-    <% for(Incidencia incidencia : listaIncidencias) { %>
-    L.marker([<%= incidencia.getLatitud() %>, <%= incidencia.getLongitud() %>])
-        .addTo(map)
-        .bindPopup("<%= incidencia.getDescripcion() %>");
-    <% } %>--%>OP
+
+    var meses = [
+        {nombre: "Enero", incidencias: <%= incidenciasPorMes.getEneroIncidencias() %>},
+        {nombre: "Febrero", incidencias: <%= incidenciasPorMes.getFebreroIncidencias() %>},
+        {nombre: "Marzo", incidencias: <%= incidenciasPorMes.getMarzoIncidencias() %>},
+        {nombre: "Abril", incidencias: <%= incidenciasPorMes.getAbrilIncidencias() %>},
+        {nombre: "Mayo", incidencias: <%= incidenciasPorMes.getMayoIncidencias() %>},
+        {nombre: "Junio", incidencias: <%= incidenciasPorMes.getJunioIncidencias() %>},
+        {nombre: "Julio", incidencias: <%= incidenciasPorMes.getJulioIncidencias() %>},
+        {nombre: "Agosto", incidencias: <%= incidenciasPorMes.getAugustIncidencias() %>},
+        {nombre: "Septiembre", incidencias: <%= incidenciasPorMes.getSeptiemIncidencias() %>},
+        {nombre: "Octubre", incidencias: <%= incidenciasPorMes.getOctopusIncidencias() %>},
+        {nombre: "Noviembre", incidencias: <%= incidenciasPorMes.getNovemIncidencias() %>},
+        {nombre: "Diciembre", incidencias: <%= incidenciasPorMes.getDezemIncidencias() %>}
+    ];
+
+    meses.forEach(function(mes, index) {
+        var lat = -12.0789 + (Math.random() - 0.5) * 0.02;
+        var lng = -77.0828 + (Math.random() - 0.5) * 0.02;
+
+        var radius = Math.sqrt(mes.incidencias) * 2; // Ajusta el factor de escala según necesites
+        var color = "red"; // Puedes ajustar el color según tus necesidades
+
+        L.circleMarker([lat, lng], {
+            color: 'white',          // Color del borde
+            weight: 3,               // Grosor del borde
+            fillColor: color,        // Color de relleno (rojo, amarillo o verde según la criticidad)
+            fillOpacity: 0.8,        // Opacidad del relleno
+            radius: radius,          // Radio del círculo
+            opacity: 1
+        }).addTo(map)
+            .bindPopup(mes.nombre + ": " + mes.incidencias + " incidencias");
+    });
 </script>
 
 </body>
