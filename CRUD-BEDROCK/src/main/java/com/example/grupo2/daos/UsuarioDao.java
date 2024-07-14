@@ -539,6 +539,19 @@ public class UsuarioDao extends daoBase {
         return historialUsuario;
     }
 
+    public void borrarVecinoDeEvento(String id){
+        String sql= "DELETE FROM evento_has_usuario WHERE idUsuario = ?";
+
+        try (Connection conn = this.getConnection();) {
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, id);
+                pstmt.executeUpdate();
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }
 

@@ -97,7 +97,7 @@
                         </a>
                     </td>
                     <td>
-                        <a href="" class="" data-bs-toggle="modal" data-bs-target="#modalEliminar">
+                        <a href="" class="" data-bs-toggle="modal" data-bs-target="#modalEliminar" onclick="establecerIdParaEliminar(<%=vecino.getId() %>)">
                             <img src="<%= request.getContextPath() %>/CoordinadorasJSPS//Iconos/removeduser.png" alt="Descripción de la imagen" class="mi-imagen">
                         </a>
                     </td>
@@ -116,9 +116,10 @@
                     </div>
                     <div class="modal-body">
                         <h5>¿Estás seguro de eliminar al vecino del evento?</h5>
+                        <input type="hidden" id="usuarioIdParaEliminar">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" id="confirmarEliminacion">Sí</button>
+                        <button type="button" class="btn btn-primary" onclick="confirmarEliminacion()">Sí</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
                     </div>
                 </div>
@@ -219,15 +220,24 @@
         }
     });
 
-    document.getElementById('confirmarEliminacion').addEventListener('click', function() {
+    document.getElementById('usuarioIdParaEliminar').addEventListener('click', function() {
         console.log('Vecino eliminado');
-        location.reload();
+       location.reload();
     });
 </script>
 <script>
     function detalleVecino(id) {
         // Redireccionar a otra página HTML
         window.location.href = '<%=request.getContextPath()%>/UsuarioServlet?action=detallar&id=' + id;
+    }
+
+    function establecerIdParaEliminar(idUsuario){
+        document.getElementById('usuarioIdParaEliminar').value = idUsuario;
+    }
+
+    function confirmarEliminacion(){
+        const idUsuario= document.getElementById('usuarioIdParaEliminar').value;
+        window.location.href= '<%=request.getContextPath()%>/Coordis?action=deleteUsuario&id' + idUsuario;
     }
 </script>
 </body>

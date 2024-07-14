@@ -99,6 +99,17 @@ public class CoordisRolServlet extends HttpServlet {
                 }
                 break;
 
+                //
+            //Case eliminar usuario
+            case "deleteUsuario":
+                String idee= request.getParameter("idUsuario");
+                Usuario vecino= usuarioDao.buscarPorId(Integer.parseInt(idee));
+                if(vecino!=null){
+                    usuarioDao.borrarVecinoDeEvento(idee);
+                }
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/VecinosInscritos.jsp");
+                break;
+
             //Case para elminar eventos
             case "deleteEventos":
                 String ide= request.getParameter("id");
@@ -563,8 +574,6 @@ public class CoordisRolServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/Coordis?action=listaCoordi&idUsuario=" + idUsuario2);
 
                 break;
-
-
 
 
         }
