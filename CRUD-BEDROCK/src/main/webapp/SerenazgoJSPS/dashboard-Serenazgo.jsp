@@ -279,6 +279,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
+                    <div class="card flex-fill w-100">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Mapa de Incidencias en San Miguel</h5>
+                        </div>
+                        <div class="card-body">
+                            <div id="map" style="height: 400px; width: 100%;"></div>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>
@@ -435,14 +445,79 @@
     });
 </script>
 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
-<div id="map" style="height: 400px; width: 100%;"></div>
-<%--Script del mapa--%>
-<%--<div id="map" style="height: 400px;"></div>--%>
+<script>
+    // Coordenadas más precisas del centro de San Miguel, Lima, Perú
+    var sanMiguelCoords = [-12.0789, -77.0842];
 
+    // Inicializar el mapa con un zoom más cercano
+    var map = L.map('map').setView(sanMiguelCoords, 14);
 
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // GeoJSON que define los límites más precisos de San Miguel
+    var sanMiguelBoundaries = {
+        "type": "Feature",
+        "properties": {"name": "San Miguel"},
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [[
+                [-77.1015, -12.0670],
+                [-77.0950, -12.0670],
+                [-77.0880, -12.0700],
+                [-77.0800, -12.0750],
+                [-77.0750, -12.0830],
+                [-77.0700, -12.0900],
+                [-77.0750, -12.0950],
+                [-77.0850, -12.0980],
+                [-77.0950, -12.0950],
+                [-77.1000, -12.0900],
+                [-77.1050, -12.0800],
+                [-77.1015, -12.0670]
+            ]]
+        }
+    };
+
+    // Añadir el polígono de San Miguel al mapa y ajustar la vista
+    L.geoJSON(sanMiguelBoundaries, {
+        style: {
+            color: "#ff7800",
+            weight: 3,
+            opacity: 0.65,
+            fillOpacity: 0.2
+        }
+    }).addTo(map);
+
+    // Ajustar la vista del mapa a los límites de San Miguel
+    map.fitBounds(L.geoJSON(sanMiguelBoundaries).getBounds());
+
+    // Código para añadir marcadores de incidencias
+    var meses = [
+        // ... (tu array de meses e incidencias) ...
+    ];
+
+    meses.forEach(function(mes, index) {
+        var lat = sanMiguelCoords[0] + (Math.random() - 0.5) * 0.01;
+        var lng = sanMiguelCoords[1] + (Math.random() - 0.5) * 0.01;
+
+        var radius = Math.sqrt(mes.incidencias) * 2;
+        var color = "red";
+
+        L.circleMarker([lat, lng], {
+            color: 'white',
+            weight: 2,
+            fillColor: color,
+            fillOpacity: 0.8,
+            radius: radius,
+            opacity: 1
+        }).addTo(map)
+            .bindPopup(mes.nombre + ": " + mes.incidencias + " incidencias");
+    });
+</script>
 
 <script>
     var map = L.map('map').setView([-12.0789, -77.0828], 13); // Coordenadas de San Miguel, Lima
