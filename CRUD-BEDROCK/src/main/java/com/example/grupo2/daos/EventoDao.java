@@ -17,8 +17,8 @@ public class EventoDao extends daoBase{
         // Se modifica la consulta SQL para filtrar por tipo de coordinadora
         String sql = "SELECT DISTINCT e.*, p.nombre AS nombreProfesor " +
                 "FROM evento e " +
-                "INNER JOIN evento_has_usuario eu ON e.idEvento = eu.idEvento " +
-                "INNER JOIN usuario u ON eu.idUsuario = u.idUsuario " +
+                //"INNER JOIN evento_has_usuario eu ON e.idEvento = eu.idEvento " +
+                //"INNER JOIN usuario u ON eu.idUsuario = u.idUsuario " +
                 "INNER JOIN profesor p ON e.idProfesor = p.idProfesor " ;
 
         // Añadimos las condiciones según el tipo de usuario

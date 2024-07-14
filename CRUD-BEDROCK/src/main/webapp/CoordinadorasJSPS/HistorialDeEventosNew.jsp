@@ -56,7 +56,7 @@
                 <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>

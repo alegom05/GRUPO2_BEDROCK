@@ -35,7 +35,8 @@ public class EventoServlet extends HttpServlet {
         switch (action) {
             //Este case será para el listado de eventos de coordinadora
             case "lista":
-                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
+                String tipoUsuario= request.getParameter("tipoUsuario");
+                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi(tipoUsuario);
                 request.setAttribute("listaEventos",listaEventos2);
 
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
