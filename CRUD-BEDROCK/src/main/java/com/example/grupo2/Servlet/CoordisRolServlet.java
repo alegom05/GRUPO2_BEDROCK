@@ -50,7 +50,7 @@ public class CoordisRolServlet extends HttpServlet {
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
                 view.forward(request,response);
                 break;*/
-            eventoDao.updateEventStatus();
+            //eventoDao.updateEventStatus();
             String tipoUsuario= request.getParameter("tipoUsuario");
             ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi(tipoUsuario);
             // Depuración: imprimir la lista original

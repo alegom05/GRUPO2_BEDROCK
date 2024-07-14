@@ -698,12 +698,12 @@ public class EventoDao extends daoBase{
 
     }
 
-    public void updateEventStatus() {
+   /* public void updateEventStatus() {
         /*String query = "UPDATE evento SET estadoEvento = CASE " +
                 "WHEN NOW() < CONCAT(fechaInicial, ' ', hora) THEN 'Pronto' " +
                 "WHEN NOW() BETWEEN CONCAT(fechaInicial, ' ', hora) AND IFNULL( horaFin, '9999-12-31 23:59:59') THEN 'En curso' " +
                 "WHEN NOW() > fechaFinal OR (horaFin IS NOT NULL AND NOW() > horaFin) THEN 'Finalizado' " +
-                "ELSE estadoEvento END";*/
+                "ELSE estadoEvento END";//
         String query = "UPDATE evento SET estadoEvento = CASE " +
                 "WHEN NOW() < CONCAT(fechaInicial, ' ', hora) THEN 'Pronto' " +
                 "WHEN NOW() BETWEEN CONCAT(fechaInicial, ' ', hora) AND   '9999-12-31 23:59:59' THEN 'En curso' " +
@@ -719,5 +719,5 @@ public class EventoDao extends daoBase{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }
