@@ -35,7 +35,8 @@ public class EventoServlet extends HttpServlet {
         switch (action) {
             //Este case será para el listado de eventos de coordinadora
             case "lista":
-                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
+                String tipoUsuario= request.getParameter("tipoUsuario");
+                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi(tipoUsuario);
                 request.setAttribute("listaEventos",listaEventos2);
 
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
@@ -236,11 +237,11 @@ public class EventoServlet extends HttpServlet {
                     if (horaParam != null && !horaParam.isEmpty()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                         long ms = sdf.parse(horaParam).getTime();
-                        evento1.setHora(new Time(ms));
+                        evento1.setHoraInicio(new Time(ms));
                     }
 
                     evento1.setMateriales(materiales);
-                    evento1.setFrecuencia(Integer.parseInt(frecuencia));
+                    evento1.setFrecuencia(frecuencia);
                     evento1.setTipo(tipoEvento);
                     evento1.setFoto(foto);
                     evento1.setIdProfesor(4);
@@ -268,7 +269,7 @@ public class EventoServlet extends HttpServlet {
                 System.out.println(evento1.getVacantes());
                 System.out.println(evento1.getFechaInicial());
                 System.out.println(evento1.getFechaFinal());
-                System.out.println(evento1.getHora());
+                System.out.println(evento1.getHoraInicio());
                 System.out.println(evento1.getMateriales());
                 System.out.println(evento1.getFrecuencia());
                 System.out.println(evento1.getTipo());

@@ -23,6 +23,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 
 @MultipartConfig
@@ -43,9 +45,26 @@ public class CoordisRolServlet extends HttpServlet {
         switch (action) {
             //Este case será para el listado de eventos de coordinadora
             case "listaEventos":
-                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
-                request.setAttribute("listaEventos",listaEventos2);
+                // Actualizar el estado de los eventos antes de listarlos
+                eventoDao.updateEventStatus();
+                String tipoUsuario= request.getParameter("tipoUsuario");
+                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi(tipoUsuario);
+                // Depuración: imprimir la lista original
+                System.out.println("Lista original:");
+                for (Evento evento : listaEventos2) {
+                    System.out.println(evento);
+                }
 
+                // Eliminar duplicados
+                Set<Evento> uniqueEventos = new HashSet<>(listaEventos2);
+                listaEventos2 = new ArrayList<>(uniqueEventos);
+
+                // Depuración: imprimir la lista después de eliminar duplicados
+                System.out.println("Lista después de eliminar duplicados:");
+                for (Evento evento : listaEventos2) {
+                    System.out.println(evento);
+                }
+                request.setAttribute("listaEventos",listaEventos2);
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
                 view.forward(request,response);
                 break;
@@ -262,7 +281,7 @@ public class CoordisRolServlet extends HttpServlet {
 
         switch (action) {
             //Crear Evento
-            case "crearEvento":
+            /*case "crearEvento":
 
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
@@ -310,11 +329,11 @@ public class CoordisRolServlet extends HttpServlet {
                     if (horaParam != null && !horaParam.isEmpty()) {
                         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
                         long ms = sdf.parse(horaParam).getTime();
-                        evento1.setHora(new Time(ms));
+                        evento1.setHoraInicio(new Time(ms));
                     }
 
                     evento1.setMateriales(materiales);
-                    evento1.setFrecuencia(Integer.parseInt(frecuencia));
+                    evento1.setFrecuencia(frecuencia);
                     evento1.setTipo(tipoEvento);
                     evento1.setFoto(foto);
                     evento1.setIdProfesor(Integer.parseInt(encargado));
@@ -342,7 +361,7 @@ public class CoordisRolServlet extends HttpServlet {
                 }*/
                 /*request.setAttribute("profesores", listprofesores);
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/CrearEvento.jsp");
-                view.forward(request, response);*/
+                view.forward(request, response);  //cerrar aqui
                 System.out.println(evento1.getNombre());
                 System.out.println(evento1.getDescripcion());
                 System.out.println(evento1.getLugar());
@@ -350,12 +369,12 @@ public class CoordisRolServlet extends HttpServlet {
                 System.out.println(evento1.getVacantes());
                 System.out.println(evento1.getFechaInicial());
                 System.out.println(evento1.getFechaFinal());
-                System.out.println(evento1.getHora());
+                System.out.println(evento1.getHoraInicio());
                 System.out.println(evento1.getMateriales());
                 System.out.println(evento1.getFrecuencia());
                 System.out.println(evento1.getTipo());
 
-                break;
+                break;*/
             //Este case servirá para que coordi confirme que asistió al evento (por ahora solo podemos subir una foto,
             //se debe arreglar base de datos para solucionar eso)
             case "publicarFotosAsistencia":
@@ -494,6 +513,72 @@ public class CoordisRolServlet extends HttpServlet {
 
                 break;
 
+            case "creacionEvento":
+
+                    String nombre = request.getParameter("nombre");
+                    String descripcion = request.getParameter("descripcion");
+                    String materiales = request.getParameter("materiales");
+                    String lugar = request.getParameter("lugar");
+                    int vacantes = Integer.parseInt(request.getParameter("vacantes"));
+                    Date fechaInicio = Date.valueOf(request.getParameter("fechaInicio"));
+                    Date fechaFin = Date.valueOf(request.getParameter("fechaFin"));
+                    //Time horaInicio = Time.valueOf(request.getParameter("hora"));
+                    String horaStr = request.getParameter("hora"); // Obtener la hora desde el formulario
+                    String horaCompletaStr = horaStr + ":00"; // Agregar los segundos, asumiendo siempre 00 segundos
+
+// Convertir a java.sql.Time
+                java.sql.Time hora = java.sql.Time.valueOf(horaCompletaStr);
+
+// Ahora puedes usar 'hora' en tu PreparedStatement
+                //ps.setTime(7, hora);
+                    String frecuencia = request.getParameter("frecuencia");
+                    int idProfesor = Integer.parseInt(request.getParameter("profesorId"));
+                    String tipo = request.getParameter("tipoEvento");
+
+                    InputStream inputStream = null;
+                    Part filePart = request.getPart("imagen");
+                    if (filePart != null) {
+                        inputStream = filePart.getInputStream();
+                    }
+
+                    Evento evento = new Evento();
+                    evento.setNombre(nombre);
+                    evento.setDescripcion(descripcion);
+                    evento.setMateriales(materiales);
+                    evento.setLugar(lugar);
+                    evento.setVacantes(vacantes);
+                    evento.setFechaInicial(fechaInicio);
+                    evento.setFechaFinal(fechaFin);
+                    evento.setHoraInicio(hora);
+                    evento.setFrecuencia(frecuencia);
+                    evento.setFoto(inputStream);
+                    evento.setIdProfesor(idProfesor);
+                    evento.setTipo(tipo);
+
+                    int[] diasSemana = new int[7];
+                    if (frecuencia.equals("weekly")) {
+                        if (request.getParameter("lunes") != null) diasSemana[0] = 1;
+                        if (request.getParameter("martes") != null) diasSemana[1] = 2;
+                        if (request.getParameter("miercoles") != null) diasSemana[2] = 3;
+                        if (request.getParameter("jueves") != null) diasSemana[3] = 4;
+                        if (request.getParameter("viernes") != null) diasSemana[4] = 5;
+                        if (request.getParameter("sabado") != null) diasSemana[5] = 6;
+                        if (request.getParameter("domingo") != null) diasSemana[6] = 7;
+                    }else if(frecuencia.equals("once")){
+                        eventoDao.crearEvento(evento);
+                    }
+
+
+                    boolean success = eventoDao.insertEvent(evento, diasSemana);
+
+                    if (success) {
+                        request.setAttribute("successMessage", "Evento registrado con éxito.");
+                    } else {
+                        request.setAttribute("errorMessage", "Error al registrar el evento. Por favor, inténtelo de nuevo.");
+                    }
+
+                    //request.getRequestDispatcher("/Coordis?action=listaEventos").forward(request, response);
+                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
 
 
 

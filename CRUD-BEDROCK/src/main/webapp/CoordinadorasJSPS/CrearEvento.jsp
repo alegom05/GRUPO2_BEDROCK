@@ -61,7 +61,7 @@
         <div class="contenedor mt-4 text-center">
             <h1>Crear Evento</h1>
         </div>
-         <form method="post" action="<%=request.getContextPath()%>/Coordis?action=crearEvento" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+         <form method="post" action="<%=request.getContextPath()%>/Coordis?action=creacionEvento" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
             <div class="col-md-6 mb-3">
                 <div class="contenedor mt-4 text-center">
 
@@ -149,11 +149,9 @@
                             <div class="col">
                                 <label for="frecuencia">Frecuencia</label>
                                 <select class="form-control" id="frecuencia" name="frecuencia" required>
-                                    <option value="1">1 vez por semana</option>
-                                    <option value="2">2 veces por semana</option>
-                                    <option value="3">3 veces por semana</option>
-                                    <option value="4">4 veces por semana</option>
-                                    <option value="5">5 veces por semana</option>
+                                    <option value="once">1 vez</option>
+                                    <option value="weekly">semanal</option>
+
                                 </select>
                                 <div class="invalid-feedback">Es necesario seleccionar la frecuencia del evento.</div>
                             </div>
@@ -161,7 +159,7 @@
                         <div class="mb-3">
                             <input type="hidden" class="form-control" id="tipoEvento" name="tipoEvento" value="<%=usuarioSesion.getTipo()%>">
                         </div>
-                        <!--<div class="row-md-auto mt-3">
+                        <div class="row-md-auto mt-3">
                             <label for="diasSemana">Días de la semana</label>
                             <div class="row">
                                 <div class="form-check col">
@@ -193,7 +191,7 @@
                                     <label class="form-check-label" for="domingo">Domingo</label>
                                 </div>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <div class="alert alert-success mt-3 d-none" id="successMessage">Evento registrado con éxito.</div>

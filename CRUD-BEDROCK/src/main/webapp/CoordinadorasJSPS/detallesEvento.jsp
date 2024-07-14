@@ -13,6 +13,7 @@
     boolean mostrarGuardar = (Boolean) request.getAttribute("mostrarGuardar");
     boolean mostrarIniciar = (Boolean) request.getAttribute("mostrarIniciar");
     boolean mostrarCerrar = (Boolean) request.getAttribute("mostrarCerrar");
+    String estadoEvento = evento.getEstadoEvento();
 
     %>
 <!DOCTYPE html>
@@ -34,7 +35,16 @@
                 <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
             </div>
             <div class="col-md-9 d-flex align-items-center justify-content-end">
-                <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> </h2>
+                <!--h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">%=usuarioSesion.getNombre()%> </h2-->
+                <div class="usuario-info">
+                    <%
+                        String tipoUsuario = usuarioSesion.getTipo();
+                        String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
+                    %>
+                    <h3 style=" text-align: right;">
+                        <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
+                    </h3>
+                </div>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                     <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
                 </a>
@@ -137,11 +147,11 @@
                         <div class="col">
                             <label for="frecuenciaEvento">Frecuencia</label>
                             <select class="form-control" id="frecuenciaEvento">
-                                <option value="1"<%= Integer.parseInt("1") == evento.getFrecuencia() ? "selected" : "" %>>1</option>
-                                <option value="2"<%= Integer.parseInt("2") == evento.getFrecuencia() ? "selected" : "" %>>2</option>
-                                <option value="3"<%= Integer.parseInt("3") == evento.getFrecuencia() ? "selected" : "" %>>3</option>
-                                <option value="4"<%= Integer.parseInt("4") == evento.getFrecuencia() ? "selected" : "" %>>4</option>
-                                <option value="5"<%= Integer.parseInt("5") == evento.getFrecuencia() ? "selected" : "" %>>5</option>
+                                <option value="1"<%= Integer.parseInt("1") == evento.getFrecuencia() ? "selected" : "" %>>1 vez por semana</option>
+                                <option value="2"<%= Integer.parseInt("2") == evento.getFrecuencia() ? "selected" : "" %>>2 veces por semana</option>
+                                <option value="3"<%= Integer.parseInt("3") == evento.getFrecuencia() ? "selected" : "" %>>3 veces por semana</option>
+                                <option value="4"<%= Integer.parseInt("4") == evento.getFrecuencia() ? "selected" : "" %>>4 veces por semana</option>
+                                <option value="5"<%= Integer.parseInt("5") == evento.getFrecuencia() ? "selected" : "" %>>5 veces por semana</option>
                             </select>
                         </div>
                     </div>
@@ -182,7 +192,20 @@
                 </div>
             </form>
         </div>
-        <div class="container mt-4 text-center">
+        <!--<div class="container mt-4 text-center">
+            <div class="mt-4">
+                % if ("Pronto".equals(estadoEvento)) { %>
+                <button class="btn btn-primary" onclick="location.href='%= request.getContextPath() %>/EditarEventoServlet?id=%= evento.getIdEvento() %>'">Editar</button>
+                <button class="btn btn-danger" onclick="mostrarModalEliminar(%= evento.getIdEvento() %>)">Eliminar</button>
+                <button class="btn btn-info" onclick="location.href='%= request.getContextPath() %>/ListaParticipantesServlet?id=%= evento.getIdEvento() %>'">Ver Lista de Participantes</button>
+                <button class="btn btn-success" onclick="location.href='%= request.getContextPath() %>/IniciarEventoServlet?id=%= evento.getIdEvento() %>'">Iniciar</button>
+                % } else if ("En curso".equals(estadoEvento)) { %>
+                <button class="btn btn-warning" onclick="location.href='%= request.getContextPath() %>/FinalizarEventoServlet?id=%= evento.getIdEvento() %>'">Finalizar</button>
+                <button class="btn btn-info" onclick="location.href='%= request.getContextPath() %>/ListaParticipantesServlet?id=%= evento.getIdEvento() %>'">Ver Lista de Participantes</button>
+                % } else if ("Finalizado".equals(estadoEvento)) { %>
+                <button class="btn btn-info" onclick="location.href='%= request.getContextPath() %>/ListaParticipantesServlet?id=%= evento.getIdEvento() %>'">Ver Lista de Participantes</button>
+                % } %>
+            </div>-->
 
             <!-- Versión que te lleva a modal, lo comento por el momento-->
             <!--<a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</a>-->
@@ -216,7 +239,7 @@
                     </div>
                 </div>
             </div>
-
+<!-- se puede usar synchronized para sincornizar funciones o en este caso botnoes -->
             <% if (mostrarCerrar) { %>
             <button type="button" class="btn btn-primary" id="btnRedireccional" data-bs-toggle="modal" data-bs-target="#culminarEventoModal" onclick="mostrarModalCulminar(<%= evento.getIdEvento()%>)">Culminar evento</button>
             <% } %>

@@ -17,44 +17,50 @@ public class EventoDao {
     //falta una conexión uno amuchos en la base de datos
     //Este listado se debería modificar una vez se tenga la relación uno a muchos en la tabla de datos,
     //lo único que cambiaría es agregar un "where idUsuario= " y estaría correcto
-    public static ArrayList<Evento> listarEventosParaCoordi(){
-        try{
+    public static ArrayList<Evento> listarEventosParaCoordi(String tipoUsuario) {
+        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-        }catch(ClassNotFoundException e){
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
 
         ArrayList<Evento> listaEventos = new ArrayList<>();
 
-        String url= "jdbc:mysql://localhost:3306/basededatos3?";
-        String username= "root";
-        String password= "root";
+        String url = "jdbc:mysql://localhost:3306/basededatos3?";
+        String username = "root";
+        String password = "root";
 
-        String sql="SELECT e.*, p.nombre AS nombreProfesor\n" +
-                "                FROM evento e\n" +
-                "                INNER JOIN profesor p ON e.idProfesor = p.idProfesor;";
+        // Se modifica la consulta SQL para filtrar por tipo de coordinadora
+        String sql = "SELECT e.*, p.nombre AS nombreProfesor " +
+                "FROM evento e " +
+                "INNER JOIN profesor p ON e.idProfesor = p.idProfesor " +
+                "WHERE e.tipo = ?;";
 
+        try (Connection conn = DriverManager.getConnection(url, username, password);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-        try(Connection conn= DriverManager.getConnection(url,username,password);
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
-            ResultSet rs= pstmt.executeQuery();
-            while (rs.next()){
+            // Se establece el parámetro tipo en la consulta
+            pstmt.setString(1, tipoUsuario);
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
                 Evento evento = new Evento();
                 evento.setIdEvento(rs.getInt("idEvento"));
-                evento.setNombre(rs.getString("nombre"));//1
+                evento.setNombre(rs.getString("nombre"));
                 evento.setNombreProfesor(rs.getString("nombreProfesor"));
                 evento.setLugar(rs.getString("lugar"));
-                evento.setFechaInicial(rs.getDate("fechaInicial"));//3
-                evento.setEstadoEvento(rs.getString("estadoEvento"));//2
-                listaEventos.add(evento);
+                evento.setFechaInicial(rs.getDate("fechaInicial"));
+                evento.setEstadoEvento(rs.getString("estadoEvento"));
 
+                listaEventos.add(evento);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(listaEventos);
+
         return listaEventos;
     }
+
 
 
     public static ArrayList<Evento> listarEventosCoordi(String id){
@@ -122,11 +128,11 @@ public class EventoDao {
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
                     Evento evento = new Evento();
-                    evento.setNombre(rs.getString(1));
-                    evento.setNombreProfesor(rs.getString(2));
-                    evento.setLugar(rs.getString(3));
-                    evento.setFechaInicial(rs.getDate(4));
-                    evento.setEstadoEvento(rs.getString(5));
+                    evento.setNombre(rs.getString("nombre"));
+                    evento.setNombreProfesor(rs.getString("nombre"));
+                    evento.setLugar(rs.getString("lugar"));
+                    evento.setFechaInicial(rs.getDate("fechaInicial"));
+                    evento.setEstadoEvento(rs.getString("estadoEvento"));
 
                     listaEventos.add(evento);
                 }
@@ -163,24 +169,24 @@ public class EventoDao {
             while (rs.next()) {
                 Evento evento = new Evento();
                 evento.setIdEvento(rs.getInt(1));
-                evento.setNombre(rs.getString(2));
-                evento.setFechaInicial(rs.getDate(3));
-                evento.setFechaFinal(rs.getDate(4));
-                Blob fotoBlob = rs.getBlob(5);
+                evento.setNombre(rs.getString("nombre"));
+                evento.setFechaInicial(rs.getDate("fechaInicial"));
+                evento.setFechaFinal(rs.getDate("fechaFinal"));
+                Blob fotoBlob = rs.getBlob("foto");
                 if (fotoBlob != null) {
                     evento.setFoto(fotoBlob.getBinaryStream());
                 } else {
                     evento.setFoto(null);
                 }
-                evento.setMateriales(rs.getString(6));
-                evento.setLugar(rs.getString(7));
-                evento.setHora(rs.getTime(8));
-                evento.setFrecuencia(rs.getInt(9));
-                evento.setVacantes(rs.getInt(10));
-                evento.setDescripcion(rs.getString(11));
-                evento.setTipo(rs.getString(12));
-                evento.setIdProfesor(rs.getInt(13));
-                evento.setEstadoEvento(rs.getString(14));
+                evento.setMateriales(rs.getString("materiales"));
+                evento.setLugar(rs.getString("lugar"));
+                evento.setHoraInicio(rs.getTime("hora"));
+                evento.setFrecuencia(rs.getString("frecuencia"));
+                evento.setVacantes(rs.getInt("vacantes"));
+                evento.setDescripcion(rs.getString("descripcion"));
+                evento.setTipo(rs.getString("tipo"));
+                evento.setIdProfesor(rs.getInt("idProfesor"));
+                evento.setEstadoEvento(rs.getString("estadoEvento"));
 
                 lista.add(evento);
             }
@@ -209,24 +215,24 @@ public class EventoDao {
             while (rs.next()) {
                 Evento evento = new Evento();
                 evento.setIdEvento(rs.getInt(1));
-                evento.setNombre(rs.getString(2));
-                evento.setFechaInicial(rs.getDate(3));
-                evento.setFechaFinal(rs.getDate(4));
-                Blob fotoBlob = rs.getBlob(12);
+                evento.setNombre(rs.getString("nombre"));
+                evento.setFechaInicial(rs.getDate("fechaInicial"));
+                evento.setFechaFinal(rs.getDate("fechaFinal"));
+                Blob fotoBlob = rs.getBlob("foto");
                 if (fotoBlob != null) {
                     evento.setFoto(fotoBlob.getBinaryStream());
                 } else {
                     evento.setFoto(null);
                 }
-                evento.setMateriales(rs.getString(6));
-                evento.setLugar(rs.getString(7));
-                evento.setHora(rs.getTime(8));
-                evento.setFrecuencia(rs.getInt(9));
-                evento.setVacantes(rs.getInt(10));
-                evento.setDescripcion(rs.getString(11));
-                evento.setTipo(rs.getString(12));
-                evento.setIdProfesor(rs.getInt(13));
-                evento.setEstadoEvento(rs.getString(14));
+                evento.setMateriales(rs.getString("materiaales"));
+                evento.setLugar(rs.getString("lugar"));
+                evento.setHoraInicio(rs.getTime("hora"));
+                evento.setFrecuencia(rs.getString("frecuencia"));
+                evento.setVacantes(rs.getInt("vacantes"));
+                evento.setDescripcion(rs.getString("descripcion"));
+                evento.setTipo(rs.getString("tipo"));
+                evento.setIdProfesor(rs.getInt("idProfesor"));
+                evento.setEstadoEvento(rs.getString("estadoEvento"));
 
                 lista.add(evento);
             }
@@ -295,23 +301,23 @@ public class EventoDao {
                 evento.setIdEvento(rs.getInt(1));
                 evento.setNombre(rs.getString(2));
 
-                evento.setFechaInicial(rs.getDate(3));
-                evento.setFechaFinal(rs.getDate(4));
-                Blob fotoBlob = rs.getBlob(12);
+                evento.setFechaInicial(rs.getDate("fechaInicial"));
+                evento.setFechaFinal(rs.getDate("fechaFinal"));
+                Blob fotoBlob = rs.getBlob("foto");
                 if (fotoBlob != null) {
                     evento.setFoto(fotoBlob.getBinaryStream());
                 } else {
                     evento.setFoto(null);
                 }
-                evento.setMateriales(rs.getString(6));
-                evento.setLugar(rs.getString(7));
-                evento.setHora(rs.getTime(8));
-                evento.setFrecuencia(rs.getInt(9));
-                evento.setVacantes(rs.getInt(10));
-                evento.setDescripcion(rs.getString(11));
-                evento.setTipo(rs.getString(12));
-                evento.setIdProfesor(rs.getInt(13));
-                evento.setEstadoEvento(rs.getString(14));
+                evento.setMateriales(rs.getString("materiales"));
+                evento.setLugar(rs.getString("lugar"));
+                evento.setHoraInicio(rs.getTime("hora"));
+                evento.setFrecuencia(rs.getString("frecuencia"));
+                evento.setVacantes(rs.getInt("vacantes"));
+                evento.setDescripcion(rs.getString("descripcion"));
+                evento.setTipo(rs.getString("tipo"));
+                evento.setIdProfesor(rs.getInt("idProfesor"));
+                evento.setEstadoEvento(rs.getString("estadoEvento"));
 
                 lista.add(evento);
             }
@@ -346,7 +352,7 @@ public class EventoDao {
                 evento.setIdEvento(rs.getInt(1));
                 evento.setNombre(rs.getString(2));
                 evento.setFechaInicial(rs.getDate(3));
-                evento.setHora(rs.getTime(4));
+                evento.setHoraInicio(rs.getTime(4));
                 evento.setDescripcion(rs.getString(5));
 
                 lista.add(evento);
@@ -428,24 +434,24 @@ public class EventoDao {
 
                     evento.setIdEvento(rs.getInt(1));
                     evento.setNombre(rs.getString(2));
-                    evento.setFechaInicial(rs.getDate(3));
-                    evento.setFechaFinal(rs.getDate(4));
-                    Blob fotoBlob = rs.getBlob(5);
+                    evento.setFechaInicial(rs.getDate("fechaInicial"));
+                    evento.setFechaFinal(rs.getDate("fechaFinal"));
+                    Blob fotoBlob = rs.getBlob("foto");
                     if (fotoBlob != null) {
                         evento.setFoto(fotoBlob.getBinaryStream());
                     } else {
                         evento.setFoto(null);
                     }
-                    evento.setMateriales(rs.getString(6));
-                    evento.setLugar(rs.getString(7));
-                    evento.setHora(rs.getTime(8));
-                    evento.setFrecuencia(rs.getInt(9));
-                    evento.setVacantes(rs.getInt(10));
-                    evento.setDescripcion(rs.getString(11));
-                    evento.setTipo(rs.getString(12));
-                    evento.setIdProfesor(rs.getInt(13));
-                    evento.setEstadoEvento(rs.getString(14));
-                    evento.setNombreProfesor(rs.getString(15));
+                    evento.setMateriales(rs.getString("materiales"));
+                    evento.setLugar(rs.getString("lugar"));
+                    evento.setHoraInicio(rs.getTime("hora"));
+                    evento.setFrecuencia(rs.getString("frecuencia"));
+                    evento.setVacantes(rs.getInt("vacantes"));
+                    evento.setDescripcion(rs.getString("descripcion"));
+                    evento.setTipo(rs.getString("tipo"));
+                    evento.setIdProfesor(rs.getInt("idProfesor"));
+                    evento.setEstadoEvento(rs.getString("estadoEvento"));
+                    evento.setNombreProfesor(rs.getString("nombreProfesor"));
                 }
             }
         } catch (SQLException e) {
@@ -477,7 +483,7 @@ public class EventoDao {
             pstmt.setInt(5,evento.getVacantes());
             pstmt.setDate(6,evento.getFechaInicial());
             pstmt.setDate(7,evento.getFechaFinal());
-            pstmt.setTime(8,evento.getHora());
+            pstmt.setTime(8,evento.getHoraInicio());
             pstmt.executeUpdate();
 
         }catch (SQLException e){
@@ -510,8 +516,8 @@ public class EventoDao {
                     }
                     pstmt.setString(5,evento.getMateriales());
                     pstmt.setString(6,evento.getLugar());
-                    pstmt.setTime(7,evento.getHora());
-                    pstmt.setInt(8,evento.getFrecuencia());
+                    pstmt.setTime(7,evento.getHoraInicio());
+                    pstmt.setString(8,evento.getFrecuencia());
                     pstmt.setInt(9,evento.getVacantes());
                     pstmt.setString(10,evento.getDescripcion());
                     pstmt.setString(11,evento.getTipo());
@@ -540,7 +546,7 @@ public class EventoDao {
             pstmt.setInt(5, evento.getVacantes());
             pstmt.setDate(6, evento.getFechaInicial());
             pstmt.setDate(7, evento.getFechaFinal());
-            pstmt.setTime(8,evento.getHora());
+            pstmt.setTime(8,evento.getHoraInicio());
             pstmt.executeUpdate();
 
 
@@ -602,7 +608,7 @@ public class EventoDao {
                 eventoUsuario.setLugar(rs.getString(3));
                 eventoUsuario.setTipo(rs.getString(4));
                 eventoUsuario.setFechaInicial(rs.getDate(5));
-                eventoUsuario.setHora(rs.getTime(6));
+                eventoUsuario.setHoraInicio(rs.getTime(6));
 
                 listaEventosUsuario.add(eventoUsuario);
             }
@@ -683,4 +689,87 @@ public class EventoDao {
         }
 
     }
+
+        private static final String DB_URL = "jdbc:mysql://localhost:3306/basededatos3";
+        private static final String DB_USER = "root";
+        private static final String DB_PASSWORD = "root";
+
+        public void updateEventStatus() {
+            String query = "UPDATE evento SET estadoEvento = CASE " +
+                    "WHEN NOW() < CONCAT(fechaInicial, ' ', hora) THEN 'Pronto' " +
+                    "WHEN NOW() BETWEEN CONCAT(fechaInicial, ' ', hora) AND IFNULL(horaFin, '9999-12-31 23:59:59') THEN 'En curso' " +
+                    "WHEN NOW() > fechaFinal OR (horaFin IS NOT NULL AND NOW() > horaFin) THEN 'Finalizado' " +
+                    "ELSE estadoEvento END";
+
+            try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                 PreparedStatement stmt = conn.prepareStatement(query)) {
+
+                int rowsUpdated = stmt.executeUpdate();
+                System.out.println("Updated " + rowsUpdated + " rows.");
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+    public boolean insertEvent(Evento evento, int[] diasSemana) {
+        //Connection con = null;
+        //PreparedStatement ps = null;
+        ResultSet rs = null;
+        String sql = "INSERT INTO evento (nombre, fechaInicial, fechaFinal, foto, materiales, lugar, hora, frecuencia, vacantes, descripcion, tipo, idProfesor) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+             PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, evento.getNombre());
+            ps.setDate(2, evento.getFechaInicial());
+            ps.setDate(3, evento.getFechaFinal());
+            if (evento.getFoto() != null) {
+                ps.setBlob(4, evento.getFoto());
+            } else {
+                ps.setNull(4, Types.BLOB);
+            }
+            ps.setString(5, evento.getMateriales());
+            ps.setString(6, evento.getLugar());
+            ps.setTime(7, evento.getHoraInicio());
+            ps.setString(8, evento.getFrecuencia());
+            ps.setInt(9, evento.getVacantes());
+            ps.setString(10, evento.getDescripcion());
+            ps.setString(11, evento.getTipo());
+            ps.setInt(12, evento.getIdProfesor());
+
+            int affectedRows = ps.executeUpdate();
+
+            if (affectedRows == 0) {
+                throw new SQLException("Creating event failed, no rows affected.");
+            }
+
+            try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+                if (generatedKeys.next()) {
+                    long eventId = generatedKeys.getLong(1);
+
+                    // Insertar días de la semana si la frecuencia es semanal
+                    if (evento.getFrecuencia().equals("weekly")) {
+                        String sqlDays = "INSERT INTO event_days (event_id, day_of_week) VALUES (?, ?)";
+                        try (PreparedStatement psDays = conn.prepareStatement(sqlDays)) {
+                            for (int day : diasSemana) {
+                                psDays.setLong(1, eventId);
+                                psDays.setInt(2, day);
+                                psDays.executeUpdate();
+                            }
+                        }
+                    }
+                } else {
+                    throw new SQLException("Creating event failed, no ID obtained.");
+                }
+            }
+
+            return true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
+    }
+
+
 }

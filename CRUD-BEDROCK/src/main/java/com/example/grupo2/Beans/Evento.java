@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Time;
 import java.sql.Date;
+import java.util.Objects;
 
 public class Evento {
 
@@ -14,8 +15,8 @@ public class Evento {
     private InputStream foto;
     private String materiales;
     private String lugar;
-    private Time hora;
-    private int frecuencia;
+    private Time horaInicio;
+    private String frecuencia;
     private int vacantes;
     private String descripcion;
     private String tipo;
@@ -88,19 +89,19 @@ public class Evento {
         this.lugar = lugar;
     }
 
-    public Time getHora() {
-        return hora;
+    public Time getHoraInicio() {
+        return horaInicio;
     }
 
-    public void setHora(Time hora) {
-        this.hora = hora;
+    public void setHoraInicio(Time hora) {
+        this.horaInicio = hora;
     }
 
-    public int getFrecuencia() {
+    public String getFrecuencia() {
         return frecuencia;
     }
 
-    public void setFrecuencia(int frecuencia) {
+    public void setFrecuencia(String frecuencia) {
         this.frecuencia = frecuencia;
     }
 
@@ -151,4 +152,18 @@ public class Evento {
     public void setFotoAsistenciaEvento(InputStream fotoAsistenciaEvento) {
         this.fotoAsistenciaEvento = fotoAsistenciaEvento;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Evento evento = (Evento) o;
+        return idEvento == evento.idEvento;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idEvento);
+    }
+
 }

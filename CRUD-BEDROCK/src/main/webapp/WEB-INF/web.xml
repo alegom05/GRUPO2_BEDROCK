@@ -20,6 +20,14 @@
         <servlet-name>MenuSinLoginServlet</servlet-name>
         <url-pattern>/MenuSinLoginServlet</url-pattern>
     </servlet-mapping>-->
+    <!--<servlet>
+        <servlet-name>UpdateEventServlet</servlet-name>
+        <servlet-class>servlet.UpdateEventServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateEventServlet</servlet-name>
+        <url-pattern>/updateEventStatus</url-pattern>
+    </servlet-mapping>-->
 
 </web-app>
 
