@@ -496,6 +496,7 @@ public class UsuarioDao extends daoBase {
             try (Connection conn = this.getConnection();) {
                 String sql = "UPDATE evento_has_usuario\n" +
                         "SET\n" +
+                        "cometioFalta = 1,\n" +
                         "descripcion = ?,\n" +
                         "WHERE idUsuario = ?;";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -520,7 +521,7 @@ public class UsuarioDao extends daoBase {
         String sql = "select e.fechaInicial, e.nombre, e.lugar,ehu.descripcion \n" +
                 "from evento_has_usuario ehu\n" +
                 "join evento e on ehu.idEvento=e.idEvento\n"+
-                "where idUsuario=?;";
+                "where ehu.cometioFalta=1 and idUsuario=?;";
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, Integer.parseInt(id));
