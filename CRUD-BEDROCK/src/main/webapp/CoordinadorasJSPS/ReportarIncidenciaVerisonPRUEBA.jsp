@@ -27,7 +27,7 @@
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <a href="<%=request.getContextPath()%>/CoordinadoraIndexServlet?action=editar&id=<%=usuarioSesion.getId()%>" style ="margin-right: 1.2rem">
+            <a href="javascript:void(0)" onclick="detallesUsuario('<%=usuarioSesion.getId()%>')">
                 <!--href="%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=%=usuarioSesion.getId()%>"-->
                 <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
@@ -56,13 +56,14 @@
                 <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
+                <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
+                <a href="javascript:void(0)" onclick="verCalendario('<%=usuarioSesion.getId()%>')" class="nav-link">Mira Tu Calendario!</a>
+                <%--<a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>--%>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="nav-link">Historial De Eventos</a>
+                <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getTipo()%>')" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
@@ -232,6 +233,78 @@
     });
 
 
+</script>
+<script>
+    function establecerIdParaEliminar(idEvento) {
+        document.getElementById('eventoIdParaEliminar').value = idEvento;
+    }
+
+    function confirmarEliminacion() {
+        const idEvento = document.getElementById('eventoIdParaEliminar').value;
+        window.location.href = '<%= request.getContextPath() %>/Coordis?action=deleteEventos&id=' + idEvento;
+    }
+</script>
+<script>
+    //detalleUusario//
+    function detallesUsuario(id) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '<%=request.getContextPath()%>/CoordinadoraIndexServlet?action=editar';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'id';
+        input.value = id;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+    //listaincidencias//
+    function listaIncidencias(id) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '${pageContext.request.contextPath}/Coordis?action=listaCoordi';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'idUsuario';
+        input.value = id;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+    //vercalendario//
+    function verCalendario(id) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '${pageContext.request.contextPath}/Coordis?action=calendario';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'idUsuario';
+        input.value = id;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
+    //historail eventos//
+    function historialEventos(id) {
+        var form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '${pageContext.request.contextPath}/Coordis?action=listaEventos';
+
+        var input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'tipoUsuario';
+        input.value = id;
+
+        form.appendChild(input);
+        document.body.appendChild(form);
+        form.submit();
+    }
 </script>
 </body>
 </html>

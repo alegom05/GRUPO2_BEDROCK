@@ -20,7 +20,7 @@
                                     <div class="card-body p-md-5 mx-md-4">
 
                                         <div class="text-center">
-                                            <h4 class="mt-1 mb-5 pb-1">Bienvenido a ¡Juntos Por San Miguel!</h4>
+                                            <h4 class="mt-1 mb-5 pb-1">Bienvenido a<br>¡Juntos Por San Miguel!</h4>
                                         </div>
 
                                         <form method="POST" action="<%=request.getContextPath()%>/LoginServlet" id="loginForm" class="needs-validation" novalidate>
