@@ -66,7 +66,7 @@ public class SolicitudesServlet extends HttpServlet {
                 String mensaje;
                 System.out.println("rol"+rol);
                 if ("VE".equals(rol)) {
-                    mensaje = "Su solicitud para ser Coordinadora de San Miguel ha sido aprobada.\nAtte.\nAdministración";
+                    mensaje = "Su solicitud para ser Coordinadora de San Miguel ha sido aprobada. Ingresa al sistema con tu correo y la contraseña por defecto \"123456\".\nAtte.\nAdministración";
                 } else {
                     mensaje = "Su solicitud para ser Vecino de San Miguel ha sido aprobada.\nAtte.\nAdministración";
                 }
@@ -78,8 +78,17 @@ public class SolicitudesServlet extends HttpServlet {
             }
             case "rechazar" -> {
                 int id = Integer.parseInt(request.getParameter("id"));
+                String correo = request.getParameter("correo");
+                String motivo = request.getParameter("motivo");
+
                 serenazgosDao.rechazarSolicitud(id);
-                response.sendRedirect(request.getContextPath() + "/Solicitudes");
+
+                String mensaje = "Su solicitud ha sido rechazada por la siguiente razón: " + motivo + ".\nAtte.\nAdministración";
+                String asunto = "Solicitud Rechazada";
+                new Thread(() -> enviarCorreo(correo, asunto, mensaje)).start();
+
+                response.setStatus(HttpServletResponse.SC_OK);
+
             }
         }
     }
