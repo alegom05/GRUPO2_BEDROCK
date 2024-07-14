@@ -66,9 +66,9 @@ public class SolicitudesServlet extends HttpServlet {
                 String mensaje;
                 System.out.println("rol"+rol);
                 if ("VE".equals(rol)) {
-                    mensaje = "Su solicitud para ser Coordinadora de San Miguel ha sido aprobada. Ingresa al sistema con tu correo y la contraseña por defecto \"123456\".\nAtte.\nAdministración";
+                    mensaje = "Su solicitud para ser Coordinadora de San Miguel ha sido aprobada.\nAtte.\nAdministración";
                 } else {
-                    mensaje = "Su solicitud para ser Vecino de San Miguel ha sido aprobada.\nAtte.\nAdministración";
+                    mensaje = "Su solicitud para ser Vecino de San Miguel ha sido aprobada.Ingresa al sistema con tu correo y la contraseña por defecto \"123456\".\nAtte.\nAdministración";
                 }
 
                 String asunto = "Solicitud Aprobada";

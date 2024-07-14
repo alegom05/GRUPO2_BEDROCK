@@ -108,7 +108,7 @@
                         <i class="fas fa-ellipsis-v"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#" onclick="mostrarModalAprobacion('<%= solicitudes1.getIdsolicitud() %>', '<%= solicitudes1.getCorreo() %>')">Aprobar</a></li>
+                        <li><a class="dropdown-item" href="#" onclick="mostrarModalAprobacion('<%= solicitudes1.getIdsolicitud() %>', '<%= solicitudes1.getCorreo() %>', '<%= solicitudes1.getRol() %>')">Aprobar</a></li>
                         <li><a onclick="setSerenazgoId('<%= solicitudes1.getIdsolicitud() %>', '<%= solicitudes1.getCorreo() %>')" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#rechazarSolicitudModal" href="#">Rechazar</a></li>
                     </ul>
                 </div>
@@ -219,9 +219,10 @@
     let idSolicitudActual;
     let correoSolicitudActual;
 
-    function mostrarModalAprobacion(id, correo) {
+    function mostrarModalAprobacion(id, correo, rol) {
         idSolicitudActual = id;
         correoSolicitudActual = correo;
+        rolSolicitudActual = rol;
         $('#aprobarSolicitudModal').modal('show');
     }
 
@@ -233,7 +234,8 @@
                 data: {
                     a: 'aprobar',
                     id: idSolicitudActual,
-                    correo: correoSolicitudActual
+                    correo: correoSolicitudActual,
+                    rol: rolSolicitudActual
                 },
                 success: function(response) {
                     $('#aprobarSolicitudModal').modal('hide');
