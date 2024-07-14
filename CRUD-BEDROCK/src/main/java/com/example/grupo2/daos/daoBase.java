@@ -6,26 +6,26 @@ import java.sql.SQLException;
 
 public class daoBase {
 
-    public Connection getConnection(boolean useLocalhost) throws SQLException {
+    private static final boolean USE_LOCALHOST = true; // Cambia a false para usar una IP específica
+    private static final String IP_ADDRESS = "34.148.147.86"; // Reemplaza con la IP específica
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "root";
+    private static final String DATABASE = "basededatos3";
+
+    public Connection getConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
-            //e.printStackTrace();
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
-        String username = "root";
-        String password = "root";
-        String database = "basededatos3";
         String url;
-
-        if (useLocalhost) {
-            url = "jdbc:mysql://localhost:3306/" + database;
+        if (USE_LOCALHOST) {
+            url = "jdbc:mysql://localhost:3306/" + DATABASE;
         } else {
-            String ip = "http://34.148.147.86/"; // Reemplaza con la IP específica que deseas usar
-            url = "jdbc:mysql://" + ip + ":3306/" + database;
+            url = "jdbc:mysql://" + IP_ADDRESS + ":3306/" + DATABASE;
         }
 
-        return DriverManager.getConnection(url, username, password);
+        return DriverManager.getConnection(url, USERNAME, PASSWORD);
     }
 }
