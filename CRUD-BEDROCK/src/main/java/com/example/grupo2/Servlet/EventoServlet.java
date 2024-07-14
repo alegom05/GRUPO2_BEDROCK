@@ -208,6 +208,9 @@ public class EventoServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
         EventoDao eventoDao = new EventoDao();
 
+        //cambio para que no se vean las ips, si hay conflicto es culpa de vecinos :c
+        doGet(request,response);
+
         switch (action) {
             case "crear":
 
