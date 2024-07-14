@@ -41,7 +41,7 @@
                 </h2>
             </div>
             <!--h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">%=usuarioSesion.getNombre()%> %=usuarioSesion.getApellido()%><br>Rol: %=usuarioSesion.getRol()%></h2-->
-            <a href="logIN.html">
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
         </div>
