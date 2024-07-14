@@ -34,7 +34,16 @@
             <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br>Rol: <%=usuarioSesion.getRol()%></h2>
+            <div class="usuario-info">
+                <%
+                    String tipoUsuario = usuarioSesion.getTipo();
+                    String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
+                %>
+                <h2 style=" text-align: right;">
+                    <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
+                </h2>
+            </div>
+            <!--h2 style="margin-top: 10px; margin-right: 40px; text-align: right;">%=usuarioSesion.getNombre()%> %=usuarioSesion.getApellido()%><br>Rol: %=usuarioSesion.getRol()%></h2-->
             <a href="logIN.html">
                 <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
@@ -55,7 +64,7 @@
                 <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="nav-link">Historial De Eventos</a>
+                <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="nav-link">Historial De Eventos</a>
             </li>
             <li class="nav-item">
                 <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>

@@ -21,7 +21,9 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
 @MultipartConfig
@@ -42,12 +44,34 @@ public class CoordisRolServlet extends HttpServlet {
         switch (action) {
             //Este case será para el listado de eventos de coordinadora
             case "listaEventos":
-                ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
+                /*ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi();
                 request.setAttribute("listaEventos",listaEventos2);
 
                 view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
                 view.forward(request,response);
-                break;
+                break;*/
+            eventoDao.updateEventStatus();
+            String tipoUsuario= request.getParameter("tipoUsuario");
+            ArrayList<Evento> listaEventos2 = eventoDao.listarEventosParaCoordi(tipoUsuario);
+            // Depuración: imprimir la lista original
+            System.out.println("Lista original:");
+            for (Evento evento : listaEventos2) {
+                System.out.println(evento);
+            }
+
+            // Eliminar duplicados
+            Set<Evento> uniqueEventos = new HashSet<>(listaEventos2);
+            listaEventos2 = new ArrayList<>(uniqueEventos);
+
+            // Depuración: imprimir la lista después de eliminar duplicados
+            System.out.println("Lista después de eliminar duplicados:");
+            for (Evento evento : listaEventos2) {
+                System.out.println(evento);
+            }
+            request.setAttribute("listaEventos",listaEventos2);
+            view =request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
+            view.forward(request,response);
+            break;
 
             //Case para crear eventos de coordinadoras
             case "formCrearEventos":

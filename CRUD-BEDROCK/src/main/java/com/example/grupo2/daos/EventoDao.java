@@ -9,34 +9,48 @@ import java.util.ArrayList;
 
 public class EventoDao extends daoBase{
 
-    //Método que lista todos los eventos, por el momento no podemos listar para una sola coordinadora ya que hace
-    //falta una conexión uno amuchos en la base de datos
-    //Este listado se debería modificar una vez se tenga la relación uno a muchos en la tabla de datos,
-    //lo único que cambiaría es agregar un "where idUsuario= " y estaría correcto
-    public ArrayList<Evento> listarEventosParaCoordi(){
+    //Método que lista todos los eventos, por tipo de usuario(cultura, deporte)
+
+    public  ArrayList<Evento> listarEventosParaCoordi(String tipoUsuario) {
 
         ArrayList<Evento> listaEventos = new ArrayList<>();
+        // Se modifica la consulta SQL para filtrar por tipo de coordinadora
+        String sql = "SELECT DISTINCT e.*, p.nombre AS nombreProfesor " +
+                "FROM evento e " +
+                "INNER JOIN evento_has_usuario eu ON e.idEvento = eu.idEvento " +
+                "INNER JOIN usuario u ON eu.idUsuario = u.idUsuario " +
+                "INNER JOIN profesor p ON e.idProfesor = p.idProfesor " ;
 
-        String sql="SELECT e.*, p.nombre AS nombreProfesor\n" +
-                "                FROM evento e\n" +
-                "                INNER JOIN profesor p ON e.idProfesor = p.idProfesor;";
+        // Añadimos las condiciones según el tipo de usuario
+        if ("Deporte".equalsIgnoreCase(tipoUsuario)) {
+            sql += "WHERE e.tipo IN ('Deportivo', 'Deporte')";
+        } else if ("Cultura".equalsIgnoreCase(tipoUsuario)) {
+            sql += "WHERE e.tipo IN ('Cultural', 'Cultura')";
+        } else {
+            // Si es otro tipo, asegurarse de manejarlo adecuadamente
+            sql += "WHERE e.tipo = ?";
+        }
 
 
-        try(Connection conn= this.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
-            ResultSet rs= pstmt.executeQuery();
-            while (rs.next()){
+        try (Connection conn= this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            if (!"Deporte".equalsIgnoreCase(tipoUsuario) && !"Cultura".equalsIgnoreCase(tipoUsuario)) {
+                pstmt.setString(1, tipoUsuario);
+            }
+
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
                 Evento evento = new Evento();
                 evento.setIdEvento(rs.getInt("idEvento"));
-                evento.setNombre(rs.getString("nombre"));//1
+                evento.setNombre(rs.getString("nombre"));
                 evento.setNombreProfesor(rs.getString("nombreProfesor"));
                 evento.setLugar(rs.getString("lugar"));
-                evento.setFechaInicial(rs.getDate("fechaInicial"));//3
-                evento.setEstadoEvento(rs.getString("estadoEvento"));//2
-                listaEventos.add(evento);
+                evento.setFechaInicial(rs.getDate("fechaInicial"));
+                evento.setEstadoEvento(rs.getString("estadoEvento"));
 
+                listaEventos.add(evento);
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         System.out.println(listaEventos);
@@ -682,5 +696,28 @@ public class EventoDao extends daoBase{
             e.printStackTrace();
         }
 
+    }
+
+    public void updateEventStatus() {
+        /*String query = "UPDATE evento SET estadoEvento = CASE " +
+                "WHEN NOW() < CONCAT(fechaInicial, ' ', hora) THEN 'Pronto' " +
+                "WHEN NOW() BETWEEN CONCAT(fechaInicial, ' ', hora) AND IFNULL( horaFin, '9999-12-31 23:59:59') THEN 'En curso' " +
+                "WHEN NOW() > fechaFinal OR (horaFin IS NOT NULL AND NOW() > horaFin) THEN 'Finalizado' " +
+                "ELSE estadoEvento END";*/
+        String query = "UPDATE evento SET estadoEvento = CASE " +
+                "WHEN NOW() < CONCAT(fechaInicial, ' ', hora) THEN 'Pronto' " +
+                "WHEN NOW() BETWEEN CONCAT(fechaInicial, ' ', hora) AND   '9999-12-31 23:59:59' THEN 'En curso' " +
+                "WHEN NOW() > fechaFinal THEN 'Finalizado' " +
+                "ELSE estadoEvento END";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            int rowsUpdated = pstmt.executeUpdate();
+            System.out.println("Updated " + rowsUpdated + " rows.");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }
