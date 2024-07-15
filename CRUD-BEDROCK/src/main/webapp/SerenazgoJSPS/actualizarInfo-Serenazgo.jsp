@@ -126,13 +126,45 @@
             </fieldset>
             <div class="mb-3" >
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="*************" aria-describedby="button-addon2"  disabled>
-                    <a href="${pageContext.request.contextPath}/error.jsp" class="btn btn-outline-secondary" type="button" id="button-addon2" > <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg"></a>
+                    <input type="text" class="form-control" placeholder="*************" aria-describedby="button-addon2" disabled >
+                    <button   type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#passwordModal" > <img src="${pageContext.request.contextPath}/assets/icons/pencil.svg"></button>
                 </div>
-
             </div>
         </div>
     </form>
+
+    <!-- Modal para el cambio de contraseña-->
+    <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModalLabel">Cambiar Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="changePasswordForm" method="POST" action="">
+                        <div class="mb-3">
+                            <label for="oldPassword" class="form-label">Contraseña antigua</label>
+                            <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="newPassword" class="form-label">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="newPassword" name="newPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmNewPassword" class="form-label">Confirmar Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="confirmNewPassword" name="confirmNewPassword" required>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
 
@@ -173,6 +205,7 @@
         }
     });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" ></script>
 
 
 

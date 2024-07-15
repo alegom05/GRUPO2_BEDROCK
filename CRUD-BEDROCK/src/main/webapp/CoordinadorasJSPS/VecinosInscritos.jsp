@@ -48,6 +48,7 @@
             <li class="nav-item">
                 <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
             </li>
+
             <li class="nav-item">
                 <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
             </li>

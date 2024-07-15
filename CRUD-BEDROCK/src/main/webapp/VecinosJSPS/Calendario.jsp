@@ -138,8 +138,6 @@
                               <span class="btn-group">
                                 <button class="js-cal-option btn btn-default {{: mode==='year'? 'active':'' }}" data-mode="year">Año</button>
                                 <button class="js-cal-option btn btn-default {{: mode==='month'? 'active':'' }}" data-mode="month">Mes</button>
-                                <button class="js-cal-option btn btn-default {{: mode==='week'? 'active':'' }}" data-mode="week">Semana</button>
-                                <button class="js-cal-option btn btn-default {{: mode==='day'? 'active':'' }}" data-mode="day">Dia</button>
                               </span>
                             </td>
                           </tr>
