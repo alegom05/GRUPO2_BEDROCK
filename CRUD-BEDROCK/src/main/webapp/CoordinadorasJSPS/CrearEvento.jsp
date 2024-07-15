@@ -71,7 +71,7 @@
         <div class="contenedor mt-4 text-center">
             <h1>Crear Evento</h1>
         </div>
-         <form method="post" action="<%=request.getContextPath()%>/Coordis?action=crearEvento" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+         <form method="post" action="<%=request.getContextPath()%>/Coordis?action=crearEvento&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
             <div class="col-md-6 mb-3">
                 <div class="contenedor mt-4 text-center">
 
