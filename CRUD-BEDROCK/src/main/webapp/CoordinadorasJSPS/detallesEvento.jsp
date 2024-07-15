@@ -149,16 +149,16 @@
                         <div class="col">
                             <label for="frecuenciaEvento">Frecuencia</label>
                             <select class="form-control" id="frecuenciaEvento">
-                                <option value="1"<%= Integer.parseInt("1") == evento.getFrecuencia() ? "selected" : "" %>>1</option>
-                                <option value="2"<%= Integer.parseInt("2") == evento.getFrecuencia() ? "selected" : "" %>>2</option>
-                                <option value="3"<%= Integer.parseInt("3") == evento.getFrecuencia() ? "selected" : "" %>>3</option>
-                                <option value="4"<%= Integer.parseInt("4") == evento.getFrecuencia() ? "selected" : "" %>>4</option>
-                                <option value="5"<%= Integer.parseInt("5") == evento.getFrecuencia() ? "selected" : "" %>>5</option>
+                                <option value="1"<%= Integer.parseInt("1") == evento.getFrecuencia() ? "selected" : "" %>>1 vez por semana</option>
+                                <option value="2"<%= Integer.parseInt("2") == evento.getFrecuencia() ? "selected" : "" %>>2 veces por semana</option>
+                                <option value="3"<%= Integer.parseInt("3") == evento.getFrecuencia() ? "selected" : "" %>>3 veces por semana</option>
+                                <option value="4"<%= Integer.parseInt("4") == evento.getFrecuencia() ? "selected" : "" %>>4 veces por semana</option>
+                                <option value="5"<%= Integer.parseInt("5") == evento.getFrecuencia() ? "selected" : "" %>>5 veces por semana</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="row-md-auto">
+                    <!--div class="row-md-auto">
                         <label for="diasSemana">Días de la semana</label>
                         <div class="row">
                             <div class="form-check col">
@@ -190,7 +190,7 @@
                                 <label class="form-check-label" for="domingo">Domingo</label>
                             </div>
                         </div>
-                    </div>
+                    </div-->
                 </div>
             </form>
         </div>
