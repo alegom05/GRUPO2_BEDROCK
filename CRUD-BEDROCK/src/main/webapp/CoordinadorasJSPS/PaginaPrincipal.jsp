@@ -56,7 +56,7 @@
             <li class="nav-item">
                 <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
             </li>
-            
+
             <li class="nav-item">
                 <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getTipo()%>')" class="nav-link">Historial De Eventos</a>
             </li>
