@@ -6,11 +6,12 @@ import java.sql.SQLException;
 
 public class daoBase {
 
-    private static final boolean USE_LOCALHOST = false; // Cambia a false para usar una IP específica
+    private static final String LOCALHOST = "localhost";
     private static final String IP_ADDRESS = "34.74.45.145"; // Reemplaza con la IP específica
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
     private static final String DATABASE = "basededatos3";
+    private static final int PORT = 3306;
 
     public Connection getConnection() throws SQLException {
         try {
@@ -19,13 +20,27 @@ public class daoBase {
             e.printStackTrace();
         }
 
-        String url;
-        if (USE_LOCALHOST) {
-            url = "jdbc:mysql://localhost:3306/" + DATABASE;
-        } else {
-            url = "jdbc:mysql://" + IP_ADDRESS + ":3306/" + DATABASE;
+        SQLException lastException = null;
+
+        // Intenta primero la conexión local
+        try {
+            return tryConnection(LOCALHOST);
+        } catch (SQLException e) {
+            lastException = e;
+            // Si falla, intenta la conexión remota
+            try {
+                return tryConnection(IP_ADDRESS);
+            } catch (SQLException e2) {
+                lastException = e2;
+            }
         }
 
+        // Si ambas conexiones fallan, lanza la última excepción
+        throw lastException;
+    }
+
+    private Connection tryConnection(String host) throws SQLException {
+        String url = String.format("jdbc:mysql://%s:%d/%s", host, PORT, DATABASE);
         return DriverManager.getConnection(url, USERNAME, PASSWORD);
     }
 }
