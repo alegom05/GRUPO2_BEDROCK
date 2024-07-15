@@ -11,19 +11,9 @@ import java.util.ArrayList;
 import java.sql.*;
 public class IncidenciaDao extends daoBase {
 
-    public static ArrayList<Incidencia> listarIncidencias() {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Incidencia> listarIncidencias() {
 
         ArrayList<Incidencia> listaIncidencias = new ArrayList<>();
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "select i.idIncidenciaReportada, i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.estadoIncidencia ,concat(u.nombre,' ',u.apellido) as vecino, u.correo, i.lugar\n" +
                 "                           from incidencia i\n" +
@@ -31,7 +21,7 @@ public class IncidenciaDao extends daoBase {
                 "                           join tipo t on i.idtipo = t.idtipo\n" +
                 "                            where i.isDeleted = 0;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
@@ -154,15 +144,20 @@ public class IncidenciaDao extends daoBase {
         }
     }
 
-    public void editarEstadoFalsaAlarma(String id) {
-        try {
+    public void editarEstadoFalsaAlarma(String idIncidencia) {
+        try (Connection conn = this.getConnection()) {
+            // Primero, actualizamos el estado de la incidencia a "Falsa alarma"
+            String sqlUpdateIncidencia = "UPDATE incidencia SET estadoIncidencia = 'Falsa alarma' WHERE idIncidenciaReportada = ?";
+            try (PreparedStatement pstmtUpdateIncidencia = conn.prepareStatement(sqlUpdateIncidencia)) {
+                pstmtUpdateIncidencia.setInt(1, Integer.parseInt(idIncidencia));
+                pstmtUpdateIncidencia.executeUpdate();
+            }
 
-            try (Connection conn = this.getConnection();) {
-                String sql = "UPDATE incidencia SET estadoIncidencia = 'Falsa alarma' WHERE idIncidenciaReportada = ?;";
-                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setInt(1, Integer.parseInt(id));
-                    pstmt.executeUpdate();
-                }
+            // Segundo, incrementamos el contador falsasAlarmasReportadas en la tabla usuario
+            String sqlUpdateUsuario = "UPDATE usuario SET falsasAlarmasReportadas = falsasAlarmasReportadas + 1 WHERE idUsuario = (SELECT idUsuario FROM incidencia WHERE idIncidenciaReportada = ?)";
+            try (PreparedStatement pstmtUpdateUsuario = conn.prepareStatement(sqlUpdateUsuario)) {
+                pstmtUpdateUsuario.setInt(1, Integer.parseInt(idIncidencia));
+                pstmtUpdateUsuario.executeUpdate();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

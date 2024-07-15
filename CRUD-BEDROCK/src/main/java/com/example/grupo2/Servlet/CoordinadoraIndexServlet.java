@@ -48,6 +48,7 @@ public class CoordinadoraIndexServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action") == null ? "crear" : request.getParameter("action");
         UsuarioDao userDao = new UsuarioDao();
+        doGet(request,response);
         switch (action){
             case "actualizar":
                 int id = (int) request.getSession().getAttribute("coordiId");

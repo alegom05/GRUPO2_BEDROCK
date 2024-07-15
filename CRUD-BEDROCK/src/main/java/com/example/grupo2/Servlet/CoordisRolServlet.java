@@ -127,9 +127,9 @@ public class CoordisRolServlet extends HttpServlet {
 
             //Este caso servirá para cuando la coordinadora desea revisar los detalles de alguno de sus eventos creados
             case "detallarParaCoordi":
-                String idCoordi = request.getParameter("id");
-                if(eventoDao.obtenerEventoPorId(idCoordi) != null){
-                    Evento evento2 = eventoDao.obtenerEventoPorId(idCoordi);
+                String idCoordiev = request.getParameter("id");
+                if(eventoDao.obtenerEventoPorId(idCoordiev) != null){
+                    Evento evento2 = eventoDao.obtenerEventoPorId(idCoordiev);
                     if (evento2 != null) {
                         request.setAttribute("evento", evento2);
 
@@ -148,7 +148,7 @@ public class CoordisRolServlet extends HttpServlet {
                     response.sendRedirect("error.jsp");
                 }
 
-                view = request.getRequestDispatcher("/HistorialDeEventosNew.jsp");
+                view = request.getRequestDispatcher("/CoordinadorasJSPS/HistorialDeEventosNew.jsp");
                 view.forward(request, response);
                 break;
 
@@ -299,8 +299,26 @@ public class CoordisRolServlet extends HttpServlet {
                 break;*/
             //Pestaña Mira tu calendario ***
             case "calendario":
-                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/Calendario.jsp");
+                String usuariotipo = request.getParameter("tipoUsuario");
+                ArrayList<Evento> listaCoordiCale = eventoDao.listarEventosParaCoordi(usuariotipo);
+                // Eliminar duplicados
+                //Set<Evento> uniqueEvento = new HashSet<>(listaCoordiCale);
+                //listaCoordiCale = new ArrayList<>(uniqueEvento);
+                request.setAttribute("listaCalendario",listaCoordiCale);
+                //response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/Calendario.jsp");
+                RequestDispatcher view1 = request.getRequestDispatcher("/CoordinadorasJSPS/Calendario.jsp");
+                view1.forward(request, response);
+
                 break;
+            case "detalle_ev_calendar":
+                String id_ev1 = request.getParameter("id");
+                if (id_ev1 == null || id_ev1.isEmpty()) {
+                    id_ev1 = "default_value"; // Valor por defecto si 'id' está vacío
+                }
+                request.setAttribute("id", id_ev1);
+                response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/detallesEvento.jsp?id="+id_ev1);
+            break;
+
             //Pestaña Historial de Eventos ***
             /*case "historialEventos":
                 ArrayList<Evento> listaEventos = eventoDao.listarEventosCoordi2();
@@ -340,6 +358,7 @@ public class CoordisRolServlet extends HttpServlet {
         EventoDao eventoDao = new EventoDao();
         ProfesoresDao profesoresDao = new ProfesoresDao();
         RequestDispatcher view;
+        doGet(request,response);
 
         switch (action) {
             //Crear Evento
