@@ -48,17 +48,10 @@
                 </li>
                 <li class="nav-item">
                     <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
-
                 </li>
                 <li class="nav-item">
-<<<<<<< HEAD
-                    <a href="${pageContext.request.contextPath}/Coordis?action=calendario&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="nav-link">Mira Tu Calendario!</a>
-                    <!--a href="javascript:void(0)" onclick="verCalendario('%=usuarioSesion.getTipo()%>')" class="nav-link">Mira Tu Calendario!</a-->
-                </li>
-=======
-                    <a href="javascript:void(0)" onclick="verCalendario('<%=usuarioSesion.getId()%>')" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="javascript:void(0)" onclick="verCalendario('<%=usuarioSesion.getTipo()%>')" class="nav-link">Mira Tu Calendario!</a>
                     <%--<a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>--%>
->>>>>>> efa12bbb84b821bca978caffdc62344d5f81be89
                 </li>
                 <li class="nav-item">
                     <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getTipo()%>')" class="nav-link">Historial De Eventos</a>
@@ -231,12 +224,6 @@
         });
     </script>
         <script>
-<<<<<<< HEAD
-            function verCalendario(tipo) {
-                var form = document.createElement('form');
-                form.method = 'POST';
-                form.action = '<%=request.getContextPath()%>/Coordis?action=calendario';
-=======
             //detalleUusario//
             function detallesUsuario(id) {
                 var form = document.createElement('form');
@@ -275,7 +262,7 @@
 
                 var input = document.createElement('input');
                 input.type = 'hidden';
-                input.name = 'idUsuario';
+                input.name = 'tipoUsuario';
                 input.value = id;
 
                 form.appendChild(input);
@@ -287,22 +274,19 @@
                 var form = document.createElement('form');
                 form.method = 'POST';
                 form.action = '${pageContext.request.contextPath}/Coordis?action=listaEventos';
->>>>>>> efa12bbb84b821bca978caffdc62344d5f81be89
 
                 var input = document.createElement('input');
                 input.type = 'hidden';
                 input.name = 'tipoUsuario';
-<<<<<<< HEAD
-                input.value = tipo;
-=======
                 input.value = id;
->>>>>>> efa12bbb84b821bca978caffdc62344d5f81be89
 
                 form.appendChild(input);
                 document.body.appendChild(form);
                 form.submit();
             }
         </script>
+
+
     </div>
 </body>
 </html>
