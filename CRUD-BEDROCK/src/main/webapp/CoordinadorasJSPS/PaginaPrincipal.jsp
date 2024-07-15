@@ -50,7 +50,9 @@
                     <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
                 </li>
                 <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
+                    <a href="${pageContext.request.contextPath}/Coordis?action=calendario&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="nav-link">Mira Tu Calendario!</a>
+                    <!--a href="javascript:void(0)" onclick="verCalendario('%=usuarioSesion.getTipo()%>')" class="nav-link">Mira Tu Calendario!</a-->
+                </li>
                 </li>
                 <li class="nav-item">
                     <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="nav-link">Historial De Eventos</a>
@@ -222,6 +224,22 @@
             });
         });
     </script>
+        <script>
+            function verCalendario(tipo) {
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '<%=request.getContextPath()%>/Coordis?action=calendario';
+
+                var input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = 'tipoUsuario';
+                input.value = tipo;
+
+                form.appendChild(input);
+                document.body.appendChild(form);
+                form.submit();
+            }
+        </script>
     </div>
 </body>
 </html>
