@@ -5,7 +5,7 @@
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 <jsp:useBean type="java.util.ArrayList<com.example.grupo2.Beans.Evento>" scope="request" id="listaCalendario"/>
 <%
-    ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario");
+    ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario2");
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy, M-1, dd");
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH, mm");
 %>
@@ -341,7 +341,7 @@
             $t.data('popover',true);
             //aqui agregar la redireccion al servlet para ver detalle de evento del calendario
             $t.popover({
-                content: '<p><a href="'+'${pageContext.request.contextPath}/Coordis?action=detallarParaCoordi&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> </p>'+data.text,
+                content: '<p><a href="'+'${pageContext.request.contextPath}/Coordis?action=detalle_ev_calendar&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> </p>'+data.text,
                   html: true,
                   placement: 'auto left'}).popover('toggle');
             return false;
@@ -363,7 +363,7 @@
             if (startint > dateint || endint < dateint) { return; }
             //redidrigir al servlet de detalle de evento
             if (!!time) {
-                $event.html('<a href="'+'${pageContext.request.contextPath}/Coordis?action=detallarParaCoordi&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
+                $event.html('<a href="'+'${pageContext.request.contextPath}/Coordis?action=detalle_ev_calendar&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
                 //$event.html('<strong>' + time + '</strong> ' + $event.html());
             }
             $event.toggleClass('begin', startint === dateint);

@@ -304,7 +304,7 @@ public class CoordisRolServlet extends HttpServlet {
                 // Eliminar duplicados
                 //Set<Evento> uniqueEvento = new HashSet<>(listaCoordiCale);
                 //listaCoordiCale = new ArrayList<>(uniqueEvento);
-                request.setAttribute("listaCalendario",listaCoordiCale);
+                request.setAttribute("listaCalendario2",listaCoordiCale);
                 //response.sendRedirect(request.getContextPath() + "/CoordinadorasJSPS/Calendario.jsp");
                 RequestDispatcher view1 = request.getRequestDispatcher("/CoordinadorasJSPS/Calendario.jsp");
                 view1.forward(request, response);
