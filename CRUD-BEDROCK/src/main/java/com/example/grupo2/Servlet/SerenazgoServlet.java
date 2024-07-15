@@ -93,6 +93,8 @@ public class SerenazgoServlet extends HttpServlet {
                     view.forward(request,response);
                 }else{
                     serenazgosDao.crearSerenazgos(nombre, apellido, dni, nacimiento, numtelefono, direccion, tipo, turnoSerenazgo, correo_pucp, contrasenia);
+                    int idSere= serenazgosDao.buscarIdUsuarioPorDNI(dni);
+                    serenazgosDao.crearCredenciales(correo_pucp,contrasenia,idSere);
                     response.sendRedirect(request.getContextPath() + "/Serenazgos");
                 }
             }
@@ -122,6 +124,7 @@ public class SerenazgoServlet extends HttpServlet {
                 if (serenazgo != null && serenazgo.getClave().equals(oldPassword)) {
                     // Actualizar la contraseña
                     serenazgosDao.actualizarContrasenia(id, newPassword);
+                    serenazgosDao.crearCredencialesContraNueva(id, newPassword);
                     response.sendRedirect(request.getContextPath() + "/Serenazgos?a=editar&id=" + id);
                 } else {
                     // Redirigir con un mensaje de error
