@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.sql.*;
 public class IncidenciaDao extends daoBase {
 
-    public ArrayList<Incidencia> listarIncidencias() {
+    public static ArrayList<Incidencia> listarIncidencias() {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
