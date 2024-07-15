@@ -3,9 +3,9 @@
 <%@ page import="com.example.grupo2.Beans.Evento" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-<jsp:useBean type="java.util.ArrayList<com.example.grupo2.Beans.Evento>" scope="request" id="listaCalendario"/>
+
 <%
-    ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario");
+    ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario2");
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy, M-1, dd");
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH, mm");
 %>
@@ -67,7 +67,7 @@
                         <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
                     </li>
                     <li class="nav-item">
-                        <a href="javascript:void(0)" onclick="verCalendario('<%=usuarioSesion.getId()%>')" class="nav-link">Mira Tu Calendario!</a>
+                        <a href="javascript:void(0)" onclick="verCalendario('<%=usuarioSesion.getTipo()%>')" class="nav-link">Mira Tu Calendario!</a>
                     </li>
                     <li class="nav-item">
                         <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getId()%>')" class="nav-link">Historial De Eventos</a>
@@ -547,7 +547,7 @@
 
                     var input = document.createElement('input');
                     input.type = 'hidden';
-                    input.name = 'idUsuario';
+                    input.name = 'tipoUsuario';
                     input.value = id;
 
                     form.appendChild(input);

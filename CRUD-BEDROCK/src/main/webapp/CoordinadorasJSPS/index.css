@@ -214,16 +214,17 @@ body {
 
 }
 .texto-con-imagen{
-    text-align: center;
-    line-height: 100%;
+    text-align: left;
+    line-height: 150%;
     font-weight: 500;
     margin-top: 5px;
     margin-bottom: 5px;
+
 }
 .div-50{
     padding: 20px 15px;
     align-items: center;
-    justify-content: center;
+    padding-left: 195px;
 }
 #carouselExample {
     background: rgb(205, 215, 230);
