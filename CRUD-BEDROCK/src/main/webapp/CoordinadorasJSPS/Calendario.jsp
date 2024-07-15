@@ -1,8 +1,14 @@
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.example.grupo2.Beans.Incidencia" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.example.grupo2.Beans.Evento" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
-
+<jsp:useBean type="java.util.ArrayList<com.example.grupo2.Beans.Evento>" scope="request" id="listaCalendario"/>
+<%
+    ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario");
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy, M-1, dd");
+    SimpleDateFormat timeFormat = new SimpleDateFormat("HH, mm");
+%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,9 +20,16 @@
       content="calendar, events, reminders, javascript, html, css, open source coding"
     />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="CalendarioEventos.css" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/CoordinadorasJSPS/CalendarioEventos.css" />
+      <link rel="stylesheet" href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" />
+      <link rel="stylesheet" href="CalendarioEventos.css" />
+      <link rel="stylesheet" href="index.css" />
     <title>Calendario</title>
+      <style>
+          html, body {
+              overflow-x: hidden; /* Desactiva el desplazamiento horizontal */
+          }
+      </style>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script
     src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -63,7 +76,7 @@
                   <a href="${pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=<%=usuarioSesion.getId()%>" class="nav-link">Lista de Incidencias</a>
               </li>
               <li class="nav-item">
-                  <a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>
+                  <a href="${pageContext.request.contextPath}/Coordis?action=calendario&tipoUsuario=<%=usuarioSesion.getTipo()%>&idCoordi=<%=usuarioSesion.getId()%>" class="nav-link">Mira Tu Calendario!</a>
               </li>
               <li class="nav-item">
                   <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="nav-link">Historial De Eventos</a>
@@ -327,7 +340,11 @@
             time = data.start.toTimeString();
             if (time && data.end) { time = time + ' - ' + data.end.toTimeString(); }
             $t.data('popover',true);
-            $t.popover({content: '<p><strong>' + time + '</strong></p>'+data.text, html: true, placement: 'auto left'}).popover('toggle');
+            //aqui agregar la redireccion al servlet para ver detalle de evento del calendario
+            $t.popover({
+                content: '<p><a href="'+'${pageContext.request.contextPath}/Coordis?action=detallarParaCoordi&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> </p>'+data.text,
+                  html: true,
+                  placement: 'auto left'}).popover('toggle');
             return false;
           });
           function dayAddEvent(index, event) {
@@ -345,9 +362,10 @@
                 dateint = options.date.toDateInt(),
                 endint = end.toDateInt();
             if (startint > dateint || endint < dateint) { return; }
-            
+            //redidrigir al servlet de detalle de evento
             if (!!time) {
-              $event.html('<strong>' + time + '</strong> ' + $event.html());
+                $event.html('<a href="'+'${pageContext.request.contextPath}/Coordis?action=detallarParaCoordi&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
+                //$event.html('<strong>' + time + '</strong> ' + $event.html());
             }
             $event.toggleClass('begin', startint === dateint);
             $event.toggleClass('end', endint === dateint);
@@ -373,8 +391,10 @@
                 existing,
                 i;
             $event.toggleClass('all-day', !!event.allDay);
+            //redirigir al servlet
             if (!!time) {
-              $event.html('<strong>' + time + '</strong> ' + $event.html());
+                $event.html('<a href="'+'${pageContext.request.contextPath}/Coordis?action=detallarParaCoordi&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
+                //$event.html('<strong>' + time + '</strong> ' + $event.html());
             }
             if (!event.end) {
               $event.addClass('begin end');
@@ -477,30 +497,24 @@
           c1 = 3329,
           h, 
           m;
+          <% for (Evento evento : eventos) {
+                      String[] dateParts = dateFormat.format(evento.getFechaInicial()).split(", ");
+                      String[] timeParts = timeFormat.format(evento.getHora()).split(", ");
+                      %>
           
           data.push({
-          title: "Cine en Familia",
-          start: new Date(2024, 4, 30, 18, 0), // Año, mes (0-11), día, hora, minuto
-          end: end, // Opcional: fecha y hora de finalización
+          title: "<%= evento.getNombre() %>",
+          start: new Date(<%= dateParts[0] %>, <%= dateParts[1] %>, <%= dateParts[2] %>, <%= timeParts[0] %>, <%= timeParts[1] %>),// Año, mes (0-11), día, hora, minuto
+          end: null, // Opcional: fecha y hora de finalización
           allDay: false, // Opcional: indicador booleano para eventos que duran todo el día
-          text: "Discutir los proyectos actuales y asignar tareas" // Descripción adicional del evento
+          text: "", // Descripción adicional del evento
+              id: "<%=evento.getIdEvento()%>"
           });
-          data.push({
-          title: "Copa San Miguel",
-          start: new Date(2024, 4, 25, 10, 0), // Año, mes (0-11), día, hora, minuto
-          end: end, // Opcional: fecha y hora de finalización
-          allDay: false, // Opcional: indicador booleano para eventos que duran todo el día
-          text: "Discutir los proyectos actuales y asignar tareas" // Descripción adicional del evento
-          });
-          data.push({
-          title: "Aniversario Plaza San Miguel",
-          start: new Date(2024, 4, 25, 20, 0), // Año, mes (0-11), día, hora, minuto
-          end: end, // Opcional: fecha y hora de finalización
-          allDay: false, // Opcional: indicador booleano para eventos que duran todo el día
-          text: "Discutir los proyectos actuales y asignar tareas" // Descripción adicional del evento
-          });
+          <% } %>
+
+          console.log(data)
         
-        data.sort(function(a,b) { return (+a.start) - (+b.start); });
+          data.sort(function(a,b) { return (+a.start) - (+b.start); });
         
       //data must be sorted by start date
       

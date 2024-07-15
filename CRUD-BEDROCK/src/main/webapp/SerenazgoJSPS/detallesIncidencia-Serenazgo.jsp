@@ -361,7 +361,7 @@
         </div>
     </div>
 
-    <a href="IncidenciaServlet" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
+    <a href="Sereno?action=listaIncidencias" type="button" class="btn btn-secondary" id="btnRedireccional">Cancelar</a>
 
 </div>
 
