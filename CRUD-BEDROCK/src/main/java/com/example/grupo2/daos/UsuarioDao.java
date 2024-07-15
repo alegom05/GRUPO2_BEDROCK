@@ -507,11 +507,16 @@ public class UsuarioDao extends daoBase {
         try {
 
             try (Connection conn = this.getConnection();) {
-                String sql = "UPDATE evento_has_usuario\n" +
+                /*String sql = "UPDATE evento_has_usuario\n" +
                         "SET\n" +
                         "cometioFalta = 1,\n" +
                         "descripcion = ?,\n" +
-                        "WHERE idUsuario = ?;";
+                        "WHERE idUsuario = ?;";*/
+
+                String sql = "UPDATE evento_has_usuario " +
+                        "SET cometioFalta = 1, " +
+                        "descripcion = ? " +
+                        "WHERE idUsuario = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
                     pstmt.setString(1,usuario.getMotivoReporte());
