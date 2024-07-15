@@ -259,6 +259,54 @@ public class CoordisRolServlet extends HttpServlet {
                 }
 
                 break;
+
+            case "verFotoEvento":
+
+                String eventoId = request.getParameter("id");
+                Connection conn1 = null;
+                PreparedStatement stmt1 = null;
+                ResultSet rs1 = null;
+                String DB_URL1 = "jdbc:mysql://localhost:3306/basededatos3?serverTimezone=America/Lima";
+                String DB_USER1 = "root";
+                String DB_PASSWORD1 = "root";
+
+                try {
+                    // Registrar el driver de MySQL
+                    Class.forName("com.mysql.cj.jdbc.Driver");
+
+                    // Obtener la conexión a la base de datos
+                    conn1 = DriverManager.getConnection(DB_URL1, DB_USER1, DB_PASSWORD1);
+
+                    // Consulta para obtener la imagen del evento
+                    String sql = "SELECT foto FROM evento WHERE idEvento = ?";
+                    stmt1 = conn1.prepareStatement(sql);
+                    stmt1.setString(1, eventoId);
+                    rs1 = stmt1.executeQuery();
+
+                    if (rs1.next()) {
+                        Blob blob = rs1.getBlob("foto");
+                        if (blob != null) {
+                            byte[] bytes = blob.getBytes(1, (int) blob.length());
+
+                            response.setContentType("image/jpeg"); // Ajusta el tipo de contenido según el tipo de imagen
+                            OutputStream os = response.getOutputStream();
+                            os.write(bytes);
+                            os.flush();
+                        }
+                    } else {
+                        response.sendError(HttpServletResponse.SC_NOT_FOUND); // Imagen no encontrada
+                    }
+                } catch (SQLException | ClassNotFoundException e) {
+                    throw new ServletException("Error accediendo a la base de datos", e);
+                } finally {
+                    // Cerrar la conexión
+                    if (rs1 != null) try { rs1.close(); } catch (SQLException e) { e.printStackTrace(); }
+                    if (stmt1 != null) try { stmt1.close(); } catch (SQLException e) { e.printStackTrace(); }
+                    if (conn1 != null) try { conn1.close(); } catch (SQLException e) { e.printStackTrace(); }
+                }
+
+
+                break;
             //Pestaña Reportar incidencia ***
             /*case "formCrearInci":
                 view = request.getRequestDispatcher("/CoordinadorasJSPS/ReportarIncidenciaVerisonPRUEBA.jsp");

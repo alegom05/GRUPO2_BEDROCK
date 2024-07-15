@@ -330,6 +330,21 @@ public class UsuarioDao extends daoBase {
         }
     }
 
+    public void crearCredencialesContraNueva(int id, String clave) {
+
+        String sql = "UPDATE credenciales SET claveHash = sha2(?,256) WHERE idUsuario = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, clave);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     //Método para actualizar el número de celular del serenazgo puesto que este solo puede actualizar este campo y también su contraseña
     public void actualizarCelular(Usuario serenazgo) {
         String sql = "UPDATE usuario SET telefono=? where idUsuario=?";
@@ -468,18 +483,16 @@ public class UsuarioDao extends daoBase {
         String fa= String.valueOf(fechaActual);
 
 
-        String sql = "INSERT INTO `basededatos3`.`solicitudes` (`estadoSolicitud`,`fechasolicitud`,`usuario_idUsuario`,`roles_idRoles`) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO `basededatos3`.`solicitudes` (`fechasolicitud`,`usuario_idUsuario`,`roles_idRoles`) VALUES (?,?,?)";
 
-        int estado=0;
-        String rol="CO";
+        String rol="VE";
         System.out.print("en proceso");
 
         try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
-            pstmt.setInt(1,estado);
-            pstmt.setDate(2,fechaActual);
-            pstmt.setInt(3,idUsuario);
-            pstmt.setString(4,rol);
+            pstmt.setDate(1,fechaActual);
+            pstmt.setInt(2,idUsuario);
+            pstmt.setString(3,rol);
             pstmt.executeUpdate();
             System.out.print(fa);
             System.out.print("solicitud enviada");

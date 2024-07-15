@@ -94,9 +94,8 @@
 
         <div class="col-md-6 mb-3 ">
 
-            <div class="contenedor mt-4">
-                <img src="<%= request.getContextPath() %>/imagenEvento?id=<%= evento.getIdEvento() %>" alt="Evento" id="imagen_detallada" class="img-fluid mx-auto">
-
+            <div class="contenedor mt-4" >
+                <img src="<%= request.getContextPath() %>/Coordis?action=verFotoEvento&id=<%= evento.getIdEvento() %>" class="figure-img img-fluid rounded" alt="Imagen de la incidencia" >
             </div>
         </div>
 

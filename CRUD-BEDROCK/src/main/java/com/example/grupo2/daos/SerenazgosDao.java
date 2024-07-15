@@ -3,8 +3,11 @@ package com.example.grupo2.daos;
 import com.example.grupo2.Beans.Solicitudes;
 import com.example.grupo2.Beans.Usuario;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class SerenazgosDao extends daoBase {
     public ArrayList<Usuario> obtenerSerenazgos(){
@@ -286,6 +289,23 @@ public class SerenazgosDao extends daoBase {
         }
 
         return usuarioId;
+    }
+
+    // Método para crear credenciales
+    public void crearCredenciales(String correo, String clave, int idUsuario) {
+
+        String sql = "INSERT INTO credenciales ( correo, claveHash, idUsuario) VALUES (?, sha2(?,256), ?)";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, correo);
+            pstmt.setString(2, clave);
+            pstmt.setInt(3, idUsuario);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 

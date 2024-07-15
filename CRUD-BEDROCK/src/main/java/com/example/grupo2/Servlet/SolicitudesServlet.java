@@ -1,6 +1,7 @@
 package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.Solicitudes;
+import com.example.grupo2.Beans.Usuario;
 import com.example.grupo2.daos.SerenazgosDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -58,11 +59,18 @@ public class SolicitudesServlet extends HttpServlet {
                 serenazgosDao.aprobarSolicitud(id);
                 String contra;
                 int idUsuario;
-                if (rol == null) {
-                    idUsuario = serenazgosDao.buscarIdUsuario(id);
-                    contra = "123456";
-                    serenazgosDao.colocarClave(idUsuario,contra);
-                }
+
+                idUsuario = serenazgosDao.buscarIdUsuario(id);
+                contra = "123456";
+                System.out.println(idUsuario);
+                serenazgosDao.colocarClave(idUsuario,contra);
+                Usuario usuario = serenazgosDao.buscarPorId(idUsuario);
+                String correo = usuario.getCorreo();
+                String clave = usuario.getClave();
+                System.out.println(correo);
+                System.out.println(clave);
+                serenazgosDao.crearCredenciales(correo, clave, idUsuario);
+
                 String mensaje;
                 System.out.println("rol"+rol);
                 if ("VE".equals(rol)) {

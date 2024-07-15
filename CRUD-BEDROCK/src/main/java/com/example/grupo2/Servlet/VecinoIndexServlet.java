@@ -72,6 +72,7 @@ public class VecinoIndexServlet extends HttpServlet {
                 if (vecino != null && vecino.getClave().equals(oldPassword)) {
                     // Actualizar la contraseña
                     userDao.actualizarContrasenia(id, newPassword);
+                    userDao.crearCredencialesContraNueva(id, newPassword);
                     System.out.println("contraseña cambiada");
                     response.sendRedirect(request.getContextPath() + "/VecinoIndexServlet?a=editar&id=" + id);
                 }else {
