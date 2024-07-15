@@ -11,19 +11,9 @@ import java.util.ArrayList;
 import java.sql.*;
 public class IncidenciaDao extends daoBase {
 
-    public static ArrayList<Incidencia> listarIncidencias() {
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        } catch (ClassNotFoundException e){
-            throw new RuntimeException(e);
-        }
+    public ArrayList<Incidencia> listarIncidencias() {
 
         ArrayList<Incidencia> listaIncidencias = new ArrayList<>();
-
-        String url = "jdbc:mysql://localhost:3306/basededatos3?";
-        String username = "root";
-        String password = "root";
 
         String sql = "select i.idIncidenciaReportada, i.nombre , t.nombre as tipoIncidencia, DATE_FORMAT(i.fecha, '%d-%m-%Y %H:%i') AS fecha_formateada, i.estadoIncidencia ,concat(u.nombre,' ',u.apellido) as vecino, u.correo, i.lugar\n" +
                 "                           from incidencia i\n" +
@@ -31,7 +21,7 @@ public class IncidenciaDao extends daoBase {
                 "                           join tipo t on i.idtipo = t.idtipo\n" +
                 "                            where i.isDeleted = 0;";
 
-        try (Connection conn = DriverManager.getConnection(url, username, password);
+        try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql);
              ResultSet rs = pstmt.executeQuery()) {
 
