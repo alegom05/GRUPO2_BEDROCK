@@ -68,7 +68,7 @@ public class IncidenciaServlet extends HttpServlet {
 
             case "lista2":
 
-                ArrayList<Incidencia> listaIncidencias2 = IncidenciaDao.listarIncidencias();
+                ArrayList<Incidencia> listaIncidencias2 = incidenciaDao.listarIncidencias();
                 request.setAttribute("lista2", listaIncidencias2);
 
                 RequestDispatcher view2 = request.getRequestDispatcher("/CoordinadorasJSPS/ListaDeIncidencias.jsp");
