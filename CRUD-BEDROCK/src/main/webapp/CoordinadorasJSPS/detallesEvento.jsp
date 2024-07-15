@@ -161,8 +161,7 @@
                     <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar cambios</button>
                     <% } %>
 
-<<<<<<< HEAD
-=======
+
                     <!--div class="row-md-auto">
                         <label for="diasSemana">Días de la semana</label>
                         <div class="row">
@@ -196,7 +195,7 @@
                             </div>
                         </div>
                     </div-->
->>>>>>> ca5de053424ad284ba2b43bf488eefe1e4414680
+
                 </div>
             </form>
         </div>

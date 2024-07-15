@@ -91,7 +91,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
                     } else {
                         usuariodao.saveUsuario(usuario);
                         // Enviar correo de confirmación
-                        boolean emailSent = sendWelcomeEmail(name, email);
+                        boolean emailSent = sendWelcomeEmail(name, apellidos ,email);
                         // Redirigir a la página de éxito o a la página principal
                         //response.sendRedirect(request.getContextPath() + "/pagPrincipalSinLogin.jsp");
                         if (emailSent) {
@@ -127,7 +127,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
         }
 
     }
-    private boolean sendWelcomeEmail(String name, String email) {
+    private boolean sendWelcomeEmail(String name,String apellidos, String email) {
         String host = "smtp.gmail.com";
         final String user = "asanmiguel2024@gmail.com";
         final String password = "vofcewndaxskxlfz";
@@ -149,7 +149,7 @@ public class RegistroUsuarioServlet extends HttpServlet {
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
             message.setSubject("Bienvenido a la página web");
-            message.setText("Señor " + name + ", pronto le estaremos notificando su aceptación a la página web.");
+            message.setText("Estimado(a) " + name + apellidos +", pronto le estaremos notificando su aceptación a la página web.");
 
             Transport.send(message);
             System.out.println("Correo enviado exitosamente...");

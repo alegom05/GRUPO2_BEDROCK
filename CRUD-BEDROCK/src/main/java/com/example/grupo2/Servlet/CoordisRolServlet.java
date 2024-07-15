@@ -405,6 +405,7 @@ public class CoordisRolServlet extends HttpServlet {
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         EventoDao eventoDao = new EventoDao();
         ProfesoresDao profesoresDao = new ProfesoresDao();
+        UsuarioDao usuarioDao = new UsuarioDao();
         RequestDispatcher view;
         doGet(request,response);
 
@@ -657,6 +658,17 @@ public class CoordisRolServlet extends HttpServlet {
                 System.out.println(nuevaIncidencia2.getIdTipoIncidencia());
                 System.out.println(nuevaIncidencia2.getIdUsuario());
                 response.sendRedirect(request.getContextPath() + "/Coordis?action=listaCoordi&idUsuario=" + idUsuario2);
+
+                break;
+                //pare reportar vecinos por comportamiento
+            case "reportarvecino":
+                String motivoReporte= request.getParameter("motivoReporte");
+                String idUsuario= request.getParameter("idVecino");
+                Usuario vecino = new Usuario();
+                vecino.setId(Integer.parseInt(idUsuario));
+                vecino.setMotivoReporte(motivoReporte);
+                usuarioDao.reportarVecino(vecino);
+                response.sendRedirect(request.getContextPath() + "/CoordinadoraIndexServlet");
 
                 break;
 

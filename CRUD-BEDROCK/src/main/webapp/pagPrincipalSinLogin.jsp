@@ -169,7 +169,9 @@
                         <div class="col-md-6">
                             <div class="contenedor mt-4 d-flex align-items-center">
                                 <h4 class="align-self-center">Tuviste o viste algún inconveniente en el distrito?</h4>
-                                <a href="reportarIncidencia.html" class="btn btn-primary izquierda"><h7>Reporta Aquí!</h7></a>
+
+                                    <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accessModal"><h7>Más Información</h7></a>
+
                             </div>
                         </div>
                     </div>
