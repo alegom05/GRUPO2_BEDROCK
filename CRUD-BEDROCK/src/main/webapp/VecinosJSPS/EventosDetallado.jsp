@@ -69,9 +69,6 @@
 <div id="container-evento-det" style="max-width: 80%; margin: 0 auto; margin-top: 70px;">
     <div class="row mt-3">
         <div class="col-md-6 mb-3">
-            <div class="contenedor mt-4 text-center" style="max-width: 600px; margin: 0 auto;">
-                <h1><%= evento.getNombre() %></h1>
-            </div>
             <div class="contenedor mt-4" >
                 <img src="<%=request.getContextPath()%>/imagenEvento?id=<%= evento.getIdEvento() %>" alt="Evento" id="imagen_detallada" class="img-fluid mx-auto" style="max-width: 100%;">
             </div>
@@ -80,45 +77,68 @@
         <div class="col-md-6 d-flex align-items-center">
             <div>
                 <div class="">
-                    <div class="elemento_texto_evento">
-                        <h4>Detalles del evento:</h4>
+                    <div class="elemento_texto_evento text-center lh-base">
+                        <p class="fw-bold fs-2"><%= evento.getNombre() %></p>
                     </div>
-                    <div class="elemento_texto_evento w-75">
-                        <h4><%= evento.getDescripcion() %></h4>
+                    <div class="elemento_texto_evento lh-base">
+                        <p class="fw-bold mb-0 p- fs-5">Detalles del evento:</p>
+                        <p class="mb-0 p-0 fs-5"><%= evento.getDescripcion() %></p>
                     </div>
-                    <div class="elemento_texto_evento">
-                        <h4>Encargado: <%= evento.getNombreProfesor() %></h4>
+                    <div class="elemento_texto_evento lh-base">
+                        <ul class="list-inline mb-0 p-0">
+                            <li class="list-inline-item fw-bold fs-5">Encargado: </li>
+                            <li class="list-inline-item fs-5"><%= evento.getNombreProfesor() %></li>
+                        </ul>
                     </div>
-                    <div class="elemento_texto_evento">
-                        <h4>Vacantes Disponibles: <%= evento.getVacantes() %></h4>
+                    <div class="elemento_texto_evento lh-base">
+                        <ul class="list-inline mb-0 p-0">
+                            <li class="list-inline-item fw-bold fs-5">Vacantes disponibles: </li>
+                            <li class="list-inline-item fs-5"><%= evento.getVacantes() %></li>
+                        </ul>
                     </div>
-                    <div class="row w-75 align-items-center">
-                        <div class="col-md-6 pr-md-0 w-75">
-                            <h4>Frecuencia: <%= evento.getFrecuencia() %></h4>
+                    <div class="elemento_texto_evento lh-base">
+                        <ul class="list-inline mb-0 p-0 ">
+                            <li class="list-inline-item fw-bold fs-5">Frecuencia: </li>
+                            <li class="list-inline-item fs-5"><%= evento.getFrecuencia() %> veces por semana</li>
+                        </ul>
+                    </div>
+                    <div class="row elemento_texto_evento lh-base">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 m-0 p-0">
+                                <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/lugar.png" class="img-thumbnail w-75" alt="lugar">
+                            </div>
+                            <div class="flex-grow-1 ms-3 lh-base">
+                                <ul class="list-inline mb-0 p-0">
+                                    <li class="list-inline-item fw-bold fs-5">Lugar: </li>
+                                    <li class="list-inline-item fs-5"><%= evento.getLugar() %></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="row w-75 align-items-center">
-                        <div class="col-md-6 pr-md-0 w-25">
-                            <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/lugar.png" class="img-thumbnail w-75" alt="fecha">
-                        </div>
-                        <div class="col-md-6 pr-md-0 w-75">
-                            <h4>Lugar: <%= evento.getLugar() %></h4>
-                        </div>
-                    </div>
-                    <div class="row w-75 align-items-center">
-                        <div class="col-md-6 pr-md-0 w-25">
-                            <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/fecha.png" class="img-thumbnail w-75" alt="fecha">
-                        </div>
-                        <div class="col-md-6 pr-md-0 w-75">
-                            <h4>Fecha inicial: <%= evento.getFechaInicial() %></h4>
+                    <div class="row elemento_texto_evento lh-base">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 m-0 p-0">
+                                <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/fecha.png" class="img-thumbnail w-75" alt="fecha">
+                            </div>
+                            <div class="flex-grow-1 ms-3 lh-base">
+                                <ul class="list-inline mb-0 p-0 ">
+                                    <li class="list-inline-item fw-bold fs-5">Fecha inicial: </li>
+                                    <li class="list-inline-item fs-5"><%= evento.getFechaInicial() %></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="row w-75 align-items-center">
-                        <div class="col-md-6 pr-md-0 w-25">
-                            <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/hora.png" class="img-thumbnail w-75" alt="hora">
-                        </div>
-                        <div class="col-md-6 pr-md-0 w-75">
-                            <h4>Hora: <%= evento.getHora() %></h4>
+                    <div class="row elemento_texto_evento lh-base">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0 m-0 p-0">
+                                <img src="${pageContext.request.contextPath}/imagenes_eventos-Vecino/hora.png" class="img-thumbnail w-75" alt="hora">
+                            </div>
+                            <div class="flex-grow-1 ms-3 lh-base">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item fw-bold fs-5">Hora:</li>
+                                    <li class="list-inline-item fs-5"><%= evento.getHora() %></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
 
