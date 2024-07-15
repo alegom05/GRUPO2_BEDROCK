@@ -221,22 +221,11 @@
                     <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Mapa</h5>
+                                <h5 class="card-title mb-0">Mapa de Incidencias en San Miguel</h5>
                             </div>
-                            <iframe
-                                    width="600"
-                                    height="450"
-                                    style="border:0"
-                                    loading="lazy"
-                                    allowfullscreen
-                                    referrerpolicy="no-referrer-when-downgrade"
-                                    src="https://www.openstreetmap.org/export/embed.html?bbox=-122.35422,47.61829,-122.34727,47.62163&layer=mapnik">
-                                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3FK1tQpOyxUYzE74Sxp0q7Gk9jUVchhU&libraries=places"></script>
-                                    <%--var map = new google.maps.Map(document.getElementById('map-container'), {
-                                    center: {lat: -33.8688, lng: 151.2093},
-                                    zoom: 13,
-                                    mapTypeId: 'roadmap'--%>
-                            </iframe>
+                            <div class="card-body">
+                                <div id="map" style="height: 400px; width: 100%;"></div>
+                            </div>
                         </div>
                     </div>
 
@@ -279,16 +268,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
-                    <div class="card flex-fill w-100">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0">Mapa de Incidencias en San Miguel</h5>
-                        </div>
-                        <div class="card-body">
-                            <div id="map" style="height: 400px; width: 100%;"></div>
-                        </div>
-                    </div>
-                </div>
+
 
 
             </div>
