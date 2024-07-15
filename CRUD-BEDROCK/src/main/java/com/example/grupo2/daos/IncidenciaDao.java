@@ -144,15 +144,20 @@ public class IncidenciaDao extends daoBase {
         }
     }
 
-    public void editarEstadoFalsaAlarma(String id) {
-        try {
+    public void editarEstadoFalsaAlarma(String idIncidencia) {
+        try (Connection conn = this.getConnection()) {
+            // Primero, actualizamos el estado de la incidencia a "Falsa alarma"
+            String sqlUpdateIncidencia = "UPDATE incidencia SET estadoIncidencia = 'Falsa alarma' WHERE idIncidenciaReportada = ?";
+            try (PreparedStatement pstmtUpdateIncidencia = conn.prepareStatement(sqlUpdateIncidencia)) {
+                pstmtUpdateIncidencia.setInt(1, Integer.parseInt(idIncidencia));
+                pstmtUpdateIncidencia.executeUpdate();
+            }
 
-            try (Connection conn = this.getConnection();) {
-                String sql = "UPDATE incidencia SET estadoIncidencia = 'Falsa alarma' WHERE idIncidenciaReportada = ?;";
-                try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-                    pstmt.setInt(1, Integer.parseInt(id));
-                    pstmt.executeUpdate();
-                }
+            // Segundo, incrementamos el contador falsasAlarmasReportadas en la tabla usuario
+            String sqlUpdateUsuario = "UPDATE usuario SET falsasAlarmasReportadas = falsasAlarmasReportadas + 1 WHERE idUsuario = (SELECT idUsuario FROM incidencia WHERE idIncidenciaReportada = ?)";
+            try (PreparedStatement pstmtUpdateUsuario = conn.prepareStatement(sqlUpdateUsuario)) {
+                pstmtUpdateUsuario.setInt(1, Integer.parseInt(idIncidencia));
+                pstmtUpdateUsuario.executeUpdate();
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
