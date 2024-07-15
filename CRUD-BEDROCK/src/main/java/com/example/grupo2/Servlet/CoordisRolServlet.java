@@ -531,39 +531,54 @@ public class CoordisRolServlet extends HttpServlet {
 
                 break;
 
-            case "modificar":
-                /*
-                String nombre2 = request.getParameter("nombre");
-                String descripcion2 = request.getParameter("descripcion");
-                String lugar2 = request.getParameter("lugar");
-                String encargado2 = request.getParameter("encargado");
-                String vacantes2 = request.getParameter("vacantes");
-                String fechaInicio2 = request.getParameter("fechaInicial");
-                String fechaFin2 = request.getParameter("fechaFinal");
-                String hora2= request.getParameter("hora");
+            case "modificarEvento":
+                String idEvento4 = request.getParameter("id");
+                String tipoUsuario4 = request.getParameter("tipoUsuario");
+                String nombre4 = request.getParameter("nombre");
+                String descripcion4 = request.getParameter("descripcion");
+                String lugar4 = request.getParameter("lugar");
+                String encargado4 = request.getParameter("encargado");
+                String vacantes4 = request.getParameter("vacantes");
+                String fechaInicio4 = request.getParameter("fechaInicial");
+                String fechaFin4 = request.getParameter("fechaFinal");
+                String hora4 = request.getParameter("hora");
 
-                boolean esValido2= true;
+                boolean esValido2 = true;
 
-                if(esValido2){
-                    Evento evento2= new Evento();
-                    evento2.setNombre(nombre2);
-                    evento2.setDescripcion(descripcion2);
-                    evento2.setLugar(lugar2);
-                    evento2.setIdProfesor(Integer.parseInt(encargado2));
-                    evento2.setVacantes(Integer.parseInt(vacantes2));
-                    evento2.setFechaInicial(Date.valueOf(fechaInicio2));
-                    evento2.setFechaFinal(Date.valueOf(fechaFin2));
-                    evento2.setHora(Time.valueOf(hora2));
+                // Implementa aquí tus validaciones
+                if (nombre4 == null || nombre4.trim().isEmpty()) {
+                    esValido2 = false;
+                }
+                // Añade más validaciones según sea necesario
 
-                    eventoDao.modificarEvento(evento2);
-                    response.sendRedirect(request.getContextPath() + "/EventoServlet");
+                if (esValido2) {
+                    try {
+                        Evento evento3 = new Evento();
+                        evento3.setIdEvento(Integer.parseInt(idEvento4));
+                        evento3.setNombre(nombre4);
+                        evento3.setDescripcion(descripcion4);
+                        evento3.setLugar(lugar4);
+                        evento3.setIdProfesor(Integer.parseInt(encargado4));
+                        evento3.setVacantes(Integer.parseInt(vacantes4));
+                        evento3.setFechaInicial(Date.valueOf(fechaInicio4));
+                        evento3.setFechaFinal(Date.valueOf(fechaFin4));
+                        evento3.setHora(Time.valueOf(hora4 + ":00"));
 
-                }else{
-                    request.setAttribute("evento",eventoDao.obtenerEventoPorId());
-                    request.getRequestDispatcher("CoordinadorasJSPS/ModificarEvento.jsp");
+                        eventoDao.modificarEvento(evento3);
+
+                        // Redirige a listaEventos con parámetros para mostrar el historial
+                        response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos&tipoUsuario=" + tipoUsuario4 + "&mostrarHistorial=true");
+                    } catch (IllegalArgumentException e) {
+                        esValido2 = false;
+                        request.setAttribute("error", "Datos inválidos: " + e.getMessage());
+                    }
                 }
 
-                 */
+                if (!esValido2) {
+                    request.setAttribute("evento", eventoDao.obtenerEventoPorId(idEvento4));
+                    request.getRequestDispatcher("CoordinadorasJSPS/detallesEvento.jsp").forward(request, response);
+                }
+
                 break;
 
             //Case que servirá para inciar el evento que ha creado la coordinadora, cambiará su parámetro de estado "pronto"

@@ -217,7 +217,7 @@
             </div>
              <div class="mt-4 text-center">
                  <button type="submit" class="btn btn-primary" >Crear</button>
-                 <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos" class="btn btn-secondary">Volver</a>
+                 <a href="${pageContext.request.contextPath}/Coordis?action=listaEventos&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="btn btn-secondary">Volver</a>
              </div>
         </form>
     </div>
