@@ -1,5 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.grupo2.Beans.Evento" %>
+<%@ page import="com.example.grupo2.daos.EventoDao" %>
+<%@ page import="java.util.ArrayList" %>
+
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
+<%
+    EventoDao eventosDAO = new EventoDao();
+    ArrayList<Evento> eventos_populares = eventosDAO.listarEventos_populares();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,9 +35,9 @@
                         String tipoUsuario = usuarioSesion.getTipo();
                         String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
                     %>
-                    <h2 style=" text-align: right;">
+                    <h3 style=" text-align: right;">
                         <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
-                    </h2>
+                    </h3>
                 </div>
                 <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                     <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
@@ -68,61 +76,34 @@
             <h2 class="texto_titulos">Últimos Eventos en San Miguel</h2>
         </div>
         <div id="carouselExample" class="carousel slide contenedor mt-2" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="imagen-container">
-                        <div class="row">
-                            <div class="col-md-6 div-50 d-flex">
-                                <div>
-                                    <h1 class="texto-con-imagen">Maratón en San Miguel</h1>
-                                    <h3 class="texto-con-imagen">Fecha y hora: <br> 12/05/2024 09:00 <br> Descripción: <br> Este evento celebra el 104 aniversario de la creación del distrito de San Miguel y promueve el deporte en familia.</h3>    
-                                    <div class="d-flex justify-content-center align-items-center mt-4">
-                                        <a href="EventosDetallado1.jsp" class="btn btn-primary"><h7>Más Información</h7></a>
+                <div class="carousel-inner">
+                    <%
+                        boolean isActive = true;
+                        for (Evento evento : eventos_populares) {
+                    %>
+                    <div class="carousel-item <%= isActive ? "active" : "" %>">
+                        <div class="imagen-container">
+                            <div class="row">
+                                <div class="col-md-6 div-50 d-flex">
+                                    <div>
+                                        <h1 class="texto-con-imagen"><%= evento.getNombre() %></h1>
+                                        <h4 class="texto-con-imagen">Fecha: <br> <%= evento.getFechaInicial() %> <br> Hora: <br> <%= evento.getHora() %> <br> Lugar: <br> <%= evento.getLugar() %></h4>
+                                        <div class="d-flex mt-4">
+                                            <a href="${pageContext.request.contextPath}/Coordis?action=detallarParaCoordi&id=<%= evento.getIdEvento() %>" class="btn btn-primary"><h7>Más Información</h7></a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 d-flex">
-                                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/imagenes_eventos/deporte/evento1.jpg" alt="Imagen 2" class="img-fluid rounded">
-                            </div>
-                        </div>
-                    </div>                    
-                </div>
-                <div class="carousel-item">
-                    <div class="imagen-container">
-                        <div class="row">
-                            <div class="col-md-6 div-50 d-flex">
-                                <div>
-                                    <h1 class="texto-con-imagen">Torneo de fútbol juvenil</h1>
-                                    <h3 class="texto-con-imagen">Fecha y hora: <br> 18/07/24 21:00 <br> Descripción: <br> ¡Prepárate para vivir la emoción del fútbol en San Miguel! que promete ser una celebración del talento y la pasión por el deporte.</h3>    
-                                    <div class="d-flex justify-content-center align-items-center mt-4">
-                                        <a href="EventosDetallado2.jsp" class="btn btn-primary"><h7>Más Información</h7></a>
-                                    </div>
+                                <div class="col-md-6 d-flex">
+                                    <img src="${pageContext.request.contextPath}/imagenEvento?id=<%= evento.getIdEvento() %>" alt="Imagen" class="img-fluid rounded">
                                 </div>
-                            </div>
-                            <div class="col-md-6 d-flex">
-                                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/imagenes_eventos/deporte/evento2.jpg" alt="Imagen 2" class="img-fluid rounded">
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="imagen-container">
-                        <div class="row">
-                            <div class="col-md-6 div-50 d-flex">
-                                <div>
-                                    <h1 class="texto-con-imagen">Carrera de ciclismo</h1>
-                                    <h3 class="texto-con-imagen">Fecha y hora: <br> 01/05/2024 18:00 <br> Descripción: <br> “Pedalea San Miguel 2024” promueve un estilo de vida saludable y sostenible. ¡Ven y únete a la aventura sobre ruedas!</h3>    
-                                    <div class="d-flex justify-content-center align-items-center mt-4">
-                                        <a href="EventosDetallado3.jsp" class="btn btn-primary"><h7>Más Información</h7></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 d-flex">
-                                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/imagenes_eventos/deporte/evento3.jpg" alt="Imagen 2" class="img-fluid rounded">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <%
+                            isActive = false;
+                        }
+                    %>
+
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
