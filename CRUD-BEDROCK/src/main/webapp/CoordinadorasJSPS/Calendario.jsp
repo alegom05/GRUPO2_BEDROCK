@@ -22,8 +22,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<%=request.getContextPath()%>/CoordinadorasJSPS/CalendarioEventos.css" />
       <link rel="stylesheet" href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" />
-      <link rel="stylesheet" href="CalendarioEventos.css" />
-      <link rel="stylesheet" href="index.css" />
     <title>Calendario</title>
       <style>
           html, body {
@@ -32,13 +30,13 @@
       </style>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script
-    src="https://code.jquery.com/jquery-3.3.1.min.js"
-    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-    crossorigin="anonymous"></script>
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
 
   </head>
   <body style="height: 100vh; margin: 0;">
-    <div class="ParteSuperior">
+    <div class="ParteSuperior" style="overflow-x: hidden">
       <div class="row">
           <div class="col-md-3 d-flex justify-content-start align-items-center">
               <img src="./logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" >
@@ -120,7 +118,7 @@
         }
         
         }}
-        <table class="calendar-table table table-condensed table-tight w-100">
+        <table class="calendar-table table table-condensed table-tight w-90">
           <thead>
             <tr>
               <td colspan="7" style="text-align: center">
@@ -393,7 +391,7 @@
             $event.toggleClass('all-day', !!event.allDay);
             //redirigir al servlet
             if (!!time) {
-                $event.html('<a href="'+'${pageContext.request.contextPath}/Coordis?action=detallarParaCoordi&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
+                $event.html('<a href="'+'${pageContext.request.contextPath}/Coordis?action=detalle_ev_calendar&id='+event.id+'"><strong class="text-white">'+time+'</strong></a> ' + $event.html());
                 //$event.html('<strong>' + time + '</strong> ' + $event.html());
             }
             if (!event.end) {
