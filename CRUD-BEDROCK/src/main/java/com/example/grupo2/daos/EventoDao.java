@@ -303,8 +303,8 @@ public class EventoDao extends daoBase{
 
         if (filtro != null && !filtro.isEmpty()) {
             switch (filtro) {
-                case "Cultural":
-                case "Deportivo":
+                case "Cultura":
+                case "Deporte":
                     sql += " WHERE tipo = ?\n" +
                             "ORDER BY \n" +
                             "  CASE WHEN estadoEvento = 'Pronto' THEN 0\n" +
@@ -312,7 +312,7 @@ public class EventoDao extends daoBase{
                             "       WHEN estadoEvento = 'Culminado' THEN 2\n" +
                             "       ELSE 3\n" +
                             "  END,\n" +
-                            "  CASE WHEN tipo = 'Cultural' THEN fechaInicial END DESC";
+                            "  CASE WHEN tipo = 'Cultura' THEN fechaInicial END DESC";
                     break;
                 case "Vigentes":
                     sql += " WHERE estadoEvento = 'Pronto'";
@@ -353,8 +353,8 @@ public class EventoDao extends daoBase{
 
             if (filtro != null && !filtro.isEmpty()) {
                 switch (filtro){
-                    case "Cultural":
-                    case "Deportivo":
+                    case "Cultura":
+                    case "Deporte":
                         pstmt.setString(parameterIndex++, filtro);
                         break;
                     // No se agregan parámetros adicionales para otros casos
@@ -437,10 +437,10 @@ public class EventoDao extends daoBase{
 
         if (filtro != null && !filtro.isEmpty()) {
             switch (filtro){
-                case "Cultural":
+                case "Cultura":
                     sql += " where tipo=?";
                     break;
-                case "Deportivo":
+                case "Deporte":
                     sql += " where tipo=?";
                     break;
                 case "Popular":
@@ -458,7 +458,7 @@ public class EventoDao extends daoBase{
         try (Connection conn = this.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)){
 
-            if (filtro != null && (filtro.equals("Cultural") || filtro.equals("Deportivo"))) {
+            if (filtro != null && (filtro.equals("Cultura") || filtro.equals("Deporte"))) {
                 pstmt.setString(1, filtro);
             }
 
