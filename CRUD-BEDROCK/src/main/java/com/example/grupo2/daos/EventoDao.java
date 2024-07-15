@@ -519,7 +519,7 @@ public class EventoDao extends daoBase{
 
     public void modificarEvento(Evento evento){
 
-        String sql= "update evento";
+        String sql = "UPDATE evento SET nombre = ?, descripcion = ?, lugar = ?, id_profesor = ?, vacantes = ?, fecha_inicial = ?, fecha_final = ?, hora = ? WHERE id_evento = ?";
 
         try(Connection connection = this.getConnection();
             PreparedStatement pstmt = connection.prepareStatement(sql)){

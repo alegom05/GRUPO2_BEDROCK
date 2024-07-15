@@ -27,56 +27,53 @@
     <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
 </head>
 <body>
-    <div class="ParteSuperior" style="overflow-x: hidden">
-        <div class="row">
-            <div class="col-md-3 d-flex justify-content-start align-items-center">
-                <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-                <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
-            </div>
-            <div class="col-md-9 d-flex align-items-center justify-content-end">
-                <a href="javascript:void(0)" onclick="detallesUsuario('<%=usuarioSesion.getId()%>')">
-                    <!--href="%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=%=usuarioSesion.getId()%>"-->
-                    <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
-                </a>
-                <div class="usuario-info">
-                    <%
-                        String tipoUsuario = usuarioSesion.getTipo();
-                        String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
-                    %>
-                    <h2 style=" text-align: right;">
-                        <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
-                    </h2>
-                </div>
-                <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
-                    <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
-                </a>
-            </div>
+<div class="ParteSuperior container-fluid">
+    <div class="row">
+        <div class="col-md-3 d-flex justify-content-start align-items-center">
+            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+            <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
         </div>
-        <nav class="letra_botones_encabezado">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
-                </li>
-
-                <li class="nav-item">
-                    <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
-                </li>
-                <li class="nav-item">
-                    <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
-                </li>
-                <li class="nav-item">
-                    <a href="javascript:void(0)" onclick="verCalendario('<%=usuarioSesion.getId()%>')" class="nav-link">Mira Tu Calendario!</a>
-                    <%--<a href="${pageContext.request.contextPath}/Coordis?action=calendario" class="nav-link">Mira Tu Calendario!</a>--%>
-                </li>
-                <li class="nav-item">
-                    <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getTipo()%>')" class="nav-link">Historial De Eventos</a>
-                </li>
-                <li class="nav-item">
-                    <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
-                </li>
-            </ul>
-        </nav>
+        <div class="col-md-9 d-flex align-items-center justify-content-end">
+            <a href="javascript:void(0)" onclick="detallesUsuario('<%=usuarioSesion.getId()%>')">
+                <!--href="%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=%=usuarioSesion.getId()%>"-->
+                <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
+            </a>
+            <div class="usuario-info" style="margin-right: 1.2rem">
+                <%
+                    String tipoUsuario = usuarioSesion.getTipo();
+                    String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
+                %>
+                <h3 style=" text-align: right;">
+                    <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
+                </h3>
+            </div>
+            <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
+                <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
+            </a>
+        </div>
     </div>
+    <nav class="letra_botones_encabezado">
+        <ul class="nav">
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
+            </li>
+            <li class="nav-item">
+                <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
+            </li>
+
+            <li class="nav-item">
+                <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getTipo()%>')" class="nav-link">Historial De Eventos</a>
+            </li>
+            <li class="nav-item">
+                <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
+            </li>
+        </ul>
+    </nav>
+</div>
     <!--<div id="container-frase" style="max-width: 80%; margin: 0 auto; margin-top: 70px; margin-bottom:10px">
         <h1>
             hola
@@ -164,8 +161,7 @@
                     <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar cambios</button>
                     <% } %>
 
-<<<<<<< HEAD
-=======
+
                     <!--div class="row-md-auto">
                         <label for="diasSemana">Días de la semana</label>
                         <div class="row">
@@ -199,7 +195,7 @@
                             </div>
                         </div>
                     </div-->
->>>>>>> ca5de053424ad284ba2b43bf488eefe1e4414680
+
                 </div>
             </form>
         </div>
