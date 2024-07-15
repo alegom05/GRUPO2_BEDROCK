@@ -77,7 +77,7 @@
 
                     <div class="mt-3">
                         <label for="imagen" class="form-label">Subir Imagen:</label>
-                        <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
+                        <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*" required>
                         <img id="preview" src="#" alt="Vista previa de la imagen" style="max-width: 100%; margin-top: 10px; display: none;">
                     </div>
 

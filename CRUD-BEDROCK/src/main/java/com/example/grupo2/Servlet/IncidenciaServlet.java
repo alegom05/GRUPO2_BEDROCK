@@ -170,6 +170,20 @@ public class IncidenciaServlet extends HttpServlet {
                 view.forward(request, response);
                 break;
 
+            case "detallarIncidencia":
+                String id4 = request.getParameter("id");
+                int idinteg = Integer.parseInt(id4);
+                if (incidenciaDao.obtenerIncidenciaPorId(Integer.parseInt(id4)) != null) {
+                    Incidencia incidencia = incidenciaDao.obtenerIncidenciaPorId(idinteg);
+                    request.setAttribute("incidencia", incidencia);
+                    RequestDispatcher view1 = request.getRequestDispatcher("/VecinosJSPS/detallesIncidencia-Vecino.jsp");
+                    view1.forward(request, response);
+                }else {
+                    System.out.println("Incidencia no encontrada para el ID: " + id4); // Log de incidencia no encontrada
+                    //response.sendRedirect("error.jsp");
+                }
+                break;
+
 
         }
     }
