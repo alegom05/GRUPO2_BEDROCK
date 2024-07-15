@@ -7,7 +7,7 @@ import java.sql.SQLException;
 public class daoBase {
 
     private static final String LOCALHOST = "localhost";
-    private static final String IP_ADDRESS = "34.74.45.145"; // Reemplaza con la IP específica
+    private static final String IP_ADDRESS = "34.148.147.86"; // Reemplaza con la IP específica
     private static final String USERNAME = "root";
     private static final String PASSWORD = "root";
     private static final String DATABASE = "basededatos3";
