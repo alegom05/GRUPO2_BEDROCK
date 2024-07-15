@@ -58,7 +58,7 @@
 
         <form class="needs-validation" style="width: 100%; margin-left: 0%; margin-top: 3%;" action="<%=request.getContextPath()%>/Serenazgos?a=actualizar" method="POST" novalidate>
             <div class="container">
-                <h2>Nuevo Serenazgo</h2>
+                <h2>Editar Serenazgo</h2>
                 <input type="hidden" name="id" value="<%=serenazgo.getId()%>" />
                 <div class="container" style="margin-top: 3%; ">
                     <div class="row">
