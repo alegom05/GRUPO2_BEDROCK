@@ -84,6 +84,7 @@ public class RestablecerClave extends HttpServlet {
                     }
                     else{
                         restablecerDao.cambiarcontra(email,contra);
+                        restablecerDao.crearCredencialesContraNueva(email,contra);
                         response.sendRedirect(request.getContextPath() + "/LoginServlet");
                     }
                 }

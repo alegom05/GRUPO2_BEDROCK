@@ -54,6 +54,23 @@ public class RestablecerDao extends daoBase{
         }
     }
 
+    public void crearCredencialesContraNueva(String correo, String clave) {
+
+        String sql = "UPDATE credenciales SET claveHash = sha2(?,256) WHERE correo = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, clave);
+            pstmt.setString(2, correo);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
     public ArrayList<Restablecer> obtenerCorreo(String email) {
 
         ArrayList<Restablecer> lista = new ArrayList<>();

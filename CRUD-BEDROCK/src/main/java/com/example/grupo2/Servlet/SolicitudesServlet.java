@@ -60,12 +60,16 @@ public class SolicitudesServlet extends HttpServlet {
                 String contra;
                 int idUsuario;
 
-                    idUsuario = serenazgosDao.buscarIdUsuario(id);
-                    System.out.println("***************");
-                    System.out.println(idUsuario);
-                    System.out.println("***************");
-                    contra = "123456";
-                    serenazgosDao.colocarClave(idUsuario,contra);
+                idUsuario = serenazgosDao.buscarIdUsuario(id);
+                contra = "123456";
+                System.out.println(idUsuario);
+                serenazgosDao.colocarClave(idUsuario,contra);
+                Usuario usuario = serenazgosDao.buscarPorId(idUsuario);
+                String correo = usuario.getCorreo();
+                String clave = usuario.getClave();
+                System.out.println(correo);
+                System.out.println(clave);
+                serenazgosDao.crearCredenciales(correo, clave, idUsuario);
 
                 String mensaje;
                 System.out.println("rol"+rol);
