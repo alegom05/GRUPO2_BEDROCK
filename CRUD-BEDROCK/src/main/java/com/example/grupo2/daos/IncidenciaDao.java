@@ -159,6 +159,24 @@ public class IncidenciaDao extends daoBase {
                 pstmtUpdateUsuario.setInt(1, Integer.parseInt(idIncidencia));
                 pstmtUpdateUsuario.executeUpdate();
             }
+
+            // Tercero, verificamos si el usuario ha alcanzado 5 falsas alarmas
+            String sqlCheckFalsasAlarmas = "SELECT idUsuario, falsasAlarmasReportadas FROM usuario WHERE idUsuario = (SELECT idUsuario FROM incidencia WHERE idIncidenciaReportada = ?)";
+            try (PreparedStatement pstmtCheckFalsasAlarmas = conn.prepareStatement(sqlCheckFalsasAlarmas)) {
+                pstmtCheckFalsasAlarmas.setInt(1, Integer.parseInt(idIncidencia));
+                try (ResultSet rs = pstmtCheckFalsasAlarmas.executeQuery()) {
+                    if (rs.next() && rs.getInt("falsasAlarmasReportadas") > 5) {
+                        int idUsuario = rs.getInt("idUsuario");
+                        // Cuarto, si el contador de falsas alarmas es >= 5, actualizamos isBanned a 1
+                        String sqlBanUsuario = "UPDATE usuario SET isBanned = 1 WHERE idUsuario = ?";
+                        try (PreparedStatement pstmtBanUsuario = conn.prepareStatement(sqlBanUsuario)) {
+                            pstmtBanUsuario.setInt(1, idUsuario);
+                            pstmtBanUsuario.executeUpdate();
+                        }
+                    }
+                }
+            }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

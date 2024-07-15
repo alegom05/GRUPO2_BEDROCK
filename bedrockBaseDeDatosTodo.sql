@@ -30,6 +30,9 @@ CREATE TABLE IF NOT EXISTS `basededatos3`.`usuario` (
   `horaFin` TIME NOT NULL,
   `fecha_nacimiento` DATE NULL DEFAULT NULL,
   `rolSolicitado` VARCHAR(45) NULL,
+  `falsasAlarmasReportadas` TINYINT UNSIGNED NULL DEFAULT 0,
+  `isBanned` TINYINT NOT NULL DEFAULT 0,
+  
   PRIMARY KEY (`idUsuario`),
   UNIQUE INDEX `correo_UNIQUE` (`correo` ASC) VISIBLE,
   UNIQUE INDEX `dni_UNIQUE` (`dni` ASC) VISIBLE,

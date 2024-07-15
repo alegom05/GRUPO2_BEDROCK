@@ -49,25 +49,30 @@ public class LoginServlet extends HttpServlet {
         Usuario usuario = loginDao.validarHash(correo, pass);
         HttpSession session = request.getSession();
 
-        if(usuario !=null){
-
-            session.setAttribute("usuarioSesion",usuario);
-            session.setAttribute("rol",usuario.getRol());
-            session.setMaxInactiveInterval(60*60);
-            if("VE".equals(usuario.getRol())){
-                response.sendRedirect(request.getContextPath()+"/VecinoIndexServlet");
-            }else if("CO".equals(usuario.getRol())){
-                response.sendRedirect(request.getContextPath()+"/CoordinadoraIndexServlet");
-            }else if("SE".equals(usuario.getRol())){
-                response.sendRedirect(request.getContextPath()+"/SerenazgoIndexServlet");
-            }else{
-                response.sendRedirect(request.getContextPath()+"/AdminIndexServlet");
+        if (usuario != null) {
+            if (usuario.isBanned()) {
+                // El usuario está baneado
+                session.setAttribute("indicador", "baneado");
+                response.sendRedirect(request.getContextPath() + "/LoginServlet");
+            } else {
+                // El usuario no está baneado, procede con el login normal
+                session.setAttribute("usuarioSesion", usuario);
+                session.setAttribute("rol", usuario.getRol());
+                session.setMaxInactiveInterval(60 * 60);
+                if ("VE".equals(usuario.getRol())) {
+                    response.sendRedirect(request.getContextPath() + "/VecinoIndexServlet");
+                } else if ("CO".equals(usuario.getRol())) {
+                    response.sendRedirect(request.getContextPath() + "/CoordinadoraIndexServlet");
+                } else if ("SE".equals(usuario.getRol())) {
+                    response.sendRedirect(request.getContextPath() + "/SerenazgoIndexServlet");
+                } else {
+                    response.sendRedirect(request.getContextPath() + "/AdminIndexServlet");
+                }
             }
-
-        }else{
-
-            session.setAttribute("indicador","error");
-            response.sendRedirect(request.getContextPath()+"/LoginServlet");
+        } else {
+            // Credenciales inválidas
+            session.setAttribute("indicador", "error");
+            response.sendRedirect(request.getContextPath() + "/LoginServlet");
         }
 
     }

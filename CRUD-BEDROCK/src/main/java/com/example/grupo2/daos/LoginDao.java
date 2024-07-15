@@ -46,18 +46,24 @@ public class LoginDao extends daoBase{
         Usuario usuario = null;
         UsuarioDao usuarioDao = new UsuarioDao();
 
-        String sql = "SELECT * FROM credenciales\n" +
-                "WHERE correo = ? AND claveHash = SHA2(?, 256);";
+        String sql = "SELECT c.*, COALESCE(u.isBanned, 0) as isBanned FROM credenciales c " +
+                "JOIN usuario u ON c.idUsuario = u.idUsuario " +
+                "WHERE c.correo = ? AND c.claveHash = SHA2(?, 256);";
 
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, username);
             pstmt.setString(2, password);
 
-            try (ResultSet rs = pstmt.executeQuery();) {
+            try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    int employeeId = rs.getInt(4);
+                    int employeeId = rs.getInt("idUsuario");
+                    boolean isBanned = rs.getBoolean("isBanned");
+
                     usuario = usuarioDao.listarPorId(employeeId);
+                    if (usuario != null) {
+                        usuario.setBanned(isBanned);
+                    }
                 }
             }
 

@@ -21,6 +21,7 @@ public class Usuario {
     private Time horaInicio;
     private Time horaFin;
     private Date fechaNacimiento;
+    private boolean isBanned;
 
     public int getId() {
         return id;
@@ -164,5 +165,13 @@ public class Usuario {
 
     public void setMotivoReporte(String motivoReporte) {
         this.motivoReporte = motivoReporte;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
 }
