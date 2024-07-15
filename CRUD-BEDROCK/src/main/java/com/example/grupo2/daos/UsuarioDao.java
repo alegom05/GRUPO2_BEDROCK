@@ -468,18 +468,16 @@ public class UsuarioDao extends daoBase {
         String fa= String.valueOf(fechaActual);
 
 
-        String sql = "INSERT INTO `basededatos3`.`solicitudes` (`estadoSolicitud`,`fechasolicitud`,`usuario_idUsuario`,`roles_idRoles`) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO `basededatos3`.`solicitudes` (`fechasolicitud`,`usuario_idUsuario`,`roles_idRoles`) VALUES (?,?,?)";
 
-        int estado=0;
-        String rol="CO";
+        String rol="VE";
         System.out.print("en proceso");
 
         try (Connection connection = this.getConnection();
              PreparedStatement pstmt = connection.prepareStatement(sql);) {
-            pstmt.setInt(1,estado);
-            pstmt.setDate(2,fechaActual);
-            pstmt.setInt(3,idUsuario);
-            pstmt.setString(4,rol);
+            pstmt.setDate(1,fechaActual);
+            pstmt.setInt(2,idUsuario);
+            pstmt.setString(3,rol);
             pstmt.executeUpdate();
             System.out.print(fa);
             System.out.print("solicitud enviada");
