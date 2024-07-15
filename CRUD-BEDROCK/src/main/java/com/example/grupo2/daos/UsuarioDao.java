@@ -330,6 +330,21 @@ public class UsuarioDao extends daoBase {
         }
     }
 
+    public void crearCredencialesContraNueva(int id, String clave) {
+
+        String sql = "UPDATE credenciales SET claveHash = sha2(?,256) WHERE idUsuario = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, clave);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     //Método para actualizar el número de celular del serenazgo puesto que este solo puede actualizar este campo y también su contraseña
     public void actualizarCelular(Usuario serenazgo) {
         String sql = "UPDATE usuario SET telefono=? where idUsuario=?";
