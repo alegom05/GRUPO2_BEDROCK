@@ -358,6 +358,7 @@ public class CoordisRolServlet extends HttpServlet {
         EventoDao eventoDao = new EventoDao();
         ProfesoresDao profesoresDao = new ProfesoresDao();
         RequestDispatcher view;
+        doGet(request,response);
 
         switch (action) {
             //Crear Evento
