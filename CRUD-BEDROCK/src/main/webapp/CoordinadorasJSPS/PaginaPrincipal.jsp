@@ -149,10 +149,10 @@
             <div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="contenedor mt-4 d-flex align-items-center">
+                        <!--<div class="contenedor mt-4 d-flex align-items-center">
                             <h4 class="align-self-center">Tuviste o viste algún inconveniente en el distrito?</h4>
                             <a href="${pageContext.request.contextPath}/Coordis?action=formCrearIncidencia" class="btn btn-primary izquierda"><h7>Reporta Aquí!</h7></a>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
             </div>
