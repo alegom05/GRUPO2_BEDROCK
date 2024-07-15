@@ -114,7 +114,7 @@
                         <div>
                             <label for="telefonoInput" class="form-label" style="margin-top: 10px;">Teléfono</label>
                             <div class="input-group">
-                                <input type="text" id="telefonoInput" class="form-control" name="telefonoInput" placeholder="<%=usuarioSesion.getNumtelefono()%>" value="<%=usuarioSesion.getNumtelefono()%>" oninput="validatePhoneInput(this)">
+                                <input type="text" id="telefonoInput" class="form-control" name="telefonoInput" placeholder="Ingrese su teléfono" value="<%=usuarioSesion.getNumtelefono() == null ? "" : usuarioSesion.getNumtelefono()%>" oninput="validatePhoneInput(this)">
                             </div>
                         </div>
                     </div>
