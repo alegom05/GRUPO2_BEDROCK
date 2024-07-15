@@ -95,20 +95,22 @@
         <div class="col-md-6 mb-3 ">
 
             <div class="contenedor mt-4" >
-                <img src="<%= request.getContextPath() %>/Coordis?action=verFotoEvento&id=<%= evento.getIdEvento() %>" class="figure-img img-fluid rounded" alt="Imagen de la incidencia" >
+                <img src="<%= request.getContextPath() %>/Coordis?action=verFotoEvento&id=<%= evento.getIdEvento() %>" class="figure-img img-fluid rounded" alt="Imagen del evento " >
             </div>
         </div>
 
         <div class="col-md-6 d-flex align-items-center">
-            <form>
+            <form method="POST" action="<%=request.getContextPath()%>/Coordis?action=modificarEvento">
+                <input type="hidden" name="id" value="<%=evento.getIdEvento()%>">
+                <input type="hidden" name="tipoUsuario" value="<%=usuarioSesion.getTipo()%>">
                 <div class="mt-2">
                     <div class="mb-2">
                         <label for="nombre">Nombre del Evento</label>
                         <input type="text" class="form-control" id="nombre" name="nombre" value="<%=evento.getNombre()%>" required>
                     </div>
                     <div class="mb-2">
-                        <label for="detalles">Descripción</label>
-                        <textarea class="form-control" id="detalles" name="detalles" rows="3" required><%=evento.getDescripcion()%></textarea>
+                        <label for="descripcion">Descripción</label>
+                        <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required><%=evento.getDescripcion()%></textarea>
                     </div>
                     <div class="mb-2">
                         <label for="lugar">Lugar</label>
@@ -118,8 +120,8 @@
 
                     <div class="row">
                         <div class="col">
-                            <label for="profesor">Encargado</label>
-                            <input type="text" class="form-control" id="profesor" name="profesor" value="<%=evento.getNombreProfesor()%>">
+                            <label for="encargado">Encargado</label>
+                            <input type="text" class="form-control" id="encargado" name="encargado" value="<%=evento.getIdProfesor()%>">
                         </div>
 
                         <div class="col-md-auto">
@@ -132,12 +134,12 @@
 
                     <div class="row">
                         <div class="col">
-                            <label for="fechaInicio">Fecha Inicio</label>
-                            <input type="date" class="form-control" id="fechaInicio" name="fechaInicio" value="<%=evento.getFechaInicial()%>" required>
+                            <label for="fechaInicial">Fecha Inicio</label>
+                            <input type="date" class="form-control" id="fechaInicial" name="fechaInicial" value="<%=evento.getFechaInicial()%>" required>
                         </div>
                         <div class="col">
-                            <label for="fechaFin">Fecha Fin</label>
-                            <input type="date" class="form-control" id="fechaFin" name="fechaFin" value="<%=evento.getFechaFinal()%>" required>
+                            <label for="fechaFinal">Fecha Fin</label>
+                            <input type="date" class="form-control" id="fechaFinal" name="fechaFinal" value="<%=evento.getFechaFinal()%>" required>
                         </div>
                     </div>
 
@@ -145,6 +147,7 @@
                         <div class="col">
                             <label for="hora">Hora</label>
                             <input type="time" class="form-control" id="hora" name="hora" value="<%=evento.getHora()%>" required>
+
                         </div>
                         <div class="col">
                             <label for="frecuenciaEvento">Frecuencia</label>
@@ -157,7 +160,12 @@
                             </select>
                         </div>
                     </div>
+                    <% if (mostrarGuardar) { %>
+                    <button type="submit" class="btn btn-primary" id="btnGuardar">Guardar cambios</button>
+                    <% } %>
 
+<<<<<<< HEAD
+=======
                     <!--div class="row-md-auto">
                         <label for="diasSemana">Días de la semana</label>
                         <div class="row">
@@ -191,6 +199,7 @@
                             </div>
                         </div>
                     </div-->
+>>>>>>> ca5de053424ad284ba2b43bf488eefe1e4414680
                 </div>
             </form>
         </div>
@@ -198,9 +207,7 @@
 
             <!-- Versión que te lleva a modal, lo comento por el momento-->
             <!--<a href="" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</a>-->
-            <% if (mostrarGuardar) { %>
-            <button type="button" class="btn btn-primary" id="btnRedireccional">Guardar cambios</button>
-            <% } %>
+
 
             <% if (mostrarIniciar) { %>
             <button type="button" class="btn btn-primary" id="btnRedireccional" data-bs-toggle="modal" data-bs-target="#exampleModal">Iniciar evento</button>
@@ -544,6 +551,22 @@
             document.body.appendChild(form);
             form.submit();
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var btnGuardar = document.getElementById('btnGuardar');
+            if (btnGuardar) {
+                btnGuardar.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var form = this.closest('form');
+                    if (form.checkValidity()) {
+                        form.submit();
+                    } else {
+                        form.reportValidity();
+                    }
+                });
+            }
+        });
     </script>
 </body>
 </html>
