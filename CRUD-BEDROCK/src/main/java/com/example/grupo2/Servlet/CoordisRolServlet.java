@@ -570,9 +570,10 @@ public class CoordisRolServlet extends HttpServlet {
             // a un estado "en curso"
             case "eventoEnCurso":
                 String idEvento = request.getParameter("idEvento");
+                String tipoUsuario = request.getParameter("tipoUsuario");
                 if (idEvento != null) {
                     eventoDao.editarEstadoEventoEnCurso(idEvento);
-                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
+                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos&tipoUsuario=" + tipoUsuario);
                 }else{
                     response.sendRedirect("error.jsp");
                 }
@@ -582,9 +583,11 @@ public class CoordisRolServlet extends HttpServlet {
             // a un estado "Culminado"
             case "eventoCulminado":
                 String idEvento2 = request.getParameter("id");
+                String tipoUsuario2 = request.getParameter("tipoUsuario");
                 if (idEvento2 != null) {
                     eventoDao.editarEstadoEventoCuliminado(idEvento2);
                     response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
+                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos&tipoUsuario=" + tipoUsuario2);
                 }else{
                     response.sendRedirect("error.jsp");
                 }

@@ -221,6 +221,7 @@
                             <form method="POST" action="<%= request.getContextPath() %>/Coordis?action=eventoEnCurso">
                                 <div>
                                     <input type="hidden" name="idEvento" value="<%=evento.getIdEvento()%>">
+                                    <input type="hidden" name="tipoUsuario" value="<%=usuarioSesion.getTipo()%>">
                                 </div>
                                 <button type="submit" class="btn btn-primary">Confirmar</button>
                             </form>
@@ -381,7 +382,7 @@
 
         function culminarEventoDefinitivamente() {
             var foto = document.getElementById('imagenAsistencia');
-            var idDeEvento = eventoIdParaCulminar; // Supongo que idDeEvento es el mismo que eventoIdParaCulminar
+            var idDeEvento = eventoIdParaCulminar;
 
             console.log('ID del evento:', idDeEvento);
             console.log('Archivos seleccionados:', foto.files.length);
@@ -392,24 +393,27 @@
                 formData.append('id', idDeEvento);
                 formData.append('foto', foto.files[0]);
 
-                // Realizar la solicitud de eliminación con la imagen
                 $.ajax({
                     url: '<%=request.getContextPath()%>/Coordis?action=publicarFotosAsistencia',
                     type: 'POST',
                     data: formData,
-                    processData: false, // No procesar los datos
-                    contentType: false, // No establecer el tipo de contenido
+                    processData: false,
+                    contentType: false,
                     success: function(response) {
-                        // Recargar la página para actualizar la tabla
                         console.log('Solicitud completada con éxito');
-                        window.location.href = '<%=request.getContextPath()%>/Coordis?action=listaEventos';
+                        // Obtener el tipo de usuario de la sesión
+                        var tipoUsuario = '<%=usuarioSesion.getTipo()%>';
+                        // Redirigir a la página de lista de eventos con el tipo de usuario
+                        window.location.href = '<%=request.getContextPath()%>/Coordis?action=listaEventos&tipoUsuario=' + tipoUsuario;
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
                         console.error('Error en la solicitud:', textStatus, errorThrown);
+                        alert('Hubo un error al culminar el evento. Por favor, intente de nuevo.');
                     }
                 });
             } else {
                 console.error('ID de evento o foto no válido.');
+                alert('Por favor, asegúrese de seleccionar una foto antes de culminar el evento.');
             }
         }
 
