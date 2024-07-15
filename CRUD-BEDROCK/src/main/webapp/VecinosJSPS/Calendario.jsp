@@ -5,7 +5,7 @@
 <jsp:useBean id="usuarioSesion" scope="session" type="com.example.grupo2.Beans.Usuario" class="com.example.grupo2.Beans.Usuario"/>
 
 <%
-    ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario2");
+    ArrayList<Evento> eventos = (ArrayList<Evento>) request.getAttribute("listaCalendario");
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy, M-1, dd");
     SimpleDateFormat timeFormat = new SimpleDateFormat("HH, mm");
 %>

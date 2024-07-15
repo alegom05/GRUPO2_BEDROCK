@@ -89,6 +89,9 @@
                                 <td><%=incidencia1.getNombreIncidencia()%></td>
                                 <td><%=incidencia1.getFechaIncidencia()%></td>
                                 <td><%=incidencia1.getLugar()%></td>
+                                <td><button id="lupaICON" class="btn btn-outline-secondary" onclick="detallesIncidencia(<%=(incidencia1.getIdIncidencia()) %>)">
+                                    <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="VerDetalles">
+                                </button> </td>
                             </tr>
                             <%  }  %>
                         </tbody>
@@ -199,6 +202,17 @@
                 form.appendChild(input);
                 document.body.appendChild(form);
                 form.submit();
+            }
+        </script>
+        <script>
+            function detallesIncidencia(id) {
+                // Redireccionar a otra página HTML
+                window.location.href = '<%=request.getContextPath()%>/IncidenciaServlet?action=detallarIncidencia&id=' + id;
+            }
+
+            function detallesIncidencia1() {
+                // Redireccionar a otra página HTML
+                window.location.href = 'detallesIncidencias.html';
             }
         </script>
     </body>

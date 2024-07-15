@@ -95,7 +95,7 @@
                                         <h1 class="texto-con-imagen">Rawayana en Lima</h1>
                                         <h3 class="texto-con-imagen">Fecha y hora: <br> 18/07/24 21:00 <br> Descripción: <br> Concierto solo una noche</h3>
                                         <div class="d-flex mt-4">
-                                            <a href="EventosDetallado6.html" class="btn btn-primary"><h7>Más Información</h7></a>
+                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accessModal"><h7>Más Información</h7></a>
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@
                                         <h1 class="texto-con-imagen">Cine en Familia</h1>
                                         <h3 class="texto-con-imagen">Fecha y hora: <br> 01/05/2024 18:00 <br> Descripción: <br> Cine totalmente gratis</h3>
                                         <div class="d-flex mt-4">
-                                            <a href="EventosDetallado9.html" class="btn btn-primary"><h7>Más Información</h7></a>
+                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accessModal"><h7>Más Información</h7></a>
                                         </div>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                                         <h1 class="texto-con-imagen">Cine en Familia</h1>
                                         <h3 class="texto-con-imagen">Fecha y hora: <br> 01/05/2024 18:00 <br> Descripción: <br> Cine totalmente gratis</h3>
                                         <div class="d-flex mt-4">
-                                            <a href="EventosDetallado9.html" class="btn btn-primary"><h7>Más Información</h7></a>
+                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#accessModal"><h7>Más Información</h7></a>
                                         </div>
                                     </div>
                                 </div>

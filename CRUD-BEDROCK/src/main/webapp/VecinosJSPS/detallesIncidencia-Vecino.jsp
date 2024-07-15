@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: alexm
-  Date: 6/25/2024
-  Time: 1:29 PM
+  Date: 7/15/2024
+  Time: 2:22 PM
   To change this template use File | Settings | File Templates.
 --%>
 
@@ -24,29 +24,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="${pageContext.request.contextPath}/CoordinadorasJSPS/index.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/VecinosJSPS/style-Vecino.css" rel="stylesheet">
+
 </head>
 <body>
-<div class="ParteSuperior container-fluid">
+<div class="ParteSuperior" style="overflow-x: hidden">
     <div class="row">
         <div class="col-md-3 d-flex justify-content-start align-items-center">
-            <img src="${pageContext.request.contextPath}/CoordinadorasJSPS/logos/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
-            <h4 style="margin-top: 10px;">Juntos Por<br>San Miguel!</h4>
+            <img src="${pageContext.request.contextPath}/logos-Vecino/logo_pag_principal.png" alt="Logo" class="img-thumbnail" style="margin-right: 10px;">
+            <h4 style="margin-top: 10px;">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
             <a href="javascript:void(0)" onclick="detallesUsuario('<%=usuarioSesion.getId()%>')">
-                <!--href="%=request.getContextPath()%>/VecinoIndexServlet?action=editar&id=%=usuarioSesion.getId()%>"-->
                 <img src="${pageContext.request.contextPath}/logos-Vecino/R-removebg-preview.png" style="margin-right: 10px;" alt="" class="img-thumbnail imagen_cerrarsesion">
             </a>
-            <div class="usuario-info" style="margin-right: 1.2rem">
-                <%
-                    String tipoUsuario = usuarioSesion.getTipo();
-                    String rol = "Coordinadora de " + tipoUsuario.toLowerCase();
-                %>
-                <h3 style=" text-align: right;">
-                    <%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br><%=rol%>
-                </h3>
-            </div>
+            <h2 style="margin-top: 10px; margin-right: 40px; text-align: right;"><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h2>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/logos-Vecino/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar">
             </a>
@@ -55,21 +47,22 @@
     <nav class="letra_botones_encabezado">
         <ul class="nav">
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/CoordinadoraIndexServlet" class="nav-link">Municipalidad</a>
+                <a href="${pageContext.request.contextPath}/VecinoIndexServlet" class="nav-link">Municipalidad</a>
             </li>
-
             <li class="nav-item">
-                <a href="<%=request.getContextPath()%>/Coordis?action=formCrearIncidencia" class="nav-link">Reportar Incidencia</a>
+                <a href="${pageContext.request.contextPath}/EventoServlet?action=listarEventoFiltrado" class="nav-link">Eventos</a>
+            </li>
+            <li class="nav-item">
+                <a href="<%=request.getContextPath()%>/IncidenciaServlet?action=formCrear" class="nav-link">Reportar Incidencia</a>
             </li>
             <li class="nav-item">
                 <a href="javascript:void(0)" onclick="listaIncidencias('<%=usuarioSesion.getId()%>')" class="nav-link">Lista de Incidencias</a>
             </li>
-
             <li class="nav-item">
-                <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getTipo()%>')" class="nav-link">Historial De Eventos</a>
+                <a href="javascript:void(0)" onclick="verCalendario('<%=usuarioSesion.getId()%>')" class="nav-link">Mira Tu Calendario!</a>
             </li>
             <li class="nav-item">
-                <a href="${pageContext.request.contextPath}/Coordis?action=listarve" class="nav-link">Lista de Vecinos</a>
+                <a href="javascript:void(0)" onclick="historialEventos('<%=usuarioSesion.getId()%>')" class="nav-link">Historial De Eventos</a>
             </li>
         </ul>
     </nav>
@@ -87,7 +80,7 @@
                 <h1><%= incidencia.getNombreIncidencia() %></h1>
 
                 <div class="contenedor mt-4" >
-                    <img src="<%= request.getContextPath() %>/Coordis?action=verFotoIncidencia&id=<%= incidencia.getIdIncidencia() %>" class="figure-img img-fluid rounded" alt="Imagen de la incidencia" style="height: 250px">
+                    <img src="<%= request.getContextPath() %>/imagenIncidencia&id=<%= incidencia.getIdIncidencia() %>" class="figure-img img-fluid rounded" alt="Imagen de la incidencia" style="height: 250px">
                 </div>
 
             </div>
@@ -112,7 +105,7 @@
                     </div>
                     <div class="elemento_texto_evento ajustar">
                         <% if (incidencia.getDescripcionSolucion()!= null) { %>
-                            <h4><strong>Solución a brindar: </strong> <%= incidencia.getDescripcionSolucion() %></h4>
+                        <h4><strong>Solución a brindar: </strong> <%= incidencia.getDescripcionSolucion() %></h4>
                         <%} else { %>
                         <h4><strong>Solución que se brindará:</strong> Por favor espera a que su incidencia sea evaluada para que le brinden la ayuda correspondiente </h4>
                         <% } %>
@@ -125,16 +118,15 @@
             </div>
         </div>
         <!--a href="{pageContext.request.contextPath}/Coordis?action=listaCoordi&idUsuario=%=usuarioSesion.getId()%>" class="btn btn-secondary mt-4">Volver a la lista de incidencias</a-->
+    </div>
 </div>
-</div>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script>
-    //detalleUusario//
+    //listaincidencias//
     function detallesUsuario(id) {
         var form = document.createElement('form');
         form.method = 'POST';
-        form.action = '<%=request.getContextPath()%>/CoordinadoraIndexServlet?action=editar';
+        form.action = '<%=request.getContextPath()%>/VecinoIndexServlet?action=editar';
 
         var input = document.createElement('input');
         input.type = 'hidden';
@@ -149,7 +141,7 @@
     function listaIncidencias(id) {
         var form = document.createElement('form');
         form.method = 'POST';
-        form.action = '${pageContext.request.contextPath}/Coordis?action=listaCoordi';
+        form.action = '<%=request.getContextPath()%>/IncidenciaServlet?action=lista3';
 
         var input = document.createElement('input');
         input.type = 'hidden';
@@ -164,7 +156,7 @@
     function verCalendario(id) {
         var form = document.createElement('form');
         form.method = 'POST';
-        form.action = '${pageContext.request.contextPath}/Coordis?action=calendario';
+        form.action = '<%=request.getContextPath()%>/EventoServlet?action=calendario';
 
         var input = document.createElement('input');
         input.type = 'hidden';
@@ -179,11 +171,11 @@
     function historialEventos(id) {
         var form = document.createElement('form');
         form.method = 'POST';
-        form.action = '${pageContext.request.contextPath}/Coordis?action=listaEventos';
+        form.action = '<%=request.getContextPath()%>/EventoServlet?action=listaEventosVecino';
 
         var input = document.createElement('input');
         input.type = 'hidden';
-        input.name = 'tipoUsuario';
+        input.name = 'idUsuario';
         input.value = id;
 
         form.appendChild(input);
@@ -191,17 +183,6 @@
         form.submit();
     }
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
