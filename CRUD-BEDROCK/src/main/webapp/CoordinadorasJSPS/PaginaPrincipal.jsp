@@ -94,7 +94,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6 d-flex">
-                                    <img src="${pageContext.request.contextPath}/imagenEvento?id=<%= evento.getIdEvento() %>" alt="Imagen" class="img-fluid rounded">
+                                    <img src="${pageContext.request.contextPath}/Coordis?action=verFotoEvento&id=<%= evento.getIdEvento() %>" alt="Imagen" class="img-fluid rounded">
                                 </div>
                             </div>
                         </div>
