@@ -80,8 +80,8 @@
                                 <div class="col-lg-6 d-flex align-items-center background-section">
                                     <div class="overlay"></div>
                                     <div class="content text-white px-3 py-4 p-md-5 mx-md-4">
-                                        <h4 class="mb-4">Bienvenido!</h4>
-                                        <h6 class="large mb-0">Logueate para pertencer a esta linda comunidad! En esta página estarás al tanto de todos los eventos que ocurrirán al distrito!</h6>
+                                        <h4 class="mb-4">Revisa tu correo!</h4>
+                                        <h6 class="large mb-0">Te enviamos un código con el cual podrás cambiar tu contraseña!</h6>
                                     </div>
                                 </div>
                             </div>
