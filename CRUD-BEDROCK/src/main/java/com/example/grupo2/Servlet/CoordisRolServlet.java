@@ -411,7 +411,7 @@ public class CoordisRolServlet extends HttpServlet {
         switch (action) {
             //Crear Evento
             case "crearEvento":
-
+                String tipoUsuario3 = request.getParameter("tipoUsuario");
                 String nombre = request.getParameter("nombre");
                 String descripcion = request.getParameter("descripcion");
                 String lugar = request.getParameter("lugar");
@@ -468,7 +468,7 @@ public class CoordisRolServlet extends HttpServlet {
                     evento1.setIdProfesor(Integer.parseInt(encargado));
 
                     eventoDao.crearEvento(evento1);
-                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos");
+                    response.sendRedirect(request.getContextPath() + "/Coordis?action=listaEventos&tipoUsuario=" + tipoUsuario3);
 
                 } catch (NumberFormatException e) {
                     // Manejo de errores de formato de número

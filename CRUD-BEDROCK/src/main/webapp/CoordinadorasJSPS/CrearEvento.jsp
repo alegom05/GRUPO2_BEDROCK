@@ -71,13 +71,14 @@
         <div class="contenedor mt-4 text-center">
             <h1>Crear Evento</h1>
         </div>
-         <form method="post" action="<%=request.getContextPath()%>/Coordis?action=crearEvento" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
+         <form method="post" action="<%=request.getContextPath()%>/Coordis?action=crearEvento&tipoUsuario=<%=usuarioSesion.getTipo()%>" class="row align-items-start needs-validation" novalidate enctype="multipart/form-data">
             <div class="col-md-6 mb-3">
                 <div class="contenedor mt-4 text-center">
 
                     <div class="mt-3">
                         <label for="imagen" class="form-label">Subir Imagen:</label>
                         <input type="file" id="imagen" name="imagen" class="form-control" accept="image/*">
+                        <img id="preview" src="#" alt="Vista previa de la imagen" style="max-width: 100%; margin-top: 10px; display: none;">
                     </div>
 
                 </div>
@@ -366,6 +367,58 @@
         document.body.appendChild(form);
         form.submit();
     }
+</script>
+<script>
+    document.getElementById('imagen').addEventListener('change', function(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('preview');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        var fechaInicio = document.getElementById('fechaInicio');
+        var fechaFin = document.getElementById('fechaFin');
+        var horaInput = document.getElementById('hora');
+
+        // Establecer la fecha mínima como hoy
+        var today = new Date().toISOString().split('T')[0];
+        fechaInicio.setAttribute('min', today);
+        fechaFin.setAttribute('min', today);
+
+        function validarHora() {
+            var fechaSeleccionada = new Date(fechaInicio.value + 'T' + horaInput.value);
+            var ahora = new Date();
+
+            if (fechaInicio.value === today) {
+                var horaMinima = ahora.getHours().toString().padStart(2, '0') + ':' + ahora.getMinutes().toString().padStart(2, '0');
+                horaInput.setAttribute('min', horaMinima);
+            } else {
+                horaInput.removeAttribute('min');
+            }
+
+            if (fechaSeleccionada < ahora) {
+                alert('La hora seleccionada no puede ser anterior a la hora actual.');
+                horaInput.value = '';
+            }
+        }
+
+        fechaInicio.addEventListener('change', function() {
+            fechaFin.setAttribute('min', this.value);
+            validarHora();
+        });
+
+        fechaFin.addEventListener('change', function() {
+            if(fechaInicio.value && this.value < fechaInicio.value) {
+                alert('La fecha de fin no puede ser anterior a la fecha de inicio');
+                this.value = '';
+            }
+        });
+
+        horaInput.addEventListener('change', validarHora);
+    });
 </script>
 </body>
 </html>
