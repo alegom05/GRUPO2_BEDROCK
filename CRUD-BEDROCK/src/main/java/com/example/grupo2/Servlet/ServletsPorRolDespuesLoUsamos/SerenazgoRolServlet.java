@@ -3,6 +3,7 @@ package com.example.grupo2.Servlet.ServletsPorRolDespuesLoUsamos;
 import com.example.grupo2.Beans.*;
 import com.example.grupo2.daos.EventoDao;
 import com.example.grupo2.daos.IncidenciaDao;
+import com.example.grupo2.daos.SerenazgosDao;
 import com.example.grupo2.daos.UsuarioDao;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -172,6 +173,7 @@ public class SerenazgoRolServlet extends HttpServlet {
         String action = request.getParameter("action") == null ? "lista" : request.getParameter("action");
         IncidenciaDao incidenciaDao = new IncidenciaDao();
         UsuarioDao usuarioDao = new UsuarioDao();
+        SerenazgosDao serenazgosDao = new SerenazgosDao();
         RequestDispatcher view;
 
         switch (action) {
@@ -241,6 +243,28 @@ public class SerenazgoRolServlet extends HttpServlet {
                 response.sendRedirect(request.getContextPath() + "/Usuario?action=actualizarS&id=" + serenazgoId) ;
 
                 break;
+
+            case "cambiarContrasenia":
+
+                int id10 = Integer.parseInt(request.getParameter("id"));
+                String oldPassword = request.getParameter("oldPassword");
+                String newPassword = request.getParameter("newPassword");
+
+                // Verificar que la contraseña antigua sea correcta
+                Usuario serenazgo = serenazgosDao.buscarPorId(id10);
+                if (serenazgo != null && serenazgo.getClave().equals(oldPassword)) {
+                    // Actualizar la contraseña
+                    serenazgosDao.actualizarContrasenia(id10, newPassword);
+                    serenazgosDao.crearCredencialesContraNueva(id10, newPassword);
+                    response.sendRedirect(request.getContextPath() + "/Sereno?action=actualizarS&id=" + id10);
+                } else {
+                    // Redirigir con un mensaje de error
+                    request.setAttribute("error", "La contraseña antigua es incorrecta.");
+                    request.getRequestDispatcher("/ruta/del/formulario").forward(request, response);
+                }
+
+                break;
+
         }
     }
 }

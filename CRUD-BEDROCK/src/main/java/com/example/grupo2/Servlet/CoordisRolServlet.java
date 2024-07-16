@@ -1,10 +1,7 @@
 package com.example.grupo2.Servlet;
 
 import com.example.grupo2.Beans.*;
-import com.example.grupo2.daos.EventoDao;
-import com.example.grupo2.daos.IncidenciaDao;
-import com.example.grupo2.daos.ProfesoresDao;
-import com.example.grupo2.daos.UsuarioDao;
+import com.example.grupo2.daos.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -406,6 +403,7 @@ public class CoordisRolServlet extends HttpServlet {
         EventoDao eventoDao = new EventoDao();
         ProfesoresDao profesoresDao = new ProfesoresDao();
         UsuarioDao usuarioDao = new UsuarioDao();
+        SerenazgosDao serenazgosDao = new SerenazgosDao();
         RequestDispatcher view;
         doGet(request,response);
 
@@ -669,6 +667,27 @@ public class CoordisRolServlet extends HttpServlet {
                 vecino.setMotivoReporte(motivoReporte);
                 usuarioDao.reportarVecino(vecino);
                 response.sendRedirect(request.getContextPath() + "/CoordinadoraIndexServlet");
+
+                break;
+
+            case "cambiarContrasenia":
+
+                int id10 = Integer.parseInt(request.getParameter("id"));
+                String oldPassword = request.getParameter("oldPassword");
+                String newPassword = request.getParameter("newPassword");
+
+                // Verificar que la contraseña antigua sea correcta
+                Usuario serenazgo = serenazgosDao.buscarPorId(id10);
+                if (serenazgo != null && serenazgo.getClave().equals(oldPassword)) {
+                    // Actualizar la contraseña
+                    serenazgosDao.actualizarContrasenia(id10, newPassword);
+                    serenazgosDao.crearCredencialesContraNueva(id10, newPassword);
+                    response.sendRedirect(request.getContextPath() + "/CoordinadoraIndexServlet?action=editar&id=" + id10);
+                } else {
+                    // Redirigir con un mensaje de error
+                    request.setAttribute("error", "La contraseña antigua es incorrecta.");
+                    request.getRequestDispatcher("/ruta/del/formulario").forward(request, response);
+                }
 
                 break;
 
