@@ -28,8 +28,18 @@ public class VecinoIndexServlet extends HttpServlet {
                 requestDispatcher.forward(request,response);
             }
             case "editar" -> {
-                int id = Integer.parseInt(request.getParameter("id"));
-                Usuario vecino = newVecinoDao.buscarPorId(id);
+                String idUsu=request.getParameter("id");
+                int id1 = Integer.parseInt(idUsu);
+                int verificacion=newVecinoDao.SolitudEnviadaCordi(idUsu);
+                if (verificacion==1){
+                    HttpSession currentSession = request.getSession();
+                    currentSession.setAttribute("SolicitudEnviadaCord", 1);
+                }else{
+                    HttpSession currentSession = request.getSession();
+                    currentSession.setAttribute("SolicitudEnviadaCord", 0);
+                }
+
+                Usuario vecino = newVecinoDao.buscarPorId(id1);
                 if (vecino != null) {
                     request.setAttribute("usuarioSesion", vecino);
                     requestDispatcher = request.getRequestDispatcher("/VecinosJSPS/detallesUsuario-Vecino.jsp");
@@ -82,11 +92,11 @@ public class VecinoIndexServlet extends HttpServlet {
                 }
             }
             case "enviarSolicitud" -> {
-                int id1 = Integer.parseInt(request.getParameter("id"));
+                String idUsu=request.getParameter("id");
+                int id1 = Integer.parseInt(idUsu);
                 userDao.crearSolicitudCoordi(id1);
                 System.out.println("procesando solicitud");
-                response.sendRedirect(request.getContextPath() + "/VecinoIndexServlet?a=editar&id=" + id1);
-
+                response.sendRedirect(request.getContextPath() + "/VecinoIndexServlet");
             }
 
         }

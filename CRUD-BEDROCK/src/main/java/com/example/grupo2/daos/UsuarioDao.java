@@ -51,6 +51,28 @@ public class UsuarioDao extends daoBase {
         return listaUsuarios;
     }
 
+    public int SolitudEnviadaCordi(String usuarioID) {
+
+        String sql = "SELECT CASE \n" +
+                "           WHEN EXISTS (SELECT 1 FROM solicitudes WHERE usuario_idUsuario = ?) THEN 1 \n" +
+                "           ELSE 0 \n" +
+                "       END AS solicitud_enviada;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, usuarioID);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("solicitud_enviada");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0; // No se encontró una solicitud enviada por el usuario
+    }
+
+
     public ArrayList<Usuario> listarVecinoPorEvento(String idEvento) {
 
         ArrayList<Usuario> listaVecinos = new ArrayList<>();
