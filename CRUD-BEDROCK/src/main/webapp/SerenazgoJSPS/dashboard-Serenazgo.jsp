@@ -220,7 +220,7 @@
                     <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Mapa de Incidencias en San Miguel</h5>
+                                <h5 class="card-title mb-0">Mapa de San Miguel</h5>
                             </div>
                             <div class="card-body">
                                 <div id="map" style="height: 400px; width: 100%;"></div>
@@ -430,6 +430,10 @@
 <script>
     var map = L.map('map').setView([-12.0789, -77.0828], 13);
 
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
     var sanMiguelBoundaries = {
         "type": "Feature",
         "properties": {"name": "San Miguel"},
@@ -461,17 +465,11 @@
         }
     }).addTo(map);
 
-    // Ajustar la vista del mapa a los límites de San Miguel
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
     var comisarias = [
-        {nombre: "Comisaría 1", lat: -12.077639, lon: -77.088194},
-        {nombre: "Comisaría 2", lat: -12.077611, lon: -77.104389},
-        {nombre: "Comisaría 3", lat: -12.066917, lon: -77.093833},
-        {nombre: "Comisaría 4", lat: -12.068194, lon: -77.103944}
+        {nombre: "Serenazgo Av. de la Marina 2400", lat: -12.077639, lon: -77.088194},
+        {nombre: "Serenazgo Chicama 177", lat: -12.077611, lon: -77.104389},
+        {nombre: "Serenazgo Plaza San Miguel", lat: -12.066917, lon: -77.093833},
+        {nombre: "Serenazgo Precursores Av. los Insurgentes 714", lat: -12.068194, lon: -77.103944}
     ];
 
     var serenazgoIcon = L.icon({
@@ -487,9 +485,19 @@
             .bindTooltip(comisaria.nombre, {permanent: false, direction: 'top'});
     });
 
-    // Código existente para añadir marcadores de incidencias
     var meses = [
-        // ... (tu array de meses e incidencias) ...
+        {nombre: "Enero", incidencias: <%= incidenciasPorMes.getEneroIncidencias() %>},
+        {nombre: "Febrero", incidencias: <%= incidenciasPorMes.getFebreroIncidencias() %>},
+        {nombre: "Marzo", incidencias: <%= incidenciasPorMes.getMarzoIncidencias() %>},
+        {nombre: "Abril", incidencias: <%= incidenciasPorMes.getAbrilIncidencias() %>},
+        {nombre: "Mayo", incidencias: <%= incidenciasPorMes.getMayoIncidencias() %>},
+        {nombre: "Junio", incidencias: <%= incidenciasPorMes.getJunioIncidencias() %>},
+        {nombre: "Julio", incidencias: <%= incidenciasPorMes.getJulioIncidencias() %>},
+        {nombre: "Agosto", incidencias: <%= incidenciasPorMes.getAugustIncidencias() %>},
+        {nombre: "Septiembre", incidencias: <%= incidenciasPorMes.getSeptiemIncidencias() %>},
+        {nombre: "Octubre", incidencias: <%= incidenciasPorMes.getOctopusIncidencias() %>},
+        {nombre: "Noviembre", incidencias: <%= incidenciasPorMes.getNovemIncidencias() %>},
+        {nombre: "Diciembre", incidencias: <%= incidenciasPorMes.getDezemIncidencias() %>}
     ];
 
     meses.forEach(function(mes, index) {
@@ -509,6 +517,28 @@
         }).addTo(map)
             .bindPopup(mes.nombre + ": " + mes.incidencias + " incidencias");
     });
+
+    // Añadir marcador de ubicación actual
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var lat = position.coords.latitude;
+            var lon = position.coords.longitude;
+
+            var currentLocationIcon = L.icon({
+                iconUrl: '${pageContext.request.contextPath}/assets/icons/serenazgo_icon.png',
+                iconSize: [40, 40],
+                iconAnchor: [20, 40],
+                popupAnchor: [0, -40]
+            });
+
+            L.marker([lat, lon], {icon: currentLocationIcon})
+                .addTo(map)
+                .bindPopup("Aquí estoy")
+                .openPopup();
+
+            map.setView([lat, lon], 15);
+        });
+    }
 </script>
 
 <script>
