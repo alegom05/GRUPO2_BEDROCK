@@ -96,14 +96,16 @@
                     <td><button id="lupaICON" class="btn btn-secondary" onclick="detalleVecino(<%= vecino.getId()%>)">
                         <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                     </button></td>
+                    <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalReporte" onclick="setVecinoId(<%= vecino.getId() %>)">
+                        <img src="<%= request.getContextPath() %>/CoordinadorasJSPS/Iconos/report.png" alt="Descripción de la imagen" class="mi-imagen">
+                    </button>
 
 
-
-                    <td>
+                    <!--td>
                         <a href="" data-bs-toggle="modal" data-bs-target="#modalReporte">
-                            <img src="<%= request.getContextPath() %>/CoordinadorasJSPS/Iconos/report.png" alt="Descripción de la imagen" class="mi-imagen">
+                            <img src="%= request.getContextPath() %>/CoordinadorasJSPS/Iconos/report.png" alt="Descripción de la imagen" class="mi-imagen">
                         </a>
-                    </td>
+                    </td-->
 
 
                     <td><button id="tachoICON" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#modalEliminar"  onclick="establecerIdParaEliminar(<%= vecino.getId() %>)">
@@ -133,14 +135,14 @@
             </div>
         </div>
 
-        <div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="modalReporteLabel" aria-hidden="true">
+        <!--div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="modalReporteLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="modalReporteLabel">Reportar al vecino</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="reporteVecino" method="post" action="<%=request.getContextPath()%>/UsuarioServlet?action=reportar"  novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
+                    <form id="reporteVecino" method="post" action="%=request.getContextPath()%>/Coordis?action=reportarVecino&idVecino=%=vecino.getId()%>"  novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="motivoReporte" class="form-label">Motivo:</label>
@@ -160,7 +162,33 @@
 
                 </div>
             </div>
-        </div>
+        </div-->
+
+        <!-- Modal para Reportar -->
+        <div class="modal fade" id="modalReporte" tabindex="-1" aria-labelledby="modalReporteLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalReporteLabel">Reportar al vecino</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form id="reporteVecino" method="post" action="<%=request.getContextPath()%>/Coordis?action=reportarVecino">
+                        <div class="modal-body">
+                            <div class="mb-3">
+                                <label for="motivoReporte" class="form-label">Motivo:</label>
+                                <textarea class="form-control" id="motivoReporte" name="motivoReporte" rows="3" placeholder="Ingrese el motivo"></textarea>
+                                <div id="errorMotivo" class="text-danger mt-2" style="display: none;">Es necesario llenar este campo para poder guardar.</div>
+                            </div>
+                            <input type="hidden" id="usuarioIdReportado" name="usuarioIdReportado">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
