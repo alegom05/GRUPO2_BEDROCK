@@ -1,6 +1,9 @@
 <%@ page import="com.example.grupo2.Beans.Usuario" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="usuarioSesion" scope="request" type="com.example.grupo2.Beans.Usuario"/>
+<%
+    HttpSession currentSession = request.getSession();
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -118,13 +121,19 @@
                             </div>
                         </div>
                     </div>
+                    <%
+                        Integer YaSolicitado = (Integer) currentSession.getAttribute("SolicitudEnviadaCord");
+                    %>
                     <div class="row">
                         <div class="col text-center">
                             <button class="btn btn-primary mt-3" type="submit">Guardar Cambios</button>
+                            <% if (YaSolicitado == null || YaSolicitado == 0) { %>
                             <button type="button" class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#solicitudModal">
                                 Solicitud de coordinadora
                             </button>
-
+                            <% } else { %>
+                            <button class="btn btn-primary mt-3" disabled>Solicitud enviada</button>
+                            <% } %>
                         </div>
                     </div>
                 </form>

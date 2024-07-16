@@ -89,7 +89,7 @@
                             <div class="invalid-feedback">Es necesario poner el nombre del evento.</div>
                         </div>
                         <div class="mb-2">
-                            <label for="descripcion">Descripcióm</label>
+                            <label for="descripcion">Descripción</label>
                             <textarea class="form-control" id="descripcion" name="descripcion" rows="3" required></textarea>
                             <div class="invalid-feedback">Es necesario introducir la descripción del evento.</div>
                         </div>

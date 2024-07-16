@@ -220,7 +220,7 @@
                     <div class="col-12 col-md-12 col-xxl-6 d-flex order-3 order-xxl-2">
                         <div class="card flex-fill w-100">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Mapa de Incidencias en San Miguel</h5>
+                                <h5 class="card-title mb-0">Mapa de San Miguel</h5>
                             </div>
                             <div class="card-body">
                                 <div id="map" style="height: 400px; width: 100%;"></div>
@@ -468,10 +468,10 @@
     }).addTo(map);
 
     var comisarias = [
-        {nombre: "Comisaría 1", lat: -12.077639, lon: -77.088194},
-        {nombre: "Comisaría 2", lat: -12.077611, lon: -77.104389},
-        {nombre: "Comisaría 3", lat: -12.066917, lon: -77.093833},
-        {nombre: "Comisaría 4", lat: -12.068194, lon: -77.103944}
+        {nombre: "Serenazgo Av. de la Marina 2400", lat: -12.077639, lon: -77.088194},
+        {nombre: "Serenazgo Chicama 177", lat: -12.077611, lon: -77.104389},
+        {nombre: "Serenazgo Plaza San Miguel", lat: -12.066917, lon: -77.093833},
+        {nombre: "Serenazgo Precursores Av. los Insurgentes 714", lat: -12.068194, lon: -77.103944}
     ];
 
     var serenazgoIcon = L.icon({
