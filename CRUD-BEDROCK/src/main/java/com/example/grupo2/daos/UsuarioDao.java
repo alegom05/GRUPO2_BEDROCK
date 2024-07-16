@@ -51,6 +51,28 @@ public class UsuarioDao extends daoBase {
         return listaUsuarios;
     }
 
+    public int SolitudEnviadaCordi(String usuarioID) {
+
+        String sql = "SELECT CASE \n" +
+                "           WHEN EXISTS (SELECT 1 FROM solicitudes WHERE usuario_idUsuario = ?) THEN 1 \n" +
+                "           ELSE 0 \n" +
+                "       END AS solicitud_enviada;";
+
+        try (Connection conn = this.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, usuarioID);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("solicitud_enviada");
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return 0; // No se encontró una solicitud enviada por el usuario
+    }
+
+
     public ArrayList<Usuario> listarVecinoPorEvento(String idEvento) {
 
         ArrayList<Usuario> listaVecinos = new ArrayList<>();
@@ -507,11 +529,16 @@ public class UsuarioDao extends daoBase {
         try {
 
             try (Connection conn = this.getConnection();) {
-                String sql = "UPDATE evento_has_usuario\n" +
+                /*String sql = "UPDATE evento_has_usuario\n" +
                         "SET\n" +
                         "cometioFalta = 1,\n" +
                         "descripcion = ?,\n" +
-                        "WHERE idUsuario = ?;";
+                        "WHERE idUsuario = ?;";*/
+
+                String sql = "UPDATE evento_has_usuario " +
+                        "SET cometioFalta = 1, " +
+                        "descripcion = ? " +
+                        "WHERE idUsuario = ?";
                 try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
                     pstmt.setString(1,usuario.getMotivoReporte());

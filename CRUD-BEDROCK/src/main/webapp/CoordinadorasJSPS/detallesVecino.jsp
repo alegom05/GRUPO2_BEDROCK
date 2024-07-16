@@ -85,8 +85,8 @@
                     <label for="disabledTextInput" class="form-label">Nombre</label>
                     <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=vecino.getNombre()%> ">
 
-                    <label for="disabledTextInput" class="form-label">Telefono </label>
-                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=vecino.getNumtelefono()%>">
+                    <label for="disabledTextInput" class="form-label">Correo </label>
+                    <input type="text" id="disabledTextInput" class="form-control" placeholder="<%=vecino.getCorreo()%>">
 
                 </div>
             </fieldset>

@@ -71,8 +71,8 @@
                     <select id="filtroIncidencia" style="border-color: #DFDFDF; border-radius: 6px; padding:10px; outline: none; width: 130px; height: 50px;" >
                         <option value="" disabled selected>Filtrar Por</option>
                         <option value="">Todos</option>
-                        <option value="Deportivo">Eventos Deportivos</option>
-                        <option value="Cultural">Eventos Culturales</option>
+                        <option value="Deporte">Eventos Deportivos</option>
+                        <option value="Cultura">Eventos Culturales</option>
                     </select>
                     <input type="text" id="customSearch" style="border: 1px solid #DFDFDF; border-radius: 6px; padding: 10px; outline: none; width: 200px;" placeholder="Buscar...">
                 </div>

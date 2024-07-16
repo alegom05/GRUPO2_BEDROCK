@@ -152,15 +152,15 @@
 
                 <div class="elemento_texto_evento d-flex mt-1">
                     <% if (enCurso != null && enCurso == 1) { %>
-                    <button class="btn" disabled>Evento En Curso</button>
+                    <button class="btn mb-3" disabled>Evento En Curso</button>
                     <% } else if(eventoYaPaso != null && eventoYaPaso == 1) { %>
-                    <button class="btn" disabled>Evento Finalizado</button>
+                    <button class="btn mb-3" disabled>Evento Finalizado</button>
                     <% } else if (noHayVacantes != null && noHayVacantes == 1) { %>
-                    <button class="btn" disabled>No Hay Vacantes</button>
+                    <button class="btn mb-3" disabled>No Hay Vacantes</button>
                     <% } else if (estaRegistrado != null && estaRegistrado == 1) { %>
-                    <button class="btn btn-mas-grande" disabled>Ya Inscrito</button>
+                    <button class="btn btn-mas-grande mb-3" disabled>Ya Inscrito</button>
                     <% } else { %>
-                    <a href="<%= request.getContextPath() %>/EventoServlet?action=inscribirse_evento&id=<%= evento.getIdEvento() %>" class="btn btn-mas-grande"><h7>Inscribirse</h7></a>
+                    <a href="<%= request.getContextPath() %>/EventoServlet?action=inscribirse_evento&id=<%= evento.getIdEvento() %>" class="btn btn-mas-grande mb-3"><h7>Inscribirse</h7></a>
                     <% } %>
                 </div>
             </div>

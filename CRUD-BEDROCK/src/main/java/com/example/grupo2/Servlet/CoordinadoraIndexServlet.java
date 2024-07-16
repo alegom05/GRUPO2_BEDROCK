@@ -61,24 +61,7 @@ public class CoordinadoraIndexServlet extends HttpServlet {
                 int id = Integer.parseInt(request.getParameter("id"));
                 String clave = request.getParameter("clave");
                 break;*/
-            case "cambiarContrasenaCoordi":
-                int id1 = Integer.parseInt(request.getParameter("id"));
-                String oldPassword = request.getParameter("oldPassword");
-                String newPassword = request.getParameter("newPassword");
-                System.out.println("el servelt");
-                // Verificar que la contraseña antigua sea correcta
-                Usuario usuario = userDao.buscarPorId(id1);
-                if (usuario != null && usuario.getClave().equals(oldPassword)) {
-                    // Actualizar la contraseña
-                    userDao.actualizarContrasenia(id1, newPassword);
-                    System.out.println("contraseña cambiada");
-                    response.sendRedirect(request.getContextPath() + "/CoordinadoraIndexServlet?action=editar&id=" + id1);
-                }else {
-                    // Redirigir con un mensaje de error
-                    request.setAttribute("error", "La contraseña antigua es incorrecta.");
-                    request.getRequestDispatcher("/CoordinadorasJSPS/detalleDeUsuarioCoordi.jsp").forward(request, response);
-                }
-                break;
+
 
 
         }

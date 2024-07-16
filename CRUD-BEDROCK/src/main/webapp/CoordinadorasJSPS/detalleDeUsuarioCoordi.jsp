@@ -162,7 +162,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="changePasswordForm" method="POST" action="<%=request.getContextPath()%>/CoordinadoraIndexServlet?action=cambiarContrasenaCoordii&id=<%=usuarioSesion.getId()%>">
+                <form id="changePasswordForm" method="POST" action="<%=request.getContextPath()%>/Coordis?action=cambiarContrasenia&id=<%=usuarioSesion.getId()%>">
                     <div class="mb-3">
                         <label for="oldPassword" class="form-label">Contraseña antigua</label>
                         <input type="password" class="form-control" id="oldPassword" name="oldPassword" required>
