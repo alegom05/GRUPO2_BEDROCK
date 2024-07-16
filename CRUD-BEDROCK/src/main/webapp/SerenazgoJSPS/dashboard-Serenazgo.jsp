@@ -59,7 +59,7 @@
             <h4 class="parteSuperiorText">¡Juntos Por<br>San Miguel!</h4>
         </div>
         <div class="col-md-9 d-flex align-items-center justify-content-end">
-            <h4 class="parteSuperiorText" style="margin-top: 10px; margin-right: 40px; text-align: right; "><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%></h4>
+            <h4 class="parteSuperiorText" style="margin-top: 10px; margin-right: 40px; text-align: right; "><%=usuarioSesion.getNombre()%> <%=usuarioSesion.getApellido()%><br>Serenazgo Dispatcher</h4>
             <a href="<%=request.getContextPath()%>/LoginServlet?finish=yes">
                 <img src="${pageContext.request.contextPath}/assets/icons/cerrar_sesion.png" alt="Cerrar Sesión" class="img-thumbnail imagen_cerrar" style="width: 50px;">
             </a>

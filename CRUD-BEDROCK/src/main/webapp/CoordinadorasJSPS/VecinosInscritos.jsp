@@ -153,7 +153,7 @@
                         <h4 class="modal-title" id="modalReporteLabel">Reportar al vecino</h4>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form id="reporteVecino" method="post" action="<%=request.getContextPath()%>/Coordis?action=reportarVecino"  novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
+                    <form id="reporteVecino" method="post" herf="/error.jsp"  novalidate style="text-align: left; margin-left: 10px; margin-right: 10px">
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="motivoReporte" class="form-label">Motivo:</label>
