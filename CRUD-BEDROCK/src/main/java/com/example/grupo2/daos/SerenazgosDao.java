@@ -341,6 +341,19 @@ public class SerenazgosDao extends daoBase {
 
         return usuarioId;
     }
+    public void ponerTipo(int id) {
+        String sql = "UPDATE `basededatos3`.`usuario` SET `tipo` = 'Cultura' WHERE idUsuario = ?;";
+
+        try (Connection connection = this.getConnection();
+             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
 
