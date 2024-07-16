@@ -84,7 +84,6 @@
 </div>
 <div class="wrapper" style="background-color: white;">
 
-
     <!-- Aquí en class iba el main debo corregirlo si quiero volver a ponerlo-->
     <!-- <div class="" style="background-color: white;" > -->
     <div class="main" >
@@ -187,8 +186,8 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-6 col-xxl-7">
-                        <div class="card flex-fill w-100">
+                    <div class="col-xl-6 col-xxl-9">
+                    <div class="card flex-fill w-100">
                             <div class="card-header">
 
                                 <h5 class="card-title mb-0">Incidencias Reportadas</h5>
@@ -429,17 +428,8 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 
 <script>
-    // Coordenadas más precisas del centro de San Miguel, Lima, Perú
-    var sanMiguelCoords = [-12.0789, -77.0842];
+    var map = L.map('map').setView([-12.0789, -77.0828], 13);
 
-    // Inicializar el mapa con un zoom más cercano
-    var map = L.map('map').setView(sanMiguelCoords, 14);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-
-    // GeoJSON que define los límites más precisos de San Miguel
     var sanMiguelBoundaries = {
         "type": "Feature",
         "properties": {"name": "San Miguel"},
@@ -462,7 +452,6 @@
         }
     };
 
-    // Añadir el polígono de San Miguel al mapa y ajustar la vista
     L.geoJSON(sanMiguelBoundaries, {
         style: {
             color: "#ff7800",
@@ -473,23 +462,46 @@
     }).addTo(map);
 
     // Ajustar la vista del mapa a los límites de San Miguel
-    map.fitBounds(L.geoJSON(sanMiguelBoundaries).getBounds());
 
-    // Código para añadir marcadores de incidencias
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    var comisarias = [
+        {nombre: "Comisaría 1", lat: -12.077639, lon: -77.088194},
+        {nombre: "Comisaría 2", lat: -12.077611, lon: -77.104389},
+        {nombre: "Comisaría 3", lat: -12.066917, lon: -77.093833},
+        {nombre: "Comisaría 4", lat: -12.068194, lon: -77.103944}
+    ];
+
+    var serenazgoIcon = L.icon({
+        iconUrl: '${pageContext.request.contextPath}/assets/icons/serenazgo_icon.png',
+        iconSize: [32, 32],
+        iconAnchor: [16, 32],
+        popupAnchor: [0, -32]
+    });
+
+    comisarias.forEach(function(comisaria) {
+        L.marker([comisaria.lat, comisaria.lon], {icon: serenazgoIcon})
+            .addTo(map)
+            .bindTooltip(comisaria.nombre, {permanent: false, direction: 'top'});
+    });
+
+    // Código existente para añadir marcadores de incidencias
     var meses = [
         // ... (tu array de meses e incidencias) ...
     ];
 
     meses.forEach(function(mes, index) {
-        var lat = sanMiguelCoords[0] + (Math.random() - 0.5) * 0.01;
-        var lng = sanMiguelCoords[1] + (Math.random() - 0.5) * 0.01;
+        var lat = -12.0789 + (Math.random() - 0.5) * 0.02;
+        var lng = -77.0828 + (Math.random() - 0.5) * 0.02;
 
         var radius = Math.sqrt(mes.incidencias) * 2;
         var color = "red";
 
         L.circleMarker([lat, lng], {
             color: 'white',
-            weight: 2,
+            weight: 3,
             fillColor: color,
             fillOpacity: 0.8,
             radius: radius,
