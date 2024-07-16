@@ -96,10 +96,11 @@
                     <td><button id="lupaICON" class="btn btn-secondary" onclick="detalleVecino(<%= vecino.getId()%>)">
                         <img src="${pageContext.request.contextPath}/assets/icons/lupa.svg" alt="Evaluar">
                     </button></td>
+                    <td>
                     <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#modalReporte" onclick="setVecinoId(<%= vecino.getId() %>)">
                         <img src="<%= request.getContextPath() %>/CoordinadorasJSPS/Iconos/report.png" alt="Descripción de la imagen" class="mi-imagen">
                     </button>
-
+                    </td>
 
                     <!--td>
                         <a href="" data-bs-toggle="modal" data-bs-target="#modalReporte">
