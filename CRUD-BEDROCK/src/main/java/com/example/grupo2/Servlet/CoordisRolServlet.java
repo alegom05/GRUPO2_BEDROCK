@@ -216,7 +216,7 @@ public class CoordisRolServlet extends HttpServlet {
                 Connection conn = null;
                 PreparedStatement stmt = null;
                 ResultSet rs = null;
-                String DB_URL = "jdbc:mysql://localhost:3306/basededatos3?serverTimezone=America/Lima";
+                String DB_URL = "jdbc:mysql://35.196.35.10:3306/basededatos3?serverTimezone=America/Lima";
                 String DB_USER = "root";
                 String DB_PASSWORD = "root";
 
@@ -263,7 +263,7 @@ public class CoordisRolServlet extends HttpServlet {
                 Connection conn1 = null;
                 PreparedStatement stmt1 = null;
                 ResultSet rs1 = null;
-                String DB_URL1 = "jdbc:mysql://localhost:3306/basededatos3?serverTimezone=America/Lima";
+                String DB_URL1 = "jdbc:mysql://35.196.35.10:3306/basededatos3?serverTimezone=America/Lima";
                 String DB_USER1 = "root";
                 String DB_PASSWORD1 = "root";
 

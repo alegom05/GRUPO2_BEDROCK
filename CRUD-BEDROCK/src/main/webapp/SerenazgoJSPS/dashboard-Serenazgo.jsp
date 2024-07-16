@@ -186,7 +186,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-6 col-xxl-9">
+                    <div class="col-xl-6 col-xxl-7">
                     <div class="card flex-fill w-100">
                             <div class="card-header">
 

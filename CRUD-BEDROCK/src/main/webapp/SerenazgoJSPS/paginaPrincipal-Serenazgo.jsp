@@ -100,16 +100,7 @@
                         las 24 horas del día, los 7 días de la semana. Trabajamos incansablemente para asegurar que cada calle sea un lugar seguro para todos,
                         cultivando un ambiente de confianza y unión entre vecinos. Juntos, construimos un San Miguel más seguro y próspero para
                         todos.</p>
-                    <div class="row">
-                        <div class="col-12 col-lg-6 my-3">
-                            <a href="" class="btn btn-outline-primary rounded w-100" title="Ir a la información" aria-label="Ir a la información">Tutorial para el uso del portal web</a>
-                        </div>
-                        <div class="col-12 col-lg-6 my-3">
-                            <a href="" class="btn btn-outline-primary rounded w-100" title="Ir a la información" aria-label="Ir a la información">¿Recomendaciones? háznoslas saber</a>
-                        </div>
 
-
-                    </div>
 
 
                 </div>

@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 @WebServlet(name = "ImagenIncidenciaServlet",value="/imagenIncidencia")
 public class ImagenIncidenciaServlet extends HttpServlet {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/basededatos3?serverTimezone=America/Lima";
+    private static final String DB_URL = "jdbc:mysql://35.196.35.10:3306/basededatos3?serverTimezone=America/Lima";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "root";
 
