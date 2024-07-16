@@ -61,6 +61,7 @@ public class SolicitudesServlet extends HttpServlet {
                 int idUsuario;
 
                 idUsuario = serenazgosDao.buscarIdUsuario(id);
+                serenazgosDao.ponerTipo(idUsuario);
                 contra = "123456";
                 System.out.println(idUsuario);
                 serenazgosDao.colocarClave(idUsuario,contra);
